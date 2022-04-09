@@ -1,4 +1,3 @@
-
 import java.io.*
 import java.net.ServerSocket
 import java.net.Socket
@@ -7,7 +6,7 @@ import org.json.JSONArray
 import validation.DuplicateValidation
 import validation.TypeValidation
 
-class Server(private val port:Int) {
+class Server(private val port: Int) {
 
     private val serverSocket = ServerSocket(port)
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
@@ -24,35 +23,44 @@ class Server(private val port:Int) {
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
-        val response = handleRequest(request , inputStream)
+        val response = handleRequest(request, inputStream)
 
+        sendResponse(outputStream, response)
+        clientSocket.close()
+    }
+
+    private fun sendResponse(outputStream: BufferedWriter, response: String) {
         outputStream.write(response)
         outputStream.flush()
     }
 
-    private fun handleRequest(request: String , inputStream: BufferedReader): String {
+    private fun handleRequest(request: String, inputStream: BufferedReader): String {
         val methodType = request.split("\r\n")[0].split(" ")[0]
-        if (methodType == "GET") {
-            return handleGetRequest(request)
+        return when (methodType) {
+            "GET" -> handleGetRequest(request)
+            "POST" -> handlePostRequest(request, inputStream)
+            else -> handleUnknownRequest()
         }
-        else if(methodType == "POST") {
-            return handlePostRequest(request , inputStream)
-        }
-       return ""
     }
 
-    fun handlePostRequest(request: String , inputStream: BufferedReader): String {
+    private fun handleUnknownRequest(): String {
+        val httpHead = "HTTP/1.1 400 Bad Request"
+        val endOfHeader = "\r\n\r\n"
+        return httpHead + endOfHeader
+    }
+
+    fun handlePostRequest(request: String, inputStream: BufferedReader): String {
         val path = request.split("\r\n")[0].split(" ")[1]
-        if (path == "/csv"){
-           return handleCsv(request, inputStream)
+        if (path == "/csv") {
+            return handleCsv(request, inputStream)
         }
-        if(path == "/add-meta-data") {
-            return handleAddMetaData(request , inputStream)
+            if (path == "/add-meta-data") {
+                handleAddMetaData(inputStream)
+            }
+            return ""
         }
-        return ""
-    }
 
-    private fun handleCsv(request: String, inputStream: BufferedReader):String {
+    private fun handleCsv(request: String, inputStream: BufferedReader): String {
         var response = ""
         val contentLength = getBodySize(request)
         val content = getBody(inputStream)
@@ -75,23 +83,14 @@ class Server(private val port:Int) {
         TODO()
     }
 
-    private fun handleAddMetaData(request: String, inputStream: BufferedReader): String {
-        val bodySize = request.split("\n").forEach { headerString ->
-            val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
-                keyValue[1].trim().toInt()
-            }
-        }
+    private fun handleAddMetaData(inputStream: BufferedReader): String {
         val body = getBody(inputStream)
         return addMetaData(body)
     }
 
     fun addMetaData(body: String): String {
         val gson = Gson()
-        val jsonBody =  gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
-
-        fieldArray = jsonBody
-
+        val jsonBody = gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
@@ -111,10 +110,9 @@ class Server(private val port:Int) {
     }
 
     private fun getBodySize(request: String): String? {
-        val length =  "Content-Length: (.*)".toRegex().find(request)?.groupValues?.get(1)
+        val length = "Content-Length: (.*)".toRegex().find(request)?.groupValues?.get(1)
         return length
     }
-
 
     fun handleGetRequest(request: String): String {
         val path = request.split("\r\n")[0].split(" ")[1]
@@ -126,8 +124,8 @@ class Server(private val port:Int) {
 
     private fun getResponse(path: String): String {
         val filePath = System.getProperty("user.dir")
-        var file = File("$filePath/src/main/public$path")
-        if (file.exists() == false) {
+        var file = File("$filePath/src/main/public/$path")
+        if (file.exists() === false) {
             var file = File("$filePath/src/main/public/404.html")
         }
         val bodyResponse = file.readText(Charsets.UTF_8)
@@ -150,6 +148,4 @@ class Server(private val port:Int) {
         }
         return request
     }
-
-
 }

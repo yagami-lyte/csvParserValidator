@@ -6,7 +6,7 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToGetResponseIfPathExist() {
-        val server = Server()
+        val server = Server(3001)
         val request = """GET / HTTP/1.1 
                 |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
         val expected = "1774"
@@ -19,7 +19,7 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToGetResponseIfPathNotExist() {
-        val server = Server()
+        val server = Server(3002)
         val request = """GET /123 HTTP/1.1 
                 |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
         val expected = "164"
@@ -34,7 +34,7 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToAddCSVMetaData() {
-        val server = Server()
+        val server = Server(3003)
         val data = """[
       {
         "fieldName": "ProductId",
