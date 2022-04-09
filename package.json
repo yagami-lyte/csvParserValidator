@@ -18,8 +18,5 @@
   "homepage": "https://gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan#readme",
   "devDependencies": {
     "cypress": "^9.5.3"
-  },
-  "dependencies": {
-    "browserify-fs": "^1.0.0"
   }
 }
