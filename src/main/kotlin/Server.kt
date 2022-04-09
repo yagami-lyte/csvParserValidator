@@ -23,36 +23,39 @@ class Server(private val port: Int = 3032) {
         val request = readRequest(inputStream)
         val response = handleRequest(request , inputStream)
 
+        sendResponse(outputStream, response)
+        clientSocket.close()
+    }
+
+    private fun sendResponse(outputStream: BufferedWriter, response: String) {
         outputStream.write(response)
         outputStream.flush()
     }
 
     private fun handleRequest(request: String , inputStream: BufferedReader): String {
         val methodType = request.split("\r\n")[0].split(" ")[0]
-        if (methodType == "GET") {
-            return handleGetRequest(request)
+        return when (methodType) {
+            "GET" -> handleGetRequest(request)
+            "POST" -> handlePostRequest(request , inputStream)
+            else -> handleUnknownRequest()
         }
-        else if(methodType == "POST") {
-            return handlePostRequest(request , inputStream)
-        }
-        TODO()
+    }
+
+    private fun handleUnknownRequest(): String {
+        val httpHead = "HTTP/1.1 400 Bad Request"
+        val endOfHeader = "\r\n\r\n"
+        return httpHead + endOfHeader
     }
 
     fun handlePostRequest(request: String , inputStream: BufferedReader): String {
         val path = request.split("\r\n")[0].split(" ")[1]
         if(path == "/add-meta-data") {
-            handleAddMetaData(request , inputStream)
+            handleAddMetaData(inputStream)
         }
         TODO()
     }
 
-    private fun handleAddMetaData(request: String, inputStream: BufferedReader): String {
-        val bodySize = request.split("\n").forEach { headerString ->
-            val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
-                keyValue[1].trim().toInt()
-            }
-        }
+    private fun handleAddMetaData(inputStream: BufferedReader): String {
         val body = getBody(inputStream)
         return addMetaData(body)
     }
@@ -80,7 +83,6 @@ class Server(private val port: Int = 3032) {
         }
         return body
     }
-
 
     fun handleGetRequest(request: String): String {
         val path = request.split("\r\n")[0].split(" ")[1]
