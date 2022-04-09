@@ -1,15 +1,15 @@
+package routeHandler
+
+import Server
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class ServerTest {
-
-
-
+internal class PostRouteHandlerTest {
 
     @Test
     fun shouldBeAbleToAddCSVMetaData() {
-        val server = Server(3003)
+        val postRouteHandler = PostRouteHandler()
         val data = """[
       {
         "fieldName": "ProductId",
@@ -72,10 +72,10 @@ class ServerTest {
         ]
       }
     ]"""
-        server.addMetaData(data)
-        val field = server.fieldArray[0]
+        postRouteHandler.addMetaData(data)
+        val field = postRouteHandler.fieldArray[0]
         Assertions.assertNull(field.maxLength)
         assertEquals(5, field.length)
-        assertEquals("Number", server.fieldArray[2].type)
+        assertEquals("Number", postRouteHandler.fieldArray[2].type)
     }
 }
