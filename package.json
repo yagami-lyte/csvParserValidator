@@ -1,0 +1,22 @@
+{
+  "name": "csv-parser-srijan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan/issues"
+  },
+  "homepage": "https://gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan#readme",
+  "devDependencies": {
+    "cypress": "^9.5.3"
+  }
+}
