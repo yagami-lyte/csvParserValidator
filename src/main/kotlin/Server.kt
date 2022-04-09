@@ -92,9 +92,9 @@ class Server(private val port: Int = 3032) {
 
     private fun getResponse(path: String): String {
         val filePath = System.getProperty("user.dir")
-        var file = File("$filePath/src/main/public$path")
-        if (file.exists() == false) {
-            var file = File("$filePath/src/main/public/404.html")
+        var file = File("$filePath/src/main/public/templates/$path")
+        if (file.exists() === false) {
+            var file = File("$filePath/src/main/public/templates/404.html")
         }
         val bodyResponse = file.readText(Charsets.UTF_8)
         val httpHead = "HTTP/1.1 200 Found"
