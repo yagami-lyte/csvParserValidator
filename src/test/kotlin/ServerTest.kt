@@ -1,15 +1,19 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.net.Socket
 
 class ServerTest {
 
+
     @Test
-    fun shouldProcessGetRequest(){
+    fun shouldBeAbleToGetResponse() {
         val server = Server()
-        val expected = 1
+        val request = """GET / HTTP/1.1 
+                |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
+        val expectedResponse = "GetRequest"
 
-        val actual =server.get()
+        val actualResponse = server.handleGetRequest(request)
 
-        assertEquals(expected, actual)
+        assertEquals(expectedResponse , actualResponse)
     }
 }
