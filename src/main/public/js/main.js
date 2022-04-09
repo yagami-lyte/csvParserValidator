@@ -38,7 +38,8 @@ function addDataToJson() {
         jsonObj["type"] = type.value
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
-          let text = e.target.result
+          // let text = e.target.result
+            let text = type.target.result
           jsonObj["values"] = text.split('\n')
         });
         reader.readAsText(value)

@@ -1,6 +1,7 @@
 import java.io.*
 import java.net.ServerSocket
 import routeHandler.GetRouteHandler
+import routeHandler.PageNotFoundResponse
 import routeHandler.PostRouteHandler
 
 class Server(private val port: Int) {
@@ -9,6 +10,7 @@ class Server(private val port: Int) {
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
     private val getRouteHandler = GetRouteHandler()
     private val postRouteHandler = PostRouteHandler()
+    private val pageNotFoundResponse = PageNotFoundResponse()
 
 
     fun startServer() {
@@ -39,17 +41,9 @@ class Server(private val port: Int) {
         return when (methodType) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
-            else -> handleUnknownRequest()
+            else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
-
-    private fun handleUnknownRequest(): String {
-        val httpHead = "HTTP/1.1 400 Bad Request"
-        val endOfHeader = "\r\n\r\n"
-        return httpHead + endOfHeader
-    }
-
-
 
     private fun readRequest(inputStream: BufferedReader): String {
         var request = ""
