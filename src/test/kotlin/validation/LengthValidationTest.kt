@@ -1,5 +1,8 @@
+package validation
+
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import validation.LengthValidation
 
 internal class LengthValidationTest {
 
@@ -25,7 +28,7 @@ internal class LengthValidationTest {
     fun shouldBeAbleToValidateFixedLength() {
         val lengthValidation = LengthValidation()
 
-        val actual = lengthValidation.fixedLenght("gftgd", 5)
+        val actual = lengthValidation.fixedLength("gftgd", 5)
 
         assertTrue(actual)
     }

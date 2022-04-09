@@ -1,3 +1,5 @@
+package validation
+
 class LengthValidation {
 
     fun maxLength(data: String, length: Int):Boolean{
@@ -8,7 +10,7 @@ class LengthValidation {
         return length < data.length
     }
 
-    fun fixedLenght(data: String,length: Int):Boolean{
+    fun fixedLength(data: String, length: Int):Boolean{
         return length == data.length
     }
 }
