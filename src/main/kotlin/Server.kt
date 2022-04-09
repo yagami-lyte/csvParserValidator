@@ -1,11 +1,13 @@
-import arrow.core.split
+
 import java.io.*
 import java.net.ServerSocket
 import java.net.Socket
+import com.google.gson.Gson
 
 class Server(private val port: Int = 3032) {
 
     private val serverSocket = ServerSocket(port)
+    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
 
     fun startServer() {
         while (true) {
@@ -19,19 +21,66 @@ class Server(private val port: Int = 3032) {
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
-        val response = handleRequest(request)
+        val response = handleRequest(request , inputStream)
 
         outputStream.write(response)
         outputStream.flush()
     }
 
-    private fun handleRequest(request: String): String {
+    private fun handleRequest(request: String , inputStream: BufferedReader): String {
         val methodType = request.split("\r\n")[0].split(" ")[0]
         if (methodType == "GET") {
             return handleGetRequest(request)
         }
+        else if(methodType == "POST") {
+            return handlePostRequest(request , inputStream)
+        }
         TODO()
     }
+
+    fun handlePostRequest(request: String , inputStream: BufferedReader): String {
+        val path = request.split("\r\n")[0].split(" ")[1]
+        if(path == "/add-meta-data") {
+            handleAddMetaData(request , inputStream)
+        }
+        TODO()
+    }
+
+    private fun handleAddMetaData(request: String, inputStream: BufferedReader): String {
+        val bodySize = request.split("\n").forEach { headerString ->
+            val keyValue = headerString.split(":", limit = 2)
+            if (keyValue[0].contains("Content-Length")) {
+                keyValue[1].trim().toInt()
+            }
+        }
+        val body = getBody(inputStream)
+        return addMetaData(body)
+    }
+
+    fun addMetaData(body: String): String {
+        val gson = Gson()
+        val jsonBody =  gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
+
+        fieldArray = jsonBody
+
+        val endOfHeader = "\r\n\r\n"
+        val responseBody = "Successfully Added"
+        val contentLength = responseBody.length
+        val httpHead = "HTTP/1.1 200 Found"
+        return httpHead + """Content-Type: text/plain; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun getBody(inputStream: BufferedReader): String {
+        var body = ""
+        var line = inputStream.readLine()
+        while (line != null) {
+            body += line
+            line = inputStream.readLine()
+        }
+        return body
+    }
+
 
     fun handleGetRequest(request: String): String {
         val path = request.split("\r\n")[0].split(" ")[1]
