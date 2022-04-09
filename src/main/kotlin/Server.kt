@@ -3,6 +3,7 @@ import java.net.ServerSocket
 import java.net.Socket
 import com.google.gson.Gson
 import org.json.JSONArray
+import routeHandler.GetRouteHandler
 import validation.DuplicateValidation
 import validation.TypeValidation
 
@@ -10,6 +11,7 @@ class Server(private val port: Int) {
 
     private val serverSocket = ServerSocket(port)
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
+    val getRouteHandler = GetRouteHandler()
 
     fun startServer() {
         while (true) {
@@ -37,7 +39,7 @@ class Server(private val port: Int) {
     private fun handleRequest(request: String, inputStream: BufferedReader): String {
         val methodType = request.split("\r\n")[0].split(" ")[0]
         return when (methodType) {
-            "GET" -> handleGetRequest(request)
+            "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> handlePostRequest(request, inputStream)
             else -> handleUnknownRequest()
         }
@@ -91,6 +93,7 @@ class Server(private val port: Int) {
     fun addMetaData(body: String): String {
         val gson = Gson()
         val jsonBody = gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
+        fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
@@ -112,28 +115,6 @@ class Server(private val port: Int) {
     private fun getBodySize(request: String): String? {
         val length = "Content-Length: (.*)".toRegex().find(request)?.groupValues?.get(1)
         return length
-    }
-
-    fun handleGetRequest(request: String): String {
-        val path = request.split("\r\n")[0].split(" ")[1]
-        if (path == "/") {
-            return getResponse("/index.html")
-        }
-        return getResponse("/404.html")
-    }
-
-    private fun getResponse(path: String): String {
-        val filePath = System.getProperty("user.dir")
-        var file = File("$filePath/src/main/public/$path")
-        if (file.exists() === false) {
-            var file = File("$filePath/src/main/public/404.html")
-        }
-        val bodyResponse = file.readText(Charsets.UTF_8)
-        val httpHead = "HTTP/1.1 200 Found"
-        val contentLength = bodyResponse.length
-        return httpHead + """Content-Type: text/html; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + bodyResponse
-
     }
 
     private fun readRequest(inputStream: BufferedReader): String {
