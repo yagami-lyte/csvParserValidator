@@ -1,4 +1,5 @@
 var payload=[]
+
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
@@ -16,25 +17,14 @@ function csvReader() {
             }
             result.push(obj);
         }
-
-
-
-        foo();
-
-
-
-
+         const response = fetch('csv', {
+                   method: 'POST',
+                   body: JSON.stringify(result)
+               })
+         console.log(response)
     };
     reader.readAsText(csv);
 }
-async function foo() {
-    let response = await fetch('csv', {method: 'POST',
-                                       body: JSON.stringify(result)
-                                      });
-    console.log(response); // Logs the response
-    return response;
-}
-
 
 function addDataToJson() {
         let jsonObj = {}
@@ -56,12 +46,22 @@ function addDataToJson() {
         jsonObj["minLength"] = min_len.value
         jsonObj["length"] = fixed_len.value
         payload.push(jsonObj)
+        console.log(payload)
+        writeToConfigFile(payload)
+
 }
 
-function sendConfigData(){
+function writeToConfigFile(payload){
+// write to js file
+const fs = require('fs')
 
-fetch('add-meta-data', {
-            method: 'POST',
-            body: JSON.stringify(payload)
-        })
-     }
+const content = 'this is what i want to write to file'
+
+fs.writeFile('config.json', payload, err => {
+  if (err) {
+    console.error(err)
+    return
+  }
+  //file written successfully
+})}
+

@@ -1,6 +1,4 @@
-import java.net.Socket
-
 fun main() {
-    Server(3000).startServer()
+    Server(3032).startServer()
 
 }

@@ -3,8 +3,11 @@ import java.io.*
 import java.net.ServerSocket
 import java.net.Socket
 import com.google.gson.Gson
+import org.json.JSONArray
+import validation.DuplicateValidation
+import validation.TypeValidation
 
-class Server(private val port: Int = 3032) {
+class Server(private val port:Int) {
 
     private val serverSocket = ServerSocket(port)
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
@@ -35,14 +38,40 @@ class Server(private val port: Int = 3032) {
         else if(methodType == "POST") {
             return handlePostRequest(request , inputStream)
         }
-        TODO()
+       return ""
     }
 
     fun handlePostRequest(request: String , inputStream: BufferedReader): String {
         val path = request.split("\r\n")[0].split(" ")[1]
-        if(path == "/add-meta-data") {
-            handleAddMetaData(request , inputStream)
+        if (path == "/csv"){
+           return handleCsv(request, inputStream)
         }
+        if(path == "/add-meta-data") {
+            return handleAddMetaData(request , inputStream)
+        }
+        return ""
+    }
+
+    private fun handleCsv(request: String, inputStream: BufferedReader):String {
+        var response = ""
+        val contentLength = getBodySize(request)
+        val content = getBody(inputStream)
+        val contentInJsonArray = JSONArray(content)
+        val duplicates = DuplicateValidation().checkDuplicates(contentInJsonArray)
+        val typeChecks = typeValidation(contentInJsonArray)
+        val lengthChecks = lengthValidation(contentInJsonArray)
+        response += "{"
+        response += "Type Checks : $typeChecks + Length Checks :$lengthChecks + Duplicates :$duplicates"
+        val httpHead = "HTTP/1.1 200 Found"
+        return httpHead + """Content-Type: text/json; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + response
+    }
+
+    private fun typeValidation(contentInJsonArray: JSONArray): Any {
+        TODO()
+    }
+
+    private fun lengthValidation(contentInJsonArray: JSONArray): Any {
         TODO()
     }
 
@@ -81,6 +110,11 @@ class Server(private val port: Int = 3032) {
         return body
     }
 
+    private fun getBodySize(request: String): String? {
+        val length =  "Content-Length: (.*)".toRegex().find(request)?.groupValues?.get(1)
+        return length
+    }
+
 
     fun handleGetRequest(request: String): String {
         val path = request.split("\r\n")[0].split(" ")[1]
@@ -110,7 +144,7 @@ class Server(private val port: Int = 3032) {
         while (flag) {
             val line = inputStream.readLine()
             request += line + "\r\n"
-            if (line.isEmpty()) {
+            if (line == null || line.isEmpty()) {
                 flag = false
             }
         }
