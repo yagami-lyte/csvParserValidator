@@ -7,11 +7,9 @@ import routeHandler.PostRouteHandler
 class Server(private val port: Int) {
 
     private val serverSocket = ServerSocket(port)
-    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
     private val getRouteHandler = GetRouteHandler()
     private val postRouteHandler = PostRouteHandler()
     private val pageNotFoundResponse = PageNotFoundResponse()
-
 
     fun startServer() {
         while (true) {
@@ -37,12 +35,15 @@ class Server(private val port: Int) {
     }
 
     private fun handleRequest(request: String, inputStream: BufferedReader): String {
-        val methodType = request.split("\r\n")[0].split(" ")[0]
-        return when (methodType) {
+        return when (getMethodType(request)) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
+    }
+
+    private fun getMethodType(request: String): String {
+        return request.split("\r\n")[0].split(" ")[0]
     }
 
     private fun readRequest(inputStream: BufferedReader): String {
