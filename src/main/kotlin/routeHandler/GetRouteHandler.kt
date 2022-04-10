@@ -12,6 +12,9 @@ class GetRouteHandler {
         if (route == "/") {
             return getResponse("/index.html")
         }
+        if(route == "/main.js") {
+            return getResponse("/main.js")
+        }
         return getResponse("/404.html")
     }
 
@@ -28,7 +31,7 @@ class GetRouteHandler {
     }
 
     private fun getStatusCode(path: String): StatusCodes {
-        if(path == "/index.html"){
+        if(path == "/index.html" || path == "/main.js"){
             return StatusCodes.TWOHUNDRED
         }
         return StatusCodes.FOURHUNDREDFOUR
@@ -36,11 +39,7 @@ class GetRouteHandler {
 
     private fun getBodyResponse(path: String): String {
         val filePath = System.getProperty("user.dir")
-        var file = File("$filePath/src/main/public/$path")
-        if (!file.exists()) {
-            file = File("$filePath/src/main/public/404.html")
-        }
+        val file = File("$filePath/src/main/public$path")
         return file.readText(Charsets.UTF_8)
-
     }
 }
