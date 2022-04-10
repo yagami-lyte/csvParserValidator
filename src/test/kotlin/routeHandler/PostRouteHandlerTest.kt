@@ -72,10 +72,12 @@ internal class PostRouteHandlerTest {
         ]
       }
     ]"""
-        postRouteHandler.addMetaData(data)
+        postRouteHandler.addCsvMetaData(data)
         val field = postRouteHandler.fieldArray[0]
         Assertions.assertNull(field.maxLength)
         assertEquals(5, field.length)
         assertEquals("Number", postRouteHandler.fieldArray[2].type)
     }
+
+
 }
