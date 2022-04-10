@@ -1,6 +1,7 @@
 package routeHandler
 
 import JsonMetaDataTemplate
+import ResponseHeader
 import com.google.gson.Gson
 import org.json.JSONArray
 import validation.DuplicateValidation
@@ -10,6 +11,7 @@ class PostRouteHandler(
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
 ) {
 
+    private val responseHeader = ResponseHeader()
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
         val path = request.split("\r\n")[0].split(" ")[1]
@@ -32,8 +34,8 @@ class PostRouteHandler(
         val lengthChecks = lengthValidation(contentInJsonArray)
         response += "{"
         response += "Type Checks : $typeChecks + Length Checks :$lengthChecks + Duplicates :$duplicates"
-        val httpHead = "HTTP/1.1 200 Found"
-        return httpHead + """Content-Type: text/json; charset=utf-8
+        val statusCode = StatusCodes.TWOHUNDRED
+        return responseHeader.getResponseHead(statusCode) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + response
     }
 
