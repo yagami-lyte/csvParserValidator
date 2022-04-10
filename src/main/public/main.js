@@ -8,8 +8,9 @@ function csvReader() {
         var lines = csv.toString().split("\n");
         console.log(lines)
         var result = [];
+        console.log(lines[0])
         var headers = lines[0].split(",");
-        for (var i = 1; i < lines.length; i++) {
+        for (var i = 1; i < lines.length-1; i++) {
             var obj = {};
             var currentline = lines[i].split(",");
             for (var j = 0; j < headers.length; j++) {
@@ -19,7 +20,7 @@ function csvReader() {
         }
 
 
-
+        console.log(result)
         const response = await fetch('csv', {
             method: 'POST',
             body: JSON.stringify(result)
