@@ -35,6 +35,7 @@ class PostRouteHandler(
         val body = getBody(bodySize, inputStream)
         println("body $body")
         val jsonBody = JSONArray(body)
+        val lengthValidation = lengthValidation(jsonBody)
         var responseBody = "{"
         responseBody += "\"Response\" : \"No Error\""
         responseBody += "}"
@@ -43,6 +44,44 @@ class PostRouteHandler(
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    fun lengthValidation(jsonArrayData: JSONArray): List<Int> {
+        val errorIndices = mutableListOf<Int>()
+        val lengthValidation = LengthValidation()
+
+        jsonArrayData.forEachIndexed { index, element ->
+            val fieldElement = (element as JSONObject)
+            val keys = fieldElement.keySet()
+            for (key in keys) {
+                val field = fieldArray.first { it.fieldName == key }
+                println(field.fieldName)
+                val value = fieldElement.get(key) as String
+                var flag = true
+                if (field.length != null) {
+                    if (!lengthValidation.fixedLength(value, field.length)) {
+                        flag = false
+                    }
+                }
+
+                if (field.maxLength != null) {
+                    if (!lengthValidation.maxLength(value, field.maxLength)) {
+                        flag = false
+                    }
+                }
+                if (field.minLength != null) {
+                    if (!lengthValidation.minLength(value, field.minLength)) {
+                        flag = false
+                    }
+                }
+                if (!flag) {
+                    errorIndices.add(index + 1)
+                    break
+                }
+            }
+        }
+
+        return errorIndices
     }
 
 
@@ -68,7 +107,7 @@ class PostRouteHandler(
         return String(buffer)
     }
 
-    private fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
+    fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
         val gson = Gson()
         return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
     }

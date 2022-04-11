@@ -20,13 +20,12 @@ function csvReader() {
         }
 
 
-        console.log(result)
         const response = await fetch('csv', {
             method: 'POST',
             body: JSON.stringify(result)
         })
         if (response.status === 200) {
-            var jsonData =  await resp.json();
+            var jsonData =  await response.json();
             console.log(jsonData)
         }
         response.forEach(element => {
