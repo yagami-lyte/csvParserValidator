@@ -95,7 +95,7 @@ internal class PostRouteHandlerTest {
             {"Country Name":"INDIA"}
             ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"3":"Incorrect length. Please change to 3"}]"""
+        val expectedError = """[{"3":"Incorrect length of Country Name. Please change its length to 3"}]"""
         val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorResult = postRouteHandler.lengthValidation(jsonCsvData)
@@ -189,7 +189,7 @@ internal class PostRouteHandlerTest {
     
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"2":"Incorrect Type. Please change to Number"}]"""
+        val expectedError = """[{"2":"Incorrect Type of Price. Please change to Number"}]"""
         val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorList = postRouteHandler.typeValidation(jsonCsvData)
@@ -216,7 +216,7 @@ internal class PostRouteHandlerTest {
             {"Country Name":"INDIA"}
             ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"3":"Incorrect Value. Please change to [IND, USA]"}]"""
+        val expectedError = """[{"3":"Incorrect Value of Country Name. Please change its length to [IND, USA]"}]"""
         val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorResult = postRouteHandler.valueValidation(jsonCsvData)

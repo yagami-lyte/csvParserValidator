@@ -103,7 +103,7 @@ class PostRouteHandler {
                 if (!flag) {
                     val jsonObject = JSONObject().put(
                         (index + 1).toString(),
-                        "Incorrect Type of ${field.fieldName}. Please change its length to ${field.type}"
+                        "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
                     )
                     typeErrors.put(jsonObject)
                 }
