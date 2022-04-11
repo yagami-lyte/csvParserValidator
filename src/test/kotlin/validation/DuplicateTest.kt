@@ -38,7 +38,7 @@ class DuplicateTest {
         val expected = JSONArray("[{2 : Row Duplicated From 1}, {3 : Row Duplicated From 1}]")
 
         val actual = duplicateValidation.checkDuplicates(jsonArray)
-
+2
         assertEquals(expected.toList(), actual.toList())
     }
 
