@@ -80,3 +80,17 @@ function addDataToJson() {
     payload.push(jsonObj)
 }
 
+async function sendConfigData(){
+
+    var resp = await fetch('add-meta-data', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+
+    if (resp.status === 200) {
+            var jsonData = await resp.json();
+            console.log(jsonData)
+            alert("Successfully Added Data");
+    }
+
+}
