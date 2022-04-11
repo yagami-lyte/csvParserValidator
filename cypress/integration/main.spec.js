@@ -11,10 +11,14 @@ describe("Connection testing", ()=>{
     })
 })
 
-describe("Typing data and checking field", ()=>{
-    it("Writing in config file",()=>{
-        cy.get("#field").type("productId")
-        cy.get("#type").select(1)
+describe("CSV Parser div", ()=>{
+    it("choosing file csv file",()=>{
+        cy.get("#csv_id").selectFile("src/main/public/assets/data.csv")
+    })
+
+    it("Uploading the file",()=>{
+        cy.get("#csv-submit-button").click()
     })
 })
+
 
