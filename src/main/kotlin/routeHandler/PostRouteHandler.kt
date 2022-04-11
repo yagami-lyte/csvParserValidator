@@ -4,10 +4,6 @@ import JsonMetaDataTemplate
 import ResponseHeader
 import com.google.gson.Gson
 import org.json.JSONArray
-import org.json.JSONObject
-import validation.DuplicateValidation
-import validation.LengthValidation
-import validation.TypeValidation
 import java.io.BufferedReader
 
 class PostRouteHandler(
