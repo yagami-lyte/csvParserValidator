@@ -36,8 +36,8 @@ function csvReader() {
 
 //called with every property and its value
 function showError(key,value) {
-    console.log(key + " : "+ typeof value[0]);
-    if(value != "" ||  (typeof(value)!="object") ){
+    console.log(key + " : "+ typeof value);
+    if(value != "" &&  (typeof value == 'string') ){
     const node = document.createElement("li");
     //const textnode = document.createTextNode(`Line Number ${Object.keys(element)[0]}: ${element[Object.keys(element)[0]]}`);
     const textnode = document.createTextNode(`Line No : ${key} has error : ${value}`);
