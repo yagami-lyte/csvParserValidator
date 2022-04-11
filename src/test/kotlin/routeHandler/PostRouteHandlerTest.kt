@@ -84,7 +84,7 @@ internal class PostRouteHandlerTest {
             {
     "fieldName": "Country Name",
     "type": "Alphabet",
-    "minLength": 4
+    "length": 3
   }
 ]"""
         val postRouteHandler = PostRouteHandler()
@@ -96,7 +96,7 @@ internal class PostRouteHandlerTest {
             {"Country Name":"INDIA"}
             ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedErrorList = mutableListOf(1,2)
+        val expectedErrorList = mutableListOf(3)
 
         val actualErrorResult = postRouteHandler.lengthValidation(jsonCsvData)
 
