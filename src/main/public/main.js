@@ -47,6 +47,7 @@ function showError(key,value) {
 function traverse(o,func) {
     for (var i in o) {
         func.apply(this,[i,o[i]]);
+        console.log(o[i])
         if (o[i] !== null && typeof(o[i])=="object") {
             //going one step down in the object tree!!
             traverse(o[i],func);
