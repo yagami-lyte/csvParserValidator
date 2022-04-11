@@ -30,9 +30,6 @@ function csvReader() {
             traverse(jsonData,showError)
         }
 
-
-
-
     };
     reader.readAsText(csv);
 }
@@ -62,9 +59,9 @@ function addDataToJson() {
     var field = document.getElementById("field")
     var type = document.getElementById("type")
     var value = document.getElementById("text_file_id").files[0]
-    var max_len = document.getElementById("max-len")
-    var min_len = document.getElementById("min-len")
     var fixed_len = document.getElementById("fixed-len")
+    var dependentOn = document.getElementById("dependent")
+    var dependentValue = document.getElementById("dep-val")
     jsonObj["fieldName"] = field.value
     jsonObj["type"] = type.value
     let reader = new FileReader();
@@ -73,9 +70,9 @@ function addDataToJson() {
         jsonObj["values"] = text.split('\n')
     });
     reader.readAsText(value)
-    jsonObj["maxLength"] = max_len.value
-    jsonObj["minLength"] = min_len.value
     jsonObj["length"] = fixed_len.value
+    jsonObj["dependentOn"] = dependentOn.value
+    jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
 }
 

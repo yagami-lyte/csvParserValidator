@@ -2,7 +2,6 @@ package validation
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import validation.LengthValidation
 
 internal class LengthValidationTest {
 
