@@ -5,9 +5,7 @@ import ResponseHeader
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
-import validation.DuplicateValidation
 import validation.LengthValidation
-import validation.TypeValidation
 import java.io.BufferedReader
 
 class PostRouteHandler(
@@ -88,6 +86,7 @@ class PostRouteHandler(
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
+        println("body $body")
         return addCsvMetaData(body)
     }
 
@@ -98,7 +97,7 @@ class PostRouteHandler(
         val responseBody = "Successfully Added"
         val contentLength = responseBody.length
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/plain; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
     private fun getBody(bodySize: Int, inputStream: BufferedReader): String {
