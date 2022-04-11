@@ -73,7 +73,7 @@ class PostRouteHandler {
                 if (!flag) {
                     val jsonObject = JSONObject().put(
                         (index + 1).toString(),
-                        "Incorrect length. Please change to ${field.length}"
+                        "Incorrect length of ${field.fieldName}. Please change to ${field.length}"
                     )
                     lengthErrors.put(jsonObject)
                 }
@@ -103,7 +103,7 @@ class PostRouteHandler {
                 if (!flag) {
                     val jsonObject = JSONObject().put(
                         (index + 1).toString(),
-                        "Incorrect Type. Please change to ${field.type}"
+                        "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
                     )
                     typeErrors.put(jsonObject)
                 }
@@ -132,7 +132,7 @@ class PostRouteHandler {
                     if (!flag) {
                         val jsonObject = JSONObject().put(
                             (index + 1).toString(),
-                            "Incorrect Value. Please change to ${field.values}"
+                            "Incorrect Value of ${field.fieldName}. Please change to ${field.values}"
                         )
                         valueErrors.put(jsonObject)
                     }
