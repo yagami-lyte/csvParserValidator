@@ -51,8 +51,8 @@ class PostRouteHandler {
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
-    fun lengthValidation(jsonArrayData: JSONArray): List<Int> {
-        val errorIndices = mutableListOf<Int>()
+    fun lengthValidation(jsonArrayData: JSONArray): JSONArray {
+        val lengthErrors = JSONArray()
         val lengthValidation = LengthValidation()
 
         jsonArrayData.forEachIndexed { index, element ->
@@ -68,16 +68,19 @@ class PostRouteHandler {
                     }
                 }
                 if (!flag) {
-                    errorIndices.add(index + 1)
-                    break
+                    val jsonObject = JSONObject().put(
+                        (index + 1).toString(),
+                        "Incorrect length. Please change to ${field.length}"
+                    )
+                    lengthErrors.put(jsonObject)
                 }
             }
         }
-        return errorIndices
+        return lengthErrors
     }
 
-    fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
-        val errorIndices = mutableListOf<Int>()
+    fun typeValidation(dataInJSONArray: JSONArray): JSONArray {
+        val typeErrors = JSONArray()
         val typeValidation = TypeValidation()
 
         dataInJSONArray.forEachIndexed { index, element ->
@@ -95,16 +98,19 @@ class PostRouteHandler {
                     flag = false
                 }
                 if (!flag) {
-                    errorIndices.add(index + 1)
-                    break
+                    val jsonObject = JSONObject().put(
+                        (index + 1).toString(),
+                        "Incorrect Type. Please change to ${field.type}"
+                    )
+                    typeErrors.put(jsonObject)
                 }
             }
         }
-        return errorIndices
+        return typeErrors
     }
 
-    fun valueValidation(dataInJSONArray: JSONArray): List<Int> {
-        val errorIndices = mutableListOf<Int>()
+    fun valueValidation(dataInJSONArray: JSONArray): JSONArray {
+        val valueErrors = JSONArray()
         val valueValidation = ValueValidation()
 
         dataInJSONArray.forEachIndexed { index, element ->
@@ -120,12 +126,17 @@ class PostRouteHandler {
                     }
                 }
                 if (!flag) {
-                    errorIndices.add(index + 1)
-                    break
+                    if (!flag) {
+                        val jsonObject = JSONObject().put(
+                            (index + 1).toString(),
+                            "Incorrect Value. Please change to ${field.values}"
+                        )
+                        valueErrors.put(jsonObject)
+                    }
                 }
             }
         }
-        return errorIndices
+        return valueErrors
     }
 
 
