@@ -1,8 +1,7 @@
 package routeHandler
 
 import org.json.JSONArray
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 internal class PostRouteHandlerTest {
@@ -79,7 +78,7 @@ internal class PostRouteHandlerTest {
     }
 
     @Test
-    fun shouldBeAbleToReturnLengthErrorIndices(){
+    fun shouldBeAbleToReturnLengthErrorIndices() {
         val metaData = """[
             {
     "fieldName": "Country Name",
@@ -90,21 +89,22 @@ internal class PostRouteHandlerTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
-        val csvData ="""[
+        val csvData = """[
             {"Country Name":"USA"},
             {"Country Name":"IND"},
             {"Country Name":"INDIA"}
             ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedErrorList = mutableListOf(3)
+        val expectedError = """[{"3":"Incorrect length. Please change to 3"}]"""
+        val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorResult = postRouteHandler.lengthValidation(jsonCsvData)
 
-        assertEquals(expectedErrorList,actualErrorResult)
+        assertEquals(expectedErrorList.toString(), actualErrorResult.toString())
     }
 
     @Test
-    fun shouldBeAbleToReturnTypeErrorIndices(){
+    fun shouldBeAbleToReturnTypeErrorIndices() {
 
         val metaData = """[
   {
@@ -167,7 +167,7 @@ internal class PostRouteHandlerTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
-        val csvData ="""[
+        val csvData = """[
     {
         "Product Id": "1564",
         "Product Description": "Table",
@@ -189,23 +189,13 @@ internal class PostRouteHandlerTest {
     
 ]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedErrorList = mutableListOf(2)
+        val expectedError = """[{"2":"Incorrect Type. Please change to Number"}]"""
+        val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorList = postRouteHandler.typeValidation(jsonCsvData)
 
-        assertEquals(expectedErrorList,actualErrorList)
+        assertEquals(expectedErrorList.toString(), actualErrorList.toString())
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
