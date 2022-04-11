@@ -65,19 +65,21 @@ function addDataToJson() {
     jsonObj["fieldName"] = field.value
     jsonObj["type"] = type.value
     let reader = new FileReader();
-    reader.addEventListener('load', function(e) {
-        let text = e.target.result
-        jsonObj["values"] = text.split('\n')
-    });
-    reader.readAsText(value)
+    if (value != null){
+     reader.addEventListener('load', function(e) {
+            let text = e.target.result
+            jsonObj["values"] = text.split('\n')
+        });
+        reader.readAsText(value)
+    }
     jsonObj["length"] = fixed_len.value
     jsonObj["dependentOn"] = dependentOn.value
     jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
+    console.log(payload)
 }
 
 async function sendConfigData(){
-
     var resp = await fetch('add-meta-data', {
         method: 'POST',
         body: JSON.stringify(payload)
@@ -88,5 +90,4 @@ async function sendConfigData(){
             console.log(jsonData)
             alert("Successfully Added Data");
     }
-
 }
