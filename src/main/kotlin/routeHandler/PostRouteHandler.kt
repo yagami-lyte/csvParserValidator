@@ -39,13 +39,13 @@ class PostRouteHandler {
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
         var responseBody = "{"
-        responseBody += "\"Duplicates\" : \"$duplicates\""
+        responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
-        responseBody += "\"Length\" : \"$lengthValidation\""
+        responseBody += "\"Length\" : $lengthValidation"
         responseBody += ","
-        responseBody += "\"Type\" : \"$typeValidation\""
+        responseBody += "\"Type\" : $typeValidation"
         responseBody += ","
-        responseBody += "\"Value\" : \"$valueValidation\""
+        responseBody += "\"Value\" : $valueValidation"
         responseBody += "}"
         print(responseBody)
         val contentLength = responseBody.length
