@@ -5,11 +5,9 @@ import ResponseHeader
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
-import validation.DuplicateValidation
-import validation.LengthValidation
-import validation.TypeValidation
-import validation.ValueValidation
+import validation.*
 import java.io.BufferedReader
+import validation.DependencyValidation
 
 class PostRouteHandler {
 
@@ -38,6 +36,8 @@ class PostRouteHandler {
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
+        val dependencyValidation = DependencyValidation(jsonBody , fieldArray)
+        val dependencyChecks = dependencyValidation.dependencyCheck()
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -46,6 +46,8 @@ class PostRouteHandler {
         responseBody += "\"Type\" : $typeValidation"
         responseBody += ","
         responseBody += "\"Value\" : $valueValidation"
+        responseBody += ","
+        responseBody += "\"Dependency\" : $dependencyChecks"
         responseBody += "}"
         print(responseBody)
         val contentLength = responseBody.length
