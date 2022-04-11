@@ -16,10 +16,10 @@
     <h3>Number Of Fields</h3>
     <form id="myform">
         <label for="field">Field</label>
-        <input id="field" type="text">
+        <input id="field" data-cy="field"type="text">
 
         <label for="type">Type</label>
-        <select id="type">
+        <select data-cy="type"id="type">
             <option value="selected disabled hidden">Choose here</option>
             <option value="Number">Number</option>
             <option value="AlphaNumeric">AlphaNumeric</option>
@@ -27,27 +27,27 @@
             <option value="Boolean">Boolean</option>
         </select>
 
-        <label for="text_file_id">Values</label>
-        <input type="file" name="text-file" id="text_file_id" accept=".txt">
+        <label  for="text_file_id">Values</label>
+        <input type="file" name="text-file" data-cy="text_file_id" id="text_file_id" accept=".txt">
 
         <label for="fixed-len">length</label>
-        <input type="number" id="fixed-len">
+        <input type="number" id="fixed-len" data-cy="fixed-len">
 
         <label for="dependent">Dependent On</label>
-        <input type="text" id="dependent">
+        <input type="text" id="dependent" data-cy="dependent">
 
         <label for="dep-val">Dependent Value</label>
-        <input type="text" id="dep-val">
+        <input type="text" id="dep-val" data-cy="dep-val">
 
     </form>
-    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()">ADD</button>
-    <button type="submit" onclick="sendConfigData()">submit</button>
+    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">ADD</button>
+    <button type="submit" onclick="sendConfigData()" data-cy="submit">submit</button>
 
 </div>
 <div>
     <h1>CSV PARSER</h1>
-    <input type="file" name="csv-file" id="csv_id" accept=".csv">
-    <button id ="csv-submit-button" onclick="csvReader()">Submit</button>
+    <input type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
+    <button id ="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
 </div>
 <div id="error-msgs">
     <ul id="error_msgs_list">
