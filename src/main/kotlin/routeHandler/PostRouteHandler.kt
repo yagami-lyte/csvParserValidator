@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONObject
 import validation.LengthValidation
+import validation.TypeValidation
 import java.io.BufferedReader
 
 class PostRouteHandler(
@@ -32,8 +33,8 @@ class PostRouteHandler(
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         println("body $body")
-        val jsonBody = JSONArray(body)
-        val lengthValidation = lengthValidation(jsonBody)
+//        val jsonBody = JSONArray(body)
+//        val lengthValidation = lengthValidation(jsonBody)
         var responseBody = "{"
         responseBody += "\"Response\" : \"No Error\""
         responseBody += "}"
@@ -42,6 +43,34 @@ class PostRouteHandler(
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    fun typeValidation(dataInJSONArray: JSONArray): List<Int> {
+        val errorIndices = mutableListOf<Int>()
+        val typeValidation = TypeValidation()
+
+        dataInJSONArray.forEachIndexed { index, element ->
+            val ele = (element as JSONObject)
+            val keys = ele.keySet()
+            for (key in keys) {
+                val field = fieldArray.first { it.fieldName == key }
+                var flag = true
+                val value = ele.get(key) as String
+                if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
+                    flag = false
+                } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
+                    flag = false
+                } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
+                    flag = false
+                }
+                if (!flag) {
+                    errorIndices.add(index + 1)
+                    break
+                }
+            }
+        }
+
+        return errorIndices
     }
 
     fun lengthValidation(jsonArrayData: JSONArray): List<Int> {
