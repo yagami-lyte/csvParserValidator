@@ -11,6 +11,22 @@ describe("Connection testing", ()=>{
     })
 })
 
+describe("Setting Config Data",()=>{
+    it("Adding field Name",()=>{
+        cy.get('[data-cy=field]').type("productID")
+    })
+
+    it("Adding Type of value field name hold",()=>{
+        cy.get('[data-cy=type]').select(2)
+    })
+    it("Adding these data to config file",()=>{
+
+        cy.get('[data-cy=add]').click()
+        cy.log("Added 1st Colomn")
+    })
+    
+})
+
 describe("CSV Parser", ()=>{
     it("choosing file csv file",()=>{
         cy.get('[data-cy=chooseFile]').selectFile("src/main/public/assets/data.csv")
