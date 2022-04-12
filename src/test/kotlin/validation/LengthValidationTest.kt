@@ -12,7 +12,7 @@ internal class LengthValidationTest {
     @Test
     fun shouldPerformLengthValidationCheck() {
         val metaData =
-            """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
+            """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
@@ -28,7 +28,7 @@ internal class LengthValidationTest {
     @Test
     fun shouldReturnJsonArrayWithMultipleErrors() {
         val metaData =
-            """[{"fieldName":"Export","type":"Alphabets","length":"2","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
+            """[{"fieldName":"Export","type":"Alphabets","length":"2","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
@@ -46,7 +46,7 @@ internal class LengthValidationTest {
     @Test
     fun shouldReturnJsonArrayWithNoErrors() {
         val metaData =
-            """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
+            """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData

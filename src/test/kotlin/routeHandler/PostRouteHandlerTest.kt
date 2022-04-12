@@ -100,32 +100,7 @@ internal class PostRouteHandlerTest {
         assertEquals(expectedErrorList.toString(), actualErrorList.toString())
     }
 
-    @Test
-    fun shouldBeAbleToReturnValueErrorIndices() {
-        val metaData = """[
-            {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
-    "length": 3,
-    "values":["IND","USA"]
-  }
-]"""
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
-        postRouteHandler.fieldArray = jsonData
-        val csvData = """[
-            {"Country Name":"USA"},
-            {"Country Name":"IND"},
-            {"Country Name":"INDIA"}
-            ]"""
-        val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"3":"Incorrect Value of Country Name. Please change its length to [IND, USA]"}]"""
-        val expectedErrorList = JSONArray(expectedError)
 
-        val actualErrorResult = postRouteHandler.valueValidation(jsonCsvData)
-
-        assertEquals(expectedErrorList.toString(), actualErrorResult.toString())
-    }
 
 
 }

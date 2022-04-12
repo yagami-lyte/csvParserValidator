@@ -15,9 +15,6 @@ class GetRouteHandler {
         if (route == "/main.js") {
             return getResponse("/main.js")
         }
-        if (route == "/main.css") {
-            return getResponse("/main.css")
-        }
         return getResponse("/404.html")
     }
 
@@ -34,7 +31,7 @@ class GetRouteHandler {
     }
 
     private fun getStatusCode(path: String): StatusCodes {
-        if (path == "/index.html" || path == "/main.js" || path == "/main.css") {
+        if (path == "/index.html" || path == "/main.js") {
             return StatusCodes.TWOHUNDRED
         }
         return StatusCodes.FOURHUNDREDFOUR
