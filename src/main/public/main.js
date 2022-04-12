@@ -76,6 +76,11 @@ function addDataToJson() {
     jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
     console.log(payload)
+    resetForm()
+}
+
+function resetForm(){
+     document.getElementById("myform").reset()
 }
 
 async function sendConfigData(){
