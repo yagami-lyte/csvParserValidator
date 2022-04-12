@@ -12,18 +12,18 @@ function csvReader() {
         var headers = lines[0].split(",");
         for (var i = 1; i < lines.length-1; i++) {
             var obj = {};
-            var currentline = lines[i].split(",");
+            var currentLine = lines[i].split(",");
             for (var j = 0; j < headers.length; j++) {
-                obj[headers[j]] = currentline[j];
+                obj[headers[j]] = currentLine[j];
             }
             result.push(obj);
         }
-
 
         const response = await fetch('csv', {
             method: 'POST',
             body: JSON.stringify(result)
         })
+
         if (response.status === 200) {
             var jsonData =  await response.json();
             console.log(jsonData)
@@ -38,8 +38,8 @@ function showError(key,value) {
     console.log(key + " : "+ typeof value);
     if(value != "" &&  (typeof value == 'string') ){
     const node = document.createElement("li");
-    const textnode = document.createTextNode(`Line No : ${key} has error : ${value}`);
-    node.appendChild(textnode);
+    const textNode = document.createTextNode(`Line No : ${key} has error : ${value}`);
+    node.appendChild(textNode);
     document.getElementById("error_msgs_list").appendChild(node)
     }
 }
