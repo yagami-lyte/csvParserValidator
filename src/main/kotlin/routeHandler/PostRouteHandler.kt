@@ -7,7 +7,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import validation.*
 import java.io.BufferedReader
-import validation.DependencyValidation
 
 class PostRouteHandler {
 
@@ -36,8 +35,7 @@ class PostRouteHandler {
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
-        val dependencyValidation = DependencyValidation(jsonBody , fieldArray)
-        val dependencyChecks = dependencyValidation.dependencyCheck()
+        val dependencyChecks = dependencyValidation(jsonBody)
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -56,6 +54,34 @@ class PostRouteHandler {
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
+    private fun dependencyValidation(jsonArrayData: JSONArray): Any {
+        val dependencyErrors = JSONArray()
+
+        jsonArrayData.forEachIndexed { index, element ->
+            val fieldElement = (element as JSONObject)
+            val keys = fieldElement.keySet()
+            for (key in keys) {
+                val field = fieldArray.first { it.fieldName == key }
+                val value = fieldElement.get(key) as String
+                var flag = true
+                if (field.dependentOn.isNotEmpty()) {
+                    if (field.dependentValue.isNotEmpty() && value.isEmpty()) {
+                        flag = false
+                    }
+                }
+                if (!flag) {
+                    val jsonObject = JSONObject().put(
+                        (index + 1).toString(),
+                        "Value of ${field.fieldName} is dependent on ${field.dependentOn}.Do not leave ${field.fieldName}empty."
+                    )
+                    dependencyErrors.put(jsonObject)
+                }
+            }
+        }
+        return dependencyErrors
+
+    }
+
     fun lengthValidation(jsonArrayData: JSONArray): JSONArray {
         val lengthErrors = JSONArray()
         val lengthValidation = LengthValidation()
@@ -67,7 +93,7 @@ class PostRouteHandler {
                 val field = fieldArray.first { it.fieldName == key }
                 val value = fieldElement.get(key) as String
                 var flag = true
-                if (field.length != null) {
+                if (field.length != null && value.isNotEmpty()) {
                     if (!lengthValidation.lengthCheck(value, field.length)) {
                         flag = false
                     }
@@ -95,11 +121,11 @@ class PostRouteHandler {
                 val field = fieldArray.first { it.fieldName == key }
                 var flag = true
                 val value = ele.get(key) as String
-                if (field.type == "AlphaNumeric" && !typeValidation.isAlphaNumeric(value)) {
+                if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
                     flag = false
-                } else if (field.type == "Alphabet" && !typeValidation.isAlphabetic(value)) {
+                } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
                     flag = false
-                } else if (field.type == "Number" && !typeValidation.isNumeric(value)) {
+                } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
                     flag = false
                 }
                 if (!flag) {
@@ -125,12 +151,11 @@ class PostRouteHandler {
                 val field = fieldArray.first { it.fieldName == key }
                 var flag = true
                 val value = ele.get(key) as String
-                if (field.values != null) {
+                if (field.values != null && value.isNotEmpty())   {
                     if (!valueValidation.valueCheck(field.values, value)) {
                         flag = false
                     }
                 }
-                if (!flag) {
                     if (!flag) {
                         val jsonObject = JSONObject().put(
                             (index + 1).toString(),
@@ -139,7 +164,6 @@ class PostRouteHandler {
                         valueErrors.put(jsonObject)
                     }
                 }
-            }
         }
         return valueErrors
     }
