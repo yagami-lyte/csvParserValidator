@@ -2,7 +2,6 @@ package validation
 
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import routeHandler.PostRouteHandler
 
@@ -21,7 +20,7 @@ internal class DependencyValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]")
 
-        val actual = dependencyValidation.dependencyValidation(jsonCsvData , postRouteHandler.fieldArray)
+        val actual = dependencyValidation.checkDependency(jsonCsvData , postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -37,7 +36,7 @@ internal class DependencyValidationTest {
         val dependencyValidation = DependencyValidation()
         val expected = JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"},{\"2\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]]")
 
-        val actual = dependencyValidation.dependencyValidation(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = dependencyValidation.checkDependency(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -53,7 +52,7 @@ internal class DependencyValidationTest {
         val dependencyValidation = DependencyValidation()
         val expected = JSONArray("[]")
 
-        val actual = dependencyValidation.dependencyValidation(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = dependencyValidation.checkDependency(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }

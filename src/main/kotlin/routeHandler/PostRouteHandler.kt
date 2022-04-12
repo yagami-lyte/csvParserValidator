@@ -11,7 +11,8 @@ import java.io.BufferedReader
 class PostRouteHandler {
 
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
-    val dependencyValidation = DependencyValidation()
+    private val dependencyValidation = DependencyValidation()
+    private val lengthValidation = LengthValidation()
 
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
@@ -32,11 +33,11 @@ class PostRouteHandler {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
-        val lengthValidation = lengthValidation(jsonBody)
+        val lengthValidation = lengthValidation.validateLength(jsonBody , fieldArray)
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
-        val dependencyChecks = dependencyValidation.dependencyValidation(jsonBody ,fieldArray)
+        val dependencyChecks = dependencyValidation.checkDependency(jsonBody ,fieldArray)
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -53,34 +54,6 @@ class PostRouteHandler {
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
-    }
-
-    fun lengthValidation(jsonArrayData: JSONArray): JSONArray {
-        val lengthErrors = JSONArray()
-        val lengthValidation = LengthValidation()
-
-        jsonArrayData.forEachIndexed { index, element ->
-            val fieldElement = (element as JSONObject)
-            val keys = fieldElement.keySet()
-            for (key in keys) {
-                val field = fieldArray.first { it.fieldName == key }
-                val value = fieldElement.get(key) as String
-                var flag = true
-                if (field.length != null && value.isNotEmpty()) {
-                    if (!lengthValidation.lengthCheck(value, field.length)) {
-                        flag = false
-                    }
-                }
-                if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(),
-                        "Incorrect length of ${field.fieldName}. Please change its length to ${field.length}"
-                    )
-                    lengthErrors.put(jsonObject)
-                }
-            }
-        }
-        return lengthErrors
     }
 
     fun typeValidation(dataInJSONArray: JSONArray): JSONArray {
