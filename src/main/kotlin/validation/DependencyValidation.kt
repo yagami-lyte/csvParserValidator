@@ -8,8 +8,6 @@ class DependencyValidation {
 
     fun checkDependency(jsonArrayData: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): Any {
         val dependencyErrors = JSONArray()
-        println(jsonArrayData.toString())
-        println(fieldArray.toString())
 
         jsonArrayData.forEachIndexed { index, element ->
             val fieldElement = (element as JSONObject)

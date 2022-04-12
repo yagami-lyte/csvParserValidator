@@ -15,7 +15,6 @@ class PostRouteHandler {
     private val lengthValidation = LengthValidation()
     private val valueValidation = ValueValidation()
     private val typeValidation = TypeValidation()
-
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
@@ -40,6 +39,20 @@ class PostRouteHandler {
         val valueValidation = valueValidation.validationCheck(jsonBody ,fieldArray)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
         val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
+        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks)
+        val contentLength = responseBody.length
+        val endOfHeader = "\r\n\r\n"
+        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun getResponse (
+        duplicates: JSONArray,
+        lengthValidation: JSONArray,
+        typeValidation: JSONArray,
+        valueValidation: JSONArray,
+        dependencyChecks: Any
+    ): String {
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -51,14 +64,8 @@ class PostRouteHandler {
         responseBody += ","
         responseBody += "\"Dependency\" : $dependencyChecks"
         responseBody += "}"
-        print(responseBody)
-        val contentLength = responseBody.length
-        val endOfHeader = "\r\n\r\n"
-        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+        return responseBody
     }
-
-
 
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
