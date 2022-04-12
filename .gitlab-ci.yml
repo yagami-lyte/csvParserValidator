@@ -13,6 +13,16 @@
 #
 # For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
 
+image: gradle:latest
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
+cache:
+  paths:
+    - .gradle
+
+
 stages:          # List of stages for jobs, and their order of execution
   - build
   - test
@@ -28,7 +38,7 @@ unit-test-job:   # This job runs in the test stage.
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
     - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
+    - gradle test
     - echo "Code coverage is 90%"
 
 lint-test-job:   # This job also runs in the test stage.
