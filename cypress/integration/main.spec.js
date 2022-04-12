@@ -2,7 +2,7 @@
 
 describe("Connection testing", ()=>{
     it("It loads successfully", ()=>{
-        cy.visit('http://localhost:3000')
+        cy.visit('http://localhost:3002')
     })
 
     it("Checking it certain elements present or not", ()=>{
