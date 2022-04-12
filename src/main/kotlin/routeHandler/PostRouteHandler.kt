@@ -14,6 +14,7 @@ class PostRouteHandler {
     private val dependencyValidation = DependencyValidation()
     private val lengthValidation = LengthValidation()
     private val valueValidation = ValueValidation()
+    private val typeValidation = TypeValidation()
 
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
@@ -35,7 +36,7 @@ class PostRouteHandler {
         val body = getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
         val lengthValidation = lengthValidation.validateLength(jsonBody, fieldArray)
-        val typeValidation = typeValidation(jsonBody)
+        val typeValidation = typeValidation.typeCheck(jsonBody,fieldArray)
         val valueValidation = valueValidation.validationCheck(jsonBody ,fieldArray)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
         val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
@@ -57,34 +58,7 @@ class PostRouteHandler {
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
-    fun typeValidation(dataInJSONArray: JSONArray): JSONArray {
-        val typeErrors = JSONArray()
-        val typeValidation = TypeValidation()
 
-        dataInJSONArray.forEachIndexed { index, element ->
-            val ele = (element as JSONObject)
-            val keys = ele.keySet()
-            for (key in keys) {
-                val field = fieldArray.first { it.fieldName == key }
-                var flag = true
-                val value = ele.get(key) as String
-                if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
-                    flag = false
-                } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
-                    flag = false
-                } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
-                    flag = false
-                }
-                if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
-                    )
-                    typeErrors.put(jsonObject)
-                }
-            }
-        }
-        return typeErrors
-    }
 
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
