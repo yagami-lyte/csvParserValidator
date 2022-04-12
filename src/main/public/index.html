@@ -1,19 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:border="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
     <title>Csv Parser</title>
 </head>
+<style>
+    .custom-file-input {
+        background: linear-gradient(top, #f9f9f9, #e3e3e3);
+        border: 1px solid #999;
+        border-radius: 3px;
+        padding: 5px 8px;
+        text-shadow: 1px 1px #fff;
+        font-weight: 700;
+        font-size: 10pt;
+    }
+
+    input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    label {
+        font-size : 20px;
+    }
+
+    button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+    }
+
+    button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+
+    div {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+    }
+
+
+
+</style>
 
 <body>
-<div id="config">
-    <h1 style="border: 5px solid black;">Set Configuration</h1>
-    <div class="container">
+<style>
+    body {
+        background-color: grey;
+        opacity : 0.8;
+
+    }
+
+
+
+</style>
+<div>
+    <style>
+        h1 {
+            color: purple;
+            text-align: center;
+        }
+
+
+
+    </style>
+    <h1 style="border: 5px solid black;"><b>Set Configuration</b></h1>
+    <style>
+        h3 {
+            color: Maroon;
+            text-align: center;
+        }
+
+
+
+    </style>
     <form id="myform">
         <label for="field">Field</label>
 
@@ -44,106 +139,60 @@
     </form>
     <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">ADD</button>
     <button type="submit" onclick="sendConfigData()" data-cy="submit">submit</button>
-    </div>
-</div>
 
-<div id="csv">
-    <h1 class="custom-file-input">CSV PARSER</h1>
+
+</div>
+<div id = csv>
+    <h1 style="border: 5px solid black;">CSV PARSER</h1>
     <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
     <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
 
 </div>
 
+
+<style>
+
+    div{
+        float: left;
+        width: 50%;
+        margin-left: 1%;
+        min-height: 500px;
+        margin-bottom: 2%;
+    }
+
+</style>
+
+<style>
+    #csv{
+        width: 30%;
+        min-height: 200px;
+    }
+
+</style>
+
 <div id="error-msgs">
+    <h1 id="errors" style="border: 5px solid black;"> Errors </h1>
     <ul id="error_msgs_list">
 
     </ul>
 </div>
-</body>
 
 <style>
-body {
-  background-color: #66ccff;
-}
+    #errors{
+    background : red;
+    }
+</style>
 
-h1 {
-  color: purple;
-  text-align: center;
-  font-size: 30px;
-  }
-
-#config {
-  height: 1200px;
-  width: 50%;
-  border: 1px solid black;
-  background-color: #ffffcc;
-}
-
-#csv {
-  height: 200px;
-  width: 50%;
-  border: 1px solid black;
-  background-color: purple;
-}
-
-.custom-file-input {
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
-}
-
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-label {
-    font-size : 20px;
-}
-
-button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  -webkit-transition-duration: 0.4s; /* Safari */
-  transition-duration: 0.4s;
-}
-
-button:hover {
-  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #45a049;
-}
+<style>
+    #error-msgs{
+        float: left;
+        width: 40%;
+        margin-bottom: 100px;
+    }
 
 </style>
-</html>
 
+
+</body>
+
+</html>
