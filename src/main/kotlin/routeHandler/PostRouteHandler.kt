@@ -36,7 +36,7 @@ class PostRouteHandler {
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
-        val dependencyChecks = dependencyValidation.dependencyValidation(jsonBody ,fieldArray)
+        val dependencyChecks = dependencyValidation.checkDependency(jsonBody ,fieldArray)
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
