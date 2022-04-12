@@ -77,6 +77,7 @@ function addDataToJson() {
     payload.push(jsonObj)
     console.log(payload)
     resetForm()
+    alert("Field configuration added successfully!")
 }
 
 function resetForm(){
@@ -84,6 +85,7 @@ function resetForm(){
 }
 
 async function sendConfigData(){
+   alert("Successfully added configuration details for csv!")
     var resp = await fetch('add-meta-data', {
         method: 'POST',
         body: JSON.stringify(payload)
@@ -92,6 +94,5 @@ async function sendConfigData(){
     if (resp.status === 200) {
             var jsonData = await resp.json();
             console.log(jsonData)
-            alert("Successfully Added Data");
     }
 }
