@@ -34,24 +34,21 @@ function csvReader() {
     reader.readAsText(csv);
 }
 
-//called with every property and its value
 function showError(key,value) {
     console.log(key + " : "+ typeof value);
     if(value != "" &&  (typeof value == 'string') ){
     const node = document.createElement("li");
-    //const textnode = document.createTextNode(`Line Number ${Object.keys(element)[0]}: ${element[Object.keys(element)[0]]}`);
     const textnode = document.createTextNode(`Line No : ${key} has error : ${value}`);
     node.appendChild(textnode);
     document.getElementById("error_msgs_list").appendChild(node)
     }
 }
 
-function traverse(o,func) {
-    for (var i in o) {
-        func.apply(this,[i,o[i]]);
-        if (o[i] !== null && typeof(o[i])=="object") {
-            //going one step down in the object tree!!
-            traverse(o[i],func);
+function traverse(object,func) {
+    for (var i in object) {
+        func.apply(this,[i,object[i]]);
+        if (object[i] !== null && typeof(object[i])=="object") {
+            traverse(object[i],func);
         }
     }
 }
