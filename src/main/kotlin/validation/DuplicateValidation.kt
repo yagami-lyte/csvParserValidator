@@ -22,11 +22,20 @@ class DuplicateValidation {
             return
         }
 
+        getJsonObject(index, mapOfJsonElements, element, jsonArrayOfDuplicateElements)
+
+    }
+
+    private fun getJsonObject(
+        index: Int,
+        mapOfJsonElements: MutableMap<String, Int>,
+        element: Any,
+        jsonArrayOfDuplicateElements: JSONArray
+    ) {
         val jsonObject = JSONObject().put(
             (index + 1).toString(), "Row Duplicated From ${mapOfJsonElements[element.toString()]}"
         )
         jsonArrayOfDuplicateElements.put(jsonObject)
-
     }
 
 }
