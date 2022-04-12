@@ -17,7 +17,7 @@ class DependencyValidation(private val jsonArray: JSONArray, private val fieldAr
                 val field = fieldArray.first { it.fieldName == key }
 
 //                println("FieldName : ${field.fieldName} ::::: ${field.dependentOn}")
-                if(field.dependentOn != null) {
+                if(field.dependentOn != "" && field.dependentValue != "") {
                     val dependentField = field.dependentOn
                     val dependentFieldValue = fieldElement.get(dependentField).toString()
 
