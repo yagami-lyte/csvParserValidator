@@ -1,15 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:border="http://www.w3.org/1999/xhtml">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js" type="text/javascript"></script>
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <title>Csv Parser</title>
 </head>
+
+<body>
+<div id="config">
+    <h1 style="border: 5px solid black;">Set Configuration</h1>
+    <div class="container">
+    <form id="myform">
+        <label for="field">Field</label>
+
+        <input id="field" data-cy="field" type="text"><br> </br> <br>
+        <label for="type">Type</label>
+
+        <select data-cy="type" id="type"><br> </br> <br>
+            <option value="selected disabled hidden">Choose here</option>
+            <option value="Number">Number</option>
+            <option value="AlphaNumeric">AlphaNumeric</option>
+            <option value="Alphabets">Alphabets</option>
+            <option value="Boolean">Boolean</option>
+        </select> <br> </br> <br>
+
+        <label for="text_file_id">Values</label>
+        <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"
+               accept=".txt"><br> </br> <br>
+
+        <label for="fixed-len">length</label>
+        <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
+
+        <label for="dependent">Dependent On</label>
+        <input type="text" id="dependent" data-cy="dependent"><br> </br> <br>
+
+        <label for="dep-val">Dependent Value</label>
+        <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
+
+    </form>
+    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">ADD</button>
+    <button type="submit" onclick="sendConfigData()" data-cy="submit">submit</button>
+    </div>
+</div>
+
+<div id="csv">
+    <h1 class="custom-file-input">CSV PARSER</h1>
+    <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
+    <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
+
+</div>
+
+<div id="error-msgs">
+    <ul id="error_msgs_list">
+
+    </ul>
+</div>
+</body>
+
 <style>
+body {
+  background-color: #66ccff;
+}
+
+h1 {
+  color: purple;
+  text-align: center;
+  font-size: 30px;
+  }
+
+#config {
+  height: 1200px;
+  width: 50%;
+  border: 1px solid black;
+  background-color: #ffffcc;
+}
+
+#csv {
+  height: 200px;
+  width: 50%;
+  border: 1px solid black;
+  background-color: purple;
+}
+
 .custom-file-input {
   background: linear-gradient(top, #f9f9f9, #e3e3e3);
   border: 1px solid #999;
@@ -68,114 +144,6 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-
-
-
-
-
 </style>
-
-<body>
-<style>
-body {
-  background-color: grey;
-   opacity : 0.8;
-
-}
-
-
-
-
-
-</style>
-<div>
-    <style>
-        h1 {
-          color: purple;
-          text-align: center;
-          font-size: 30px;
-        }
-
-
-
-
-
-    </style>
-    <h1 style="border: 5px solid black;">Set Configuration</h1>
-    <style>
-        h3 {
-          color: Maroon;
-          text-align: center;
-          font-size: 30px;
-        }
-    </style>
-
-    <h3><b>Number Of Fields</b></h3>
-    <form id="myform">
-        <label for="field">Field</label>
-
-        <input id="field" data-cy="field" type="text"><br> </br> <br>
-        <label for="type">Type</label>
-
-        <select data-cy="type" id="type"><br> </br> <br>
-            <option value="selected disabled hidden">Choose here</option>
-            <option value="Number">Number</option>
-            <option value="AlphaNumeric">AlphaNumeric</option>
-            <option value="Alphabets">Alphabets</option>
-            <option value="Boolean">Boolean</option>
-        </select> <br> </br> <br>
-
-        <label for="text_file_id">Values</label>
-        <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"
-               accept=".txt"><br> </br> <br>
-
-        <label for="fixed-len">length</label>
-        <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
-
-        <label for="dependent">Dependent On</label>
-        <input type="text" id="dependent" data-cy="dependent"><br> </br> <br>
-
-        <label for="dep-val">Dependent Value</label>
-        <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
-
-    </form>
-    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">ADD</button>
-    <button type="submit" onclick="sendConfigData()" data-cy="submit">submit</button>
-
-
-</div>
-<div>
-    <h1>CSV PARSER</h1>
-    <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
-    <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
-
-</div>
-
-<style>
-div {
-  border: 1px solid black;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  margin-right: 150px;
-  margin-left: 80px;
-  background-color: lightgold;
-}
-
-
-
-
-
-</style>
-<div id="error-msgs">
-    <ul id="error_msgs_list">
-
-    </ul>
-</div>
-</body>
-
 </html>
+
