@@ -8,53 +8,9 @@ import routeHandler.PostRouteHandler
 
 internal class DependencyValidationTest {
 
-    private val metaData = """[
-  {
-    "fieldName": "Product Id",
-    "type": "AlphaNumeric",
-    "length": 5
-  },
-  {
-    "fieldName": "Product Description",
-    "type": "AlphaNumeric",
-    "minLength": 7,
-    "maxLength": 20
-  },
-  {
-    "fieldName": "Price",
-    "type": "Number"
-  },
-  {
-    "fieldName": "Source City",
-    "type": "Alphabet",
-    "minLength": 3
-  },
-  {
-    "fieldName": "Country Code",
-    "type": "Number",
-    "maxLength": 3
-  },
-  {
-    "fieldName": "Country Name",
-    "type": "Alphabet",
-    "length": 3,
-    "values": [
-      "IND",
-      "USA",
-      "AUS"
-    ],
-    "dependentOn": "Export",
-    "dependentValue": "N"
-  },
-  {
-    "fieldName": "Export",
-    "type": "Alphabet",
-    "values": [
-      "Y",
-      "N"
-    ]
-  }
-]"""
+    private val dependencyValidation = DependencyValidation()
+    private val metaData = """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
+
 
     @Test
     fun shouldPerformDependencyCheck() {
@@ -62,89 +18,15 @@ internal class DependencyValidationTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = postRouteHandler.getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
-        val csvData = """[
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000abc",
-        "Export": "N",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61"
-    },
-    
-]"""
+        val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
 
         val jsonCsvData = JSONArray(csvData)
-        val dependencyValidation = DependencyValidation(jsonCsvData, postRouteHandler.fieldArray)
-        val expected = JSONArray("[{\"1\":\"Value of Export is N, Hence Country Name should be empty\"}]")
-        val actual = dependencyValidation.dependencyCheck()
+        val expected = JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]")
+        val actual = dependencyValidation.dependencyValidation(jsonCsvData , postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
 
-    @Test
-    fun shouldReturnJsonArrayWithMultipleErrors() {
 
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
-        postRouteHandler.fieldArray = jsonData
-        val csvData = """[
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000abc",
-        "Export": "N",
-        "Country Name": "IND",
-        "Source City": "Mumbai",
-        "Country Code": "61"
-    },
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000abc",
-        "Export": "N",
-        "Country Name": "AUS",
-        "Source City": "Mumbai",
-        "Country Code": "61"
-    },
-    
-]"""
-
-        val jsonCsvData = JSONArray(csvData)
-        val dependencyValidation = DependencyValidation(jsonCsvData, postRouteHandler.fieldArray)
-        val expected =
-            JSONArray("[{\"1\":\"Value of Export is N, Hence Country Name should be empty\"},{\"2\":\"Value of Export is N, Hence Country Name should be empty\"}]]")
-        val actual = dependencyValidation.dependencyCheck()
-
-        assertEquals(expected.toString(), actual.toString())
-    }
-
-    @Test
-    fun shouldReturnJsonArrayWithNoErrors() {
-
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
-        postRouteHandler.fieldArray = jsonData
-        val csvData = """[
-    {
-        "Product Id": "1234",
-        "Product Description": "Chairs",
-        "Price": "1000abc",
-        "Export": "Y",
-        "Country Name": "IND",
-        "Source City": "Mumbai",
-        "Country Code": "61"
-    }
-    
-]"""
-
-        val jsonCsvData = JSONArray(csvData)
-        val dependencyValidation = DependencyValidation(jsonCsvData, postRouteHandler.fieldArray)
-        val expected = JSONArray("[]")
-        val actual = dependencyValidation.dependencyCheck()
-
-        assertEquals(expected.toString(), actual.toString())
-    }
 }
 

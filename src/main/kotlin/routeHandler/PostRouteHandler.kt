@@ -11,6 +11,7 @@ import java.io.BufferedReader
 class PostRouteHandler {
 
     var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
+    val dependencyValidation = DependencyValidation()
 
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
@@ -35,7 +36,7 @@ class PostRouteHandler {
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
-        val dependencyChecks = dependencyValidation(jsonBody)
+        val dependencyChecks = dependencyValidation.dependencyValidation(jsonBody ,fieldArray)
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -52,34 +53,6 @@ class PostRouteHandler {
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
-    }
-
-    private fun dependencyValidation(jsonArrayData: JSONArray): Any {
-        val dependencyErrors = JSONArray()
-
-        jsonArrayData.forEachIndexed { index, element ->
-            val fieldElement = (element as JSONObject)
-            val keys = fieldElement.keySet()
-            for (key in keys) {
-                val field = fieldArray.first { it.fieldName == key }
-                val value = fieldElement.get(key) as String
-                var flag = true
-                if (field.dependentOn.isNotEmpty()) {
-                    if (field.dependentValue.isNotEmpty() && value.isEmpty()) {
-                        flag = false
-                    }
-                }
-                if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(),
-                        "Value of ${field.fieldName} is dependent on ${field.dependentOn}.Do not leave ${field.fieldName}empty."
-                    )
-                    dependencyErrors.put(jsonObject)
-                }
-            }
-        }
-        return dependencyErrors
-
     }
 
     fun lengthValidation(jsonArrayData: JSONArray): JSONArray {
