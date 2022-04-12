@@ -9,13 +9,11 @@ class GetRouteHandler {
 
     fun handleGetRequest(request: String): String {
         val route = getPath(request)
-        if (route == "/") {
-            return getResponse("/index.html")
+        return when (route) {
+            "/" -> getResponse("/index.html")
+            "/main.js" -> getResponse("/main.js")
+            else -> getResponse("/404.html")
         }
-        if (route == "/main.js") {
-            return getResponse("/main.js")
-        }
-        return getResponse("/404.html")
     }
 
     private fun getPath(request: String): String {
