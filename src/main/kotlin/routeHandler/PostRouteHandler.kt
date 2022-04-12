@@ -33,11 +33,11 @@ class PostRouteHandler {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
         val jsonBody = JSONArray(body)
-        val lengthValidation = lengthValidation.validateLength(jsonBody , fieldArray)
+        val lengthValidation = lengthValidation.validateLength(jsonBody, fieldArray)
         val typeValidation = typeValidation(jsonBody)
         val valueValidation = valueValidation(jsonBody)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
-        val dependencyChecks = dependencyValidation.checkDependency(jsonBody ,fieldArray)
+        val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
         responseBody += ","
@@ -76,8 +76,7 @@ class PostRouteHandler {
                 }
                 if (!flag) {
                     val jsonObject = JSONObject().put(
-                        (index + 1).toString(),
-                        "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
+                        (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
                     )
                     typeErrors.put(jsonObject)
                 }
@@ -97,19 +96,19 @@ class PostRouteHandler {
                 val field = fieldArray.first { it.fieldName == key }
                 var flag = true
                 val value = ele.get(key) as String
-                if (field.values != null && value.isNotEmpty())   {
+                if (field.values != null && value.isNotEmpty()) {
                     if (!valueValidation.valueCheck(field.values, value)) {
                         flag = false
                     }
                 }
-                    if (!flag) {
-                        val jsonObject = JSONObject().put(
-                            (index + 1).toString(),
-                            "Incorrect Value of ${field.fieldName}. Please change its length to ${field.values}"
-                        )
-                        valueErrors.put(jsonObject)
-                    }
+                if (!flag) {
+                    val jsonObject = JSONObject().put(
+                        (index + 1).toString(),
+                        "Incorrect Value of ${field.fieldName}. Please change its length to ${field.values}"
+                    )
+                    valueErrors.put(jsonObject)
                 }
+            }
         }
         return valueErrors
     }
@@ -121,7 +120,7 @@ class PostRouteHandler {
         return addCsvMetaData(body)
     }
 
-    fun addCsvMetaData(body: String): String {
+    private fun addCsvMetaData(body: String): String {
         val jsonBody = getMetaData(body)
         print(jsonBody)
         fieldArray = jsonBody

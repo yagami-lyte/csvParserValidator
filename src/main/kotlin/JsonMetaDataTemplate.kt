@@ -3,7 +3,7 @@ class JsonMetaDataTemplate(
     val type: String?,
     val length: Int?,
     val values: List<String>?,
-    val dependentOn:String,
-    val dependentValue:String
+    val dependentOn: String,
+    val dependentValue: String
 )
 

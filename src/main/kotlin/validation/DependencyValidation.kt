@@ -6,7 +6,7 @@ import org.json.JSONObject
 
 class DependencyValidation {
 
-    fun checkDependency(jsonArrayData: JSONArray, fieldArray:Array<JsonMetaDataTemplate>): Any {
+    fun checkDependency(jsonArrayData: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): Any {
         val dependencyErrors = JSONArray()
         println(jsonArrayData.toString())
         println(fieldArray.toString())

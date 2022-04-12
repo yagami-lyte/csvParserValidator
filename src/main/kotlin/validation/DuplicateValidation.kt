@@ -15,10 +15,7 @@ class DuplicateValidation {
     }
 
     private fun addElementToMap(
-        mapOfJsonElements: MutableMap<String, Int>,
-        element: Any,
-        index: Int,
-        jsonArrayOfDuplicateElements: JSONArray
+        mapOfJsonElements: MutableMap<String, Int>, element: Any, index: Int, jsonArrayOfDuplicateElements: JSONArray
     ) {
         if (mapOfJsonElements[element.toString()] == null) {
             mapOfJsonElements[element.toString()] = index + 1
@@ -26,8 +23,7 @@ class DuplicateValidation {
         }
 
         val jsonObject = JSONObject().put(
-            (index + 1).toString(),
-            "Row Duplicated From ${mapOfJsonElements[element.toString()]}"
+            (index + 1).toString(), "Row Duplicated From ${mapOfJsonElements[element.toString()]}"
         )
         jsonArrayOfDuplicateElements.put(jsonObject)
 

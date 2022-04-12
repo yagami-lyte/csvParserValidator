@@ -1,10 +1,13 @@
-import java.io.*
-import java.net.ServerSocket
 import routeHandler.GetRouteHandler
 import routeHandler.PageNotFoundResponse
 import routeHandler.PostRouteHandler
+import java.io.BufferedReader
+import java.io.BufferedWriter
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.ServerSocket
 
-class Server(private val port: Int) {
+class Server(port: Int) {
 
     private val serverSocket = ServerSocket(port)
     private val getRouteHandler = GetRouteHandler()

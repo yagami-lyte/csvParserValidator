@@ -1,6 +1,6 @@
 package routeHandler
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class GetRouteHandlerTest {
@@ -10,7 +10,7 @@ class GetRouteHandlerTest {
         val getRouteHandler = GetRouteHandler()
         val request = """GET / HTTP/1.1 
                 |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
-        val expected = "4437"
+        val expected = "4540"
 
         val response = getRouteHandler.handleGetRequest(request)
         val actual = "Content-Length: (.*)".toRegex().find(response)?.groupValues?.get(1)

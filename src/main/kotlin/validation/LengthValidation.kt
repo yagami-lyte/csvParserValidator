@@ -6,7 +6,7 @@ import org.json.JSONObject
 
 class LengthValidation {
 
-    fun validateLength(jsonArrayData: JSONArray, fieldArray:Array<JsonMetaDataTemplate>): JSONArray {
+    fun validateLength(jsonArrayData: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): JSONArray {
         val lengthErrors = JSONArray()
         val lengthValidation = LengthValidation()
 
@@ -34,10 +34,9 @@ class LengthValidation {
         return lengthErrors
     }
 
-    private fun lengthCheck(data: String, length: Int):Boolean{
+    private fun lengthCheck(data: String, length: Int): Boolean {
         return length == data.length
     }
-
 
 
 }
