@@ -7,9 +7,9 @@ import org.json.JSONArray
 import validation.*
 import java.io.BufferedReader
 
-class PostRouteHandler {
+class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) {
 
-    var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()
+
     private val dependencyValidation = DependencyValidation()
     private val lengthValidation = LengthValidation()
     private val valueValidation = ValueValidation()
@@ -32,17 +32,21 @@ class PostRouteHandler {
     private fun handleCsv(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
+        return getResponseForCSV(body)
+    }
+
+    fun getResponseForCSV(body: String): String {
         val jsonBody = JSONArray(body)
         val lengthValidation = lengthValidation.validateLength(jsonBody, fieldArray)
-        val typeValidation = typeValidation.typeCheck(jsonBody,fieldArray)
-        val valueValidation = valueValidation.validationCheck(jsonBody ,fieldArray)
+        val typeValidation = typeValidation.typeCheck(jsonBody, fieldArray)
+        val valueValidation = valueValidation.validationCheck(jsonBody, fieldArray)
         val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
         val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
         val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
     private fun getResponse (
@@ -75,7 +79,6 @@ class PostRouteHandler {
 
     private fun addCsvMetaData(body: String): String {
         val jsonBody = getMetaData(body)
-        print(jsonBody)
         fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added"
