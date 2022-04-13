@@ -37,7 +37,7 @@ class Server(port: Int) {
         outputStream.flush()
     }
 
-    private fun handleRequest(request: String, inputStream: BufferedReader): String {
+    fun handleRequest(request: String, inputStream: BufferedReader): String {
         return when (getMethodType(request)) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
