@@ -1,6 +1,6 @@
 package validation
 
-import JsonMetaDataTemplate
+import jsonTemplate.JsonMetaDataTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 

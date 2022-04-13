@@ -1,7 +1,7 @@
 package routeHandler
 
-import JsonMetaDataTemplate
 import com.google.gson.Gson
+import jsonTemplate.JsonMetaDataTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

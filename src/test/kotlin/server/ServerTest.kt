@@ -1,12 +1,14 @@
+package server
+
 import io.mockk.every
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.api.Test
-import java.net.Socket
 import io.mockk.mockk
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStreamReader
+import java.net.Socket
 
 class ServerTest {
 

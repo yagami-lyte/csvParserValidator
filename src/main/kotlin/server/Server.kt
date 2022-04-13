@@ -1,3 +1,5 @@
+package server
+
 import routeHandler.GetRouteHandler
 import routeHandler.PageNotFoundResponse
 import routeHandler.PostRouteHandler

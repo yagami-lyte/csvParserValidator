@@ -1,11 +1,13 @@
+package server
+
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import routeHandler.PostRouteHandler
 import java.net.Socket
 
 class ServerIntegrationTest {
 
     private lateinit var server: Server
+
     @Test
     fun shouldReturn200ResponseForGetRequest() {
         val port = 3012

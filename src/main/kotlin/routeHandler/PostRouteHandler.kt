@@ -1,8 +1,7 @@
 package routeHandler
 
-import JsonMetaDataTemplate
-import ResponseHeader
 import com.google.gson.Gson
+import jsonTemplate.JsonMetaDataTemplate
 import org.json.JSONArray
 import validation.*
 import java.io.BufferedReader
