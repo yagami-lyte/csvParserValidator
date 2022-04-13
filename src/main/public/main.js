@@ -38,7 +38,7 @@ function showError(key,value) {
     console.log(key + " : "+ typeof value);
     if(value != "" &&  (typeof value == 'string') ){
     const node = document.createElement("li");
-    const textNode = document.createTextNode(`Line No : ${key} has error : ${value}`);
+    const textNode = document.createTextNode(`Line No ${key} has error : ${value}`);
     node.appendChild(textNode);
     document.getElementById("error_msgs_list").appendChild(node)
     }
