@@ -20,14 +20,15 @@ internal class PostRouteHandlerTest {
         val response = postRouteHandler.getResponseForCSV(csvData)
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]
+        println(actualErrorResponse)
 
         assertEquals(expectedErrorResponse,actualErrorResponse)
     }
 }
 
-private fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
+private fun getMetaData(data: String): Array<JsonMetaDataTemplate> {
     val gson = Gson()
-    return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
+    return gson.fromJson(data, Array<JsonMetaDataTemplate>::class.java)
 }
 
 
