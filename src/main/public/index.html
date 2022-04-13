@@ -10,10 +10,21 @@
 </head>
 
 <body>
+<div id = "csv" class="container">
+    <h1>CSV PARSER</h1>
+    <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
+    <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
+    <a href="#config" class="btn-get-started scrollto ">Set Configuration</a>
+
+</div>
 
 <div id="config">
     <div class="container">
         <h1><b>SET CONFIGURATION</b></h1>
+        <p style="text-align:center;"> Make sure you enter configuration for following fields</p>
+        <div id="fields"></div>
+        <br>
+        <br>
     <form id="myform">
 
         <label for="field">Field</label>
@@ -45,14 +56,8 @@
 
     <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">Add</button>
     <button type="submit" onclick="sendConfigData()" data-cy="submit">Submit</button>
+        <a href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
     </div>
-</div>
-
-<div id = csv class="container">
-    <h1>CSV PARSER</h1>
-    <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
-    <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
-
 </div>
 
 <div id="error-msgs">
@@ -61,7 +66,7 @@
 
     </ul>
 </div>
-
+<br>
 </body>
 
 
@@ -91,12 +96,36 @@ body {
         border-radius: 10px;
         background-color: #f2f2f2;
         padding: 20px;
-        float: left;
         width: 40%;
-        margin-left: 2%;
-        margin-top: 2%;
-        min-height: 550px;
+        margin-left: 25%;
+        margin-top: 30%;
+        min-height: 540px;
         margin-bottom: 2%;
+    }
+ #csv{
+        width: 40%;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin-left: 25%;
+        margin-top: 20%;
+        min-height: 100px;
+        margin-bottom: 2%;
+    }
+
+#error_msgs_list{
+        font-family: Georgia;
+        font-size: medium;
+    }
+#error-msgs{
+        width: 40%;
+        border-radius: 10px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        margin-left: 25%;
+        margin-top: 20%;
+        min-height: 540px;
+        margin-bottom: 30%;
     }
 
 .custom-file-input {
@@ -120,11 +149,26 @@ body {
     }
 
     label {
-        font-size : 20px;
+        font-size : 17px;
     }
 
     button {
         background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        -webkit-transition-duration: 0.4s; /* Safari */
+        transition-duration: 0.4s;
+    }
+
+    a{
+     background-color: #4CAF50; /* Green */
         border: none;
         color: white;
         padding: 15px 32px;
@@ -155,33 +199,6 @@ body {
 
     input[type=submit]:hover {
         background-color: #45a049;
-    }
-
-    #csv{
-        float: left;
-        width: 40%;
-        border-radius: 10px;
-        background-color: #f2f2f2;
-        padding: 20px;
-        margin-left: 10%;
-        margin-top: 2%;
-        min-height: 100px;
-        margin-bottom: 2%;
-    }
-
-    #error_msgs_list{
-        font-family: Georgia;
-        font-size: medium;
-    }
-     #error-msgs{
-        float: left;
-        width: 40%;
-        border-radius: 10px;
-        background-color: #f2f2f2;
-        padding: 20px;
-        margin-left: 10%;
-        min-height: 540px;
-        margin-bottom: 2%;
     }
 </style>
 

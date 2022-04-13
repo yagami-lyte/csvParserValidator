@@ -14,6 +14,7 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
     private val lengthValidation = LengthValidation()
     private val valueValidation = ValueValidation()
     private val typeValidation = TypeValidation()
+    private val duplicateValidation = DuplicateValidation()
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
@@ -40,7 +41,7 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
         val lengthValidation = lengthValidation.validateLength(jsonBody, fieldArray)
         val typeValidation = typeValidation.typeCheck(jsonBody, fieldArray)
         val valueValidation = valueValidation.validationCheck(jsonBody, fieldArray)
-        val duplicates = DuplicateValidation().checkDuplicates(jsonBody)
+        val duplicates = duplicateValidation.checkDuplicates(jsonBody)
         val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
         val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks)
         val contentLength = responseBody.length
@@ -107,6 +108,5 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
         }
         return 0
     }
-
-
+    
 }

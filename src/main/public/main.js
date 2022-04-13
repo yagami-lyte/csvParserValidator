@@ -1,4 +1,5 @@
 var payload=[]
+var result = []
 
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
@@ -6,8 +7,8 @@ function csvReader() {
     reader.onload = async function (event) {
         csv = event.target.result
         var lines = csv.toString().split("\n");
+        document.getElementById("fields").innerHTML = lines[0];
         console.log(lines)
-        var result = [];
         console.log(lines[0])
         var headers = lines[0].split(",");
         for (var i = 1; i < lines.length-1; i++) {
@@ -18,18 +19,6 @@ function csvReader() {
             }
             result.push(obj);
         }
-
-        const response = await fetch('csv', {
-            method: 'POST',
-            body: JSON.stringify(result)
-        })
-
-        if (response.status === 200) {
-            var jsonData =  await response.json();
-            console.log(jsonData)
-            traverse(jsonData,showError)
-        }
-
     };
     reader.readAsText(csv);
 }
@@ -52,6 +41,19 @@ function traverse(object,func) {
         }
     }
 }
+
+async function displayErrors(){
+ const response = await fetch('csv', {
+            method: 'POST',
+            body: JSON.stringify(result)
+        })
+
+        if (response.status === 200) {
+            var jsonData =  await response.json();
+            console.log(jsonData)
+            traverse(jsonData,showError)
+        }
+ }
 
 function addDataToJson() {
     let jsonObj = {}

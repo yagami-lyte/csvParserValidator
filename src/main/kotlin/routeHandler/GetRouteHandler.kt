@@ -8,8 +8,7 @@ class GetRouteHandler {
     private val responseHeader = ResponseHeader()
 
     fun handleGetRequest(request: String): String {
-        val route = getPath(request)
-        return when (route) {
+        return when (getPath(request)) {
             "/" -> getResponse("/index.html")
             "/main.js" -> getResponse("/main.js")
             else -> getResponse("/404.html")
