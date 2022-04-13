@@ -1,5 +1,7 @@
 package validation
 
+import JsonMetaDataTemplate
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -12,9 +14,9 @@ class TypeValidationTest {
     @Test
     fun shouldPerformTypeValidationCheck() {
 
-        val metaData = """[{"fieldName": "Product Id","type": "AlphaNumeric","length": 5},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
+        val metaData = """[{"fieldName": "Product Id","type": "AlphaNumeric","length": 4},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Product Id": "1564","Price": "4500.59","Export": "N"},{"Product Id": "1565","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
@@ -30,7 +32,7 @@ class TypeValidationTest {
     fun shouldReturnJsonArrayWithMultipleErrors() {
         val metaData = """[{"fieldName": "Product Id","type": "AlphaNumeric","length": 5},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Product Id": "1564","Price": "4500.59a","Export": "N"},{"Product Id": "1565","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
@@ -45,7 +47,7 @@ class TypeValidationTest {
     fun shouldReturnJsonArrayWithNoErrors() {
         val metaData = """[{"fieldName": "Product Id","type": "AlphaNumeric","length": 5},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Product Id": "1564","Price": "4500.59","Export": "N"},{"Product Id": "1565","Price": "1000","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
@@ -85,6 +87,9 @@ class TypeValidationTest {
 
         assertTrue(actual)
     }
+}
 
-
+private fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
+    val gson = Gson()
+    return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
 }

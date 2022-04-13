@@ -1,5 +1,7 @@
 package validation
 
+import JsonMetaDataTemplate
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -14,7 +16,7 @@ internal class LengthValidationTest {
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
@@ -30,7 +32,7 @@ internal class LengthValidationTest {
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"2","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData =
             """[{"Export":"Y","Country Name":""},{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
@@ -48,7 +50,7 @@ internal class LengthValidationTest {
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"3","dependentOn":"Export","dependentValue":"N","values":["IND","USA","AUS"]}]"""
         val postRouteHandler = PostRouteHandler()
-        val jsonData = postRouteHandler.getMetaData(metaData)
+        val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData =
             """[{"Export":"Y","Country Name":"AUS"},{"Export":"Y","Country Name":"IND"},{"Export":"N","Country Name":"USA"}]"""
@@ -59,6 +61,9 @@ internal class LengthValidationTest {
 
         assertEquals(expected.toString(), actual.toString())
     }
+}
 
-
+private fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
+    val gson = Gson()
+    return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
 }

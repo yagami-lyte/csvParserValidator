@@ -74,14 +74,14 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
         val body = getBody(bodySize, inputStream)
-        return addCsvMetaData(body)
+        return getResponseForMetaData(body)
     }
 
-    private fun addCsvMetaData(body: String): String {
+    private fun getResponseForMetaData(body: String): String {
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
         val endOfHeader = "\r\n\r\n"
-        val responseBody = "Successfully Added"
+        val responseBody = "Successfully Added Configuration File"
         val contentLength = responseBody.length
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/plain; charset=utf-8
     |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody

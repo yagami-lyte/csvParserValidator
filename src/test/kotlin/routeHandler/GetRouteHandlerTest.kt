@@ -11,8 +11,8 @@ class GetRouteHandlerTest {
         val request = """GET / HTTP/1.1 
                 |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
         val expected = "4784"
-
         val response = getRouteHandler.handleGetRequest(request)
+
         val actual = "Content-Length: (.*)".toRegex().find(response)?.groupValues?.get(1)
 
         assertEquals(expected, actual)
@@ -24,9 +24,9 @@ class GetRouteHandlerTest {
         val request = """GET /123 HTTP/1.1 
                 |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
         val expected = "164"
-
         val response = getRouteHandler.handleGetRequest(request)
         println(response)
+
         val actual = "Content-Length: (.*)".toRegex().find(response)?.groupValues?.get(1)
 
         assertEquals(expected, actual)
