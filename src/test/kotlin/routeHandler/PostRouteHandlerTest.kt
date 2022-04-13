@@ -16,14 +16,16 @@ internal class PostRouteHandlerTest {
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
-        val expectedErrorResponse = """{"Duplicates" : [],"Length" : [{"1":"Incorrect length of Country Name. Please change its length to 4"},{"2":"Incorrect length of Country Name. Please change its length to 4"}],"Type" : [],"Value" : [{"1":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"},{"2":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"}],"Dependency" : []}"""
+        val expectedErrorResponse =
+            """{"Duplicates" : [],"Length" : [{"1":"Incorrect length of Country Name. Please change its length to 4"},{"2":"Incorrect length of Country Name. Please change its length to 4"}],"Type" : [],"Value" : [{"1":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"},{"2":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"}],"Dependency" : []}"""
         val response = postRouteHandler.getResponseForCSV(csvData)
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]
         println(actualErrorResponse)
 
-        assertEquals(expectedErrorResponse,actualErrorResponse)
+        assertEquals(expectedErrorResponse, actualErrorResponse)
     }
+
 }
 
 private fun getMetaData(data: String): Array<JsonMetaDataTemplate> {

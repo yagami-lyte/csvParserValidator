@@ -10,21 +10,37 @@ import java.io.InputStreamReader
 
 class ServerTest {
 
-    private val server = Server(3002)
 
     @Test
     fun shouldBeAbleToGetResponseForGetRequest() {
+        val server = Server(3002)
         val request = """GET / HTTP/1.1 
                 |Host: localhost:3002""".trimMargin() + "\r\n\r\n"
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val mockSocket = createMockSocket(csvData)
         val inputStream = BufferedReader(InputStreamReader(mockSocket.getInputStream()))
         val expectedResponseCode = "200"
-        val response = server.handleRequest(request , inputStream)
+        val response = server.handleRequest(request, inputStream)
 
         val actualResponseCode = extractResponseCode(response)
 
-        assertEquals(actualResponseCode , expectedResponseCode)
+        assertEquals(expectedResponseCode, actualResponseCode)
+    }
+
+    @Test
+    fun shouldBeAbleToReturnPageNotFoundResponse() {
+        val server = Server(3003)
+        val request = """GET /113 HTTP/1.1 
+                |Host: localhost:3003""".trimMargin() + "\r\n\r\n"
+        val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
+        val mockSocket = createMockSocket(csvData)
+        val inputStream = BufferedReader(InputStreamReader(mockSocket.getInputStream()))
+        val expectedResponseCode = "404"
+        val response = server.handleRequest(request, inputStream)
+
+        val actualResponseCode = extractResponseCode(response)
+
+        assertEquals(expectedResponseCode, actualResponseCode)
     }
 
 
