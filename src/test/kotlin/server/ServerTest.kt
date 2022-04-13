@@ -15,7 +15,7 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToGetResponseForGetRequest() {
-        val server = Server(3002)
+        val server = Server(3004)
         val request = """GET / HTTP/1.1 
                 |Host: localhost:3002""".trimMargin() + "\r\n\r\n"
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
@@ -31,7 +31,7 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToReturnPageNotFoundResponse() {
-        val server = Server(3003)
+        val server = Server(3005)
         val request = """GET /113 HTTP/1.1 
                 |Host: localhost:3003""".trimMargin() + "\r\n\r\n"
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""

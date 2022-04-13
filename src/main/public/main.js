@@ -21,6 +21,7 @@ function csvReader() {
         }
     };
     reader.readAsText(csv);
+    alert("CSV uploaded successfully!")
 }
 
 function showError(key,value) {
