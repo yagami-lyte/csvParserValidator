@@ -6,27 +6,17 @@ import org.json.JSONObject
 
 class ValueValidation {
 
-    fun validationCheck(dataInJSONArray: JSONArray , fieldArray:Array<JsonMetaDataTemplate>): JSONArray {
+    fun validationCheck(dataInJSONArray: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): JSONArray {
         val valueErrors = JSONArray()
-        val valueValidation = ValueValidation()
-
         dataInJSONArray.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
             val keys = ele.keySet()
             for (key in keys) {
                 val field = fieldArray.first { it.fieldName == key }
-                var flag = true
                 val value = ele.get(key) as String
-                if (field.values != null && value.isNotEmpty()) {
-                    if (!valueValidation.valueCheck(field.values, value)) {
-                        flag = false
-                    }
-                }
+                var flag = checkIfValueIsIncorrect(field, value)
                 if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(),
-                        "Incorrect Value of ${field.fieldName}. Please select value from ${field.values}"
-                    )
+                    val jsonObject = errorMessage(index, field)
                     valueErrors.put(jsonObject)
                 }
             }
@@ -39,5 +29,19 @@ class ValueValidation {
             return allowedValues.contains(value)
         }
         return false
+    }
+
+    private fun checkIfValueIsIncorrect(field: JsonMetaDataTemplate, value: String): Boolean {
+        if (field.values != null && value.isNotEmpty()) {
+            return (valueCheck(field.values, value))
+        }
+        return true
+    }
+
+    private fun errorMessage(index: Int, field: JsonMetaDataTemplate): JSONObject {
+        return JSONObject().put(
+            (index + 1).toString(),
+            "Incorrect Value of ${field.fieldName}. Please select value from ${field.values}"
+        )
     }
 }
