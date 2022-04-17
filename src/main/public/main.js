@@ -11,6 +11,15 @@ function createDropDownForDependant(lines){
     }
 }
 
+function createDropDownForFields(lines){
+    for (var i = 1, j = 0; i <= lines.length; i++,j++){
+            var selectField = document.getElementById("field");
+                opt = document.createElement("option");
+            opt.value = lines[j];
+            opt.textContent = lines[j];
+            selectField.appendChild(opt);
+    }
+}
 
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
