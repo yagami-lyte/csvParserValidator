@@ -15,7 +15,7 @@ class LengthValidation {
                 val field = fieldArray.first { it.fieldName == key }
                 val value = fieldElement.get(key) as String
                 var flag = checkIfLengthIsIncorrect(field, value)
-                if (!flag) {
+                if (!flag && field.length != 0) {
                     val jsonObject = errorMessage(index, field)
                     lengthErrors.put(jsonObject)
                 }
