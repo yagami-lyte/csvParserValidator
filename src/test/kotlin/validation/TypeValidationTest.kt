@@ -23,7 +23,7 @@ class TypeValidationTest {
         val expectedError = """[{"2":"Incorrect Type of Price. Please change to Number"}]"""
         val expectedErrorList = JSONArray(expectedError)
 
-        val actualErrorList = typeValidation.typeCheck(jsonCsvData ,postRouteHandler.fieldArray)
+        val actualErrorList = typeValidation.validate(jsonCsvData ,postRouteHandler.fieldArray)
 
         Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
     }
@@ -38,7 +38,7 @@ class TypeValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[{\"1\":\"Incorrect Type of Price. Please change to Number\"},{\"2\":\"Incorrect Type of Price. Please change to Number\"}]")
 
-        val actual = typeValidation.typeCheck(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         Assertions.assertEquals(expected.toString(), actual.toString())
     }
@@ -53,7 +53,7 @@ class TypeValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[]")
 
-        val actual = typeValidation.typeCheck(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         Assertions.assertEquals(expected.toString(), actual.toString())
     }

@@ -21,7 +21,7 @@ internal class ValueValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[{\"1\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS]\"}]")
 
-        val actual = valueValidation.validationCheck(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -36,7 +36,7 @@ internal class ValueValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[{\"1\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS]\"},{\"2\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS]\"}]")
 
-        val actual = valueValidation.validationCheck(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -51,7 +51,7 @@ internal class ValueValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[]")
 
-        val actual = valueValidation.validationCheck(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }

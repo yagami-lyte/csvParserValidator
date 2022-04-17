@@ -4,9 +4,9 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class TypeValidation {
+class TypeValidation : Validation {
 
-    fun typeCheck(dataInJSONArray: JSONArray , fieldArray:Array<ConfigurationTemplate>): JSONArray {
+    override fun validate(dataInJSONArray: JSONArray , fieldArray:Array<ConfigurationTemplate>): JSONArray {
         val typeErrors = JSONArray()
         val typeValidation = TypeValidation()
 

@@ -22,7 +22,7 @@ internal class LengthValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[{\"1\":\"Incorrect length of Country Name. Please change its length to 3\"}]")
 
-        val actual = lengthValidation.validateLength(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -40,7 +40,7 @@ internal class LengthValidationTest {
         val expected =
             JSONArray("[{\"1\":\"Incorrect length of Export. Please change its length to 2\"},{\"2\":\"Incorrect length of Export. Please change its length to 2\"},{\"3\":\"Incorrect length of Export. Please change its length to 2\"}]")
 
-        val actual = lengthValidation.validateLength(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -57,7 +57,7 @@ internal class LengthValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val expected = JSONArray("[]")
 
-        val actual = lengthValidation.validateLength(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }

@@ -4,9 +4,9 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DependencyValidation {
+class DependencyValidation :Validation {
 
-    fun checkDependency(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): Any {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val dependencyErrors = JSONArray()
 
         jsonArrayData.forEachIndexed { index, element ->

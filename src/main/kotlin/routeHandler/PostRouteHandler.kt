@@ -37,11 +37,11 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
 
     fun getResponseForCSV(body: String): String {
         val jsonBody = JSONArray(body)
-        val lengthValidation = lengthValidation.validateLength(jsonBody, fieldArray)
-        val typeValidation = typeValidation.typeCheck(jsonBody, fieldArray)
-        val valueValidation = valueValidation.validationCheck(jsonBody, fieldArray)
+        val lengthValidation = lengthValidation.validate(jsonBody, fieldArray)
+        val typeValidation = typeValidation.validate(jsonBody, fieldArray)
+        val valueValidation = valueValidation.validate(jsonBody, fieldArray)
         val duplicates = duplicateValidation.checkDuplicates(jsonBody)
-        val dependencyChecks = dependencyValidation.checkDependency(jsonBody, fieldArray)
+        val dependencyChecks = dependencyValidation.validate(jsonBody, fieldArray)
         val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"

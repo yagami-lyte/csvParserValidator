@@ -23,7 +23,7 @@ internal class DependencyValidationTest {
         val expected =
             JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]")
 
-        val actual = dependencyValidation.checkDependency(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -42,7 +42,7 @@ internal class DependencyValidationTest {
         val expected =
             JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"},{\"2\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]]")
 
-        val actual = dependencyValidation.checkDependency(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }
@@ -60,7 +60,7 @@ internal class DependencyValidationTest {
         val dependencyValidation = DependencyValidation()
         val expected = JSONArray("[]")
 
-        val actual = dependencyValidation.checkDependency(jsonCsvData, postRouteHandler.fieldArray)
+        val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
     }

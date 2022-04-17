@@ -4,9 +4,9 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class LengthValidation {
+class LengthValidation : Validation {
 
-    fun validateLength(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val lengthErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             val fieldElement = (element as JSONObject)
@@ -16,7 +16,7 @@ class LengthValidation {
                 val value = fieldElement.get(key) as String
 
                 var flag = true
-                if(field.length != "") {
+                if (field.length != "") {
                     val fieldLength = Integer.parseInt(field.length)
                     flag = checkIfLengthIsIncorrect(fieldLength, value)
                 }

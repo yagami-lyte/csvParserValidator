@@ -4,9 +4,9 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class ValueValidation {
+class ValueValidation : Validation {
 
-    fun validationCheck(dataInJSONArray: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    override fun validate(dataInJSONArray: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val valueErrors = JSONArray()
         dataInJSONArray.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
