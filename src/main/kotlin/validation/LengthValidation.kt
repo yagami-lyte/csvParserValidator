@@ -1,12 +1,12 @@
 package validation
 
-import jsonTemplate.JsonMetaDataTemplate
+import jsonTemplate.configurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
 class LengthValidation {
 
-    fun validateLength(jsonArrayData: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): JSONArray {
+    fun validateLength(jsonArrayData: JSONArray, fieldArray: Array<configurationTemplate>): JSONArray {
         val lengthErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             val fieldElement = (element as JSONObject)
@@ -28,14 +28,14 @@ class LengthValidation {
         return length == data.length
     }
 
-    private fun checkIfLengthIsIncorrect(field: JsonMetaDataTemplate, value: String): Boolean {
+    private fun checkIfLengthIsIncorrect(field: configurationTemplate, value: String): Boolean {
         if (field.length != null && value != "") {
             return (lengthCheck(value, field.length))
         }
         return true
     }
 
-    private fun errorMessage(index: Int, field: JsonMetaDataTemplate): JSONObject {
+    private fun errorMessage(index: Int, field: configurationTemplate): JSONObject {
         return JSONObject().put(
             (index + 1).toString(),
             "Incorrect length of ${field.fieldName}. Please change its length to ${field.length}"

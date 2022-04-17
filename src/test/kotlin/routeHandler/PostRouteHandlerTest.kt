@@ -3,7 +3,7 @@ package routeHandler
 import com.google.gson.Gson
 import io.mockk.every
 import io.mockk.mockk
-import jsonTemplate.JsonMetaDataTemplate
+import jsonTemplate.configurationTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.*
@@ -67,9 +67,9 @@ internal class PostRouteHandlerTest {
     }
 }
 
-private fun getMetaData(data: String): Array<JsonMetaDataTemplate> {
+private fun getMetaData(data: String): Array<configurationTemplate> {
     val gson = Gson()
-    return gson.fromJson(data, Array<JsonMetaDataTemplate>::class.java)
+    return gson.fromJson(data, Array<configurationTemplate>::class.java)
 }
 
 

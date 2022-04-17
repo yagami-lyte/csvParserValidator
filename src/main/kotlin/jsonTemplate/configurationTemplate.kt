@@ -1,6 +1,6 @@
 package jsonTemplate
 
-class JsonMetaDataTemplate(
+class configurationTemplate(
     val fieldName: String?,
     val type: String?,
     val length: Int?,

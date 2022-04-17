@@ -1,12 +1,12 @@
 package routeHandler
 
 import com.google.gson.Gson
-import jsonTemplate.JsonMetaDataTemplate
+import jsonTemplate.configurationTemplate
 import org.json.JSONArray
 import validation.*
 import java.io.BufferedReader
 
-class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) {
+class PostRouteHandler(var fieldArray: Array<configurationTemplate> = arrayOf()) {
 
 
     private val dependencyValidation = DependencyValidation()
@@ -93,9 +93,9 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
         return String(buffer)
     }
 
-    fun getMetaData(body: String): Array<JsonMetaDataTemplate> {
+    fun getMetaData(body: String): Array<configurationTemplate> {
         val gson = Gson()
-        return gson.fromJson(body, Array<JsonMetaDataTemplate>::class.java)
+        return gson.fromJson(body, Array<configurationTemplate>::class.java)
     }
 
     private fun getContentLength(request: String): Int {

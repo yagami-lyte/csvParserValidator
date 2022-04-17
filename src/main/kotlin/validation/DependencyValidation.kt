@@ -1,12 +1,12 @@
 package validation
 
-import jsonTemplate.JsonMetaDataTemplate
+import jsonTemplate.configurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
 class DependencyValidation {
 
-    fun checkDependency(jsonArrayData: JSONArray, fieldArray: Array<JsonMetaDataTemplate>): Any {
+    fun checkDependency(jsonArrayData: JSONArray, fieldArray: Array<configurationTemplate>): Any {
         val dependencyErrors = JSONArray()
 
         jsonArrayData.forEachIndexed { index, element ->

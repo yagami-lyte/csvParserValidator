@@ -1,12 +1,12 @@
 package validation
 
-import jsonTemplate.JsonMetaDataTemplate
+import jsonTemplate.configurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
 class TypeValidation {
 
-    fun typeCheck(dataInJSONArray: JSONArray , fieldArray:Array<JsonMetaDataTemplate>): JSONArray {
+    fun typeCheck(dataInJSONArray: JSONArray , fieldArray:Array<configurationTemplate>): JSONArray {
         val typeErrors = JSONArray()
         val typeValidation = TypeValidation()
 
