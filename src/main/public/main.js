@@ -21,6 +21,11 @@ function createDropDownForFields(lines){
     }
 }
 
+function remove() {
+            var addedField = document.getElementById("field");
+            addedField.remove(addedField.selectedIndex);
+         }
+
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
@@ -79,6 +84,7 @@ async function displayErrors(){
         }
  }
 
+
 function addDataToJson() {
     let jsonObj = {}
     var field = document.getElementById("field")
@@ -102,6 +108,7 @@ function addDataToJson() {
     jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
     console.log(payload)
+    remove()
     resetForm()
     alert("Field configuration added successfully!")
 }
