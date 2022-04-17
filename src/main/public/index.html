@@ -15,58 +15,58 @@
     <h1>CSV PARSER</h1>
     <div id="upload">
         <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
-    <br>
         <br>
-    <a href="#config" class="btn-get-started scrollto"
-        onclick="csvReader()" data-cy="upload">Upload</a>
+        <br>
+        <a href="#config" class="btn-get-started scrollto"
+           onclick="csvReader()" data-cy="upload">Upload</a>
     </div>
 </div>
 
 <div id="config">
     <div class="container">
         <h1><b>SET CONFIGURATION</b></h1>
-    <form id="myform">
+        <form id="myform">
 
-        <label for="field">Field</label>
-        <select  name="dependentField" style="display: block;" id="field"  >
-            <option >Choose field</option>
-        </select>
+            <label for="field">Field</label>
+            <select  name="dependentField" style="display: block;" id="field"  >
+                <option >Choose field</option>
+            </select>
 
-        <label for="type">Type</label>
-        <select data-cy="type" id="type" onchange='CheckColors(this.value);'><br> </br> <br>
-            <option value="selected disabled hidden">Choose here</option>
-            <option value="Number">Number</option>
-            <option value="AlphaNumeric">AlphaNumeric</option>
-            <option value="Alphabets">Alphabets</option>
-            <option value="Date Time">Date Time</option>
-        </select> <br> </br> <br>
+            <label for="type">Type</label>
+            <select data-cy="type" id="type" onchange='checkDateFormat(this.value);'><br> </br> <br>
+                <option value="selected disabled hidden">Choose here</option>
+                <option value="Number">Number</option>
+                <option value="AlphaNumeric">AlphaNumeric</option>
+                <option value="Alphabets">Alphabets</option>
+                <option value="Date Time">Date Time</option>
+            </select> <br>
 
-        <select name="color" id='color' style='display:none;'>
-            <option>pick a color</option>
-            <option value="red">RED</option>
-            <option value="blue">BLUE</option>
-            <option value="others">others</option>
-        </select>
+            <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
+            <select name="datetime" id='datetime' style='display:none;'>
+                <option>choose date time format</option>
+                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+            </select><br>
 
-        <label for="text_file_id">Values</label>
-        <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"
-               accept=".txt"><br> </br> <br>
+            <label for="text_file_id">Values</label>
+            <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"
+                   accept=".txt"><br> </br> <br>
 
-        <label for="fixed-len">Length</label>
-        <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
+            <label for="fixed-len">Length</label>
+            <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
 
-        <label for="dependent">Dependent On</label>
-        <select  name="dependentField" style="display: block;" id="dependent"  >
-            <option >Choose dependant-field</option>
-        </select>
+            <label for="dependent">Dependent On</label>
+            <select  name="dependentField" style="display: block;" id="dependent"  >
+                <option >Choose dependant-field</option>
+            </select>
 
-        <label for="dep-val">Dependent Value</label>
-        <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
+            <label for="dep-val">Dependent Value</label>
+            <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
 
-    </form>
+        </form>
 
-    <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">Add</button>
-    <button type="submit" onclick="sendConfigData()" data-cy="submit">Submit</button>
+        <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">Add</button>
+        <button type="submit" onclick="sendConfigData()" data-cy="submit">Submit</button>
         <a href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
     </div>
 </div>
@@ -82,29 +82,29 @@
 
 
 <style>
-body {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 15s ease infinite;
-	height: 100vh;
-}
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
- h1 {
-            color: purple;
-            text-align: center;
+    body {
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        animation: gradient 15s ease infinite;
+        height: 100vh;
+    }
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
         }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+    h1 {
+        color: purple;
+        text-align: center;
+    }
 
-#config{
+    #config{
         border-radius: 10px;
         background-color: #f2f2f2;
         padding: 20px;
@@ -115,10 +115,10 @@ body {
         margin-bottom: 2%;
     }
 
-#upload{
+    #upload{
         margin-left: 25%;
-}
- #csv{
+    }
+    #csv{
         width: 40%;
         border-radius: 10px;
         background-color: #f2f2f2;
@@ -129,12 +129,12 @@ body {
         margin-bottom: 2%;
     }
 
-#error_msgs_list{
+    #error_msgs_list{
         font-family: Georgia;
         font-size: medium;
     }
 
-#error-msgs{
+    #error-msgs{
         width: 50%;
         border-radius: 10px;
         background-color: #f2f2f2;
@@ -144,7 +144,7 @@ body {
         min-height: 600px;
     }
 
-.custom-file-input {
+    .custom-file-input {
         background: linear-gradient(top, #f9f9f9, #e3e3e3);
         border: 1px solid #999;
         border-radius: 3px;
@@ -155,7 +155,7 @@ body {
         width: 63%;
     }
 
-input[type=text], select {
+    input[type=text], select {
         width: 100%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -165,11 +165,11 @@ input[type=text], select {
         box-sizing: border-box;
     }
 
- label {
+    label {
         font-size : 17px;
     }
 
-button {
+    button {
         background-color: #4CAF50; /* Green */
         border: none;
         color: white;
@@ -184,8 +184,8 @@ button {
         transition-duration: 0.4s;
     }
 
-a{
-     background-color: #4CAF50; /* Green */
+    a{
+        background-color: #4CAF50; /* Green */
         border: none;
         color: white;
         padding: 15px 32px;
@@ -198,7 +198,7 @@ a{
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         margin-left:20%;
-         }
+    }
 
     button:hover {
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);

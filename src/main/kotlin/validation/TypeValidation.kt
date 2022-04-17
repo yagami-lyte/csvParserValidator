@@ -12,32 +12,9 @@ class TypeValidation : Validation {
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {
-<<<<<<< Updated upstream
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 var isLengthValid = validateTypeInEachRow(field, value, typeValidation)
                 getErrorMessages(isLengthValid, index, field, typeErrors)
-=======
-                val field = fieldArray.first { it.fieldName == key }
-                var flag = true
-                val value = ele.get(key) as String
-                if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
-                    flag = false
-                } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
-                    flag = false
-                } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
-                    flag = false
-                }
-                else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.isDateTime(field.dateTimeFormat ,value)) {
-                    flag = false
-                }
-
-                if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
-                    )
-                    typeErrors.put(jsonObject)
-                }
->>>>>>> Stashed changes
             }
         }
         return typeErrors
@@ -54,6 +31,12 @@ class TypeValidation : Validation {
         } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
             isLengthValid = false
         } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
+            isLengthValid = false
+        } else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.isProperDateTimeFormat(
+                field.datetime,
+                value
+            )
+        ) {
             isLengthValid = false
         }
         return isLengthValid
@@ -82,8 +65,13 @@ class TypeValidation : Validation {
         typeErrors: JSONArray
     ) {
         if (!isLengthValid) {
+            var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type}";
+            if(field.type == "Date Time"){
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime}";
+            }
+
             val jsonObject = JSONObject().put(
-                (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
+                (index + 1).toString(), errorMsg
             )
             typeErrors.put(jsonObject)
         }
@@ -97,12 +85,20 @@ class TypeValidation : Validation {
         return value.all { it.isLetter() }
     }
 
-    fun isDateTime(dateTimeFormat: String? , value: String): Boolean {
-        println("date Tikmec:")
-        return true;
-    }
-
     fun isAlphaNumeric(value: String): Boolean {
         return value.all { it.isLetterOrDigit() }
+    }
+
+    fun isProperDateTimeFormat(dateTimeFormat: String?, value: String): Boolean {
+        val dateFormat = giveDateFormat(dateTimeFormat)?.toRegex();
+        return value.matches(dateFormat!!);
+    }
+
+    fun giveDateFormat(format: String?): String? {
+        val dateFormats = mapOf(
+            "MM/DD/YYYY" to "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$",
+            "DD/MM/YYYY" to "^(0[0-9]||1[0-2])/([0-2][0-9]||3[0-1])/([0-9][0-9])?[0-9][0-9]$",
+        )
+        return dateFormats[format];
     }
 }

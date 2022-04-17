@@ -4,7 +4,7 @@ var result = []
 function createDropDownForDependant(lines){
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
         var select = document.getElementById("dependent");
-            opt = document.createElement("option");
+        opt = document.createElement("option");
         opt.value = lines[j];
         opt.textContent = lines[j];
         select.appendChild(opt);
@@ -13,18 +13,18 @@ function createDropDownForDependant(lines){
 
 function createDropDownForFields(lines){
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
-            var selectField = document.getElementById("field");
-                opt = document.createElement("option");
-            opt.value = lines[j];
-            opt.textContent = lines[j];
-            selectField.appendChild(opt);
+        var selectField = document.getElementById("field");
+        opt = document.createElement("option");
+        opt.value = lines[j];
+        opt.textContent = lines[j];
+        selectField.appendChild(opt);
     }
 }
 
 function remove() {
-            var addedField = document.getElementById("field");
-            addedField.remove(addedField.selectedIndex);
-         }
+    var addedField = document.getElementById("field");
+    addedField.remove(addedField.selectedIndex);
+}
 
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
@@ -55,10 +55,10 @@ function csvReader() {
 function showError(key,value) {
     console.log(key + " : "+ typeof value);
     if(value != "" &&  (typeof value == 'string') ){
-    const node = document.createElement("li");
-    const textNode = document.createTextNode(`Line No ${key} has error : ${value}`);
-    node.appendChild(textNode);
-    document.getElementById("error_msgs_list").appendChild(node)
+        const node = document.createElement("li");
+        const textNode = document.createTextNode(`Line No ${key} has error : ${value}`);
+        node.appendChild(textNode);
+        document.getElementById("error_msgs_list").appendChild(node)
     }
 }
 
@@ -72,17 +72,17 @@ function traverse(object,func) {
 }
 
 async function displayErrors(){
- const response = await fetch('csv', {
-            method: 'POST',
-            body: JSON.stringify(result)
-        })
+    const response = await fetch('csv', {
+        method: 'POST',
+        body: JSON.stringify(result)
+    })
 
-        if (response.status === 200) {
-            var jsonData =  await response.json();
-            console.log(jsonData)
-            traverse(jsonData,showError)
-        }
- }
+    if (response.status === 200) {
+        var jsonData =  await response.json();
+        console.log(jsonData)
+        traverse(jsonData,showError)
+    }
+}
 
 
 function addDataToJson() {
@@ -93,21 +93,21 @@ function addDataToJson() {
     var fixed_len = document.getElementById("fixed-len")
     var dependentOn = document.getElementById("dependent")
     var dependentValue = document.getElementById("dep-val")
-    var dateTimeFormat = document.getElementById("color")
+    var dateTimeFormat = document.getElementById("datetime")
     jsonObj["fieldName"] = field.value
     jsonObj["type"] = type.value
     let reader = new FileReader();
     if (value != null){
-     reader.addEventListener('load', function(e) {
+        reader.addEventListener('load', function(e) {
             let text = e.target.result
             jsonObj["values"] = text.split('\n')
         });
         reader.readAsText(value)
     }
     jsonObj["length"] = fixed_len.value
-    jsonObj["color"] = dateTimeFormat.value
+    jsonObj["datetime"] = dateTimeFormat.value
     if(type.value != "Date Time"){
-        jsonObj["color"] = ""
+        jsonObj["datetime"] = ""
     }
     jsonObj["dependentOn"] = dependentOn.value
     jsonObj["dependentValue"] = dependentValue.value
@@ -119,26 +119,31 @@ function addDataToJson() {
 }
 
 function resetForm(){
-     document.getElementById("myform").reset()
+    document.getElementById("myform").reset()
 }
 
 async function sendConfigData(){
-   alert("Successfully added configuration details for csv!")
+    alert("Successfully added configuration details for csv!")
     var resp = await fetch('add-meta-data', {
         method: 'POST',
         body: JSON.stringify(payload)
     })
 
     if (resp.status === 200) {
-            var jsonData = await resp.json();
-            console.log(jsonData)
+        var jsonData = await resp.json();
+        console.log(jsonData)
     }
 }
 
-function CheckColors(val){
- var element=document.getElementById('color');
- if(val=='Date Time')
-   element.style.display='block';
- else
-   element.style.display='none';
+function checkDateFormat(val){
+    var element=document.getElementById('datetime');
+    var elementForFormats = document.getElementById('formats');
+    if(val=='Date Time'){
+        element.style.display='block';
+        elementForFormats.style.display='block';
+    }
+    else{
+        element.style.display='none';
+        elementForFormats.style.display='none';
+    }
 }

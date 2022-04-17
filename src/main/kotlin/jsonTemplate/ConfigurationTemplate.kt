@@ -4,9 +4,8 @@ class ConfigurationTemplate(
     val fieldName: String?,
     val type: String?,
     val length: String?,
-    val dateTimeFormat: String?,
+    val datetime: String?,
     val values: List<String>?,
     val dependentOn: String,
     val dependentValue: String
 )
-
