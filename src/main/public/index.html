@@ -17,8 +17,8 @@
         <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
     <br>
         <br>
-    <button id="csv-submit-button" onclick="csvReader()" data-cy="upload">Upload</button>
-    <a href="#config" class="btn-get-started scrollto ">Set Configuration</a>
+    <a href="#config" class="btn-get-started scrollto"
+        onclick="csvReader()" data-cy="upload">Upload</a>
     </div>
 </div>
 
@@ -180,7 +180,7 @@ button {
         transition-duration: 0.4s;
     }
 
-    a{
+a{
      background-color: #4CAF50; /* Green */
         border: none;
         color: white;
@@ -193,6 +193,7 @@ button {
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
+        margin-left:20%;
          }
 
     button:hover {
