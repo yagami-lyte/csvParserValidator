@@ -6,11 +6,11 @@ import org.json.JSONObject
 
 class TypeValidation : Validation {
 
-    override fun validate(dataInJSONArray: JSONArray , fieldArray:Array<ConfigurationTemplate>): JSONArray {
+    override fun validate(jsonArrayData: JSONArray, fieldArray:Array<ConfigurationTemplate>): JSONArray {
         val typeErrors = JSONArray()
         val typeValidation = TypeValidation()
 
-        dataInJSONArray.forEachIndexed { index, element ->
+        jsonArrayData.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
             val keys = ele.keySet()
             for (key in keys) {
