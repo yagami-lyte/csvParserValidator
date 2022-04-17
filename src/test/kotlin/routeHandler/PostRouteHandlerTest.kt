@@ -11,23 +11,30 @@ import java.net.Socket
 
 internal class PostRouteHandlerTest {
 
+    private val postRouteHandler = PostRouteHandler()
+
     @Test
     fun shouldBeAbleToGetResponseForCsvPOSTRequest() {
 
+        val request = """POST /csv HTTP/1.1 
+                |Host: localhost:3002
+                |Connection: keep-alive
+                |Content-Length: 75""".trimMargin() + "\r\n\r\n"
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
-        val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
-        val expectedErrorResponse =
-            """{"Duplicates" : [],"Length" : [{"1":"Incorrect length of Country Name. Please change its length to 4"},{"2":"Incorrect length of Country Name. Please change its length to 4"}],"Type" : [],"Value" : [{"1":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"},{"2":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"}],"Dependency" : []}"""
-        val response = postRouteHandler.getResponseForCSV(csvData)
+        println(csvData.length)
+        val mockSocket = createMockSocket(csvData)
+        val inputStream = getInputStream(mockSocket)
+        val response = postRouteHandler.handlePostRequest(request , inputStream)
+        val expectedResponse = """{"Duplicates" : [],"Length" : [{"1":"Incorrect length of Country Name. Please change its length to 4"},{"2":"Incorrect length of Country Name. Please change its length to 4"}],"Type" : [],"Value" : [{"1":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"},{"2":"Incorrect Value of Country Name. Please select value from [Export,Country Name, Y,, N,USA, ]"}],"Dependency" : []}"""
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]
         println(actualErrorResponse)
 
-        assertEquals(expectedErrorResponse, actualErrorResponse)
+        assertEquals(expectedResponse, actualErrorResponse)
     }
 
     @Test
@@ -38,9 +45,6 @@ internal class PostRouteHandlerTest {
                 |Content-Length: 266""".trimMargin() + "\r\n\r\n"
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
-        val postRouteHandler = PostRouteHandler()
-        val jsonData = getMetaData(metaData)
-        postRouteHandler.fieldArray = jsonData
         val mockSocket = createMockSocket(metaData)
         val inputStream = getInputStream(mockSocket)
         val response = postRouteHandler.handlePostRequest(request , inputStream)
@@ -55,10 +59,10 @@ internal class PostRouteHandlerTest {
         return BufferedReader(InputStreamReader(mockSocket.getInputStream()))
     }
 
-    private fun createMockSocket(csvData: String): Socket {
+    private fun createMockSocket(data: String): Socket {
         val mockSocket = mockk<Socket>()
         every { mockSocket.getOutputStream() } returns ByteArrayOutputStream()
-        every { mockSocket.getInputStream() } returns ByteArrayInputStream(csvData.toByteArray())
+        every { mockSocket.getInputStream() } returns ByteArrayInputStream(data.toByteArray())
         return mockSocket
     }
 }
