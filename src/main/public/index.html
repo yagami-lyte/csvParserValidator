@@ -33,12 +33,20 @@
         </select>
 
         <label for="type">Type</label>
-        <select data-cy="type" id="type"><br> </br> <br>
+        <select data-cy="type" id="type" onchange='CheckColors(this.value);'><br> </br> <br>
             <option value="selected disabled hidden">Choose here</option>
             <option value="Number">Number</option>
             <option value="AlphaNumeric">AlphaNumeric</option>
             <option value="Alphabets">Alphabets</option>
+            <option value="Date Time">Date Time</option>
         </select> <br> </br> <br>
+
+        <select name="color" id='color' style='display:none;'>
+            <option>pick a color</option>
+            <option value="red">RED</option>
+            <option value="blue">BLUE</option>
+            <option value="others">others</option>
+        </select>
 
         <label for="text_file_id">Values</label>
         <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"

@@ -32,7 +32,7 @@ function csvReader() {
     reader.onload = async function (event) {
         csv = event.target.result
         var lines = csv.toString().split("\n");
-        document.getElementById("fields").innerHTML = lines[0];
+        document.getElementById("field").innerHTML = lines[0];
         console.log(lines)
         console.log(lines[0])
         var arr = lines[0].split(",")
@@ -93,6 +93,7 @@ function addDataToJson() {
     var fixed_len = document.getElementById("fixed-len")
     var dependentOn = document.getElementById("dependent")
     var dependentValue = document.getElementById("dep-val")
+    var dateTimeFormat = document.getElementById("color")
     jsonObj["fieldName"] = field.value
     jsonObj["type"] = type.value
     let reader = new FileReader();
@@ -104,6 +105,10 @@ function addDataToJson() {
         reader.readAsText(value)
     }
     jsonObj["length"] = fixed_len.value
+    jsonObj["color"] = dateTimeFormat.value
+    if(type.value != "Date Time"){
+        jsonObj["color"] = ""
+    }
     jsonObj["dependentOn"] = dependentOn.value
     jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
@@ -130,3 +135,10 @@ async function sendConfigData(){
     }
 }
 
+function CheckColors(val){
+ var element=document.getElementById('color');
+ if(val=='Date Time')
+   element.style.display='block';
+ else
+   element.style.display='none';
+}

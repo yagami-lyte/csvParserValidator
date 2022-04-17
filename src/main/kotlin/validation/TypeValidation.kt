@@ -12,9 +12,32 @@ class TypeValidation : Validation {
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {
+<<<<<<< Updated upstream
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 var isLengthValid = validateTypeInEachRow(field, value, typeValidation)
                 getErrorMessages(isLengthValid, index, field, typeErrors)
+=======
+                val field = fieldArray.first { it.fieldName == key }
+                var flag = true
+                val value = ele.get(key) as String
+                if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
+                    flag = false
+                } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
+                    flag = false
+                } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
+                    flag = false
+                }
+                else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.isDateTime(field.dateTimeFormat ,value)) {
+                    flag = false
+                }
+
+                if (!flag) {
+                    val jsonObject = JSONObject().put(
+                        (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
+                    )
+                    typeErrors.put(jsonObject)
+                }
+>>>>>>> Stashed changes
             }
         }
         return typeErrors
@@ -72,6 +95,11 @@ class TypeValidation : Validation {
 
     fun isAlphabetic(value: String): Boolean {
         return value.all { it.isLetter() }
+    }
+
+    fun isDateTime(dateTimeFormat: String? , value: String): Boolean {
+        println("date Tikmec:")
+        return true;
     }
 
     fun isAlphaNumeric(value: String): Boolean {
