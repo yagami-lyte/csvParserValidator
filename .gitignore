@@ -1,6 +1,10 @@
-.gradle/
-.idea/
+.gradle
+.idea
 build/
-gradlew
-**.DS_Store
+.DS_Store
+cypress/h.txt
 node_modules
+package-lock.json
+.vscode
+cypress/videos
+cypress/screenshots
