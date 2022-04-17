@@ -1,6 +1,17 @@
 var payload=[]
 var result = []
 
+function createDropDownForDependant(lines){
+    for (var i = 1, j = 0; i <= lines.length; i++,j++){
+        var select = document.getElementById("dependent");
+            opt = document.createElement("option");
+        opt.value = lines[j];
+        opt.textContent = lines[j];
+        select.appendChild(opt);
+    }
+}
+
+
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
@@ -10,6 +21,9 @@ function csvReader() {
         document.getElementById("fields").innerHTML = lines[0];
         console.log(lines)
         console.log(lines[0])
+        var arr = lines[0].split(",")
+        createDropDownForDependant(arr)
+        createDropDownForFields(arr)
         var headers = lines[0].split(",");
         for (var i = 1; i < lines.length-1; i++) {
             var obj = {};
@@ -99,3 +113,4 @@ async function sendConfigData(){
             console.log(jsonData)
     }
 }
+

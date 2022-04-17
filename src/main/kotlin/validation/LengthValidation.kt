@@ -29,7 +29,7 @@ class LengthValidation {
     }
 
     private fun checkIfLengthIsIncorrect(field: JsonMetaDataTemplate, value: String): Boolean {
-        if (field.length != null && value.isNotEmpty()) {
+        if (field.length != null && value != "") {
             return (lengthCheck(value, field.length))
         }
         return true

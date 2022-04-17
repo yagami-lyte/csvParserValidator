@@ -32,7 +32,9 @@
     <form id="myform">
 
         <label for="field">Field</label>
-        <input id="field" data-cy="field" type="text"><br> </br> <br>
+        <select  name="dependentField" style="display: block;" id="field"  >
+            <option >Choose field</option>
+        </select>
 
         <label for="type">Type</label>
         <select data-cy="type" id="type"><br> </br> <br>
@@ -51,7 +53,9 @@
         <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
 
         <label for="dependent">Dependent On</label>
-        <input type="text" id="dependent" data-cy="dependent"><br> </br> <br>
+        <select  name="dependentField" style="display: block;" id="dependent"  >
+            <option >Choose dependant-field</option>
+        </select>
 
         <label for="dep-val">Dependent Value</label>
         <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
