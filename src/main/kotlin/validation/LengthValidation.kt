@@ -9,25 +9,56 @@ class LengthValidation : Validation {
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val lengthErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            val fieldElement = (element as JSONObject)
-            val keys = fieldElement.keySet()
-            for (key in keys) {
-                val field = fieldArray.first { it.fieldName == key }
-                val value = fieldElement.get(key) as String
-
-                var flag = true
-                if (field.length != "") {
-                    val fieldLength = Integer.parseInt(field.length)
-                    flag = checkIfLengthIsIncorrect(fieldLength, value)
-                }
-
-                if (!flag) {
-                    val jsonObject = errorMessage(index, field)
-                    lengthErrors.put(jsonObject)
-                }
-            }
+            validateLengthInEachRow(element as JSONObject, fieldArray, index, lengthErrors)
         }
         return lengthErrors
+    }
+
+    private fun validateLengthInEachRow(
+        element: JSONObject,
+        fieldArray: Array<ConfigurationTemplate>,
+        index: Int,
+        lengthErrors: JSONArray
+    ) {
+        val (fieldElement, keys) = getFieldElementsKeys(element)
+        for (key in keys) {
+            val (field, value) = getFieldValues(fieldArray, key, fieldElement)
+            var flag = true
+            if (field.length != "") {
+                flag = checkLengthForRow(field, flag, value)
+            }
+            getErrorMessages(index, field, lengthErrors, flag)
+        }
+    }
+
+    private fun getErrorMessages(index: Int, field: ConfigurationTemplate, lengthErrors: JSONArray, flag: Boolean) {
+        if (!flag) {
+            val jsonObject = errorMessage(index, field)
+            lengthErrors.put(jsonObject)
+        }
+    }
+
+    private fun getFieldElementsKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
+        val fieldElement = (element as JSONObject)
+        val keys = fieldElement.keySet()
+        return Pair(fieldElement, keys)
+    }
+
+    private fun getFieldValues(
+        fieldArray: Array<ConfigurationTemplate>,
+        key: String?,
+        fieldElement: JSONObject
+    ): Pair<ConfigurationTemplate, String> {
+        val field = fieldArray.first { it.fieldName == key }
+        val value = fieldElement.get(key) as String
+        return Pair(field, value)
+    }
+
+    private fun checkLengthForRow(field: ConfigurationTemplate, flag: Boolean, value: String): Boolean {
+        var isValid = flag
+        val fieldLength = Integer.parseInt(field.length)
+        isValid = checkIfLengthIsIncorrect(fieldLength, value)
+        return isValid
     }
 
     private fun lengthCheck(data: String, length: Int): Boolean {
