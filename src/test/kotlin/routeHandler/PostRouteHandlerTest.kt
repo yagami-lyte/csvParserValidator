@@ -32,7 +32,7 @@ internal class PostRouteHandlerTest {
 
     @Test
     fun shouldBeAbleToGetResponseForConfigPOSTRequest() {
-        val request = """GET /add-meta-data HTTP/1.1 
+        val request = """POST /add-meta-data HTTP/1.1 
                 |Host: localhost:3002
                 |Connection: keep-alive
                 |Content-Length: 266""".trimMargin() + "\r\n\r\n"
@@ -41,17 +41,18 @@ internal class PostRouteHandlerTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
-        val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val mockSocket = createMockSocket(metaData)
-        val inputStream = BufferedReader(InputStreamReader(mockSocket.getInputStream()))
-        val outputStream = BufferedWriter(OutputStreamWriter(mockSocket.getOutputStream()))
-        outputStream.write(csvData)
+        val inputStream = getInputStream(mockSocket)
         val response = postRouteHandler.handlePostRequest(request , inputStream)
         val expectedResponse = "Successfully Added Configuration File"
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]
 
         assertEquals(expectedResponse, actualErrorResponse)
+    }
+
+    private fun getInputStream(mockSocket: Socket): BufferedReader {
+        return BufferedReader(InputStreamReader(mockSocket.getInputStream()))
     }
 
     private fun createMockSocket(csvData: String): Socket {
