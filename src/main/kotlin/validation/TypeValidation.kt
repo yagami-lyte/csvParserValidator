@@ -6,30 +6,34 @@ import org.json.JSONObject
 
 class TypeValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray:Array<ConfigurationTemplate>): JSONArray {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val typeErrors = JSONArray()
         val typeValidation = TypeValidation()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
-                var flag = validateTypeInEachRow(field, value, typeValidation)
-                getErrorMessages(flag, index, field, typeErrors)
+                var isLengthValid = validateTypeInEachRow(field, value, typeValidation)
+                getErrorMessages(isLengthValid, index, field, typeErrors)
             }
         }
         return typeErrors
     }
 
-    private fun validateTypeInEachRow(field: ConfigurationTemplate, value: String, typeValidation: TypeValidation): Boolean {
-        var flag = true
+    private fun validateTypeInEachRow(
+        field: ConfigurationTemplate,
+        value: String,
+        typeValidation: TypeValidation
+    ): Boolean {
+        var isLengthValid = true
         if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
-            flag = false
+            isLengthValid = false
         } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
-            flag = false
+            isLengthValid = false
         } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
-            flag = false
+            isLengthValid = false
         }
-        return flag
+        return isLengthValid
     }
 
     private fun getFieldValues(
@@ -48,8 +52,13 @@ class TypeValidation : Validation {
         return Pair(ele, keys)
     }
 
-    private fun getErrorMessages(flag: Boolean, index: Int, field: ConfigurationTemplate, typeErrors: JSONArray) {
-        if (!flag) {
+    private fun getErrorMessages(
+        isLengthValid: Boolean,
+        index: Int,
+        field: ConfigurationTemplate,
+        typeErrors: JSONArray
+    ) {
+        if (!isLengthValid) {
             val jsonObject = JSONObject().put(
                 (index + 1).toString(), "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
             )
