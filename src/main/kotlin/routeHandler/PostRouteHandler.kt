@@ -73,7 +73,9 @@ class PostRouteHandler(var fieldArray: Array<JsonMetaDataTemplate> = arrayOf()) 
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)
+        println("request :--> $request")
         val body = getBody(bodySize, inputStream)
+        println("body :->> $body")
         return getResponseForMetaData(body)
     }
 
