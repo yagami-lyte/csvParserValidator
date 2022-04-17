@@ -14,7 +14,7 @@ class ValueValidation : Validation {
             for (key in keys) {
                 val field = fieldArray.first { it.fieldName == key }
                 val value = ele.get(key) as String
-                var flag = checkIfValueIsIncorrect(field, value)
+                val flag = checkIfValueIsIncorrect(field, value)
                 if (!flag) {
                     val jsonObject = errorMessage(index, field)
                     valueErrors.put(jsonObject)

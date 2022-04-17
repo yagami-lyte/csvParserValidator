@@ -1,14 +1,15 @@
 package validation
 
+import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DuplicateValidation {
+class DuplicateValidation: Validation {
 
-    fun checkDuplicates(jsonArray: JSONArray): JSONArray {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
         val jsonArrayOfDuplicateElements = JSONArray()
-        jsonArray.forEachIndexed { index, element ->
+        jsonArrayData.forEachIndexed { index, element ->
             addElementToMap(mapOfJsonElements, element, index, jsonArrayOfDuplicateElements)
         }
         return jsonArrayOfDuplicateElements
@@ -25,7 +26,6 @@ class DuplicateValidation {
         }
 
         getJsonObject(index, mapOfJsonElements, element, jsonArrayOfDuplicateElements)
-
     }
 
     private fun getJsonObject(
