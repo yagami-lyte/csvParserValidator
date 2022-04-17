@@ -1,12 +1,12 @@
 package validation
 
-import jsonTemplate.configurationTemplate
+import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
 class ValueValidation {
 
-    fun validationCheck(dataInJSONArray: JSONArray, fieldArray: Array<configurationTemplate>): JSONArray {
+    fun validationCheck(dataInJSONArray: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val valueErrors = JSONArray()
         dataInJSONArray.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
@@ -31,14 +31,14 @@ class ValueValidation {
         return false
     }
 
-    private fun checkIfValueIsIncorrect(field: configurationTemplate, value: String): Boolean {
+    private fun checkIfValueIsIncorrect(field: ConfigurationTemplate, value: String): Boolean {
         if (field.values != null && value.isNotEmpty()) {
             return (valueCheck(field.values, value))
         }
         return true
     }
 
-    private fun errorMessage(index: Int, field: configurationTemplate): JSONObject {
+    private fun errorMessage(index: Int, field: ConfigurationTemplate): JSONObject {
         return JSONObject().put(
             (index + 1).toString(),
             "Incorrect Value of ${field.fieldName}. Please select value from ${field.values}"

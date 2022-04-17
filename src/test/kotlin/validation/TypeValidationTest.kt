@@ -1,7 +1,7 @@
 package validation
 
 import com.google.gson.Gson
-import jsonTemplate.configurationTemplate
+import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -89,7 +89,7 @@ class TypeValidationTest {
     }
 }
 
-private fun getMetaData(body: String): Array<configurationTemplate> {
+private fun getMetaData(body: String): Array<ConfigurationTemplate> {
     val gson = Gson()
-    return gson.fromJson(body, Array<configurationTemplate>::class.java)
+    return gson.fromJson(body, Array<ConfigurationTemplate>::class.java)
 }

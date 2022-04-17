@@ -1,9 +1,9 @@
 package jsonTemplate
 
-class configurationTemplate(
+class ConfigurationTemplate(
     val fieldName: String?,
     val type: String?,
-    val length: Int?,
+    val length: String?,
     val values: List<String>?,
     val dependentOn: String,
     val dependentValue: String
