@@ -135,7 +135,23 @@ class TypeValidationTest {
             Arguments.of("dd/MMM/yyyy:HH:mm:ss ZZZZ", "19/Apr/2017:06:36:15 -0700"),
             Arguments.of("MMM dd HH:mm:ss ZZZZ yyyy", "Jan 21 18:20:11 +0000 2017"),
             Arguments.of("MMM dd yyyy HH:mm:ss", "Jun 09 2018 15:28:14"),
-
+            Arguments.of("MM/dd/yyyy hh:mm:ss a", "9/28/2011 2:23:15 PM"),
+            Arguments.of("MM/dd/yyyy hh:mm:ss a", "9/28/2011 2:23:15 PM"),
+            Arguments.of("MM/dd/yyyy hh:mm:ss a:SSS", "8/5/2011 3:31:18 AM:234"),
+            Arguments.of("MMdd_HH:mm:ss.SSS", "0423_11:42:35.883"),
+            Arguments.of("MMdd_HH:mm:ss", "0423_11:42:35"),
+            Arguments.of("dd MMM yyyy HH:mm:ss*SSS", "23 Apr 2017 10:32:35*311"),
+            Arguments.of("dd MMM yyyy HH:mm:ss", "23 Apr 2017 11:42:35"),
+            Arguments.of("dd-MMM-yyyy HH:mm:ss", "23-Apr-2017 11:42:35"),
+            Arguments.of("dd-MMM-yyyy HH:mm:ss", "23-Apr-2017 11:42:35"),
+            Arguments.of("dd/MMM/yyyy HH:mm:ss", "23/Apr/2017 11:42:35"),
+            Arguments.of("dd/MMM/yyyy HH:mm:ss", "23/Apr/2017 11:42:35"),
+            Arguments.of("dd/MMM HH:mm:ss,SSS", "23/Apr 11:42:35,173"),
+            Arguments.of("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "2000-07-21T05:06:07.001Z"),
+            Arguments.of("yyyy-MM-dd HH:mm:ss ZZZZ", "2017-08-19 12:17:55 -0400"),
+            Arguments.of("yyyy-MM-dd HH:mm:ss,SSS", "2017-06-26 02:31:29,573"),
+            Arguments.of("yyyy/MM/dd*HH:mm:ss", "2017/04/12*19:37:50"),
+            Arguments.of("yyyy MMM dd HH:mm:ss.SSS*zzz", "2018 Apr 13 22:08:13.211*PDT"),
             )
     }
 
