@@ -52,23 +52,54 @@ function csvReader() {
     alert("CSV uploaded successfully!")
 }
 
-function showError(key,value) {
-    console.log(key + " : "+ typeof value);
-    if(value != "" &&  (typeof value == 'string') ){
-        const node = document.createElement("li");
-        const textNode = document.createTextNode(`Line No ${key} has error : ${value}`);
-        node.appendChild(textNode);
-        document.getElementById("error_msgs_list").appendChild(node)
+
+
+var errMap ={}
+function pushErrToMaps(object){
+    for (var i in object) {
+      console.log(`${i}: ${object[i]}`);
+      errMap[i] = errMap[i] || [];
+      errMap[i].push(object[i]);
     }
 }
 
-function traverse(object,func) {
-    for (var i in object) {
-        func.apply(this,[i,object[i]]);
-        if (object[i] !== null && typeof(object[i])=="object") {
-            traverse(object[i],func);
+function showErr(map){
+    var errors = document.getElementById("error-msgs");
+    for (const [key, value] of Object.entries(map)) {
+            let row = document.createElement("div");
+            row.setAttribute("class", "row");
+            row.innerHTML = `<br>
+            <div class="col s10 offset-s1">
+          <div class="card-panel" id="${key}" style="color:blue">
+              <h3>Errors at Row Number: ${key}</h3>
+          </div>
+      </div>`;
+            errors.appendChild(row)
+            value.forEach(element => {
+                let p = document.createElement("p")
+                p.setAttribute("id", "error")
+                p.setAttribute("style", "font-weight: bold; color:red;")
+                p.innerText = `    -  ${element}`
+                let parent = document.getElementById(`${key}`)
+                parent.appendChild(p)
+            });
+        }
+}
+
+
+function traverse(object){
+    for(var i in object){
+        console.log(object[i])
+        console.log(object[i] != "")
+        if(object[i] != ""){
+            for( j in object[i]){
+            console.log(object[i][j])
+            pushErrToMaps(object[i][j])
+            }
         }
     }
+    console.log(errMap)
+    showErr(errMap)
 }
 
 async function displayErrors(){
@@ -80,7 +111,7 @@ async function displayErrors(){
     if (response.status === 200) {
         var jsonData =  await response.json();
         console.log(jsonData)
-        traverse(jsonData,showError)
+        traverse(jsonData)
     }
 }
 
