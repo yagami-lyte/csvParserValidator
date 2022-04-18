@@ -32,6 +32,4 @@ class GetRouteHandlerTest {
 
         assertEquals(expected, actual)
     }
-
-
 }

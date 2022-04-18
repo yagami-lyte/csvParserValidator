@@ -1,53 +1,52 @@
 /// <reference types="cypress" />
 
-describe("Connection testing", ()=>{
-    it("It loads successfully", ()=>{
+describe("Testing Upload CSV", ()=>{
+
+    it("Should load server successfully", ()=>{
         cy.visit('http://localhost:3002')
     })
 
-    it("Checking it certain elements present or not", ()=>{
-        cy.contains("Field").should("exist")
+    it("Should contain csv parser ", ()=>{
         cy.contains("CSV PARSER")
     })
+
+     it('Should take csv as input',()=> {
+        cy.get('#csv_id').selectFile('cypress/fixtures/countries.csv')
+     })
 })
 
+describe("Testing set configuration",()=>{
 
-describe("Setting Config Data 1st column",()=>{
-    it("Adding field Name",()=>{
-        cy.get('[data-cy=field]').type("Export")
-    })
+    it('Should visit the config section', () => {
+        cy.visit('http://localhost:3002/#config')
+     })
 
-    it("Adding Type of value field name hold",()=>{
+    it("Should add type of value of field",()=>{
         cy.get('[data-cy=type]').select(3)
     })
 
-    it("Adding value file which has list of possible values", ()=>{
-        cy.get('[data-cy=text_file_id]').selectFile("src/main/public/assets/export.txt")
+    it("Should add file which has list of allowed values", ()=>{
+        cy.get('[data-cy=text_file_id]').selectFile("cypress/fixtures/countries.txt")
     })
 
     it("Adding field Length value",()=>{
-        cy.get('[data-cy=fixed-len]').type("2")
+        cy.get('[data-cy=fixed-len]').type("1")
     })
 
     it("Adding these data to config file",()=>{
-
         cy.get('[data-cy=add]').click()
-        cy.log("Added 1st Colomn")
+        cy.log("Added 1st Column")
     })
 })
 
-
-describe("Testing Submit button",()=>{
-    it("Adding field Name",()=>{
-        cy.get('[data-cy=field]').clear().type("Country Name")
-    })
+describe("Testing Submit Configuration button",()=>{
 
     it("Adding Type of value field name hold",()=>{
         cy.get('[data-cy=type]').select(3)
     })
 
     it("Adding value file which has list of possible values", ()=>{
-        cy.get('[data-cy=text_file_id]').selectFile("src/main/public/assets/countries.txt")
+        cy.get('[data-cy=text_file_id]').selectFile("cypress/fixtures/countries.txt")
     })
 
 
@@ -62,21 +61,8 @@ describe("Testing Submit button",()=>{
     })
 
     it("Submitting the Config data",()=>{
-
         cy.get('[data-cy=submit]').click()
         cy.log("Submitted the data")
     })
+
 })
-
-describe("CSV Parser", ()=>{
-    it("choosing file csv file",()=>{
-        cy.get('[data-cy=chooseFile]').selectFile("src/main/public/assets/countries.csv")
-    })
-
-    it("Uploading the file",()=>{
-        cy.get('[data-cy=upload]').click()
-    })
-    
-})
-
-
