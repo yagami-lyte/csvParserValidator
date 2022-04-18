@@ -21,7 +21,7 @@ function createDropDownForFields(lines){
     }
 }
 
-function remove() {
+function removeConfiguredFields() {
     var addedField = document.getElementById("field");
     addedField.remove(addedField.selectedIndex);
 }
@@ -51,8 +51,6 @@ function csvReader() {
     reader.readAsText(csv);
     alert("CSV uploaded successfully!")
 }
-
-
 
 var errMap ={}
 function pushErrToMaps(object){
@@ -144,8 +142,8 @@ function addDataToJson() {
     jsonObj["dependentValue"] = dependentValue.value
     payload.push(jsonObj)
     console.log(payload)
-    remove()
     resetForm()
+    removeConfiguredFields()
     alert("Field configuration added successfully!")
 }
 
