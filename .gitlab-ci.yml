@@ -1,21 +1,21 @@
-#image: gradle:latest
-#
-#stages:
-#  - test
-#
-#unit-test:
-#  stage: test
-#  script:
-#    - echo "Initiating Tests"
-#    - gradle test
-#    - echo "All Tests Passed"
-#
-#cypress-test:
-#  image: cypress/browsers:node12.14.1-chrome85-ff81
-#  stage: test
-#  script:
-#    - echo "Initiating Cypress Tests"
-#    - npm ci
-#    - npm run start:ci &
-#    - npx cypress run --browser chrome
-#    - echo "All Tests Passed"
+image: gradle:latest
+
+stages:
+  - test
+
+unit-test:
+  stage: test
+  script:
+    - echo "Initiating Tests"
+    - gradle test
+    - echo "All Tests Passed"
+
+cypress-test:
+  image: cypress/browsers:node12.14.1-chrome85-ff81
+  stage: test
+  script:
+    - echo "Initiating Cypress Tests"
+    - npm ci
+    - npm run start:ci &
+    - npx cypress run --browser chrome
+    - echo "All Tests Passed"
