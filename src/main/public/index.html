@@ -19,7 +19,7 @@
         <br>
         <br>
         <a  href="#config" class="btn-get-started scrollto"
-           onclick="csvReader()" data-cy="upload">Upload</a>
+            onclick="csvReader()" data-cy="upload">Upload</a>
     </div>
 </div>
 
@@ -28,56 +28,12 @@
         <h1><b>SET CONFIGURATION</b></h1>
         <form id="myform">
 
-            <div style="display:flex; flex-direction: row; align-items: center">
-            <label for="field">Field</label>
-            <select name="dependentField" style="display: block;" id="field">
-                <option>Choose field</option>
-            </select>
-            </div>
 
-            <label for="type">Type</label>
-            <select data-cy="type" id="type" onchange='checkDateFormat(this.value);'><br> </br> <br>
-                <option value="selected disabled hidden">Choose here</option>
-                <option value="Number">Number</option>
-                <option value="AlphaNumeric">AlphaNumeric</option>
-                <option value="Alphabets">Alphabets</option>
-                <option value="Date Time">Date Time</option>
-            </select> <br>
-
-            <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
-            <select name="datetime" id='datetime' style='display:none;'>
-                <option>choose date time format</option>
-                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                <option value="YYYY/MM/DD">YYYY/MM/DD</option>
-                <option value="DD/MM/YYYY HH:MM:SS AM">DD/MM/YYYY HH:MM:SS AM</option>
-                <option value="HH:MM">HH:MM</option>
-                <option value="DD/MM/YYYY HH:MM">DD/MM/YYYY HH:MM</option>
-                <option value="Jul 30,2015 10:40:43 AM">Jul 30,2015 10:40:43 AM</option>
-
-
-            </select><br>
-
-            <label for="text_file_id">Values</label>
-            <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id"
-                   accept=".txt"><br> </br> <br>
-
-            <label for="fixed-len">Length</label>
-            <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
-
-            <div style="display:flex; flex-direction: row; align-items: center">
-            <label for="dependent">Dependent On</label>
-            <select name="dependentField" style="display: block;" id="dependent">
-                <option>Choose dependant-field</option>
-            </select>
-            </div>
-
-            <label for="dep-val">Dependent Value</label>
-            <input type="text" id="dep-val" data-cy="dep-val"><br> </br> <br>
 
         </form>
 
         <button type="submit" style="margin-top: 10px;" onclick="addDataToJson()" data-cy="add">Add</button>
+        <button type="submit" onclick="sendConfigData()" data-cy="submit">Submit</button>
         <a href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
     </div>
 </div>
@@ -90,3 +46,12 @@
 
 
 </html>
+
+
+
+
+
+
+
+
+

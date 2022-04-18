@@ -45,11 +45,19 @@ describe("Testing Set Configuration",()=>{
         cy.get('[data-cy=add]').click()
         cy.log("Added 1st Column")
     })
+})
 
-     it("Submitting the Config data",()=>{
-            cy.get('[data-cy=submit]').click()
-            cy.log("Submitted the data")
-        })
+describe("Testing View Errors",()=>{
+
+     it('Should visit the error section', () => {
+        cy.visit('http://localhost:3002/#error-msgs')
+     })
+
+     it("Should contain heading ERRORS", ()=>{
+             cy.contains("ERRORS")
+         })
+
+
 })
 
 
