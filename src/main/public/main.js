@@ -64,7 +64,7 @@ function showColFields(lines){
     row.setAttribute("id", `row${lines[j]}`)
     row.setAttribute("style", "display: flex;")
     row.innerHTML = `<div style="display:flex; flex-direction: row; align-items: center">
-                     <p id="field${lines[j]}"> ${lines[j]}</p>
+                     <p> ${lines[j]}</p>
                      </div>
 
                      <label for="type">Type</label>
@@ -77,8 +77,9 @@ function showColFields(lines){
                      </select> <br>
 
                      <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
-                     <select name="datetime" id='datetime${lines[j]}' style='display:none;'>
-                         <option>choose date time format</option>
+                     <select name="datetime" id='datetime${lines[j]}'
+                     onchange="showDateTimeOption(this.value);" style='display:none;'>
+                         <option>"choose date time format"</option>
                          <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                          <option value="DD/MM/YYYY">DD/MM/YYYY</option>
                          <option value="YYYY/MM/DD">YYYY/MM/DD</option>
@@ -92,8 +93,8 @@ function showColFields(lines){
 
                      <label for="text_file_id">Values</label>
                      <input class="custom-file-input" type="file"
-                     name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}"
-                            accept=".txt"><br> </br> <br>
+                     name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
+                     <br> </br> <br>
 
                      <label for="fixed-len">Length</label>
                      <input type="number" id="fixed-len${lines[j]}" data-cy="fixed-len"><br> </br> <br>
@@ -113,6 +114,41 @@ function showColFields(lines){
 }
 console.log(fieldCount)
 }
+
+function addDataToJson() {
+    for (var i = 1, j = 0; i <= fieldCount; i++,j++){
+       let jsonObj = {}
+        var field = fields[0][j]
+        var type = document.getElementById((`type${fields[0][j]}`))
+        var value = document.getElementById(`text_file_id${fields[0][j]}`).files[0]
+        var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
+        var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
+        var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
+        if (type.value == 'Date Time'){
+            var dateTimeFormat = document.getElementById(`datetime${fields[0][j]}`)
+            jsonObj["datetime"] = dateTimeFormat.value
+        }
+        console.log(field)
+            jsonObj["fieldName"] = field
+            jsonObj["type"] = type.value
+            let reader = new FileReader();
+            if (value != null){
+                reader.addEventListener('load', function(e) {
+                    let text = e.target.result
+                    jsonObj["values"] = text.split('\n')
+                });
+                reader.readAsText(value)
+            }
+            jsonObj["length"] = fixed_len.value
+            jsonObj["dependentOn"] = dependentOn.value
+            jsonObj["dependentValue"] = dependentValue.value
+            payload.push(jsonObj)
+            }
+            console.log(payload)
+            //resetForm()
+            //removeConfiguredFields()
+            alert("Field configuration added successfully!")
+    }
 
 var errMap ={}
 function pushErrToMaps(object){
@@ -163,6 +199,7 @@ function traverse(object){
 }
 
 async function displayErrors(){
+   sendConfigData()
     const response = await fetch('csv', {
         method: 'POST',
         body: JSON.stringify(result)
@@ -176,50 +213,12 @@ async function displayErrors(){
 }
 
 
-function addDataToJson() {
-    for (var i = 1, j = 0; i <= fieldCount; i++,j++){
-       let jsonObj = {}
-        var field = document.getElementById(`field${fields[0][j]}`)
-        var type = document.getElementById((`type${fields[0][j]}`))
-        var value = document.getElementById(`text_file_id${fields[0][j]}`).files[0]
-        var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
-        var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
-        var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
-        var dateTimeFormat = document.getElementById(`datetime${fields[0][j]}`)
-        console.log(type.value)
-        console.log(dateTimeFormat.value)
-            jsonObj["fieldName"] = field.value
-            jsonObj["type"] = type.value
-            let reader = new FileReader();
-            if (value != null){
-                reader.addEventListener('load', function(e) {
-                    let text = e.target.result
-                    jsonObj["values"] = text.split('\n')
-                });
-                reader.readAsText(value)
-            }
-            jsonObj["length"] = fixed_len.value
-            jsonObj["datetime"] = dateTimeFormat.value
-            if(type.value != "Date Time"){
-                jsonObj["datetime"] = ""
-            }
-            jsonObj["dependentOn"] = dependentOn.value
-            jsonObj["dependentValue"] = dependentValue.value
-            payload.push(jsonObj)
-            }
-            console.log(payload)
-            //resetForm()
-            //removeConfiguredFields()
-            alert("Field configuration added successfully!")
-    }
-
-
 function resetForm(){
     document.getElementById("myform").reset()
 }
 
 async function sendConfigData(){
-    alert("Successfully added configuration details for csv!")
+    addDataToJson()
     var resp = await fetch('add-meta-data', {
         method: 'POST',
         body: JSON.stringify(payload)
@@ -231,15 +230,15 @@ async function sendConfigData(){
     }
 }
 
-//function checkDateFormat(value){
-//    var element=document.getElementById('datetime');
-//    var elementForFormats = document.getElementById('formats');
-//    if(value == 'Date Time'){
-//        element.style.display='block';
-//        elementForFormats.style.display='block';
-//    }
-//    else{
-//        element.style.display='none';
-//        elementForFormats.style.display='none';
-//    }
-//}
+function showDateTimeOption(value){
+    var element = document.getElementById('datetime');
+    var elementForFormats = document.getElementById('formats');
+    if(value == 'Date Time'){
+        element.style.display='block';
+        elementForFormats.style.display='block';
+    }
+    else{
+        element.style.display='none';
+        elementForFormats.style.display='none';
+    }
+}
