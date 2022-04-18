@@ -90,10 +90,14 @@ class TypeValidation : Validation {
     }
 
     fun checkDateTimeFormat(dateTimeFormat:String , value: String): Boolean {
-        if(dateTimeFormat == "dd-MM-yyyy") {
-            return true
+        val sdf: DateFormat = SimpleDateFormat(dateTimeFormat)
+        sdf.isLenient = false
+        try {
+            sdf.parse(value.trim())
+        } catch (e: ParseException) {
+            return false
         }
-        return false
+        return true
     }
 
 
