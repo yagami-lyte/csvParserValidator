@@ -7,8 +7,13 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import routeHandler.PostRouteHandler
+import java.util.stream.Stream
 
+@Suppress("NAME_SHADOWING")
 class TypeValidationTest {
 
     private val typeValidation = TypeValidation()
@@ -97,13 +102,12 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
-    @Test
-    fun shouldBeAbleToCheckIfValueIsInDateTimeFormat() {
+    @ParameterizedTest
+    @MethodSource("checkDateTimeFormatsWithGivenFormats")
+    fun shouldBeAbleToCheckIfValueIsInDateTimeFormat(dateTimeFormat: String, dateTimeValue: String) {
         val typeValidation = TypeValidation()
-        val value = "31-01-2012"
-        val dateTimeFormat = "dd-MM-yyyy"
 
-        val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, value)
+        val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, dateTimeValue)
 
         assertTrue(actual)
     }
@@ -117,6 +121,22 @@ class TypeValidationTest {
         val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, value)
 
         assertFalse(actual)
+    }
+
+    companion object {
+        @JvmStatic
+        fun checkDateTimeFormatsWithGivenFormats(): Stream<Arguments> = Stream.of(
+            Arguments.of("MM-dd-yyyy", "01-02-2018"),
+            Arguments.of("HH:mm:ss.SSSZ", "13:03:15.454+0530"),
+            Arguments.of("MMMM dd, yy", "February 17, 2009"),
+            Arguments.of("yy/MM/dd", "2009/02/17"),
+            Arguments.of("dd/MM/yy", "17/02/2009"),
+            Arguments.of("MMM dd, yyyy hh:mm:ss a", "Dec 2, 2017 2:39:58 AM"),
+            Arguments.of("dd/MMM/yyyy:HH:mm:ss ZZZZ", "19/Apr/2017:06:36:15 -0700"),
+            Arguments.of("MMM dd HH:mm:ss ZZZZ yyyy", "Jan 21 18:20:11 +0000 2017"),
+            Arguments.of("MMM dd yyyy HH:mm:ss", "Jun 09 2018 15:28:14"),
+
+            )
     }
 
 
