@@ -100,19 +100,6 @@ function traverse(object){
     showErr(errMap)
 }
 
-async function displayErrors(){
-    const response = await fetch('csv', {
-        method: 'POST',
-        body: JSON.stringify(result)
-    })
-
-    if (response.status === 200) {
-        var jsonData =  await response.json();
-        console.log(jsonData)
-        traverse(jsonData)
-    }
-}
-
 
 function addDataToJson() {
     let jsonObj = {}
@@ -161,6 +148,20 @@ async function sendConfigData(){
     if (resp.status === 200) {
         var jsonData = await resp.json();
         console.log(jsonData)
+    }
+}
+
+async function displayErrors(){
+    sendConfigData()
+    const response = await fetch('csv', {
+        method: 'POST',
+        body: JSON.stringify(result)
+    })
+
+    if (response.status === 200) {
+        var jsonData =  await response.json();
+        console.log(jsonData)
+        traverse(jsonData)
     }
 }
 
