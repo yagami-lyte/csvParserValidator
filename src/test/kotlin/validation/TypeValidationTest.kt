@@ -87,6 +87,16 @@ class TypeValidationTest {
 
         assertTrue(actual)
     }
+
+    @Test
+    fun shouldBeAbleToCheckIfValueIsInDateTimeFormat() {
+        val typeValidation = TypeValidation()
+        val value = "12/24/2004 12:42:25 AM"
+
+        val actual = typeValidation.isProperDateTimeFormat("DD/MM/YYYY HH:MM:SS AM" ,value)
+
+        assertTrue(actual)
+    }
 }
 
 private fun getMetaData(body: String): Array<ConfigurationTemplate> {

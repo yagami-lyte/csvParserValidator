@@ -1,5 +1,8 @@
-import server.Server
-
 fun main() {
-    Server(3002).startServer()
+//    Server(3002).startServer()
+//    var s = "01/12/1998 13:20"
+//    var t = "^([0]d|[1][0-2])/([0-2]d|[3][0-1])/([2][01]|[1][6-9])d{2}(s([0-1]d|[2][0-3])(:[0-5]d){1,2})?$".toRegex()
+    var dateTimeFormat = "12/24/2004 12:42:25 AM"
+    var pattern = "^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/][0-9]{4}(\\s((0[1-9]|1[012])\\:([0-5][0-9])((\\s)|(\\:([0-5][0-9])\\s))([AM|PM|]{2,2})))?\$".toRegex()
+    println(dateTimeFormat.matches(pattern))
 }

@@ -90,14 +90,16 @@ class TypeValidation : Validation {
     }
 
     fun isProperDateTimeFormat(dateTimeFormat: String?, value: String): Boolean {
-        val dateFormat = giveDateFormat(dateTimeFormat)?.toRegex();
+        val dateFormat = giveDateFormat(dateTimeFormat);
         return value.matches(dateFormat!!);
     }
 
-    fun giveDateFormat(format: String?): String? {
+    fun giveDateFormat(format: String?): Regex? {
         val dateFormats = mapOf(
-            "MM/DD/YYYY" to "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$",
-            "DD/MM/YYYY" to "^(0[0-9]||1[0-2])/([0-2][0-9]||3[0-1])/([0-9][0-9])?[0-9][0-9]$",
+            "MM/DD/YYYY" to "^([0-2][0-9]||3[0-1])/(0[0-9]||1[0-2])/([0-9][0-9])?[0-9][0-9]$".toRegex(),
+            "DD/MM/YYYY" to "^(0[0-9]||1[0-2])/([0-2][0-9]||3[0-1])/([0-9][0-9])?[0-9][0-9]$".toRegex(),
+            "YYYY/MM/DD" to "^(d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01])$".toRegex(),
+            "DD/MM/YYYY HH:MM:SS AM" to "^(0[1-9]|1[012])[/](0[1-9]|[12][0-9]|3[01])[/][0-9]{4}(\\s((0[1-9]|1[012])\\:([0-5][0-9])((\\s)|(\\:([0-5][0-9])\\s))([AM|PM|]{2,2})))?\$".toRegex()
         )
         return dateFormats[format];
     }

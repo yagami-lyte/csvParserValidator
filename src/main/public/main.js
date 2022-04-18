@@ -135,10 +135,10 @@ async function sendConfigData(){
     }
 }
 
-function checkDateFormat(val){
+function checkDateFormat(value){
     var element=document.getElementById('datetime');
     var elementForFormats = document.getElementById('formats');
-    if(val=='Date Time'){
+    if(value == 'Date Time'){
         element.style.display='block';
         elementForFormats.style.display='block';
     }
