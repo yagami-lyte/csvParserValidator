@@ -11,7 +11,7 @@
 
 <body>
 
-<div id = "csv" class="container">
+<div id="csv" class="container">
     <h1>CSV PARSER</h1>
     <div id="upload">
         <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
@@ -28,8 +28,8 @@
         <form id="myform">
 
             <label for="field">Field</label>
-            <select  name="dependentField" style="display: block;" id="field"  >
-                <option >Choose field</option>
+            <select name="dependentField" style="display: block;" id="field">
+                <option>Choose field</option>
             </select>
 
             <label for="type">Type</label>
@@ -46,11 +46,12 @@
                 <option>choose date time format</option>
                 <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                 <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-<<<<<<< Updated upstream
                 <option value="YYYY/MM/DD">YYYY/MM/DD</option>
                 <option value="DD/MM/YYYY HH:MM:SS AM">DD/MM/YYYY HH:MM:SS AM</option>
-=======
->>>>>>> Stashed changes
+                <option value="HH:MM">HH:MM</option>
+                <option value="DD/MM/YYYY HH:MM">DD/MM/YYYY HH:MM</option>
+                <option value="Jul 30,2015 10:40:43 AM">Jul 30,2015 10:40:43 AM</option>
+
 
             </select><br>
 
@@ -62,8 +63,8 @@
             <input type="number" id="fixed-len" data-cy="fixed-len"><br> </br> <br>
 
             <label for="dependent">Dependent On</label>
-            <select  name="dependentField" style="display: block;" id="dependent"  >
-                <option >Choose dependant-field</option>
+            <select name="dependentField" style="display: block;" id="dependent">
+                <option>Choose dependant-field</option>
             </select>
 
             <label for="dep-val">Dependent Value</label>
@@ -224,6 +225,7 @@
     input[type=submit]:hover {
         background-color: #45a049;
     }
+
 </style>
 
 </html>
