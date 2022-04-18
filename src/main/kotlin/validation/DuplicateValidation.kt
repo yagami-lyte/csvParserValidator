@@ -4,20 +4,21 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DuplicateValidation: Validation {
+class DuplicateValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
         val jsonArrayOfDuplicateElements = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            addElementToMap(mapOfJsonElements, element, index, jsonArrayOfDuplicateElements)
+            addElementToMap(mapOfJsonElements, element as JSONObject, index, jsonArrayOfDuplicateElements)
         }
         return jsonArrayOfDuplicateElements
     }
 
     private fun addElementToMap(
         mapOfJsonElements: MutableMap<String, Int>,
-        element: Any, index: Int,
+        element: JSONObject,
+        index: Int,
         jsonArrayOfDuplicateElements: JSONArray
     ) {
         if (mapOfJsonElements[element.toString()] == null) {
@@ -31,7 +32,7 @@ class DuplicateValidation: Validation {
     private fun getJsonObject(
         index: Int,
         mapOfJsonElements: MutableMap<String, Int>,
-        element: Any,
+        element: JSONObject,
         jsonArrayOfDuplicateElements: JSONArray
     ) {
         val jsonObject = JSONObject().put(
