@@ -97,6 +97,16 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun shouldBeAbleToCheckIfValueIsInDateTimeFormat() {
+        val typeValidation = TypeValidation()
+        val value = "31-01-2012"
+        val dateTimeFormat = "dd-MM-yyyy"
+
+        val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, value)
+
+        assertTrue(actual)
+    }
 
 
 }

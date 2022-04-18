@@ -1,6 +1,7 @@
 package validation
 
 import jsonTemplate.ConfigurationTemplate
+import org.joda.time.format.DateTimeFormat
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.DateFormat
@@ -86,6 +87,13 @@ class TypeValidation : Validation {
 
     fun isAlphaNumeric(value: String): Boolean {
         return value.all { it.isLetterOrDigit() }
+    }
+
+    fun checkDateTimeFormat(dateTimeFormat:String , value: String): Boolean {
+        if(dateTimeFormat == "dd-MM-yyyy") {
+            return true
+        }
+        return false
     }
 
 
