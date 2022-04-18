@@ -10,6 +10,7 @@ class GetRouteHandler {
         return when (getPath(request)) {
             "/" -> getResponse("/index.html")
             "/main.js" -> getResponse("/main.js")
+            "/main.css" -> getCSSResponse("/main.css")
             else -> getResponse("/404.html")
         }
     }
@@ -26,8 +27,16 @@ class GetRouteHandler {
             |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
     }
 
+    private fun getCSSResponse(path: String): String {
+        val body = getBodyResponse(path)
+        val contentLength = body.length
+        val statusCode = getStatusCode(path)
+        return responseHeader.getResponseHead(statusCode) + """Content-Type: text/css; charset=utf-8
+            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
+    }
+
     private fun getStatusCode(path: String): StatusCodes {
-        if (path == "/index.html" || path == "/main.js") {
+        if (path == "/index.html" || path == "/main.js" || path == "/main.css") {
             return StatusCodes.TWOHUNDRED
         }
         return StatusCodes.FOURHUNDREDFOUR
