@@ -8,3 +8,4 @@ package-lock.json
 .vscode
 cypress/videos
 cypress/screenshots
+cypress/videos/main.spec.js.mp4

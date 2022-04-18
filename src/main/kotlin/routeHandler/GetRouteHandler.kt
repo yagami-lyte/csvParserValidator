@@ -6,7 +6,7 @@ class GetRouteHandler {
 
     private val responseHeader = ResponseHeader()
     private val contentType = mapOf(
-        "/main.html" to "text/html",
+        "/index.html" to "text/html",
         "/main.css" to "text/css",
         "/main.js" to "text/javascript"
     )
