@@ -5,12 +5,17 @@ import java.io.File
 class GetRouteHandler {
 
     private val responseHeader = ResponseHeader()
+    private val contentType = mapOf(
+        "/main.html" to "text/html",
+        "/main.css" to "text/css",
+        "/main.js" to "text/javascript"
+    )
 
     fun handleGetRequest(request: String): String {
         return when (getPath(request)) {
             "/" -> getResponse("/index.html")
             "/main.js" -> getResponse("/main.js")
-            "/main.css" -> getCSSResponse("/main.css")
+            "/main.css" -> getResponse("/main.css")
             else -> getResponse("/404.html")
         }
     }
@@ -23,15 +28,7 @@ class GetRouteHandler {
         val body = getBodyResponse(path)
         val contentLength = body.length
         val statusCode = getStatusCode(path)
-        return responseHeader.getResponseHead(statusCode) + """Content-Type: text/html; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
-    }
-
-    private fun getCSSResponse(path: String): String {
-        val body = getBodyResponse(path)
-        val contentLength = body.length
-        val statusCode = getStatusCode(path)
-        return responseHeader.getResponseHead(statusCode) + """Content-Type: text/css; charset=utf-8
+        return responseHeader.getResponseHead(statusCode) + """Content-Type: ${contentType[path]}; charset=utf-8
             |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
     }
 
