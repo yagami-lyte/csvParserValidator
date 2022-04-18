@@ -147,3 +147,10 @@
     input[type=submit]:hover {
         background-color: #45a049;
     }
+
+    .hide{
+      display:none;
+    }
+    .show{
+      display:block;
+    }

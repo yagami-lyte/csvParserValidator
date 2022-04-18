@@ -96,6 +96,11 @@ function showColFields(lines){
                      name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
                      <br> </br> <br>
 
+                     <input id="textValues" value="Enter values" type="button" onClick="showHideTextarea()">
+                     <div id="textAreaDiv" style="visibility:hidden;">
+                     <textarea id="textArea${lines[j]}"></textarea>
+                     </div>
+
                      <label for="fixed-len">Length</label>
                      <input type="number" id="fixed-len${lines[j]}" data-cy="fixed-len"><br> </br> <br>
 
@@ -115,12 +120,24 @@ function showColFields(lines){
 console.log(fieldCount)
 }
 
+function showHideTextarea() {
+if (document.getElementById('textAreaDiv').style.visibility="hidden")
+{
+document.getElementById('textAreaDiv').style.visibility="visible";
+}
+else
+{
+document.getElementById('textAreaDiv').style.visibility="hidden";
+}
+}
+
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
        let jsonObj = {}
         var field = fields[0][j]
         var type = document.getElementById((`type${fields[0][j]}`))
         var value = document.getElementById(`text_file_id${fields[0][j]}`).files[0]
+        console.log(value)
         var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
         var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
@@ -131,13 +148,18 @@ function addDataToJson() {
         console.log(field)
             jsonObj["fieldName"] = field
             jsonObj["type"] = type.value
+            if(value!=null){
             let reader = new FileReader();
-            if (value != null){
-                reader.addEventListener('load', function(e) {
-                    let text = e.target.result
-                    jsonObj["values"] = text.split('\n')
+            if (typeof value == 'object'){
+               reader.addEventListener('load', function(e) {
+                      let text = e.target.result
+                      jsonObj["values"] = text.split('\n')
                 });
-                reader.readAsText(value)
+               reader.readAsText(value)
+                }
+             var typedValues = document.getElementById(`textArea${fields[0][j]}`)
+             console.log(typedValues.value)
+             jsonObj["values"] = typedValues.value.split('\n')
             }
             jsonObj["length"] = fixed_len.value
             jsonObj["dependentOn"] = dependentOn.value
