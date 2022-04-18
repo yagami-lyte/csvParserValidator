@@ -1,27 +1,21 @@
 image: gradle:latest
 
-before_script:
-  - export GRADLE_USER_HOME=`pwd`/.gradle
-
-cache:
-  paths:
-    - .gradle
-
-
 stages:
   - test
 
-unit-test-job:
+unit-test:
   stage: test
   script:
-    - echo "Running unit tests."
+    - echo "Initiating Tests"
     - gradle test
+    - echo "All Tests Passed"
 
-cypress-test-job:
+cypress-test:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
   script:
-    - echo "Running cypress tests."
+    - echo "Initiating Cypress Tests"
     - npm ci
     - npm run start:ci &
     - npx cypress run --browser chrome
+    - echo "All Tests Passed"
