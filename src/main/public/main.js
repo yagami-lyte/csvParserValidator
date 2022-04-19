@@ -5,21 +5,12 @@ var fieldCount = 0
 
 function createDropDownForDependant(lines){
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
-        var select = document.getElementById("dependent");
+        var select = document.getElementById('dependent${lines[j]}');
+        console.log(select)
         opt = document.createElement("option");
         opt.value = lines[j];
         opt.textContent = lines[j];
         select.appendChild(opt);
-    }
-}
-
-function createDropDownForFields(lines){
-    for (var i = 1, j = 0; i <= lines.length; i++,j++){
-        var selectField = document.getElementById("field");
-        opt = document.createElement("option");
-        opt.value = lines[j];
-        opt.textContent = lines[j];
-        selectField.appendChild(opt);
     }
 }
 
@@ -38,8 +29,6 @@ function csvReader() {
         console.log(lines)
         console.log(lines[0])
         var arr = lines[0].split(",")
-        //createDropDownForDependant(arr)
-        //createDropDownForFields(arr)
         showColFields(arr);
         var headers = lines[0].split(",");
         fields.push(headers)
@@ -57,6 +46,7 @@ function csvReader() {
 }
 
 function showColFields(lines){
+    var arr = lines[0].split(",")
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
     fieldCount += 1
     var row = document.createElement('div');
@@ -68,12 +58,14 @@ function showColFields(lines){
                      </div>
 
                      <label for="type">Type</label>
-                     <select data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');"><br> </br> <br>
+                     <select data-cy="type" id="type${lines[j]}"
+                     onchange="showDateTimeOption(this.value,this.id,'datetime${lines[j]}');">
+                     <br> </br> <br>
                          <option value="selected disabled hidden">Choose here</option>
                          <option value="Number">Number</option>
                          <option value="AlphaNumeric">AlphaNumeric</option>
                          <option value="Alphabets">Alphabets</option>
-                         <option value="Date Time">Date Time</option>
+                         <option  value="Date Time">Date Time</option>
                      </select> <br>
 
                      <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
@@ -95,8 +87,8 @@ function showColFields(lines){
                      name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
                      <br> </br> <br>
 
-                     <input id="textValues" value="Enter values" type="button" onClick="showHideTextarea()">
-                     <div id="textAreaDiv" style="visibility:hidden;">
+                     <div id="textAreaDiv">
+                     <input id="textValues" value="Enter values" type="button">
                      <textarea id="textArea${lines[j]}"></textarea>
                      </div>
 
@@ -105,7 +97,8 @@ function showColFields(lines){
 
                      <div style="display:flex; flex-direction: row; align-items: center">
                      <label for="dependent">Dependent On</label>
-                     <select name="dependentField" style="display: block;" id="dependent${lines[j]}">
+                     <select name="dependentField" style="display: block;"
+                      onchange="createDropDownForDependant(this.id, arr);" id="dependent${lines[j]}">
                          <option>Choose dependant-field</option>
                      </select>
                      </div>
@@ -114,7 +107,6 @@ function showColFields(lines){
                      <input type="text" id="dep-val${lines[j]}" data-cy="dep-val"><br> </br> <br>
                   `
     document.getElementById("myform").appendChild(row)
-    //addDependentFieldDropdown(headers, index, element);
 }
 console.log(fieldCount)
 }
@@ -132,24 +124,24 @@ function showDateTimeOption(value , dateTimeID , valueID){
     }
 }
 
-function showHideTextarea() {
-if (document.getElementById('textAreaDiv').style.visibility="hidden")
-{
-document.getElementById('textAreaDiv').style.visibility="visible";
-}
-else
-{
-document.getElementById('textAreaDiv').style.visibility="hidden";
-}
-}
+//function showHideTextarea() {
+//if (document.getElementById('textAreaDiv').style.visibility="hidden")
+//{
+//document.getElementById('textAreaDiv').style.visibility="visible";
+//}
+//else
+//{
+//document.getElementById('textAreaDiv').style.visibility="hidden";
+//}
+//}
 
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
        let jsonObj = {}
         var field = fields[0][j]
-        var type = document.getElementById((`type${fields[0][j]}`))
+        var type = document.getElementById(`type${fields[0][j]}`)
         var value = document.getElementById(`text_file_id${fields[0][j]}`).files[0]
-        console.log(value)
+        var typedValues = document.getElementById(`textArea${fields[0][j]}`)
         var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
         var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
@@ -169,9 +161,11 @@ function addDataToJson() {
                 });
                reader.readAsText(value)
                 }
-             var typedValues = document.getElementById(`textArea${fields[0][j]}`)
-             console.log(typedValues.value)
-             jsonObj["values"] = typedValues.value.split('\n')
+            }
+            if(typedValues != null)
+            {
+            console.log(typedValues.value)
+            jsonObj["values"] = typedValues.value.split('\n')
             }
             jsonObj["length"] = fixed_len.value
             jsonObj["dependentOn"] = dependentOn.value
