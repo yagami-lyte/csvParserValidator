@@ -45,7 +45,8 @@ function showColFields(lines){
                        <h4> ${lines[j]}</h4>
 
                      <div style="display:flex; ">
-                         <div class="input-field col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                         <div class="input-field col s4"
+                          style="display:flex;  background: transparent;width: 400px; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="type">Type</label>
                             <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');">
                                <option value="">Choose Type of Data</option>
@@ -57,8 +58,10 @@ function showColFields(lines){
                          </div>
 
 
-                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
-                             <label for="datetime" id="formats" >Date-Time Format</label>
+                         <div class="input-field  col s4"
+                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+>
+                             <label for="datetime" id="formats"> Date-Time Format</label>
                              <select placeholder="Choose date time format"  name="datetime" id='datetime${lines[j]}' style='display:none;'>
                                   <option>"choose date time format"</option>
                                   <option value="MM-dd-yyyy">MM-dd-yyyy</option>
@@ -73,22 +76,29 @@ function showColFields(lines){
                          </div>
 
 
-                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                         <div class="input-field  col s4"
+                                                 style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+
                             <label for="fixed-len">Length</label>
                             <input placeholder="Enter length"  type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
                          </div>
+                       </div>
 
-                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                         <div style="display:flex; ">
+
+                         <div class="input-field  col s4"
+                                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+
                              <label for="text_file_id">Values</label>
                              <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
-                             <h4>or</h4>
+                             <h5 style="font-size:20px;"> or </h5>
                              <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
                          </div>
 
-                    </div>
 
-                    <div style="display:flex; ">
-                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                         <div class="input-field  col s4"
+                                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+
                              <label for="dependent">Dependent On</label>
                              <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${lines[j]}">
                                  <option value="">Choose DateTime Pattern</option>
@@ -98,7 +108,9 @@ function showColFields(lines){
                              </select>
                          </div>
 
-                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                         <div class="input-field  col s4"
+                                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+
                              <label for="dep-val">Dependent Value</label>
                              <input type="text" id="dep-val${lines[j]}" data-cy="dep-val">
                          </div>
