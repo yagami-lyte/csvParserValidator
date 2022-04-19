@@ -31,7 +31,6 @@ function csvReader() {
         }
     };
     reader.readAsText(csv);
-    alert("CSV uploaded successfully!")
 }
 
 function showColFields(lines){
@@ -42,13 +41,13 @@ function showColFields(lines){
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
     //row.setAttribute("style", "display: flex;")
-    row.innerHTML = `<div style="display:flex; flex-direction: row; align-items: center">
-                     <p> ${lines[j]}</p>
-                     </div>
+    row.innerHTML = `<div id="fields">
+                       <h4> ${lines[j]}</h4>
+
                      <div style="display:flex; ">
                          <div class="input-field col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                             <label for="type">Type</label>
-                            <select data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');">
+                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -60,7 +59,7 @@ function showColFields(lines){
 
                          <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                              <label for="datetime" id="formats" >Date-Time Format</label>
-                             <select name="datetime" id='datetime${lines[j]}' style='display:none;'>
+                             <select placeholder="Choose date time format"  name="datetime" id='datetime${lines[j]}' style='display:none;'>
                                   <option>"choose date time format"</option>
                                   <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                                   <option value="DD/MM/YYYY">DD/MM/YYYY</option>
@@ -75,13 +74,13 @@ function showColFields(lines){
 
                          <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
-                            <input type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
+                            <input placeholder="Enter length"  type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
                          </div>
 
                          <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
                              <label for="text_file_id">Values</label>
                              <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
-                             <h3>OR</h3>
+                             <h4>or</h4>
                              <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
                          </div>
 
@@ -90,7 +89,7 @@ function showColFields(lines){
                     <div style="display:flex; ">
                          <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
                              <label for="dependent">Dependent On</label>
-                             <select name="dependentField" style="display: block;" id="dependent${lines[j]}">
+                             <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${lines[j]}">
                                  <option value="">Choose DateTime Pattern</option>
                                      ${lines.map((element) => {
                                          return `<option value='${element}'>${element}</option>`;
@@ -104,7 +103,8 @@ function showColFields(lines){
                          </div>
                     </div>
                      <br> </br> <br>
-                  `
+                      </div>
+                 `
     document.getElementById("myform").appendChild(row)
 }
 console.log(fieldCount)
@@ -168,11 +168,11 @@ function addDataToJson() {
 
 
             console.log(typedValues.value != '')
-//            if(typedValues.value != '' )
-//            {
-//            console.log(typedValues.value)
-//            jsonObj["values"] = typedValues.value.split('\n')
-//            }
+            if(typedValues.value != '' )
+            {
+            console.log(typedValues.value)
+            jsonObj["values"] = typedValues.value.split('\n')
+            }
             jsonObj["length"] = fixed_len.value
 
             jsonObj["dependentOn"] = dependentOn.value
@@ -182,7 +182,6 @@ function addDataToJson() {
             console.log(payload)
             //resetForm()
             //removeConfiguredFields()
-            alert("Field configuration added successfully!")
     }
 
 var errMap ={}

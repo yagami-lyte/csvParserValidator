@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:border="http://www.w3.org/1999/xhtml">
 
@@ -12,38 +13,48 @@
 
 <body>
 
+<div class="header-container-wrapper">
+    <div class="header-container">
+        <div class="custom-header-bg">
+            <div class="page-center">
+                <div class="logo">CSV <strong>PARSER</strong> AND <strong>VALIDATOR</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="csv" class="container">
-    <h1>CSV PARSER</h1>
+    <h1>Upload your CSV file here</h1>
     <div id="upload">
-        <input class="custom-file-input" type="file" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
+        <input type="file" class="upload" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
         <br>
         <br>
-        <a  href="#config" class="btn-get-started scrollto"
+        <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
             onclick="csvReader()" data-cy="upload">Upload</a>
     </div>
 </div>
 
 <div id="config">
     <div class="container">
-        <h1><b>SET CONFIGURATION</b></h1>
+        <h1><b>Configure your CSV fields</b></h1>
         <form id="myform">
-
-
 
         </form>
     </div>
-    <a href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
 </div>
+<a id='view-errors' href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
+
 
 <div id="error-msgs">
-    <h1>ERRORS</h1>
+    <h2>View CSV Errors</h2>
+
 </div>
 <br>
 </body>
 
 
 </html>
-
 
 
 

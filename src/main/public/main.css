@@ -16,22 +16,48 @@
         }
     }
     h1 {
-        color: purple;
+        color: white;
         text-align: center;
+        font-size : 30px;
     }
-    p {
-        font-size : 18px;
+
+     h2 {
+            color: black;
+            text-align: center;
+            font-size : 30px;
+        }
+
+    h4{
+            color: white;
+            text-align: center;
+            font-size : 20px;
+            background:#3498db;
+            height: 25px;
+      }
+
+    .logo{
+            color: white;
+            text-align: center;
+            font-size : 25px;
     }
 
     #config{
         border-radius: 10px;
-        background-color: #f2f2f2;
         padding: 20px;
-        width: 100%;
-        margin-top: 30%;
+        width: 80%;
+        margin-top: 20%;
         min-height: 540px;
         margin-bottom: 2%;
+        margin-left: 10%;
     }
+
+     #fields{
+            background:white;
+            border-radius: 10px;
+            padding: 10px;
+            width: 1200px;
+            height: 220px;
+        }
 
     #upload{
         margin-left: 25%;
@@ -39,10 +65,9 @@
     #csv{
         width: 40%;
         border-radius: 10px;
-        background-color: #f2f2f2;
         padding: 20px;
         margin-left: 30%;
-        margin-top: 20%;
+        margin-top: 10%;
         min-height: 200px;
         margin-bottom: 2%;
     }
@@ -71,11 +96,10 @@
         font-weight: 1000;
         font-size: 10pt;
         width: 180px;
-        margin-left:2%;
     }
 
     input[type=text], select {
-        width: 185px;
+        width: 180px;
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
@@ -88,7 +112,7 @@
     input[type=number], select {
             width: 185px;
             padding: 12px 20px;
-            margin: 8px 0;
+            margin: 7px 0;
             display: inline-block;
             border: 1px solid #ccc;
             border-radius: 2px;
@@ -102,13 +126,13 @@
         clear: both;
         width: max-content;
         float:left;
-        margin-right:15px;
+        margin-right:-10px;
         font-size : 18px;
         font-family: "Times New Roman", Times, serif;
     }
 
     button {
-        background-color: #4CAF50; /* Green */
+        background-color: #3498db;
         border: none;
         color: white;
         padding: 15px 32px;
@@ -122,8 +146,8 @@
         transition-duration: 0.4s;
     }
 
-    a{
-        background-color: #4CAF50; /* Green */
+    #uploadCSV{
+        background-color: #3498db; /* Green */
         border: none;
         color: white;
         padding: 15px 32px;
@@ -136,6 +160,23 @@
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         margin-left:20%;
+    }
+
+    #view-errors{
+            background-color: #3498db; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            margin-left:46%;
+            margin-right:7%;
     }
 
     button:hover {
@@ -157,9 +198,46 @@
         background-color: #45a049;
     }
 
-    .hide{
-      display:none;
-    }
-    .show{
-      display:block;
-    }
+.header-container .page-center,
+.body-container .page-center,
+.footer-container .page-center {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  overflow: hidden;
+}
+
+.header-container-wrapper {
+  flex:none
+}
+
+.custom-header-bg {
+    background: #2196F3;
+    padding: 30px 0;
+    font-family: 'Open Sans', sans-serif;
+    box-shadow: 0 0 12px #000;
+}
+
+.upload {
+  padding: 0;
+  background-color: #3498db;
+  background-image: 8121991;
+  background-image: -webkit-linear-gradient(#4aa3df 0%, #258cd1 100%);
+  background-image: -moz-linear-gradient(#4aa3df 0%, #258cd1 100%);
+  background-image: -o-linear-gradient(#4aa3df 0%, #258cd1 100%);
+  background-image: linear-gradient(#4aa3df 0%, #258cd1 100%);
+  -webkit-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
+  -moz-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
+  box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
+  -webkit-border-radius: 4px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 4px;
+  -moz-background-clip: padding;
+  border-radius: 4px;
+  background-clip: padding-box;
+  padding: 20px 20px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: Open Sans;
+}
