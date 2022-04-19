@@ -41,14 +41,15 @@ function showColFields(lines){
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
     //row.setAttribute("style", "display: flex;")
-    row.innerHTML = `<div id="fields">
+    // language=HTML
+        row.innerHTML = `<div id="fields">
                        <h4> ${lines[j]}</h4>
 
                      <div style="display:flex; ">
                          <div class="input-field col s4"
                           style="display:flex;  background: transparent;width: 400px; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="type">Type</label>
-                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,'datetimediv${lines[j]}','formats${lines[j]}' , 'datetime${lines[j]}');">
+                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,'dateDiv${lines[j]}','dateFormats${lines[j]}' , 'date${lines[j]}','timeDiv${lines[j]}','timeFormats${lines[j]}','time${lines[j]}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -58,25 +59,36 @@ function showColFields(lines){
                          </div>
 
 
+                         
+                     <div id = "dateDiv${lines[j]}" class="input-field  col s4" 
+                                            style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                        <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
+                        <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
+                             <option>"Choose Date Format"</option>
+                             <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+                             <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+                             <option value="MMMM dd, yy">MMMM dd, yy</option>
+                            <option value="yy/MM/dd">yy/MM/dd</option>
+                            <option value="dd/MM/yy">dd/MM/yy</option>
+                            <option value="MMM dd, yyyy">MMM dd, yyyy</option>
+                            <option value="MMM dd yyyy">MMM dd yyyy</option>
+                            <option value="MMM dd yyyy">MMM dd yyyy</option>
+                           <option value="yyyy-MM-dd'T'">yyyy-MM-dd'T'</option>
+                        </select>
+                     </div>
+                     
 
+                     <div id = "timeDiv${lines[j]}" class="input-field  col s4" 
+                                          style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-                         <div id ="datetimediv${lines[j]}" class="input-field  col s4"
-                                                          style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-
-                             <label for="datetime" id="formats${lines[j]}"
-                             style='display:none;'>Date-Time Format</label>
-                             <select placeholder="Choose date time format"  name="datetime" id='datetime${lines[j]}' style='display:none;'>
-                                  <option>"choose date time format"</option>
-                                  <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-                                  <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
-                                  <option value="MMMM dd, yy">MMMM dd, yy</option>
-                                  <option value="yy/MM/dd">yy/MM/dd</option>
-                                  <option value="dd/MM/yy">dd/MM/yy</option>
-                                  <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
-                                  <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
-                                  <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
-                             </select>
-                         </div>
+                       <label for="time" style='display:none;' id="timeFormats${lines[j]}">Time Format</label>
+                           <select placeholder="Choose time format"  name="time" id='time${lines[j]}' style='display:none;'>
+                                <option>"Choose Time Format"</option>
+                                <option value="hh:mm:ss">hh:mm:ss</option>
+                                <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+                                <option value="HH:mm:ss.SSS'Z'">HH:mm:ss.SSS'Z'</option>
+                           </select>
+                      </div>
 
 
                          <div class="input-field  col s4"
@@ -128,22 +140,29 @@ function showColFields(lines){
 console.log(fieldCount)
 }
 
-function showDateTimeOption(value ,datetimediv, formatId, datetimeId){
+function showDateTimeOption(value , dateDivID,dateFormatId, dateId , timeDivID,timeFormatId,timeId){
 //this.id , 'datetime${lines[j]}
-console.log(formatId)
-console.log(datetimeId)
-    var element = document.getElementById(formatId);
-    var divElement = document.getElementById(datetimediv);
-    var elementForFormats = document.getElementById(datetimeId);
+    var dateDivIDElement = document.getElementById(dateDivID);
+    var dateFormatElement = document.getElementById(dateFormatId);
+    var dateIdFormatElement = document.getElementById(dateId);
+    var timeDivIDElement = document.getElementById(timeDivID);
+    var timeFormatElement = document.getElementById(timeFormatId);
+    var timeIdFormatElement = document.getElementById(timeId);
     if(value === 'Date Time'){
-        divElement.style.display='block';
-        element.style.display='block';
-        elementForFormats.style.display='block';
+        dateDivIDElement.style.display='block';
+        dateFormatElement.style.display='block';
+        dateIdFormatElement.style.display='block';
+        timeDivIDElement.style.display='block';
+        timeFormatElement.style.display='block';
+        timeIdFormatElement.style.display='block';
     }
     else{
-         divElement.style.display='none';
-        element.style.display='none';
-        elementForFormats.style.display='none';
+        dateDivIDElement.style.display='none';
+        dateFormatElement.style.display='none';
+        dateIdFormatElement.style.display='none';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
     }
 }
 
@@ -187,8 +206,10 @@ function addDataToJson() {
         var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
         if (type.value === 'Date Time'){
-            var dateTimeFormat = document.getElementById(`datetime${fields[0][j]}`)
-            jsonObj["datetime"] = dateTimeFormat.value
+            var dateFormat = document.getElementById(`date${fields[0][j]}`)
+            var timeFormat = document.getElementById(`time${fields[0][j]}`)
+            var dateTimeFormat = dateFormat.value.toString() + timeFormat.value.toString()
+            jsonObj["datetime"] = dateTimeFormat
         }
         console.log(field)
             jsonObj["fieldName"] = field
