@@ -61,13 +61,14 @@ function showColFields(lines){
                              <label for="datetime" id="formats" >Date-Time Format</label>
                              <select placeholder="Choose date time format"  name="datetime" id='datetime${lines[j]}' style='display:none;'>
                                   <option>"choose date time format"</option>
-                                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                                  <option value="YYYY/MM/DD">YYYY/MM/DD</option>
-                                  <option value="DD/MM/YYYY HH:MM:SS AM">DD/MM/YYYY HH:MM:SS AM</option>
-                                  <option value="HH:MM">HH:MM</option>
-                                  <option value="DD/MM/YYYY HH:MM">DD/MM/YYYY HH:MM</option>
-                                  <option value="Jul 30,2015 10:40:43 AM">Jul 30,2015 10:40:43 AM</option>
+                                  <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+                                  <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+                                  <option value="MMMM dd, yy">MMMM dd, yy</option>
+                                  <option value="yy/MM/dd">yy/MM/dd</option>
+                                  <option value="dd/MM/yy">dd/MM/yy</option>
+                                  <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
+                                  <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
+                                  <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
                              </select>
                          </div>
 
