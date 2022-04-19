@@ -68,7 +68,7 @@ function showColFields(lines){
                      </div>
 
                      <label for="type">Type</label>
-                     <select data-cy="type" id="type${lines[j]}"><br> </br> <br>
+                     <select data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');"><br> </br> <br>
                          <option value="selected disabled hidden">Choose here</option>
                          <option value="Number">Number</option>
                          <option value="AlphaNumeric">AlphaNumeric</option>
@@ -77,8 +77,7 @@ function showColFields(lines){
                      </select> <br>
 
                      <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
-                     <select name="datetime" id='datetime${lines[j]}'
-                     onchange="showDateTimeOption(this.value);" style='display:none;'>
+                     <select name="datetime" id='datetime${lines[j]}' style='display:none;'>
                          <option>"choose date time format"</option>
                          <option value="MM/DD/YYYY">MM/DD/YYYY</option>
                          <option value="DD/MM/YYYY">DD/MM/YYYY</option>
@@ -120,6 +119,19 @@ function showColFields(lines){
 console.log(fieldCount)
 }
 
+function showDateTimeOption(value , dateTimeID , valueID){
+    var element = document.getElementById(dateTimeID);
+    var elementForFormats = document.getElementById(valueID);
+    if(value === 'Date Time'){
+        element.style.display='block';
+        elementForFormats.style.display='block';
+    }
+    else{
+        element.style.display='none';
+        elementForFormats.style.display='none';
+    }
+}
+
 function showHideTextarea() {
 if (document.getElementById('textAreaDiv').style.visibility="hidden")
 {
@@ -141,7 +153,7 @@ function addDataToJson() {
         var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
         var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
-        if (type.value == 'Date Time'){
+        if (type.value === 'Date Time'){
             var dateTimeFormat = document.getElementById(`datetime${fields[0][j]}`)
             jsonObj["datetime"] = dateTimeFormat.value
         }
@@ -252,15 +264,3 @@ async function sendConfigData(){
     }
 }
 
-function showDateTimeOption(value){
-    var element = document.getElementById('datetime');
-    var elementForFormats = document.getElementById('formats');
-    if(value == 'Date Time'){
-        element.style.display='block';
-        elementForFormats.style.display='block';
-    }
-    else{
-        element.style.display='none';
-        elementForFormats.style.display='none';
-    }
-}
