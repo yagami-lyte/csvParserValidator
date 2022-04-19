@@ -16,19 +16,20 @@
         }
     }
     h1 {
-        color: white;
+        color: #00008B;
         text-align: center;
-        font-size : 30px;
+        font-size : 60px;
+        font-family: Marker Felt;
     }
 
      h2 {
-            color: black;
+            color: blue;
             text-align: center;
-            font-size : 30px;
+            font-size : 25px;
         }
 
     h4{
-            color: white;
+            color: black;
             text-align: center;
             font-size : 20px;
             background:#3498db;
@@ -36,9 +37,10 @@
       }
 
     .logo{
-            color: white;
+            color: black;
             text-align: center;
-            font-size : 25px;
+            font-size : 53px;
+            font-family: Impact;
     }
 
     #config{
@@ -69,7 +71,10 @@
         margin-left: 30%;
         margin-top: 10%;
         min-height: 200px;
-        margin-bottom: 2%;
+        margin-bottom: 5%;
+        border-style: solid;
+        border-width: thick;
+        border-color: black;
     }
 
     #error_msgs_list{
@@ -148,18 +153,20 @@
 
     #uploadCSV{
         background-color: #3498db; /* Green */
-        border: none;
-        color: white;
+        background-image: black
+        color: black;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 16px;
+        font-size: 24px;
+        font-family: Serif ;
         margin: 4px 2px;
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         margin-left:20%;
+        box-sizing: border-box;
     }
 
     #view-errors{
@@ -186,7 +193,7 @@
     input[type=submit] {
         width: 100%;
         background-color: #4CAF50;
-        color: white;
+        color: black;
         padding: 14px 20px;
         margin: 8px 0;
         border: none;
@@ -208,24 +215,20 @@
 }
 
 .header-container-wrapper {
-  flex:none
+  flex:none;
 }
 
 .custom-header-bg {
     background: #2196F3;
     padding: 30px 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family:  Marker Felt ;
     box-shadow: 0 0 12px #000;
+    background-image: conic-gradient(#553c9a, #ee4b2b, #00c2cb);
 }
 
 .upload {
   padding: 0;
-  background-color: #3498db;
-  background-image: 8121991;
-  background-image: -webkit-linear-gradient(#4aa3df 0%, #258cd1 100%);
-  background-image: -moz-linear-gradient(#4aa3df 0%, #258cd1 100%);
-  background-image: -o-linear-gradient(#4aa3df 0%, #258cd1 100%);
-  background-image: linear-gradient(#4aa3df 0%, #258cd1 100%);
+  background-color: #CD5C5C;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
   -moz-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
   box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
@@ -239,5 +242,5 @@
   color: #fff;
   cursor: pointer;
   font-weight: 600;
-  font-family: Open Sans;
+  font-family: Marker Felt ;
 }
