@@ -55,11 +55,19 @@
 
      #fields{
             background:white;
-            border-radius: 10px;
-            padding: 10px;
+            color: #fff;
+            border-radius: 70px;
+            padding: 40px;
             width: 1200px;
-            height: 220px;
+            height: 320px;
+            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
+
+        #input-field col s4{
+        font-size: 24px;
+        }
+
 
     #upload{
         margin-left: 25%;
