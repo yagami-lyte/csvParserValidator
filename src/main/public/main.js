@@ -3,16 +3,6 @@ var result = []
 var fields = []
 var fieldCount = 0
 
-function createDropDownForDependant(lines){
-    for (var i = 1, j = 0; i <= lines.length; i++,j++){
-        var select = document.getElementById('dependent${lines[j]}');
-        console.log(select)
-        opt = document.createElement("option");
-        opt.value = lines[j];
-        opt.textContent = lines[j];
-        select.appendChild(opt);
-    }
-}
 
 function removeConfiguredFields() {
     var addedField = document.getElementById("field");
@@ -28,9 +18,8 @@ function csvReader() {
         //document.getElementById("field").innerHTML = lines[0];
         console.log(lines)
         console.log(lines[0])
-        var arr = lines[0].split(",")
-        showColFields(arr);
         var headers = lines[0].split(",");
+        showColFields(headers);
         fields.push(headers)
         for (var i = 1; i < lines.length-1; i++) {
             var obj = {};
@@ -96,21 +85,16 @@ function showColFields(lines){
                              <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
                          </div>
 
-
-
-
-
                     </div>
-
-
-
-
 
                     <div style="display:flex; ">
                          <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
                              <label for="dependent">Dependent On</label>
                              <select name="dependentField" style="display: block;" id="dependent${lines[j]}">
-                                 <option>Choose dependant-field</option>
+                                 <option value="">Choose DateTime Pattern</option>
+                                     ${lines.map((element) => {
+                                         return `<option value='${element}'>${element}</option>`;
+                                     })}
                              </select>
                          </div>
 
@@ -232,6 +216,7 @@ function showErr(map){
             });
         }
 }
+
 
 
 function traverse(object){
