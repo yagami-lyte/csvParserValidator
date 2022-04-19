@@ -52,59 +52,74 @@ function showColFields(lines){
     var row = document.createElement('div');
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
-    row.setAttribute("style", "display: flex;")
+    //row.setAttribute("style", "display: flex;")
     row.innerHTML = `<div style="display:flex; flex-direction: row; align-items: center">
                      <p> ${lines[j]}</p>
                      </div>
+                     <div style="display:flex; ">
+                         <div class="input-field col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                            <label for="type">Type</label>
+                            <select data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,this.id , 'datetime${lines[j]}');">
+                               <option value="">Choose Type of Data</option>
+                                <option value="Number">Number</option>
+                                <option value="AlphaNumeric">AlphaNumeric</option>
+                                <option value="Alphabets">Alphabets</option>
+                                <option value="Date Time">Date Time</option>
+                            </select>
+                         </div>
 
-                     <label for="type">Type</label>
-                     <select data-cy="type" id="type${lines[j]}"
-                     onchange="showDateTimeOption(this.value,this.id,'datetime${lines[j]}');">
+
+                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                             <label for="datetime" id="formats" >Date-Time Format</label>
+                             <select name="datetime" id='datetime${lines[j]}' style='display:none;'>
+                                  <option>"choose date time format"</option>
+                                  <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                  <option value="DD/MM/YYYY">DD/MM/YYYY</option>
+                                  <option value="YYYY/MM/DD">YYYY/MM/DD</option>
+                                  <option value="DD/MM/YYYY HH:MM:SS AM">DD/MM/YYYY HH:MM:SS AM</option>
+                                  <option value="HH:MM">HH:MM</option>
+                                  <option value="DD/MM/YYYY HH:MM">DD/MM/YYYY HH:MM</option>
+                                  <option value="Jul 30,2015 10:40:43 AM">Jul 30,2015 10:40:43 AM</option>
+                             </select>
+                         </div>
+
+
+                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center">
+                            <label for="fixed-len">Length</label>
+                            <input type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
+                         </div>
+
+                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                             <label for="text_file_id">Values</label>
+                             <input class="custom-file-input" type="file" name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
+                             <h3>OR</h3>
+                             <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
+                         </div>
+
+
+
+
+
+                    </div>
+
+
+
+
+
+                    <div style="display:flex; ">
+                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                             <label for="dependent">Dependent On</label>
+                             <select name="dependentField" style="display: block;" id="dependent${lines[j]}">
+                                 <option>Choose dependant-field</option>
+                             </select>
+                         </div>
+
+                         <div class="input-field  col s4" style="display:flex; flex-direction: row; justify-content: center; align-items: center" >
+                             <label for="dep-val">Dependent Value</label>
+                             <input type="text" id="dep-val${lines[j]}" data-cy="dep-val">
+                         </div>
+                    </div>
                      <br> </br> <br>
-                         <option value="selected disabled hidden">Choose here</option>
-                         <option value="Number">Number</option>
-                         <option value="AlphaNumeric">AlphaNumeric</option>
-                         <option value="Alphabets">Alphabets</option>
-                         <option  value="Date Time">Date Time</option>
-                     </select> <br>
-
-                     <label for="datetime" id="formats" style='display:none;'>Date-Time Format</label>
-                     <select name="datetime" id='datetime${lines[j]}' style='display:none;'>
-                         <option>"choose date time format"</option>
-                         <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                         <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                         <option value="YYYY/MM/DD">YYYY/MM/DD</option>
-                         <option value="DD/MM/YYYY HH:MM:SS AM">DD/MM/YYYY HH:MM:SS AM</option>
-                         <option value="HH:MM">HH:MM</option>
-                         <option value="DD/MM/YYYY HH:MM">DD/MM/YYYY HH:MM</option>
-                         <option value="Jul 30,2015 10:40:43 AM">Jul 30,2015 10:40:43 AM</option>
-
-
-                     </select><br>
-
-                     <label for="text_file_id">Values</label>
-                     <input class="custom-file-input" type="file"
-                     name="text-file" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
-                     <br> </br> <br>
-
-                     <div id="textAreaDiv">
-                     <input id="textValues" value="Enter values" type="button">
-                     <textarea id="textArea${lines[j]}"></textarea>
-                     </div>
-
-                     <label for="fixed-len">Length</label>
-                     <input type="number" id="fixed-len${lines[j]}" data-cy="fixed-len"><br> </br> <br>
-
-                     <div style="display:flex; flex-direction: row; align-items: center">
-                     <label for="dependent">Dependent On</label>
-                     <select name="dependentField" style="display: block;"
-                      onchange="createDropDownForDependant(this.id, arr);" id="dependent${lines[j]}">
-                         <option>Choose dependant-field</option>
-                     </select>
-                     </div>
-
-                     <label for="dep-val">Dependent Value</label>
-                     <input type="text" id="dep-val${lines[j]}" data-cy="dep-val"><br> </br> <br>
                   `
     document.getElementById("myform").appendChild(row)
 }
@@ -152,22 +167,30 @@ function addDataToJson() {
         console.log(field)
             jsonObj["fieldName"] = field
             jsonObj["type"] = type.value
-            if(value!=null){
+
             let reader = new FileReader();
-            if (typeof value == 'object'){
-               reader.addEventListener('load', function(e) {
-                      let text = e.target.result
-                      jsonObj["values"] = text.split('\n')
+            var text = ''
+            if (value != null){
+
+                reader.addEventListener('load', function(e) {
+                     text.concat(e.target.result)
+                    //jsonObj["values"] = text.split('\n')
                 });
-               reader.readAsText(value)
-                }
+                console.log(text)
+                reader.readAsText(value)
+                jsonObj["values"] = text.split('\n')
             }
-            if(typedValues != null)
-            {
-            console.log(typedValues.value)
-            jsonObj["values"] = typedValues.value.split('\n')
-            }
+            console.log(jsonObj["values"])
+
+
+            console.log(typedValues.value != '')
+//            if(typedValues.value != '' )
+//            {
+//            console.log(typedValues.value)
+//            jsonObj["values"] = typedValues.value.split('\n')
+//            }
             jsonObj["length"] = fixed_len.value
+
             jsonObj["dependentOn"] = dependentOn.value
             jsonObj["dependentValue"] = dependentValue.value
             payload.push(jsonObj)

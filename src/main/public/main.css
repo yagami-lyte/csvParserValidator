@@ -19,6 +19,9 @@
         color: purple;
         text-align: center;
     }
+    p {
+        font-size : 18px;
+    }
 
     #config{
         border-radius: 10px;
@@ -67,12 +70,12 @@
         text-shadow: 1px 1px #fff;
         font-weight: 1000;
         font-size: 10pt;
-        width: 63%;
+        width: 180px;
         margin-left:2%;
     }
 
     input[type=text], select {
-        width: 10%;
+        width: 185px;
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
@@ -83,7 +86,7 @@
     }
 
     input[type=number], select {
-            width: 10%;
+            width: 185px;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
@@ -94,7 +97,13 @@
         }
 
     label {
-        font-size : 15px;
+        padding: 2px 20px 0px 20px;
+        text-align: right;
+        clear: both;
+        width: max-content;
+        float:left;
+        margin-right:15px;
+        font-size : 18px;
         font-family: "Times New Roman", Times, serif;
     }
 
