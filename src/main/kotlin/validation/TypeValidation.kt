@@ -1,13 +1,11 @@
 package validation
 
 import jsonTemplate.ConfigurationTemplate
-import org.joda.time.format.DateTimeFormat
 import org.json.JSONArray
 import org.json.JSONObject
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class TypeValidation : Validation {
@@ -93,7 +91,7 @@ class TypeValidation : Validation {
     }
 
     fun checkDateTimeFormat(dateTimeFormat:String? , value: String): Boolean {
-        val sdf: DateFormat = SimpleDateFormat(dateTimeFormat)
+        val sdf: DateFormat = SimpleDateFormat(dateTimeFormat as String)
         sdf.isLenient = false
         try {
             sdf.parse(value.trim())

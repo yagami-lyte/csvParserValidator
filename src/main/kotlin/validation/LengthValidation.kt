@@ -25,7 +25,7 @@ class LengthValidation : Validation {
             val (field, value) = getFieldValues(fieldArray, key, fieldElement)
             var flag = true
             if (field.length != "") {
-                flag = checkLengthForRow(field, flag, value)
+                flag = checkLengthForRow(field, value)
             }
             getErrorMessages(index, field, lengthErrors, flag)
         }
@@ -54,11 +54,9 @@ class LengthValidation : Validation {
         return Pair(field, value)
     }
 
-    private fun checkLengthForRow(field: ConfigurationTemplate, flag: Boolean, value: String): Boolean {
-        var isValid = flag
+    private fun checkLengthForRow(field: ConfigurationTemplate, value: String): Boolean {
         val fieldLength = Integer.parseInt(field.length)
-        isValid = checkIfLengthIsIncorrect(fieldLength, value)
-        return isValid
+        return checkIfLengthIsIncorrect(fieldLength, value)
     }
 
     private fun lengthCheck(data: String, length: Int): Boolean {
