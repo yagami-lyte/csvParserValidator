@@ -48,7 +48,7 @@ function showColFields(lines){
                          <div class="input-field col s4"
                           style="display:flex;  background: transparent;width: 400px; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="type">Type</label>
-                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,'formats${lines[j]}' , 'datetime${lines[j]}');">
+                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}" onchange="showDateTimeOption(this.value,'datetimediv${lines[j]}','formats${lines[j]}' , 'datetime${lines[j]}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -60,8 +60,8 @@ function showColFields(lines){
 
 
 
-                         <div class="input-field  col s4"
-                                                   style="display:flex;  background: transparent;width: 400px; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         <div id ="datetimediv${lines[j]}" class="input-field  col s4"
+                                                          style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                              <label for="datetime" id="formats${lines[j]}"
                              style='display:none;'>Date-Time Format</label>
@@ -97,7 +97,6 @@ function showColFields(lines){
                             <input class="custom-file-input" type="file" name="text-file" onchange="onChangeHandler(event,'${lines[j]}')" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
 
                              <h5 style="font-size:20px;"> or </h5>
-
                              <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
                          </div>
 
@@ -129,17 +128,20 @@ function showColFields(lines){
 console.log(fieldCount)
 }
 
-function showDateTimeOption(value , formatId, datetimeId){
+function showDateTimeOption(value ,datetimediv, formatId, datetimeId){
 //this.id , 'datetime${lines[j]}
 console.log(formatId)
 console.log(datetimeId)
     var element = document.getElementById(formatId);
+    var divElement = document.getElementById(datetimediv);
     var elementForFormats = document.getElementById(datetimeId);
     if(value === 'Date Time'){
+        divElement.style.display='block';
         element.style.display='block';
         elementForFormats.style.display='block';
     }
     else{
+         divElement.style.display='none';
         element.style.display='none';
         elementForFormats.style.display='none';
     }
