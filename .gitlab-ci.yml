@@ -9,3 +9,21 @@ unit-test:
     - echo "Initiating Tests"
     - gradle test
     - echo "All Tests Passed"
+
+cypress-test:
+  image: cypress/browsers:node12.14.1-chrome85-ff81
+  stage: test
+  script:
+    - echo "Starting Server"
+    - apt-get --allow-releaseinfo-change update
+    - apt-get install -y default-jdk
+    - ./gradlew build
+    - ./gradlew run &
+    - echo "Server Started"
+    - echo "Initiating Cypress Tests"
+    - npm ci
+    - npm run start:ci &
+    - npx cypress run --browser chrome
+    - echo "All Tests Passed"
+
+

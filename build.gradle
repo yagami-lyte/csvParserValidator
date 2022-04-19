@@ -1,6 +1,7 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
 }
+apply plugin: 'application'
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -24,3 +25,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+application{
+    mainClassName = 'server.MainKt'
+}
+
