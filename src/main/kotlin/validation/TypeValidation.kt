@@ -36,7 +36,7 @@ class TypeValidation : Validation {
             isLengthValid = false
         } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
             isLengthValid = false
-        } else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.checkDateTimeFormat(field.datetime, value)) {
+        } else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.checkDateOrTimeFormat(field.datetime, value)) {
             isLengthValid = false
         }
 
@@ -90,7 +90,7 @@ class TypeValidation : Validation {
         return value.all { it.isLetterOrDigit() }
     }
 
-    fun checkDateTimeFormat(dateTimeFormat:String? , value: String): Boolean {
+    fun checkDateOrTimeFormat(dateTimeFormat:String?, value: String): Boolean {
         val sdf: DateFormat = SimpleDateFormat(dateTimeFormat as String)
         sdf.isLenient = false
         try {
