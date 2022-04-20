@@ -62,16 +62,6 @@ function showColFields(lines){
                             <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
                             <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
                                  <option>"Choose Date Format"</option>
-<<<<<<< Updated upstream
-                                 <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-                                 <option value="MMMM dd, yy">MMMM dd, yy</option>
-                                <option value="yy/MM/dd">yy/MM/dd</option>
-                                <option value="dd/MM/yy">dd/MM/yy</option>
-                                <option value="MMM dd, yyyy">MMM dd, yyyy</option>
-                                <option value="MMM dd yyyy">MMM dd yyyy</option>
-                                <option value="MMM dd yyyy">MMM dd yyyy</option>
-                               <option value="yyyy-MM-dd'T'">yyyy-MM-dd'T'</option>
-=======
                                  <option value="MM-dd-yyyy">MM-DD-YYYY</option>
                                  <option value="dd-MM-yyyy">DD-MM-YYYY</option>
                                  <option value="dd/MM/yyyy, yy">DD/MM/YYYY</option>
@@ -82,7 +72,6 @@ function showColFields(lines){
                                 <option value="yyyy/M/dd">YYYY/M/DD</option>
                                 <option value="ddMMyYYy">DDMMYYYY</option>
                                <option value="yyyy-MM-dd'T'">YYYY-MM-DD'T'</option>
->>>>>>> Stashed changes
                             </select>
                          </div>
 

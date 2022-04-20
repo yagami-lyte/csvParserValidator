@@ -230,11 +230,7 @@ class TypeValidationTest {
         Arguments.of("yyyy/MM/dd", "2009/ 2/17"),
         Arguments.of("M/d/yyy", "2/7/12"),
         Arguments.of("d/M/yyyy", "17/2/2009"),
-<<<<<<< Updated upstream
         Arguments.of("yyyy/M/d", "2009/2/17"),
-=======
-        Arguments.of("yyyy/M/dd", "2009/2/17"),
->>>>>>> Stashed changes
         Arguments.of("MMddYy", "02172009"),
         Arguments.of("ddMMyYYy", "17022009"),
         Arguments.of("dd MMM yyyy", "02 Jan 18"),
