@@ -59,24 +59,24 @@ function showColFields(lines){
                          </div>
 
 
-                         
-                     <div id = "dateDiv${lines[j]}" class="input-field  col s4" 
-                                            style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                        <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
-                        <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
-                             <option>"Choose Date Format"</option>
-                             <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-                             <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
-                             <option value="MMMM dd, yy">MMMM dd, yy</option>
-                            <option value="yy/MM/dd">yy/MM/dd</option>
-                            <option value="dd/MM/yy">dd/MM/yy</option>
-                            <option value="MMM dd, yyyy">MMM dd, yyyy</option>
-                            <option value="MMM dd yyyy">MMM dd yyyy</option>
-                            <option value="MMM dd yyyy">MMM dd yyyy</option>
-                           <option value="yyyy-MM-dd'T'">yyyy-MM-dd'T'</option>
-                        </select>
-                     </div>
-                     
+
+                         <div id = "dateDiv${lines[j]}" class="input-field  col s4"
+                                                style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                            <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
+                            <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
+                                 <option>"Choose Date Format"</option>
+                                 <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+                                 <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+                                 <option value="MMMM dd, yy">MMMM dd, yy</option>
+                                <option value="yy/MM/dd">yy/MM/dd</option>
+                                <option value="dd/MM/yy">dd/MM/yy</option>
+                                <option value="MMM dd, yyyy">MMM dd, yyyy</option>
+                                <option value="MMM dd yyyy">MMM dd yyyy</option>
+                                <option value="MMM dd yyyy">MMM dd yyyy</option>
+                               <option value="yyyy-MM-dd'T'">yyyy-MM-dd'T'</option>
+                            </select>
+                         </div>
+
 
                      <div id = "timeDiv${lines[j]}" class="input-field  col s4" 
                                           style="display:none;  background: transparent;width: 300px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
@@ -149,10 +149,10 @@ function showDateTimeOption(value , dateDivID,dateFormatId, dateId , timeDivID,t
     var timeFormatElement = document.getElementById(timeFormatId);
     var timeIdFormatElement = document.getElementById(timeId);
     if(value === 'Date Time'){
-        dateDivIDElement.style.display='block';
+        dateDivIDElement.style.display='flex';
         dateFormatElement.style.display='block';
         dateIdFormatElement.style.display='block';
-        timeDivIDElement.style.display='block';
+        timeDivIDElement.style.display='flex';
         timeFormatElement.style.display='block';
         timeIdFormatElement.style.display='block';
     }
