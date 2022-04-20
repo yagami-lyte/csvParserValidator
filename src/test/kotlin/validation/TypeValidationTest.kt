@@ -163,6 +163,18 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumber() {
+        val typeValidation = TypeValidation()
+        val value = "123.45"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertTrue(actual)
+    }
+
+
+
     @ParameterizedTest
     @MethodSource("checkDateTimeFormatsWithValidFormats")
     fun shouldBeAbleToCheckIfValueIsInDateTimeFormat(dateTimeFormat: String, dateTimeValue: String) {

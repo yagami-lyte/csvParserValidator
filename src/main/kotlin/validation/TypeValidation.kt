@@ -80,6 +80,10 @@ class TypeValidation : Validation {
         }
     }
 
+    fun isFloatingNumber(value: String): Boolean {
+        return value.matches("[-+]?([0-9]*.[0-9]+|[0-9]+).".toRegex())
+    }
+
     fun isNumeric(value: String): Boolean {
         return value.matches("-?\\d+(\\.\\d+)?".toRegex())
     }
