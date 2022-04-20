@@ -213,6 +213,16 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @ParameterizedTest
+    @MethodSource("checkTimeFormatsWithInValidFormats")
+    fun shouldBeAbleToCheckIfValueIsNotInTimeFormat(dateFormat: String , dateTimeValue: String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.checkDateOrTimeFormat(dateFormat , dateTimeValue)
+
+        assertFalse(actual)
+    }
+
     private fun checkDateFormatsWithValidFormats(): Stream<Arguments> = Stream.of(
         Arguments.of("MM-dd-yyyy", "01-02-2018"),
         Arguments.of("dd-MM-yyyy", "31-01-2012"),
@@ -246,7 +256,12 @@ class TypeValidationTest {
         Arguments.of("HH:mm:ss.SSS'Z'", "10:35:49.278Z"),
     )
 
-
+    private fun checkTimeFormatsWithInValidFormats(): Stream<Arguments> = Stream.of(
+        Arguments.of("hh:mm/ss", "06:07:59"),
+        Arguments.of("HH--mm:ss zzz", "18:07:59 IST"),
+        Arguments.of("HH::mm:ss.SSSZ", "13:03:15.454+0530"),
+        Arguments.of("HH:mm:ss.SSSZ", "10:35:49.278'Z'"),
+    )
 
 }
 
