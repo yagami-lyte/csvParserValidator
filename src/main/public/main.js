@@ -63,7 +63,6 @@ function showColFields(lines){
                             <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
                                  <option>"Choose Date Format"</option>
                                  <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-                                 <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
                                  <option value="MMMM dd, yy">MMMM dd, yy</option>
                                 <option value="yy/MM/dd">yy/MM/dd</option>
                                 <option value="dd/MM/yy">dd/MM/yy</option>
