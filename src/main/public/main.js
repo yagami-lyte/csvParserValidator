@@ -15,7 +15,6 @@ function csvReader() {
     reader.onload = async function (event) {
         csv = event.target.result
         var lines = csv.toString().split("\n");
-        //document.getElementById("field").innerHTML = lines[0];
         console.log(lines)
         console.log(lines[0])
         var headers = lines[0].split(",");
@@ -40,8 +39,6 @@ function showColFields(lines){
     var row = document.createElement('div');
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
-    //row.setAttribute("style", "display: flex;")
-    // language=HTML
         row.innerHTML = `<div id="fields">
                        <h4> ${lines[j]}</h4>
 
@@ -102,14 +99,14 @@ function showColFields(lines){
                          <div style="display:flex; ">
 
                          <div class="input-field  col s4"
-                                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                                                  style="display:flex;  background: transparent;width: 500px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;border-radius: 5000px;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                              <label for="text_file_id">Values</label>
 
                             <input class="custom-file-input" type="file" name="text-file" onchange="onChangeHandler(event,'${lines[j]}')" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
 
                              <h5 style="font-size:20px;"> or </h5>
-                             <textarea placeholder="Type Allowed values in new lines" id="textArea${lines[j]}"></textarea>
+                             <textarea placeholder="Type Allowed values in new lines" style="border-radius: 15px; padding-left:13px; " id="textArea${lines[j]}"></textarea>
                          </div>
 
 
@@ -134,6 +131,7 @@ function showColFields(lines){
                     </div>
                      <br> </br> <br>
                       </div>
+                      <br>
                  `
     document.getElementById("myform").appendChild(row)
 }
@@ -141,7 +139,6 @@ console.log(fieldCount)
 }
 
 function showDateTimeOption(value , dateDivID,dateFormatId, dateId , timeDivID,timeFormatId,timeId){
-//this.id , 'datetime${lines[j]}
     var dateDivIDElement = document.getElementById(dateDivID);
     var dateFormatElement = document.getElementById(dateFormatId);
     var dateIdFormatElement = document.getElementById(dateId);
@@ -166,16 +163,7 @@ function showDateTimeOption(value , dateDivID,dateFormatId, dateId , timeDivID,t
     }
 }
 
-//function showHideTextarea() {
-//if (document.getElementById('textAreaDiv').style.visibility="hidden")
-//{
-//document.getElementById('textAreaDiv').style.visibility="visible";
-//}
-//else
-//{
-//document.getElementById('textAreaDiv').style.visibility="hidden";
-//}
-//}
+
 function onChangeHandler(event, fieldName){
 console.log(fieldName)
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
@@ -237,8 +225,6 @@ function addDataToJson() {
             payload.push(jsonObj)
             }
             console.log(payload)
-            //resetForm()
-            //removeConfiguredFields()
     }
 
 var errMap ={}
@@ -272,8 +258,6 @@ function showErr(map){
             });
         }
 }
-
-
 
 function traverse(object){
     for(var i in object){
