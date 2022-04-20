@@ -40,6 +40,8 @@ class TypeValidation : Validation {
             isTypeValid = false
         } else if (field.type == "Email" && value.isNotEmpty() && !typeValidation.isEmail(value)) {
             isTypeValid = false
+        } else if (field.type == "Floating Number" && value.isNotEmpty() && !typeValidation.isFloatingNumber(value)) {
+            isTypeValid = false
         }
 
         return isTypeValid
