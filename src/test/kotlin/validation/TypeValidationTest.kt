@@ -173,6 +173,56 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
+    @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumberWithSucceeDingZeroes() {
+        val typeValidation = TypeValidation()
+        val value = "123.000"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertTrue(actual)
+    }
+
+    @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihCharacters() {
+        val typeValidation = TypeValidation()
+        val value = "123utk"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertFalse(actual)
+    }
+
+    @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihSymbols() {
+        val typeValidation = TypeValidation()
+        val value = "123**/.12"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertFalse(actual)
+    }
+
+    @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihNegativeNumbers() {
+        val typeValidation = TypeValidation()
+        val value = "-123.122"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertTrue(actual)
+    }
+
+    @Test
+    fun shouldReturnFalseIfTheNumberIsInteger() {
+        val typeValidation = TypeValidation()
+        val value = "123"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertFalse(actual)
+    }
+
 
 
     @ParameterizedTest
