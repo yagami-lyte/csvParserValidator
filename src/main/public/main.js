@@ -27,6 +27,7 @@ function csvReader() {
                 obj[headers[j]] = currentLine[j];
             }
             result.push(obj);
+            localStorage.setItem(csv, JSON.stringify(result));
         }
     };
     reader.readAsText(csv);
@@ -245,7 +246,7 @@ function showErr(map){
             row.setAttribute("class", "row");
             row.innerHTML = `<br>
             <div class="col s10 offset-s1">
-          <div class="card-panel" id="${key}" style="color:blue">
+          <div class="card-panel" id="${key}">
               <h3>Errors at Row Number: ${key}</h3>
           </div>
       </div>`;
@@ -253,7 +254,6 @@ function showErr(map){
             value.forEach(element => {
                 let p = document.createElement("p")
                 p.setAttribute("id", "error")
-                p.setAttribute("style", "font-weight: bold; color:red;")
                 p.innerText = `    -  ${element}`
                 let parent = document.getElementById(`${key}`)
                 parent.appendChild(p)
