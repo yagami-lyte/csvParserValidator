@@ -2,5 +2,5 @@ package server
 
 
 fun main() {
-    Server(3010).startServer()
+    Server(3002).startServer()
 }
