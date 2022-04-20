@@ -53,6 +53,7 @@ function showColFields(lines){
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
                                 <option value="Alphabets">Alphabets</option>
+                                <option value="Floating Number">Floating Number</option>
                                 <option value="Date Time">Date Time</option>
                                 <option value="Email">Email</option>
                             </select>
