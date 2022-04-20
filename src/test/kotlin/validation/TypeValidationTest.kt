@@ -83,12 +83,12 @@ class TypeValidationTest {
     fun shouldPerformTypeValidationCheck() {
 
         val metaData =
-            """[{"fieldName": "Product Id","type": "AlphaNumeric","length": 4},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
+            """[{"fieldName": "Product Id","type": "Email","length": 4},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData =
-            """[{"Product Id": "1564","Price": "4500.59","Export": "N"},{"Product Id": "1565","Price": "1000abc","Export": "Y"}]"""
+            """[{"Product Id": "s@gmail.com","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail.com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expectedError = """[{"2":"Incorrect Type of Price. Please change to Number"}]"""
         val expectedErrorList = JSONArray(expectedError)
@@ -223,6 +223,26 @@ class TypeValidationTest {
         assertFalse(actual)
     }
 
+    @ParameterizedTest
+    @MethodSource("checkEmailWithValidFormats")
+    fun shouldBeAbleToCheckIfValueIsInEmailFormat(value:String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.isEmail(value)
+
+        assertTrue(actual)
+    }
+
+    @ParameterizedTest
+    @MethodSource("checkEmailWithInValidFormats")
+    fun shouldBeAbleToCheckIfValueIsNotInEmailFormat(value:String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.isEmail(value)
+
+        assertFalse(actual)
+    }
+
     private fun checkDateFormatsWithValidFormats(): Stream<Arguments> = Stream.of(
         Arguments.of("MM-dd-yyyy", "01-02-2018"),
         Arguments.of("dd-MM-yyyy", "31-01-2012"),
@@ -262,6 +282,19 @@ class TypeValidationTest {
         Arguments.of("HH--mm:ss zzz", "18:07:59 IST"),
         Arguments.of("HH::mm:ss.SSSZ", "13:03:15.454+0530"),
         Arguments.of("HH:mm:ss.SSSZ", "10:35:49.278'Z'"),
+    )
+
+    private fun checkEmailWithValidFormats(): Stream<Arguments> = Stream.of(
+        Arguments.of("shikhareddy@gmail.com"),
+        Arguments.of("shikha.reddy@gmail.com"),
+        Arguments.of("shikhareddy123@my-gmail.com"),
+        Arguments.of("shikha_reddy@gmail.com"),
+    )
+
+    private fun checkEmailWithInValidFormats(): Stream<Arguments> = Stream.of(
+        Arguments.of("@"),
+        Arguments.of("shikha.reddy@"),
+        Arguments.of("@my-gmail.com"),
     )
 
 }

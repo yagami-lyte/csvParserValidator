@@ -29,18 +29,20 @@ class TypeValidation : Validation {
         value: String,
         typeValidation: TypeValidation,
     ): Boolean {
-        var isLengthValid = true
+        var isTypeValid = true
         if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
-            isLengthValid = false
+            isTypeValid = false
         } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
-            isLengthValid = false
+            isTypeValid = false
         } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
-            isLengthValid = false
+            isTypeValid = false
         } else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.checkDateOrTimeFormat(field.datetime, value)) {
-            isLengthValid = false
+            isTypeValid = false
+        } else if (field.type == "Email" && value.isNotEmpty() && !typeValidation.isEmail(value)) {
+            isTypeValid = false
         }
 
-        return isLengthValid
+        return isTypeValid
     }
 
     private fun getFieldValues(
@@ -88,6 +90,12 @@ class TypeValidation : Validation {
 
     fun isAlphaNumeric(value: String): Boolean {
         return value.all { it.isLetterOrDigit() }
+    }
+
+    fun isEmail(value: String): Boolean {
+        println(value)
+        val emailPattern = Regex("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$")
+        return emailPattern.matches(value)
     }
 
     fun checkDateOrTimeFormat(dateTimeFormat:String?, value: String): Boolean {
