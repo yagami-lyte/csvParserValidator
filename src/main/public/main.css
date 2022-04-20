@@ -3,10 +3,10 @@ html {
 }
 
 body {
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background: linear-gradient(-45deg, #ccccff, #ccffff, #ffe6e6,#ffccff);
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
-        height: 100vh;
+        height: 150vh;
     }
     @keyframes gradient {
         0% {
@@ -22,8 +22,8 @@ body {
     h1 {
         color: #00008B;
         text-align: center;
-        font-size : 60px;
-        font-family: Marker Felt;
+        font-size : 40px;
+       font-family: 'Ubuntu', sans-serif;
     }
 
      h2 {
@@ -36,15 +36,17 @@ body {
             color: black;
             text-align: center;
             font-size : 30px;
-            background:#3498db;
             height: 35px;
+            font-family: 'Ubuntu', sans-serif;
+            margin-top : -1%;
+
       }
 
     .logo{
-            color: gainsboro;
+            color: white;
             text-align: center;
-            font-size : 53px;
-            font-family: Impact;
+            font-size : 39px;
+          font-family: 'Ubuntu', sans-serif;
     }
 
     #config{
@@ -63,8 +65,9 @@ body {
             margin-left:1%;
             padding: 40px;
             width: 1650px;
-            height: 320px;
-            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+            height: 280px;
+            background: #5b84d7;
+            opacity: 80%;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
@@ -80,20 +83,17 @@ body {
         margin-top: 10%;
         min-height: 200px;
         margin-bottom: 5%;
-        border-style: solid;
-        border-width: thick;
-        border-color: black;
+
     }
 
     #error_msgs_list{
-        font-family: Georgia;
+        font-family: 'Ubuntu', sans-serif;
         font-size: medium;
     }
 
     #error-msgs{
         width: 50%;
         border-radius: 10px;
-        background-color: #f2f2f2;
         padding: 20px;
         margin-left: 25%;
         margin-top: 15%;
@@ -143,10 +143,11 @@ body {
             margin-bottom: 1em;
             border-radius: 2000px;
 
-            color: #fff;
+            color: white;
             font-size: 20px;
+            font-weight: bold;
             margin-top : 4%;
-            font-family: Montserrat, sans-serif;
+            font-family: 'Ubuntu', sans-serif;
             transition: all 0.2s ease-in-out;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
@@ -167,31 +168,33 @@ body {
     }
 
     #uploadCSV{
-        background-color: #3498db; /* Green */
-        color: black;
+        background-color: #003399; /* Green */
+        color: white;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 24px;
-        font-family: Serif ;
+        font-size: 20px;
+        font-family: 'Ubuntu', sans-serif;
         margin: 4px 2px;
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         margin-left:20%;
         box-sizing: border-box;
+        height: 50px;
     }
 
     #view-errors{
-            background-color: #3498db; /* Green */
+            background-color: #00008B; /* Green */
             border: none;
+             font-family: 'Ubuntu', sans-serif;
             color: white;
             padding: 15px 30px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 20px;
+            font-size: 25px;
             margin: 4px 2px;
             cursor: pointer;
             -webkit-transition-duration: 0.4s; /* Safari */
@@ -234,13 +237,14 @@ body {
 
 .custom-header-bg {
     padding: 30px 0;
-    font-family:  Marker Felt ;
+    font-family: 'Ubuntu', sans-serif;
     box-shadow: 0 0 12px #000;
+    background: #003399;
 }
 
 .upload {
   padding: 0;
-  background-color: #CD5C5C;
+  background-color:#003399 ;
   -webkit-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
   -moz-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
   box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
@@ -254,5 +258,5 @@ body {
   color: #fff;
   cursor: pointer;
   font-weight: 600;
-  font-family: Marker Felt ;
+  font-family: 'Ubuntu', sans-serif;
 }
