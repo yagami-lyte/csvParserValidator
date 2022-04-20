@@ -168,7 +168,7 @@ class TypeValidationTest {
     fun shouldBeAbleToCheckIfValueIsInDateTimeFormat(dateTimeFormat: String, dateTimeValue: String) {
         val typeValidation = TypeValidation()
 
-        val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, dateTimeValue)
+        val actual = typeValidation.checkDateOrTimeFormat(dateTimeFormat, dateTimeValue)
 
         assertTrue(actual)
     }
@@ -178,7 +178,7 @@ class TypeValidationTest {
     fun shouldBeAbleToCheckIfValueIsNotInDateTimeFormat(dateTimeFormat: String, dateTimeValue: String) {
         val typeValidation = TypeValidation()
 
-        val actual = typeValidation.checkDateTimeFormat(dateTimeFormat, dateTimeValue)
+        val actual = typeValidation.checkDateOrTimeFormat(dateTimeFormat, dateTimeValue)
 
         assertFalse(actual)
     }
@@ -188,7 +188,27 @@ class TypeValidationTest {
     fun shouldBeAbleToCheckIfValueIsInDateFormat(dateFormat: String, dateTimeValue: String) {
         val typeValidation = TypeValidation()
 
-        val actual = typeValidation.checkDateTimeFormat(dateFormat, dateTimeValue)
+        val actual = typeValidation.checkDateOrTimeFormat(dateFormat, dateTimeValue)
+
+        assertTrue(actual)
+    }
+
+    @ParameterizedTest
+    @MethodSource("checkDateFormatsWithInValidFormats")
+    fun shouldBeAbleToCheckIfValueIsNotInDateFormat(dateFormat: String , dateTimeValue: String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.checkDateOrTimeFormat(dateFormat , dateTimeValue)
+
+        assertFalse(actual)
+    }
+
+    @ParameterizedTest
+    @MethodSource("checkTimeFormatsWithValidFormats")
+    fun shouldBeAbleToCheckIfValueIsInTimeFormat(dateFormat: String , dateTimeValue: String) {
+        val typeValidation = TypeValidation()
+
+        val actual = typeValidation.checkDateOrTimeFormat(dateFormat , dateTimeValue)
 
         assertTrue(actual)
     }
@@ -197,14 +217,36 @@ class TypeValidationTest {
         Arguments.of("MM-dd-yyyy", "01-02-2018"),
         Arguments.of("dd-MM-yyyy", "31-01-2012"),
         Arguments.of("dd/MM/yyyy", "17/02/09"),
-        Arguments.of("yyyy/MM/dd", "2009/02/17"),
-        Arguments.of("M/d/yy", "2/7/12"),
+        Arguments.of("yyyy/MM/dd", "2009/ 2/17"),
+        Arguments.of("M/d/yyy", "2/7/12"),
         Arguments.of("d/M/yyyy", "17/2/2009"),
-        Arguments.of("yyyy/M/d", "2009/2/17"),
-        Arguments.of("MMddyyyy", "02172009"),
-        Arguments.of("ddMMyyyy", "17022009"),
-        Arguments.of("dd MMM yyyy", "02 Jan 2018"),
+        Arguments.of("yyyy/M/D", "2009/2/17"),
+        Arguments.of("MMddYy", "02172009"),
+        Arguments.of("ddMMyYYy", "17022009"),
+        Arguments.of("dd MMM yyyy", "02 Jan 18"),
     )
+
+    private fun checkDateFormatsWithInValidFormats(): Stream<Arguments> = Stream.of(
+        Arguments.of("MM-dd-yyyy", "01/02/2018"),
+        Arguments.of("dd-MM-yyy", "31/ 01-2012"),
+        Arguments.of("dd/MM/yyyy", "17-02-09"),
+        Arguments.of("yyyy/MM/dd", "2009/017"),
+        Arguments.of("M/d/yy", "2 7/12"),
+        Arguments.of("d/M/yyyy", "17/2:2009"),
+        Arguments.of("yyyy//d", "2009/2/17"),
+        Arguments.of("MMddyyyy", "02:17/09"),
+        Arguments.of("ddMMyyyy", "170 2009"),
+        Arguments.of("dd MMM yyyy", "0 2 Jan 2018"),
+    )
+
+    private fun checkTimeFormatsWithValidFormats(): Stream<Arguments> = Stream.of(
+        Arguments.of("hh:mm:ss", "06:07:59"),
+        Arguments.of("HH:mm:ss zzz", "18:07:59 IST"),
+        Arguments.of("HH:mm:ss.SSSZ", "13:03:15.454+0530"),
+        Arguments.of("HH:mm:ss.SSS'Z'", "10:35:49.278Z"),
+    )
+
+
 
 }
 
