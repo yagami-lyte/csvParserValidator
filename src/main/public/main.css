@@ -289,3 +289,13 @@ border-radius: 70px;
             opacity: 80%;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
+
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+
+.success-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  color: #270;
+  background-color: #DFF2BF;
+}

@@ -279,6 +279,7 @@ function pushErrToMaps(object){
 }
 
 function showErr(map){
+
     var errors = document.getElementById("error-msgs");
     for (const [key, value] of Object.entries(map)) {
             var rowNo = parseInt(key)+1
@@ -300,10 +301,20 @@ function showErr(map){
                 parent.appendChild(p)
             });
         }
+
+        if(Object.keys(map).length === 0){
+        errors.innerHTML = `<div class="success-msg">
+                              <h1>NO Error in Uploaded CSV file</h1>
+                            </div>`;
+         setTimeout(function(){
+               errors.removeChild(errors.firstChild);
+              },2000);
+        }
         errMap = {}
         payload = []
 
 }
+
 
 function emptyErrorList(){
     const el = document.getElementById("error-msgs");
