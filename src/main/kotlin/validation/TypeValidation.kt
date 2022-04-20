@@ -93,7 +93,6 @@ class TypeValidation : Validation {
     }
 
     fun isEmail(value: String): Boolean {
-        println(value)
         val emailPattern = Regex("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$")
         return emailPattern.matches(value)
     }

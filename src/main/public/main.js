@@ -208,16 +208,10 @@ function addDataToJson() {
         console.log(field)
             jsonObj["fieldName"] = field
             jsonObj["type"] = type.value
-
-
-
             if (value != null){
                 jsonObj["values"] =JSON.parse(localStorage.getItem(field))
                 console.log(localStorage.getItem(field))
             }
-
-
-
             console.log(typedValues.value != '')
             if(typedValues.value != '' )
             {
@@ -225,7 +219,6 @@ function addDataToJson() {
             jsonObj["values"] = typedValues.value.split('\n')
             }
             jsonObj["length"] = fixed_len.value
-
             jsonObj["dependentOn"] = dependentOn.value
             jsonObj["dependentValue"] = dependentValue.value
             payload.push(jsonObj)
@@ -233,35 +226,31 @@ function addDataToJson() {
             console.log(payload)
     }
 
-var errMap ={}
-function pushErrToMaps(object){
-    for (var i in object) {
-      console.log(`${i}: ${object[i]}`);
-      errMap[i] = errMap[i] || [];
-      errMap[i].push(object[i]);
+async function sendConfigData(){
+    addDataToJson()
+    var resp = await fetch('add-meta-data', {
+        method: 'POST',
+        body: JSON.stringify(payload)
+    })
+
+    if (resp.status === 200) {
+        var jsonData = await resp.json();
+        console.log(jsonData)
     }
 }
 
-function showErr(map){
-    var errors = document.getElementById("error-msgs");
-    for (const [key, value] of Object.entries(map)) {
-            let row = document.createElement("div");
-            row.setAttribute("class", "row");
-            row.innerHTML = `<br>
-            <div class="col s10 offset-s1">
-          <div class="card-panel" id="${key}">
-              <h3>Errors at Row Number: ${key}</h3>
-          </div>
-      </div>`;
-            errors.appendChild(row)
-            value.forEach(element => {
-                let p = document.createElement("p")
-                p.setAttribute("id", "error")
-                p.innerText = `    -  ${element}`
-                let parent = document.getElementById(`${key}`)
-                parent.appendChild(p)
-            });
-        }
+async function displayErrors(){
+   sendConfigData()
+    const response = await fetch('csv', {
+        method: 'POST',
+        body: JSON.stringify(result)
+    })
+
+    if (response.status === 200) {
+        var jsonData =  await response.json();
+        console.log(jsonData)
+        traverse(jsonData)
+    }
 }
 
 function traverse(object){
@@ -279,35 +268,45 @@ function traverse(object){
     showErr(errMap)
 }
 
-async function displayErrors(){
-   sendConfigData()
-    const response = await fetch('csv', {
-        method: 'POST',
-        body: JSON.stringify(result)
-    })
-
-    if (response.status === 200) {
-        var jsonData =  await response.json();
-        console.log(jsonData)
-        traverse(jsonData)
+var errMap ={}
+function pushErrToMaps(object){
+    for (var i in object) {
+      console.log(`${i}: ${object[i]}`);
+      errMap[i] = errMap[i] || [];
+      errMap[i].push(object[i]);
     }
 }
+
+function showErr(map){
+    var errors = document.getElementById("error-msgs");
+    for (const [key, value] of Object.entries(map)) {
+            var rowNo = parseInt(key)+1
+            console.log(rowNo)
+            console.log(typeof rowNo)
+            let row = document.createElement("div");
+            row.setAttribute("class", "row");
+            row.innerHTML = `<br>
+            <div class="col s10 offset-s1">
+          <div class="card-panel" id="${key}">
+              <h3>Errors at Row Number: ${rowNo}</h3>
+          </div>
+      </div>`;
+            errors.appendChild(row)
+            value.forEach(element => {
+                let p = document.createElement("p")
+                p.setAttribute("id", "error")
+                p.innerText = `    -  ${element}`
+                let parent = document.getElementById(`${key}`)
+                parent.appendChild(p)
+            });
+        }
+}
+
+
+
 
 
 function resetForm(){
     document.getElementById("myform").reset()
-}
-
-async function sendConfigData(){
-    addDataToJson()
-    var resp = await fetch('add-meta-data', {
-        method: 'POST',
-        body: JSON.stringify(payload)
-    })
-
-    if (resp.status === 200) {
-        var jsonData = await resp.json();
-        console.log(jsonData)
-    }
 }
 
