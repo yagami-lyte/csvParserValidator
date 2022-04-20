@@ -12,12 +12,11 @@ class TypeValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val typeErrors = JSONArray()
-        val typeValidation = TypeValidation()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
-                val isLengthValid = validateTypeInEachRow(field, value, typeValidation)
+                val isLengthValid = validateTypeInEachRow(field, value)
                 getErrorMessages(isLengthValid, index, field, typeErrors)
             }
         }
@@ -27,20 +26,19 @@ class TypeValidation : Validation {
     private fun validateTypeInEachRow(
         field: ConfigurationTemplate,
         value: String,
-        typeValidation: TypeValidation,
     ): Boolean {
         var isTypeValid = true
-        if (field.type == "AlphaNumeric" && value.isNotEmpty() && !typeValidation.isAlphaNumeric(value)) {
+        if (field.type == "AlphaNumeric" && value.isNotEmpty() && !isAlphaNumeric(value)) {
             isTypeValid = false
-        } else if (field.type == "Alphabet" && value.isNotEmpty() && !typeValidation.isAlphabetic(value)) {
+        } else if (field.type == "Alphabet" && value.isNotEmpty() && !isAlphabetic(value)) {
             isTypeValid = false
-        } else if (field.type == "Number" && value.isNotEmpty() && !typeValidation.isNumeric(value)) {
+        } else if (field.type == "Number" && value.isNotEmpty() && !isNumeric(value)) {
             isTypeValid = false
-        } else if (field.type == "Date Time" && value.isNotEmpty() && !typeValidation.checkDateOrTimeFormat(field.datetime, value)) {
+        } else if (field.type == "Date Time" && value.isNotEmpty() && !checkDateOrTimeFormat(field.datetime, value)) {
             isTypeValid = false
-        } else if (field.type == "Email" && value.isNotEmpty() && !typeValidation.isEmail(value)) {
+        } else if (field.type == "Email" && value.isNotEmpty() && !isEmail(value)) {
             isTypeValid = false
-        } else if (field.type == "Floating Number" && value.isNotEmpty() && !typeValidation.isFloatingNumber(value)) {
+        } else if (field.type == "Floating Number" && value.isNotEmpty() && !isFloatingNumber(value)) {
             isTypeValid = false
         }
 
