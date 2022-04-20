@@ -265,6 +265,7 @@ function traverse(object){
         }
     }
     console.log(errMap)
+    emptyErrorList()
     showErr(errMap)
 }
 
@@ -281,7 +282,6 @@ function showErr(map){
     var errors = document.getElementById("error-msgs");
     for (const [key, value] of Object.entries(map)) {
             var rowNo = parseInt(key)+1
-            console.log(rowNo)
             console.log(typeof rowNo)
             let row = document.createElement("div");
             row.setAttribute("class", "row");
@@ -300,6 +300,16 @@ function showErr(map){
                 parent.appendChild(p)
             });
         }
+        errMap = {}
+        payload = []
+
+}
+
+function emptyErrorList(){
+    const el = document.getElementById("error-msgs");
+      while (el.firstChild) {
+      el.removeChild(el.firstChild)
+      };
 }
 
 
