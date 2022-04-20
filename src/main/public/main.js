@@ -62,6 +62,7 @@ function showColFields(lines){
                             <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
                             <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
                                  <option>"Choose Date Format"</option>
+<<<<<<< Updated upstream
                                  <option value="MM-dd-yyyy">MM-dd-yyyy</option>
                                  <option value="MMMM dd, yy">MMMM dd, yy</option>
                                 <option value="yy/MM/dd">yy/MM/dd</option>
@@ -70,6 +71,18 @@ function showColFields(lines){
                                 <option value="MMM dd yyyy">MMM dd yyyy</option>
                                 <option value="MMM dd yyyy">MMM dd yyyy</option>
                                <option value="yyyy-MM-dd'T'">yyyy-MM-dd'T'</option>
+=======
+                                 <option value="MM-dd-yyyy">MM-DD-YYYY</option>
+                                 <option value="dd-MM-yyyy">DD-MM-YYYY</option>
+                                 <option value="dd/MM/yyyy, yy">DD/MM/YYYY</option>
+                                <option value="yy/MM/dd">YY/MM/DD</option>
+                                <option value="yyyy/MM/dd">YYYY/MM/DD</option>
+                                <option value="M/d/yyy">M/D/yyy</option>
+                                <option value="d/M/yyyy">D/M/YYYY</option>
+                                <option value="yyyy/M/dd">YYYY/M/DD</option>
+                                <option value="ddMMyYYy">DDMMYYYY</option>
+                               <option value="yyyy-MM-dd'T'">YYYY-MM-DD'T'</option>
+>>>>>>> Stashed changes
                             </select>
                          </div>
 
@@ -80,8 +93,9 @@ function showColFields(lines){
                        <label for="time" style='display:none;' id="timeFormats${lines[j]}">Time Format</label>
                            <select placeholder="Choose time format"  name="time" id='time${lines[j]}' style='display:none;'>
                                 <option>"Choose Time Format"</option>
-                                <option value="hh:mm:ss">hh:mm:ss</option>
-                                <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+                                <option value="hh:mm:ss">HH:MM:SS</option>
+                                <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
+                                <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
                                 <option value="HH:mm:ss.SSS'Z'">HH:mm:ss.SSS'Z'</option>
                            </select>
                       </div>
