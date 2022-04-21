@@ -1,4 +1,4 @@
-image: gradle:latest
+image: gradle:jdk11
 
 stages:
   - build
@@ -15,12 +15,11 @@ build:
     when: always
 
 cypress-test:
-  image: cypress/browsers:node12.14.1-chrome85-ff81
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
   stage: test
   dependencies:
     - build
   script:
-    - apt-get install -y openjdk-11-jre
     - cd build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip
     - unzip csv-parser-srijan-1.0-SNAPSHOT.zip
     - sh csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan
