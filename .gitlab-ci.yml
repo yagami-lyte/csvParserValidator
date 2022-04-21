@@ -18,7 +18,7 @@ cypress-test:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
   dependencies:
-    - test
+    - build
   script:
     - apt-get install -y openjdk-11-jre
     - cd build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip
