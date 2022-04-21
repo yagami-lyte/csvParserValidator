@@ -7,7 +7,7 @@ stages:
 build:
   stage: build
   script:
-    - gradle build
+    - gradle --no-daemon build
   artifacts:
     paths:
       - build/distributions
@@ -21,8 +21,8 @@ cypress-test:
     - build
   script:
     - cd build/distributions
-    - unzip csv-parser-srijan-1.0-SNAPSHOT.zip
-    - sh csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan
+    - unzip -q csv-parser-srijan-1.0-SNAPSHOT.zip
+    - sh csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
     - echo "Server Started"
     - echo "Initiating Cypress Tests"
     - npm ci
