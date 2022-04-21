@@ -26,6 +26,10 @@ test {
     useJUnitPlatform()
 }
 
+application {
+    mainClassName = 'server.MainKt'
+}
+
 application{
     mainClassName = 'server.MainKt'
 }

@@ -1,6 +1,8 @@
 package routeHandler
 
+import java.io.BufferedReader
 import java.io.File
+import java.io.InputStreamReader
 
 class GetRouteHandler {
 
@@ -40,8 +42,8 @@ class GetRouteHandler {
     }
 
     private fun getBodyResponse(path: String): String {
-        val filePath = System.getProperty("user.dir")
-        val file = File("$filePath/src/main/public$path")
-        return file.readText(Charsets.UTF_8)
+        val stream = this.javaClass.getResourceAsStream(path)!!
+        val reader = BufferedReader(InputStreamReader(stream))
+        return reader.readText()
     }
 }

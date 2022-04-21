@@ -9,3 +9,4 @@ package-lock.json
 cypress/videos
 cypress/screenshots
 cypress/videos/main.spec.js.mp4
+out/
