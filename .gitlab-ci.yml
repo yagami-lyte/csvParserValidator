@@ -20,7 +20,7 @@ cypress-test:
   dependencies:
     - build
   script:
-    - cd build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip
+    - cd build/distributions
     - unzip csv-parser-srijan-1.0-SNAPSHOT.zip
     - sh csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan
     - echo "Server Started"
