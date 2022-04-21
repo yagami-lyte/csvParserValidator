@@ -3,7 +3,7 @@ html {
 }
 
 body {
-        background: linear-gradient(-45deg, #ccccff, #ccffff, #ffe6e6,#ffccff);
+        background: #808080;
         background-size: 400% 400%;
         animation: gradient 15s ease infinite;
         height: 150vh;
@@ -20,7 +20,7 @@ body {
         }
     }
     h1 {
-        color: #00008B;
+        color: black;
         text-align: center;
         font-size : 40px;
        font-family: 'Ubuntu', sans-serif;
@@ -53,7 +53,7 @@ body {
       }
 
     .logo{
-            color: white;
+            color: black;
             text-align: center;
             font-size : 39px;
             font-family: 'Ubuntu', sans-serif;
@@ -69,14 +69,16 @@ body {
     }
 
      #fields{
-            border-radius: 70px;
-            margin-left:1%;
-            padding: 40px;
-            width: 1650px;
-            height: 280px;
-            background: #5b84d7;
+            margin-left:6%;
+            margin-top: 2%;
+            padding: 20px;
+            width: 1350px;
+            height: 250px;
             opacity: 80%;
+            text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            border: 3px solid black;
+            border-radius: 29px;
         }
 
 
@@ -109,7 +111,7 @@ body {
     }
 
     .custom-file-input {
-        background: linear-gradient(top, #f9f9f9, #e3e3e3);
+        background: #696969;
         border: 1px solid #999;
         border-radius: 3px;
         padding: 5px 8px;
@@ -125,7 +127,7 @@ body {
         padding: 12px 20px;
         margin: 8px 0;
         display: inline-block;
-        border: 1px solid #ccc;
+        border: 1px solid #696969;
         border-radius: 25px;
         box-sizing: border-box;
         margin-left: 1%;
@@ -133,28 +135,25 @@ body {
     }
 
     input[type=number], select {
-            width: 185px;
+            width: 195px;
             padding: 12px 20px;
             margin: 7px 0;
             display: inline-block;
             border: 1px solid #ccc;
-            border-radius: 2px;
+            border-radius: 7px;
             box-sizing: border-box;
             margin-left: 2%;
-            border-radius: 25px;
         }
 
     label {
             background: transparent;
             width: 150px;
-            padding: 1em;
             margin-bottom: 1em;
-            border-radius: 2000px;
-
-            color: white;
+            border-radius: 10px;
+            color: black;
             font-size: 20px;
             font-weight: bold;
-            margin-top : 4%;
+            margin-top : 5%;
             font-family: 'Ubuntu', sans-serif;
             transition: all 0.2s ease-in-out;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
@@ -171,7 +170,7 @@ body {
     button {
         background-color: #3498db;
         border: none;
-        color: white;
+        color: black;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
@@ -184,8 +183,8 @@ body {
     }
 
     #uploadCSV{
-        background-color: #003399; /* Green */
-        color: white;
+        background-color: #696969; /* Green */
+        color: black;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
@@ -197,15 +196,16 @@ body {
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
         margin-left:20%;
+        border-color: black;
         box-sizing: border-box;
         height: 50px;
     }
 
     #view-errors{
-            background-color: #00008B; /* Green */
+            background-color: #696969; /* Green */
             border: none;
              font-family: 'Ubuntu', sans-serif;
-            color: white;
+            color: black;
             padding: 15px 30px;
             text-align: center;
             text-decoration: none;
@@ -249,31 +249,31 @@ body {
 
 .header-container-wrapper {
   flex:none;
+  background: white;
 }
 
 .custom-header-bg {
     padding: 30px 0;
     font-family: 'Ubuntu', sans-serif;
     box-shadow: 0 0 12px #000;
-    background: #003399;
+    background: #696969;
 }
 
 .upload {
   padding: 0;
-  background-color:#003399 ;
-  -webkit-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
-  -moz-box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
-  box-shadow: inset rgba(0, 0, 0, 0.2) 0 0 0 1px, rgba(52, 152, 219, 0.5) 0 0 5px;
-  -webkit-border-radius: 4px;
+  background-color:#696969 ;
+  height: 10%;
+  -webkit-border-radius: 20px;
   -webkit-background-clip: padding-box;
-  -moz-border-radius: 4px;
+  -moz-border-radius: 20px;
   -moz-background-clip: padding;
-  border-radius: 4px;
+  border-radius: 6px;
   background-clip: padding-box;
   padding: 20px 20px;
-  color: #fff;
+  color: black;
+  font: bold;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 800;
   font-family: 'Ubuntu', sans-serif;
 }
 
