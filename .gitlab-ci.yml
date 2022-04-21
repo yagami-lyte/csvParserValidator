@@ -1,29 +1,32 @@
 image: gradle:latest
 
 stages:
+  - build
   - test
 
-unit-test:
-  stage: test
+build:
+  stage: build
   script:
-    - echo "Initiating Tests"
-    - gradle test
-    - echo "All Tests Passed"
+    - ./gradlew build
+  artifacts:
+    paths:
+      - build/distributions
+    expire_in: 1 day
+    when: always
 
 cypress-test:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
+  dependencies:
+    - test
   script:
-    - echo "Starting Server"
-    - apt-get --allow-releaseinfo-change update
-    - apt-get install -y default-jdk
-    - ./gradlew build
-    - ./gradlew run &
+    - apt-get install -y openjdk-11-jre
+    - cd build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip
+    - unzip csv-parser-srijan-1.0-SNAPSHOT.zip
+    - sh csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan
     - echo "Server Started"
     - echo "Initiating Cypress Tests"
     - npm ci
-    - npm run start:ci &
     - npx cypress run --browser chrome
-    - echo "All Tests Passed"
 
 
