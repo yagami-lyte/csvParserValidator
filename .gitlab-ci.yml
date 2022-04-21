@@ -1,4 +1,4 @@
-image: gradle:jdk11
+image: gradle:7.2-jdk11
 
 stages:
   - build
@@ -7,7 +7,7 @@ stages:
 build:
   stage: build
   script:
-    - ./gradlew build
+    - gradle build
   artifacts:
     paths:
       - build/distributions
