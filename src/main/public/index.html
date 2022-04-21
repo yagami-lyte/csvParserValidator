@@ -16,27 +16,28 @@
 
 <body>
 
-<div class="header-container-wrapper">
-    <div class="header-container">
-        <div class="custom-header-bg">
-            <div class="page-center">
-                <div class="logo">CSV PARSER AND VALIDATOR
-                </div>
+<div class="header">
+    <div class="logo">
+        <h1>CSV Parser And Validator</h1>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="column">
+        <div id="csv" class="card">
+            <h1>Upload your CSV file here</h1>
+            <div id="upload">
+                <input type="file" class="upload" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
+                <br>
+                <br>
+                <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
+                   onclick="csvReader()" data-cy="upload"><b>Upload</b></a>
             </div>
         </div>
     </div>
 </div>
 
-<div id="csv" class="container">
-    <h1>Upload your CSV file here</h1>
-    <div id="upload">
-        <input type="file" class="upload" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
-        <br>
-        <br>
-        <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
-            onclick="csvReader()" data-cy="upload"><b>Upload</b></a>
-    </div>
-</div>
 <br><br>
 
 <div id="config">
@@ -50,10 +51,12 @@
 <a id='view-errors' href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
 
 
-<div id="error-msgs">
-    <h1>CSV Errors</h1>
+<div class="container">
+    <h5>CSV Errors</h5>
+    <div  id="error-msgs">
 
 </div>
+    </div>
 <br>
 </body>
 

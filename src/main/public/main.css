@@ -3,10 +3,11 @@ html {
 }
 
 body {
-        background: #C0C0C0;
-        background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
-        height: 150vh;
+               background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6,#F0FFF0,#FFFAFA);
+               background-size: 400% 400%;
+               animation: gradient 15s ease infinite;
+               height: 150vh;
+
     }
     @keyframes gradient {
         0% {
@@ -20,7 +21,7 @@ body {
         }
     }
     h1 {
-        color: black;
+        color:#333333;
         text-align: center;
         font-size : 40px;
        font-family: 'Ubuntu', sans-serif;
@@ -52,11 +53,21 @@ body {
 
       }
 
+       h5{
+               color:#333333;
+                text-align: center;
+                margin-top: 15%;
+                   font-size : 40px;
+                   font-family: 'Ubuntu', sans-serif;
+
+            }
+
     .logo{
             color: black;
             text-align: center;
-            font-size : 39px;
+            font-size : 25px;
             font-family: 'Ubuntu', sans-serif;
+            margin-left: 37%;
     }
 
     #config{
@@ -69,15 +80,15 @@ body {
     }
 
      #fields{
-            margin-left:6%;
-            margin-top: 2%;
+            margin-left:-37%;
+            margin-top: -20%;
             padding: 20px;
             width: 1350px;
             height: 250px;
             opacity: 80%;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            border: 3px solid black;
+            border: 3px solid white;
             border-radius: 29px;
         }
 
@@ -85,33 +96,24 @@ body {
     #upload{
         margin-left: 25%;
     }
-    #csv{
-        width: 40%;
-        border-radius: 10px;
-        padding: 20px;
-        margin-left: 30%;
-        margin-top: 10%;
-        min-height: 200px;
-        margin-bottom: 5%;
 
-    }
 
     #error_msgs_list{
         font-family: 'Ubuntu', sans-serif;
         font-size: medium;
+        background: grey;
     }
 
     #error-msgs{
         width: 50%;
-        border-radius: 10px;
+        border-radius: 3px;
         padding: 20px;
         margin-left: 25%;
-        margin-top: 15%;
+        margin-top: -5%;
         min-height: 600px;
     }
 
     .custom-file-input {
-        background: white;
         border: 1px solid #999;
         border-radius: 3px;
         padding: 5px 8px;
@@ -119,6 +121,10 @@ body {
         font-weight: 1000;
         font-size: 10pt;
         width: 180px;
+    }
+
+    input[type=file], select {
+            margin-right: 30%;
     }
 
     input[type=text], select {
@@ -150,7 +156,7 @@ body {
             width: 150px;
             margin-bottom: 1em;
             border-radius: 20px;
-            color: black;
+            color: #696969;
             font-size: 20px;
             font-weight: bold;
             margin-top : 5%;
@@ -160,7 +166,7 @@ body {
     }
 
     p{
-                color: white;
+                color: #333333;
                 font-size: 20px;
                 font-weight: bold;
                 font-family: 'Ubuntu', sans-serif;
@@ -170,7 +176,7 @@ body {
     button {
         background-color: #3498db;
         border: none;
-        color: black;
+        color: #003399;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
@@ -183,8 +189,8 @@ body {
     }
 
     #uploadCSV{
-        background-color: #696969; /* Green */
-        color: black;
+        background-color: #333333; /* Green */
+        color: white;
         padding: 15px 32px;
         text-align: center;
         text-decoration: none;
@@ -195,17 +201,18 @@ body {
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
-        margin-left:20%;
+        margin-left:-20%;
         border-color: black;
         box-sizing: border-box;
         height: 50px;
     }
 
     #view-errors{
-            background-color: #696969; /* Green */
-            border: none;
+    border: 1px solid #ccc;
+ border-radius: 7px;
+ background: #333333;
              font-family: 'Ubuntu', sans-serif;
-            color: black;
+            color: white;
             padding: 15px 30px;
             text-align: center;
             text-decoration: none;
@@ -238,55 +245,86 @@ body {
         background-color: #45a049;
     }
 
-.header-container .page-center,
-.body-container .page-center,
-.footer-container .page-center {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 20px;
-  overflow: hidden;
+
+.header{
+  background-color: white;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header-container-wrapper {
-  flex:none;
-  background: white;
-}
 
-.custom-header-bg {
-    padding: 30px 0;
-    font-family: 'Ubuntu', sans-serif;
-    box-shadow: 0 0 12px #000;
-    background:#A9A9A9;
-}
 
 .upload {
   padding: 0;
-  background-color:#696969 ;
+  background-color:#8c8c8c; ;
   height: 10%;
-  -webkit-border-radius: 20px;
+  -webkit-border-radius: 30px;
   -webkit-background-clip: padding-box;
   -moz-border-radius: 20px;
   -moz-background-clip: padding;
   border-radius: 6px;
   background-clip: padding-box;
   padding: 20px 20px;
-  color: black;
+  margin-right: 20%;
+  margin-left: 2%;
+  color: white;
   font: bold;
   cursor: pointer;
   font-weight: 800;
   font-family: 'Ubuntu', sans-serif;
 }
+.card{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: white;
+}
+
+.column {
+  width: 50%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {
+margin-left: 34%;
+margin-top: 15%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
 
 .card-panel{
 font-family: 'Ubuntu', sans-serif;
-border-radius: 70px;
-            margin-left:-10%;
+border-radius: 20px;
+            margin-left:-60%;
             padding: 40px;
+            margin-top: -20%;
             width: 1000px;
             min-height: 100px;
             overflow: hidden;
-            background: #5b84d7;
             opacity: 80%;
+            background: #FFFFF0;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
@@ -296,6 +334,5 @@ border-radius: 70px;
   margin: 10px 0;
   padding: 10px;
   border-radius: 3px 3px 3px 3px;
-  color: #270;
-  background-color: #DFF2BF;
+  color: black;
 }
