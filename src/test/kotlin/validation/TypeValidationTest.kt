@@ -83,12 +83,12 @@ class TypeValidationTest {
     fun shouldPerformTypeValidationCheck() {
 
         val metaData =
-            """[{"fieldName": "Product Id","type": "Email","length": 4},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
+            """[{"fieldName": "Product Id","type": "Special Characters","length": 4},{"fieldName": "Price","type": "Number"},{"fieldName": "Export","type": "Alphabet"}]"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData =
-            """[{"Product Id": "s@gmail.com","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail.com","Price": "1000abc","Export": "Y"}]"""
+            """[{"Product Id": "s@gmail,com","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expectedError = """[{"2":"Incorrect Type of Price. Please change to Number"}]"""
         val expectedErrorList = JSONArray(expectedError)
@@ -221,6 +221,16 @@ class TypeValidationTest {
         val actual = typeValidation.isFloatingNumber(value)
 
         assertFalse(actual)
+    }
+
+    @Test
+    fun shouldCheckIfValueHasSpecialCharacters() {
+        val typeValidation = TypeValidation()
+        val value = "123_ @"
+
+        val actual = typeValidation.hasSpecialCharacters(value)
+
+        assertTrue(actual)
     }
 
 

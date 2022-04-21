@@ -30,7 +30,7 @@ class TypeValidation : Validation {
         var isTypeValid = true
         if (field.type == "AlphaNumeric" && value.isNotEmpty() && !isAlphaNumeric(value)) {
             isTypeValid = false
-        } else if (field.type == "Alphabet" && value.isNotEmpty() && !isAlphabetic(value)) {
+        } else if (field.type == "Alphabets" && value.isNotEmpty() && !isAlphabetic(value)) {
             isTypeValid = false
         } else if (field.type == "Number" && value.isNotEmpty() && !isNumeric(value)) {
             isTypeValid = false
@@ -41,6 +41,10 @@ class TypeValidation : Validation {
         } else if (field.type == "Floating Number" && value.isNotEmpty() && !isFloatingNumber(value)) {
             isTypeValid = false
         }
+        else if (field.type == "Special Characters" && value.isNotEmpty() && !hasSpecialCharacters(value)) {
+        isTypeValid = false
+        }
+
 
         return isTypeValid
     }
@@ -94,6 +98,11 @@ class TypeValidation : Validation {
 
     fun isAlphaNumeric(value: String): Boolean {
         return value.all { it.isLetterOrDigit() }
+    }
+
+    fun hasSpecialCharacters(value:String):Boolean{
+        val emailPattern = Regex("^[a-zA-Z0-9_,@\\s]+\$")
+        return emailPattern.matches(value)
     }
 
     fun isEmail(value: String): Boolean {
