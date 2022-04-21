@@ -107,15 +107,21 @@ function showColFields(lines){
 
                          <div id="value-div${lines[j]}" class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                             <label style="border-radius:20px;" for="text_file_id">Values</label>
-                            <input class="custom-file-input" type="file" name="text-file" onchange="onChangeHandler(event,'${lines[j]}')" data-cy="text_file_id" id="text_file_id${lines[j]}" accept=".txt">
-                             <h5 style="font-size:20px;font-color: white:"> or </h5>
-                             <textarea placeholder="Type Allowed values in new lines" style="border-radius: 15px; padding-left:13px; " id="textArea${lines[j]}"></textarea>
+                         <label style="border-radius:20px;" for="values">Values</label>
+                         <select type="text" name="values" id="values${lines[j]}"
+                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','textArea${lines[j]}');">
+                            <option value="">Choose</option>
+                            <option value="Upload File">Upload File</option>
+                            <option value="Type Values">Type Values</option>
+                            </select>
+                            <input onchange="readFile(event,'${lines[j]}');" type="file" id="text_file_id${lines[j]}" style="display:none;" accept=".txt">
+                            <textarea placeholder="Please enter each value in new line without any delimeter."
+                            rows="7" cols="50" id="textArea${lines[j]}" style="display:none"></textarea>
                          </div>
 
 
                          <div class="input-field  col s4"
-                                                  style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                           style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                              <label for="dependent">Dependent</label>
                              <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${lines[j]}">
@@ -127,14 +133,14 @@ function showColFields(lines){
                          </div>
 
                          <div class="input-field  col s4"
-                                                  style="display:flex;border-radius: 7px;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;font-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-
+                          style="display:flex;border-radius: 7px;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;font-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                              <label for="dep-val">Dependent Value</label>
                              <input type="text" id="dep-val${lines[j]}" data-cy="dep-val">
                          </div>
+
                     </div>
                      <br> </br> <br>
-                      </div>
+                  </div>
                       <br>
                  `
     document.getElementById("myform").appendChild(row)
@@ -173,8 +179,22 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
 }
 
 
-function onChangeHandler(event, fieldName){
-console.log(fieldName)
+function onChangeHandler(valueOption, fileInput, textAreaInput){
+    var uploadFile = document.getElementById(fileInput);
+    console.log(uploadFile.files[0])
+    var typeValues = document.getElementById(textAreaInput);
+    if (valueOption === "Type Values"){
+    console.log("Changing")
+    typeValues.style.display = "flex";
+    uploadFile.style.display = "none";
+    }
+    else {
+    uploadFile.style.display = "flex";
+    typeValues.style.display = "none";
+}
+}
+
+function readFile(event, fieldName){
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
     if (value != null){
         console.log('dj');
@@ -191,6 +211,9 @@ console.log(fieldName)
         }
         return null;
 }
+
+
+
 
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){

@@ -123,10 +123,6 @@ body {
         width: 180px;
     }
 
-    input[type=file], select {
-            margin-right: 30%;
-    }
-
     input[type=text], select {
         width: 120px;
         font-size: 14px;
@@ -148,7 +144,7 @@ body {
             border: 1px solid #ccc;
             border-radius: 7px;
             box-sizing: border-box;
-            margin-left: 2%;
+            margin-left: 4%;
         }
 
     label {
