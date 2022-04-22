@@ -57,6 +57,7 @@ body {
                color:#333333;
                 text-align: center;
                 margin-top: 15%;
+                margin-left: 3%;
                    font-size : 40px;
                    font-family: 'Ubuntu', sans-serif;
 
@@ -67,7 +68,7 @@ body {
             text-align: center;
             font-size : 25px;
             font-family: 'Ubuntu', sans-serif;
-            margin-left: 37%;
+            margin-left: 39%;
     }
 
     #config{
@@ -80,8 +81,8 @@ body {
     }
 
      #fields{
-            margin-left:-37%;
-            margin-top: -20%;
+            margin-left:-33%;
+            margin-top: -25%;
             padding: 20px;
             width: 1350px;
             height: 250px;
@@ -94,7 +95,7 @@ body {
 
 
     #upload{
-        margin-left: 25%;
+        margin-left: 20%;
     }
 
 
@@ -197,7 +198,7 @@ body {
         cursor: pointer;
         -webkit-transition-duration: 0.4s; /* Safari */
         transition-duration: 0.4s;
-        margin-left:-20%;
+        margin-left:-25%;
         border-color: black;
         box-sizing: border-box;
         height: 50px;
@@ -269,7 +270,7 @@ body {
   background-clip: padding-box;
   padding: 20px 20px;
   margin-right: 20%;
-  margin-left: 2%;
+  margin-left: -4%;
   color: white;
   font: bold;
   cursor: pointer;
