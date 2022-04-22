@@ -336,11 +336,11 @@ function showErr(map){
 
         if(Object.keys(map).length === 0){
         errors.innerHTML = `<div class="success-msg">
-                              <h1>NO Error in Uploaded CSV file</h1>
+                              <h1>No error in your uploaded CSV file</h1>
                             </div>`;
          setTimeout(function(){
                errors.removeChild(errors.firstChild);
-              },5000);
+              },80000);
         }
         errMap = {}
         payload = []

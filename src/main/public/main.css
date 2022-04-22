@@ -329,6 +329,9 @@ border-radius: 20px;
 .success-msg {
   margin: 10px 0;
   padding: 10px;
-  border-radius: 3px 3px 3px 3px;
+  box-sizing: border-box;
+   border: 3px solid #969696;
+  border-color: black;
   color: black;
+  margin-left: 2%;
 }
