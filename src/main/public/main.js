@@ -77,6 +77,7 @@ function showColFields(lines){
                                 <option value="d/M/yyyy">D/M/YYYY</option>
                                 <option value="yyyy/M/dd">YYYY/M/DD</option>
                                 <option value="ddMMyYYy">DDMMYYYY</option>
+                                <option value="yyyy-MM-dd">YYYY-MM-DD</option>
                                <option value="yyyy-MM-dd'T'">YYYY-MM-DD'T'</option>
                             </select>
                          </div>
@@ -87,7 +88,7 @@ function showColFields(lines){
 
                        <label for="time" style='display:none;' id="timeFormats${lines[j]}">Time Format</label>
                            <select  placeholder="Choose time format"  name="time" id='time${lines[j]}' style='display:none;'>
-                                <option>"Choose Time Format"</option>
+                                <option>Choose Time Format</option>
                                 <option value="hh:mm:ss">HH:MM:SS</option>
                                 <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
                                 <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
@@ -228,7 +229,12 @@ function addDataToJson() {
         if (type.value === 'Date Time'){
             var dateFormat = document.getElementById(`date${fields[0][j]}`)
             var timeFormat = document.getElementById(`time${fields[0][j]}`)
+            if (timeFormat.value === "Choose Time Format")
+            {
+                 timeFormat.value = null
+            }
             var dateTimeFormat = dateFormat.value.toString() + timeFormat.value.toString()
+            console.log(dateTimeFormat)
             jsonObj["datetime"] = dateTimeFormat
         }
         console.log(field)

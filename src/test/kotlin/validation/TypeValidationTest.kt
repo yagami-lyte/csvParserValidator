@@ -318,6 +318,7 @@ class TypeValidationTest {
     private fun checkDateFormatsWithValidFormats(): Stream<Arguments> = Stream.of(
         Arguments.of("MM-dd-yyyy", "01-02-2018"),
         Arguments.of("dd-MM-yyyy", "31-01-2012"),
+        Arguments.of("yyyy-MM-dd", "2012-02-15"),
         Arguments.of("dd/MM/yyyy", "17/02/09"),
         Arguments.of("yyyy/MM/dd", "2009/ 2/17"),
         Arguments.of("M/d/yyy", "2/7/12"),
