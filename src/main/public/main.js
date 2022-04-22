@@ -334,7 +334,7 @@ function showErr(map){
                             </div>`;
          setTimeout(function(){
                errors.removeChild(errors.firstChild);
-              },2000);
+              },5000);
         }
         errMap = {}
         payload = []

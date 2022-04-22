@@ -243,9 +243,9 @@ body {
 
 
 .header{
-  background-color: white;
+    background-color: white;
     z-index: 10;
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     height: 70px;
@@ -291,7 +291,7 @@ body {
 /* Remove extra left and right margins, due to padding */
 .row {
 margin-left: 34%;
-margin-top: 15%;
+margin-top: 20%;
 }
 
 /* Clear floats after the columns */
