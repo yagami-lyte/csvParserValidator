@@ -83,6 +83,10 @@ class TypeValidation : Validation {
                 errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.time}"
             }
 
+            if (field.type == "Date Time") {
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime}"
+            }
+
             val jsonObject = JSONObject().put(
                 (index + 1).toString(), errorMsg
             )
