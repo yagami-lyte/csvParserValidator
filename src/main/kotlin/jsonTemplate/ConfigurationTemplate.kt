@@ -5,6 +5,8 @@ class ConfigurationTemplate(
     val type: String?,
     val length: String?,
     val datetime: String?,
+    val date: String?,
+    val time: String?,
     val values: List<String>?,
     val dependentOn: String,
     val dependentValue: String
