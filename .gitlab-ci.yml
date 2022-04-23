@@ -22,8 +22,8 @@ cypress-test:
   script:
     - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
     - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
+    - APPLICATION_PID=$!
     - npm ci
     - npx cypress run
+    - kill $APPLICATION_PID
   timeout: 10 minutes
-
-
