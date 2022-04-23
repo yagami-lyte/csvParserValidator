@@ -15,7 +15,7 @@ build:
     when: always
 
 cypress-test:
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:optimized
   stage: test
   dependencies:
     - build
@@ -23,6 +23,7 @@ cypress-test:
     - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
     - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
     - npm ci
-    - npx cypress run --browser chrome
+    - npx cypress run
+  timeout: 10 minutes
 
 
