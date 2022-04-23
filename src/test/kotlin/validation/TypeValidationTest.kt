@@ -330,7 +330,6 @@ class TypeValidationTest {
         Arguments.of("MMddYy", "02172009"),
         Arguments.of("ddMMyYYy", "17022009"),
         Arguments.of("dd MMM yyyy", "02 Jan 18"),
-        Arguments.of("yyyy-MM-dd'T'", "2022-04-12T"),
     )
 
     private fun checkDateFormatsWithInValidFormats(): Stream<Arguments> = Stream.of(
@@ -350,7 +349,6 @@ class TypeValidationTest {
         Arguments.of("hh:mm:ss", "06:07:59"),
         Arguments.of("HH:mm:ss zzz", "18:07:59 IST"),
         Arguments.of("HH:mm:ss.SSSZ", "13:03:15.454+0530"),
-        Arguments.of("HH:mm:ss.SSS'Z'", "10:35:49.278Z"),
     )
 
     private fun checkTimeFormatsWithInValidFormats(): Stream<Arguments> = Stream.of(

@@ -102,7 +102,6 @@ function showColFields(lines){
                                 <option value="yyyy/M/dd">YYYY/M/DD</option>
                                 <option value="ddMMyYYy">DDMMYYYY</option>
                                 <option value="yyyy-MM-dd">YYYY-MM-DD</option>
-                               <option value="yyyy-MM-dd'T'">YYYY-MM-DD'T'</option>
                             </select>
                          </div>
 
@@ -116,7 +115,6 @@ function showColFields(lines){
                                 <option value="hh:mm:ss">HH:MM:SS</option>
                                 <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
                                 <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
-                                <option value="HH:mm:ss.SSS'Z'">HH:mm:ss.SSS'Z'</option>
                            </select>
                       </div>
 
