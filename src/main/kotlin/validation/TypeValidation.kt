@@ -36,7 +36,10 @@ class TypeValidation : Validation {
             isTypeValid = false
         } else if (field.type == "Date Time" && value.isNotEmpty() && !checkDateOrTimeFormat(field.datetime, value)) {
             isTypeValid = false
-        } else if (field.type == "Email" && value.isNotEmpty() && !isEmail(value)) {
+        } else if (field.type == "Date" && value.isNotEmpty() && !checkDateOrTimeFormat(field.date, value)) {
+            isTypeValid = false
+        }
+        else if (field.type == "Email" && value.isNotEmpty() && !isEmail(value)) {
             isTypeValid = false
         } else if (field.type == "Floating Number" && value.isNotEmpty() && !isFloatingNumber(value)) {
             isTypeValid = false
@@ -73,8 +76,8 @@ class TypeValidation : Validation {
     ) {
         if (!isLengthValid) {
             var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
-            if(field.type == "Date Time"){
-                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime}"
+            if(field.type == "Date"){
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.date}"
             }
 
             val jsonObject = JSONObject().put(

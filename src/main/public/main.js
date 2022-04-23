@@ -57,6 +57,9 @@ function showColFields(lines){
                                 <option value="Floating Number">Floating Number</option>
                                 <option value="Special Characters">Special Characters</option>
                                 <option value="Date Time">Date Time</option>
+                                <option value="Date">Date</option>
+                                <option value="Time">Time</option>
+                                
                                 <option value="Email">Email</option>
                             </select>
                          </div>
@@ -157,13 +160,10 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
     var timeIdFormatElement = document.getElementById(timeId);
     var lengthDivElement = document.getElementById(lengthDivId);
     var valueDivElement = document.getElementById(valueDivId);
-    if(value === 'Date Time'){
+    if(value === 'Date'){
         dateDivIDElement.style.display='flex';
         dateFormatElement.style.display='block';
         dateIdFormatElement.style.display='block';
-        timeDivIDElement.style.display='flex';
-        timeFormatElement.style.display='block';
-        timeIdFormatElement.style.display='block';
         valueDivElement.style.display='none';
         lengthDivElement.style.display='none';
     }
@@ -171,11 +171,13 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
         dateDivIDElement.style.display='none';
         dateFormatElement.style.display='none';
         dateIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
+        timeDivIDElement.style.display='flex';
+        timeFormatElement.style.display='block';
+        timeIdFormatElement.style.display='block';
         valueDivElement.style.display='flex';
         lengthDivElement.style.display='block';
+        lengthDivElement.style.display='none';
+        valueDivElement.style.display='none';
     }
 }
 
@@ -226,17 +228,11 @@ function addDataToJson() {
         var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
         var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
-        if (type.value === 'Date Time'){
-            var dateFormat = document.getElementById(`date${fields[0][j]}`)
-            var timeFormat = document.getElementById(`time${fields[0][j]}`)
-            if (timeFormat.value === "Choose Time Format")
-            {
-                 timeFormat.value = null
-            }
-            var dateTimeFormat = dateFormat.value.toString() + timeFormat.value.toString()
-            console.log(dateTimeFormat)
-            jsonObj["datetime"] = dateTimeFormat
-        }
+        var dateFormat = document.getElementById(`date${fields[0][j]}`)
+        var timeFormat = document.getElementById(`time${fields[0][j]}`)
+        jsonObj["date"] = dateFormat.value
+        jsonObj["time"] = timeFormat.value
+
         console.log(field)
             jsonObj["fieldName"] = field
             jsonObj["type"] = type.value
