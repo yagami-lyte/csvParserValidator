@@ -42,14 +42,15 @@ function showColFields(lines){
     row.setAttribute("id", `row${lines[j]}`)
         row.innerHTML = `<div id="fields">
                        <h4> ${lines[j]}</h4>
-
+                       
+                       
                      <div style="display:flex; ">
                          <div class="input-field col s4"
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                             <label  style="border-radius: 150px;" for="type">Type</label>
                             <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}"
-                            onchange="showDateTimeOption(this.value,'dateDiv${lines[j]}','dateFormats${lines[j]}' , 'date${lines[j]}','timeDiv${lines[j]}','timeFormats${lines[j]}','time${lines[j]}', 'length-div${lines[j]}', 'value-div${lines[j]}');">
+                            onchange="showDateTimeOption(this.value,'dateDiv${lines[j]}','dateFormats${lines[j]}' , 'date${lines[j]}','timeDiv${lines[j]}','timeFormats${lines[j]}','time${lines[j]}','dateTimeDiv${lines[j]}','dateTimeFormats${lines[j]}' , 'dateTime${lines[j]}' ,'length-div${lines[j]}', 'value-div${lines[j]}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -59,15 +60,35 @@ function showColFields(lines){
                                 <option value="Date Time">Date Time</option>
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
+                                <option value="Date Time">DateTime</option>
                                 
                                 <option value="Email">Email</option>
                             </select>
                          </div>
+                         
+                     <div  id = "dateTimeDiv${lines[j]}" class="input-field  col s4" 
+                                        style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
+    <label for="datetime" id="dateTimeFormats${lines[j]}" style='display:none;'>Date-Time Format</label>
+                                                
+    <select placeholder="Choose date time format"  name="datetime" id='dateTime${lines[j]}' style='display:none;'>
+         <option>"choose date time format"</option>
+         <option value="MM-dd-yyyy">MM-dd-yyyy</option>
+         <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
+         <option value="MMMM dd, yy">MMMM dd, yy</option>
+         <option value="yy/MM/dd">yy/MM/dd</option>
+         <option value="dd/MM/yy">dd/MM/yy</option>
+         <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
+         <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
+         <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
+    </select>
+</div>
 
-
+                         
+                         
                          <div id = "dateDiv${lines[j]}" class="input-field  col s4"
                                                 style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                                                
                             <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
                             <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
                                  <option>"Choose Date Format"</option>
@@ -101,9 +122,9 @@ function showColFields(lines){
 
 
                          <div id="length-div${lines[j]}"class="input-field  col s4"
-                         style="display:block;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
-                            <input placeholder="Enter   length"  type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
+                            <input placeholder="Enter Length"  type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
                          </div>
                        </div>
 
@@ -151,7 +172,7 @@ function showColFields(lines){
 }
 }
 
-function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, lengthDivId, valueDivId){
+function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId){
     var dateDivIDElement = document.getElementById(dateDivID);
     var dateFormatElement = document.getElementById(dateFormatId);
     var dateIdFormatElement = document.getElementById(dateId);
@@ -160,10 +181,57 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
     var timeIdFormatElement = document.getElementById(timeId);
     var lengthDivElement = document.getElementById(lengthDivId);
     var valueDivElement = document.getElementById(valueDivId);
-    if(value === 'Date'){
+    var dateTimeDivIDElement = document.getElementById(dateTimeDivID);
+    var dateTimeFormatElement = document.getElementById(dateTimeFormatId);
+    var dateTimeIdFormatElement = document.getElementById(dateTimeId);
+
+    if(value === 'Date Time'){
+        dateTimeDivIDElement.style.display='flex';
+        dateTimeFormatElement.style.display='block';
+        dateTimeIdFormatElement.style.display='block';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+    }
+
+    else if(value === 'Date'){
         dateDivIDElement.style.display='flex';
         dateFormatElement.style.display='block';
         dateIdFormatElement.style.display='block';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+    }
+    else if(value === 'Time'){
+        timeDivIDElement.style.display='flex';
+        timeFormatElement.style.display='block';
+        timeIdFormatElement.style.display='block';
+        dateDivIDElement.style.display='none';
+        dateFormatElement.style.display='none';
+        dateIdFormatElement.style.display='none';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+    }
+    else if(value === 'Date Time'){
+        dateDivIDElement.style.display='none';
+        dateFormatElement.style.display='none';
+        dateIdFormatElement.style.display='none';
+        timeDivIDElement.style.display='flex';
+        timeFormatElement.style.display='block';
+        timeIdFormatElement.style.display='block';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
         valueDivElement.style.display='none';
         lengthDivElement.style.display='none';
     }
@@ -171,13 +239,17 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
         dateDivIDElement.style.display='none';
         dateFormatElement.style.display='none';
         dateIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='flex';
-        timeFormatElement.style.display='block';
-        timeIdFormatElement.style.display='block';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
         valueDivElement.style.display='flex';
         lengthDivElement.style.display='block';
-        lengthDivElement.style.display='none';
-        valueDivElement.style.display='none';
     }
 }
 
@@ -230,6 +302,8 @@ function addDataToJson() {
         var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
         var dateFormat = document.getElementById(`date${fields[0][j]}`)
         var timeFormat = document.getElementById(`time${fields[0][j]}`)
+        var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`)
+        jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
 
