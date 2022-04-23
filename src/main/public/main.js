@@ -60,8 +60,6 @@ function showColFields(lines){
                                 <option value="Date Time">Date Time</option>
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
-                                <option value="Date Time">DateTime</option>
-                                
                                 <option value="Email">Email</option>
                             </select>
                          </div>
