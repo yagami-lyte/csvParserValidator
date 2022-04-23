@@ -38,14 +38,14 @@ class TypeValidation : Validation {
             isTypeValid = false
         } else if (field.type == "Date" && value.isNotEmpty() && !checkDateOrTimeFormat(field.date, value)) {
             isTypeValid = false
-        }
-        else if (field.type == "Email" && value.isNotEmpty() && !isEmail(value)) {
+        } else if (field.type == "Time" && value.isNotEmpty() && !checkDateOrTimeFormat(field.time, value)) {
+            isTypeValid = false
+        } else if (field.type == "Email" && value.isNotEmpty() && !isEmail(value)) {
             isTypeValid = false
         } else if (field.type == "Floating Number" && value.isNotEmpty() && !isFloatingNumber(value)) {
             isTypeValid = false
-        }
-        else if (field.type == "Special Characters" && value.isNotEmpty() && !hasSpecialCharacters(value)) {
-        isTypeValid = false
+        } else if (field.type == "Special Characters" && value.isNotEmpty() && !hasSpecialCharacters(value)) {
+            isTypeValid = false
         }
 
 
@@ -76,8 +76,11 @@ class TypeValidation : Validation {
     ) {
         if (!isLengthValid) {
             var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
-            if(field.type == "Date"){
+            if (field.type == "Date") {
                 errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.date}"
+            }
+            if (field.type == "Time") {
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.time}"
             }
 
             val jsonObject = JSONObject().put(
@@ -88,7 +91,7 @@ class TypeValidation : Validation {
     }
 
     fun isFloatingNumber(value: String): Boolean {
-        return value.matches( "^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)\$".toRegex())
+        return value.matches("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)\$".toRegex())
     }
 
     fun isNumeric(value: String): Boolean {
@@ -103,7 +106,7 @@ class TypeValidation : Validation {
         return value.all { it.isLetterOrDigit() }
     }
 
-    fun hasSpecialCharacters(value:String):Boolean{
+    fun hasSpecialCharacters(value: String): Boolean {
         val emailPattern = Regex("^[a-zA-Z0-9_,@\\s]+\$")
         return emailPattern.matches(value)
     }
@@ -113,7 +116,7 @@ class TypeValidation : Validation {
         return emailPattern.matches(value)
     }
 
-    fun checkDateOrTimeFormat(dateTimeFormat:String?, value: String): Boolean {
+    fun checkDateOrTimeFormat(dateTimeFormat: String?, value: String): Boolean {
         val sdf: DateFormat = SimpleDateFormat(dateTimeFormat as String)
         sdf.isLenient = false
         try {
