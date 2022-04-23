@@ -220,7 +220,7 @@ class TypeValidationTest {
 
         val actual = typeValidation.isFloatingNumber(value)
 
-        assertFalse(actual)
+        assertTrue(actual)
     }
 
     @Test
@@ -232,6 +232,7 @@ class TypeValidationTest {
 
         assertTrue(actual)
     }
+
 
 
 
