@@ -9,5 +9,6 @@ class ConfigurationTemplate(
     val time: String?,
     val values: List<String>?,
     val dependentOn: String,
-    val dependentValue: String
+    val dependentValue: String,
+    val nullValue: String
 )
