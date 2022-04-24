@@ -127,11 +127,15 @@ function showColFields(lines){
                          <div style="display:flex; ">
 
                          <div id="value-div${lines[j]}" class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                         <label style="border-radius:20px;" for="values">Values</label>
+                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         <label style="border-radius:60px;" for="values">Values(allow empty values?) </label>
+                         <label class="switch">
+                           <input type="checkbox" checked>
+                           <span class="slider round"></span>
+                         </label>
                          <select type="text" name="values" id="values${lines[j]}"
                             onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','textArea${lines[j]}');">
-                            <option value="">Choose</option>
+                            <option value=""> Choose</option>
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
                             </select>
@@ -422,7 +426,14 @@ function emptyErrorList(){
 }
 
 
-
+function Buttontoggle()
+{
+  var t = document.getElementById("myButton");
+  if(t.value=="YES"){
+      t.value="NO";}
+  else if(t.value=="NO"){
+      t.value="YES";}
+}
 
 
 function resetForm(){
