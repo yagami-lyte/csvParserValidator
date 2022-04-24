@@ -55,7 +55,7 @@ class NullValidation : Validation {
         nullErrors: JSONArray,
     ) {
         if (!isNullAllowed) {
-            var errorMsg = "Has empty value for ${field.fieldName}. Please enter a value in your CSV"
+            var errorMsg = "Has empty value for ${field.fieldName}. Please enter a value in your CSV."
             val jsonObject = JSONObject().put(
                 (index + 1).toString(), errorMsg
             )

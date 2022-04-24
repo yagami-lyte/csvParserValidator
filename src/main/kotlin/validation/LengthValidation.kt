@@ -73,7 +73,7 @@ class LengthValidation : Validation {
     private fun errorMessage(index: Int, field: ConfigurationTemplate): JSONObject {
         return JSONObject().put(
             (index + 1).toString(),
-            "Incorrect length of ${field.fieldName}. Please change its length to ${field.length}"
+            "Incorrect length of ${field.fieldName}. Please change its length to ${field.length} in the CSV."
         )
     }
 

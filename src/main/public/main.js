@@ -15,8 +15,6 @@ function csvReader() {
     reader.onload = async function (event) {
         csv = event.target.result
         var lines = csv.toString().split("\n");
-        console.log(lines)
-        console.log(lines[0])
         var headers = lines[0].split(",");
         showColFields(headers);
         fields.push(headers)
@@ -41,9 +39,11 @@ function showColFields(lines){
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
         row.innerHTML = `<div id="fields">
-                       <h4> ${lines[j]}</h4>
-                       
-                       
+         <div class="input-field col s4"
+          style="display:flex;  background: transparent;width: 400px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:35%;padding: 1em;margin-bottom: 3em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+           <h4> ${lines[j]}</h4>
+           </div>
+
                      <div style="display:flex; ">
                          <div class="input-field col s4"
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
@@ -128,9 +128,10 @@ function showColFields(lines){
 
                          <div id="value-div${lines[j]}" class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                         <label style="border-radius:60px;" for="values">Values(allow empty values?) </label>
+                         <label style="border-radius:60px;" for="values">Values</label>
+                         <p> "Select to allow null values"</p>
                          <label class="switch">
-                           <input type="checkbox" checked>
+                           <input id="allowNull${lines[j]}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
                            <span class="slider round"></span>
                          </label>
                          <select type="text" name="values" id="values${lines[j]}"
@@ -170,6 +171,15 @@ function showColFields(lines){
                  `
     document.getElementById("myform").appendChild(row)
 }
+}
+
+function toggleYesOrNo(element) {
+    let oldValue = document.getElementById(element).value
+    if (oldValue === "Not Allowed") {
+        document.getElementById(element).value = "Allowed"
+        return
+    }
+    document.getElementById(element).value = "Not Allowed"
 }
 
 function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId){
@@ -256,10 +266,8 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
 
 function onChangeHandler(valueOption, fileInput, textAreaInput){
     var uploadFile = document.getElementById(fileInput);
-    console.log(uploadFile.files[0])
     var typeValues = document.getElementById(textAreaInput);
     if (valueOption === "Type Values"){
-    console.log("Changing")
     typeValues.style.display = "flex";
     uploadFile.style.display = "none";
     }
@@ -272,7 +280,6 @@ function onChangeHandler(valueOption, fileInput, textAreaInput){
 function readFile(event, fieldName){
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
     if (value != null){
-        console.log('dj');
         let reader = new FileReader();
         reader.addEventListener('load', function(e) {
              let text = e.target.result
@@ -303,21 +310,20 @@ function addDataToJson() {
         var dateFormat = document.getElementById(`date${fields[0][j]}`)
         var timeFormat = document.getElementById(`time${fields[0][j]}`)
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`)
+        var nullValues = document.getElementById(`allowNull${fields[0][j]}`)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
-
-        console.log(field)
+        jsonObj["nullValue"] = nullValues.value
+        console.log(nullValues.value)
             jsonObj["fieldName"] = field
             jsonObj["type"] = type.value
             if (value != null){
                 jsonObj["values"] =JSON.parse(localStorage.getItem(field))
                 console.log(localStorage.getItem(field))
             }
-            console.log(typedValues.value != '')
             if(typedValues.value != '' )
             {
-            console.log(typedValues.value)
             jsonObj["values"] = typedValues.value.split('\n')
             }
             jsonObj["length"] = fixed_len.value
@@ -361,12 +367,10 @@ function traverse(object){
         console.log(object[i] != "")
         if(object[i] != ""){
             for( j in object[i]){
-            console.log(object[i][j])
             pushErrToMaps(object[i][j])
             }
         }
     }
-    console.log(errMap)
     emptyErrorList()
     showErr(errMap)
 }
@@ -374,7 +378,6 @@ function traverse(object){
 var errMap ={}
 function pushErrToMaps(object){
     for (var i in object) {
-      console.log(`${i}: ${object[i]}`);
       errMap[i] = errMap[i] || [];
       errMap[i].push(object[i]);
     }
@@ -385,7 +388,6 @@ function showErr(map){
     var errors = document.getElementById("error-msgs");
     for (const [key, value] of Object.entries(map)) {
             var rowNo = parseInt(key)+1
-            console.log(typeof rowNo)
             let row = document.createElement("div");
             row.setAttribute("class", "row");
             row.innerHTML = `<br>

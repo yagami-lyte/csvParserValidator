@@ -75,16 +75,16 @@ class TypeValidation : Validation {
         typeErrors: JSONArray,
     ) {
         if (!isLengthValid) {
-            var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type}"
+            var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type} in the CSV."
             if (field.type == "Date") {
-                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.date}"
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.date} in the CSV."
             }
             if (field.type == "Time") {
-                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.time}"
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.time} in the CSV."
             }
 
             if (field.type == "Date Time") {
-                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime}"
+                errorMsg = "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime} in the CSV."
             }
 
             val jsonObject = JSONObject().put(

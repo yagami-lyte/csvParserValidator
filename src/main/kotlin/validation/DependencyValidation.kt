@@ -55,7 +55,7 @@ class DependencyValidation : Validation {
         if (!flag) {
             val jsonObject = JSONObject().put(
                 (index + 1).toString(),
-                "Value of ${field.fieldName} is dependent on ${field.dependentOn}.Do not leave ${field.fieldName} empty."
+                "Value of ${field.fieldName} is dependent on ${field.dependentOn}.Do not leave ${field.fieldName} empty in the CSV."
             )
             dependencyErrors.put(jsonObject)
         }

@@ -64,7 +64,7 @@ class ValueValidation : Validation {
     private fun errorMessage(index: Int, field: ConfigurationTemplate): JSONObject {
         return JSONObject().put(
             (index + 1).toString(),
-            "Incorrect Value of ${field.fieldName}. Please select value from ${field.values}"
+            "Incorrect Value of ${field.fieldName}. Please select value from ${field.values} in the CSV."
         )
     }
 }

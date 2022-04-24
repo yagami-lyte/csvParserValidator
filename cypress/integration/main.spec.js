@@ -17,6 +17,6 @@ describe("Testing Upload CSV", ()=>{
 
      it('Should contain button to navigate to config section', () => {
         cy.get('#uploadCSV').click({force: true})
-       // cy.visit('http://localhost:3002/#config')
+        cy.visit('http://localhost:3002/#config')
     })
 })

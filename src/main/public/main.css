@@ -44,12 +44,17 @@ body {
           }
 
     h4{
-            color: black;
-            text-align: center;
-            font-size : 30px;
-            height: 35px;
-            font-family: 'Ubuntu', sans-serif;
-            margin-top : -1%;
+            background: transparent;
+                        width: 150px;
+                        margin-bottom: 1em;
+                        border-radius: 20px;
+                        color: black;
+                        font-size: 25px;
+                        font-weight: bold;
+                        margin-top : 5%;
+                        font-family: 'Ubuntu', sans-serif;
+                        transition: all 0.2s ease-in-out;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 
       }
 
@@ -85,7 +90,7 @@ body {
             margin-top: -25%;
             padding: 20px;
             width: 1350px;
-            height: 250px;
+            height: 350px;
             opacity: 80%;
             text-align: center;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);

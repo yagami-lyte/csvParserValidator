@@ -14,6 +14,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private val valueValidation = ValueValidation()
     private val typeValidation = TypeValidation()
     private val duplicateValidation = DuplicateValidation()
+    private val nullValidation = NullValidation()
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
@@ -42,7 +43,8 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val valueValidation = valueValidation.validate(jsonBody, fieldArray)
         val duplicates = duplicateValidation.validate(jsonBody , fieldArray)
         val dependencyChecks = dependencyValidation.validate(jsonBody, fieldArray)
-        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks)
+        val nullChecks = nullValidation.validate(jsonBody,fieldArray)
+        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks, nullChecks)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
@@ -54,7 +56,8 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         lengthValidation: JSONArray,
         typeValidation: JSONArray,
         valueValidation: JSONArray,
-        dependencyChecks: Any
+        dependencyChecks: Any,
+        nullChecks:JSONArray
     ): String {
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
@@ -66,6 +69,8 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         responseBody += "\"Value\" : $valueValidation"
         responseBody += ","
         responseBody += "\"Dependency\" : $dependencyChecks"
+        responseBody += ","
+        responseBody += "\"Null\" : $nullChecks"
         responseBody += "}"
         return responseBody
     }
