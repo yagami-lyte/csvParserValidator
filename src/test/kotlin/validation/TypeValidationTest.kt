@@ -184,6 +184,16 @@ class TypeValidationTest {
     }
 
     @Test
+    fun shouldBeAbleToCheckIfValueIsFloatingPointNumberWithSucceeDingZeroes1() {
+        val typeValidation = TypeValidation()
+        val value = "0"
+
+        val actual = typeValidation.isFloatingNumber(value)
+
+        assertTrue(actual)
+    }
+
+    @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihCharacters() {
         val typeValidation = TypeValidation()
         val value = "123utk"
@@ -214,7 +224,7 @@ class TypeValidationTest {
     }
 
     @Test
-    fun shouldReturnFalseIfTheNumberIsInteger() {
+    fun shouldReturnTrueIfTheNumberIsInteger() {
         val typeValidation = TypeValidation()
         val value = "123"
 
