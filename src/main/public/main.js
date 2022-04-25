@@ -185,13 +185,19 @@ function showColFields(lines){
                                                </ul>
                                                </div>
                                                
-                                               <button type="button" class="btn" style='display:block;'>Submit</button>
+                                               <button onclick="closeForm('popUp${lines[j]}','div1${lines[j]}')" type="button" class="btn" style='display:block;'>Submit</button>
+                                               
                                              </div>
                                            </div>
                       <br>
                  `
     document.getElementById("myform").appendChild(row)
 }
+}
+
+function closeForm(popUp , div1) {
+    document.getElementById(popUp).style.display = "none";
+    document.getElementById(div1).style.filter = "blur(0px)";
 }
 
 function onChangeHandler(valueOption, fileInput, textAreaInput){
