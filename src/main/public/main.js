@@ -137,7 +137,7 @@ function showColFields(lines){
                          </label>
                          <select type="text" name="values" id="values${lines[j]}"
                             onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}','addConfig${lines[j]}');">
-                            <option value=""> Choose</option>
+                            <option value="Choose"> Choose</option>
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
                             </select>
@@ -187,8 +187,8 @@ function showColFields(lines){
                                                </ul>
                                                </div>
                                                
-                                               <button onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}')" type="button" class="btn" style='display:block;'>Submit</button>
-                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}')">Close</button>
+                                               <button onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');" type="button" class="btn" style='display:block;'>Submit</button>
+                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');">Close</button>
                                              </div>
                                            </div>
                       <br>
@@ -197,9 +197,11 @@ function showColFields(lines){
 }
 }
 
-function closeForm(popUp , addConfig) {
+function closeForm(popUp , addConfig, valueOption) {
     document.getElementById(popUp).style.display = "none";
     document.getElementById(addConfig).style.filter = "blur(0px)";
+    document.getElementById(valueOption).value = "Choose";
+
 }
 
 function onChangeHandler(valueOption, fileInput, textAreaInput,addConfig){
