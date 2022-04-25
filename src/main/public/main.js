@@ -136,15 +136,10 @@ function showColFields(lines){
                            <input id="allowNull${field}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
                            <span class="slider round"></span>
                          </label>
-<<<<<<< Updated upstream
-                         <select type="text" name="values" id="values${lines[j]}"
-                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}','addConfig${lines[j]}');">
-                            <option value="Choose"> Choose</option>
-=======
+
                          <select type="text" name="values" id="values${field}"
                             onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
                             <option value=""> Choose</option>
->>>>>>> Stashed changes
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
                             </select>
@@ -193,14 +188,10 @@ function showColFields(lines){
 
                                                </ul>
                                                </div>
-                                               
-<<<<<<< Updated upstream
-                                               <button onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');" type="button" class="btn" style='display:block;'>Submit</button>
-                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');">Close</button>
-=======
+
                                                <button onclick="closeForm('popUp${field}','addConfig${field}')" type="button" class="btn" style='display:block;'>Submit</button>
                                                <button type="button" class="btn cancel" onclick="closeForm('popUp${field}','addConfig${field}')">Close</button>
->>>>>>> Stashed changes
+
                                              </div>
                                            </div>
                       <br>
