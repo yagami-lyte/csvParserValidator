@@ -127,9 +127,9 @@ function showColFields(lines){
                          <div style="display:flex; ">
 
                          <div id="value-div${lines[j]}" class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                         <label style="border-radius:60px;" for="values">Values</label>
-                         <p> "Select to allow null values"</p>
+                         style="display:flex;  background: transparent;width: 400px;margin-right: 3% ;border-radius:7px;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         <label style="border-radius:60px;margin-right:-140%;margin-top:7%;" for="values">Values</label>
+                         <p style="font-size:14px;display: inline-block;white-space: nowrap;margin-top:-12%;margin-left:120%;"> Select to allow null values</p>
                          <label class="switch">
                            <input id="allowNull${lines[j]}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
                            <span class="slider round"></span>
