@@ -22,7 +22,7 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"1":"Has empty value for Product Id. Please enter a value in your CSV"}]"""
+        val expectedError = """[{"1":"Has empty value for Product Id. Please enter a value in your CSV."}]"""
         val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
@@ -58,7 +58,7 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "1234","Price": "432","Export": ""},{"Product Id": "s@gmail,com","Price": "","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"1":"Has empty value for Export. Please enter a value in your CSV"}, {"2":"Has empty value for Price. Please enter a value in your CSV"}]"""
+        val expectedError = """[{"1":"Has empty value for Export. Please enter a value in your CSV."}, {"2":"Has empty value for Price. Please enter a value in your CSV."}]"""
         val expectedErrorList = JSONArray(expectedError)
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)

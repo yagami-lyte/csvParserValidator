@@ -21,7 +21,7 @@ internal class DependencyValidationTest {
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected =
-            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]")
+            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"}]")
 
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -40,7 +40,7 @@ internal class DependencyValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val dependencyValidation = DependencyValidation()
         val expected =
-            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"},{\"2\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty.\"}]]")
+            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"},{\"2\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"}]]")
 
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 

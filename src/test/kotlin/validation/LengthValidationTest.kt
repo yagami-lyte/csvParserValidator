@@ -20,7 +20,7 @@ internal class LengthValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[{\"1\":\"Incorrect length of Country Name. Please change its length to 3\"}]")
+        val expected = JSONArray("[{\"1\":\"Incorrect length of Country Name. Please change its length to 3 in the CSV.\"}]")
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -38,7 +38,7 @@ internal class LengthValidationTest {
             """[{"Export":"Y","Country Name":""},{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected =
-            JSONArray("[{\"1\":\"Incorrect length of Export. Please change its length to 2\"},{\"2\":\"Incorrect length of Export. Please change its length to 2\"},{\"3\":\"Incorrect length of Export. Please change its length to 2\"}]")
+            JSONArray("[{\"1\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"},{\"2\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"},{\"3\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"}]")
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
