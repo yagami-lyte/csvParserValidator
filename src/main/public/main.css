@@ -407,3 +407,81 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+/* The popup form - hidden by default */
+.form-popup  {
+    width:50%;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    height: 30%; /* Full height */
+    overflow-block: auto; /* Enable scroll if needed */
+    margin-top: 10%;
+    margin-left : 25%;
+    opacity: 1;
+}
+
+/* Add styles to the form container */
+.form-container {
+    padding: 10px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text]:focus, .form-container input[type=password] {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    margin-left: 2%;
+    margin-bottom:20px;
+    margin-top: 7%;
+    border-radius: 60px;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    background-color: red;
+    border-radius: 60px;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+
+textarea {
+    overflow-y: scroll;
+    height: 150px;
+    resize: none; /* Remove this if you want the user to resize the textarea */
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    margin-left: 2%;
+    border: none;
+    background: #f1f1f1;
+
+}
+
+#list {
+    font-family: "Bodoni";
+    font-size: 20px;
+}

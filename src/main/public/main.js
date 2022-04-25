@@ -135,14 +135,13 @@ function showColFields(lines){
                            <span class="slider round"></span>
                          </label>
                          <select type="text" name="values" id="values${lines[j]}"
-                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','textArea${lines[j]}');">
+                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}');">
                             <option value=""> Choose</option>
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
                             </select>
                             <input onchange="readFile(event,'${lines[j]}');" type="file" id="text_file_id${lines[j]}" style="display:none;" accept=".txt">
-                            <textarea placeholder="Please enter each value in new line without any delimeter."
-                            rows="7" cols="50" id="textArea${lines[j]}" style="display:none"></textarea>
+                            
                          </div>
 
 
@@ -167,11 +166,49 @@ function showColFields(lines){
                     </div>
                      <br> </br> <br>
                   </div>
+                  
+                   <div class="form-popup" id="popUp${lines[j]}" >
+                                             <div class="form-container">
+                                               <h1>Enter Values</h1>
+
+                                               <textarea id="textArea${lines[j]}" placeholder="Enter Values"></textarea>
+                                               <div id = "list"> 
+                                               <ul style='margin-left: 55%; margin-top: -20%'>
+                                                    <li> Please Enter the values in newline without any delimiters</li> 
+                                                    <li> Example:</li>
+                                                    <ul>
+                                                        <li> Val1 </li>
+                                                        <li> Val2 </li>
+                                                        <li> Val3 </li>
+                                                    </ul>
+
+                                               </ul>
+                                               </div>
+                                               
+                                               <button type="button" class="btn" style='display:block;'>Submit</button>
+                                             </div>
+                                           </div>
                       <br>
                  `
     document.getElementById("myform").appendChild(row)
 }
 }
+
+function onChangeHandler(valueOption, fileInput, textAreaInput){
+    var uploadFile = document.getElementById(fileInput);
+    console.log(uploadFile.files[0])
+    var typeValues = document.getElementById(textAreaInput);
+    if (valueOption === "Type Values"){
+        console.log("Changing")
+        uploadFile.style.display = "none";
+        typeValues.style.display = "block";
+    }
+    else {
+        uploadFile.style.display = "flex";
+        typeValues.style.display = "none";
+    }
+}
+
 
 function toggleYesOrNo(element) {
     let oldValue = document.getElementById(element).value
@@ -264,18 +301,6 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
 }
 
 
-function onChangeHandler(valueOption, fileInput, textAreaInput){
-    var uploadFile = document.getElementById(fileInput);
-    var typeValues = document.getElementById(textAreaInput);
-    if (valueOption === "Type Values"){
-    typeValues.style.display = "flex";
-    uploadFile.style.display = "none";
-    }
-    else {
-    uploadFile.style.display = "flex";
-    typeValues.style.display = "none";
-}
-}
 
 function readFile(event, fieldName){
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
