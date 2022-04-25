@@ -450,9 +450,6 @@ function showErr(map){
         errors.innerHTML = `<div class="success-msg">
                               <h1>No error in your uploaded CSV file</h1>
                             </div>`;
-         setTimeout(function(){
-               errors.removeChild(errors.firstChild);
-              },80000);
         }
         errMap = {}
         payload = []
