@@ -188,9 +188,14 @@ function showColFields(lines){
 
                                                </ul>
                                                </div>
-
-                                               <button onclick="closeForm('popUp${field}','addConfig${field}')" type="button" class="btn" style='display:block;'>Submit</button>
-                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${field}','addConfig${field}')">Close</button>
+                                               <div id="outer">
+                                                 <div class="inner">
+                                                    <button onclick="closeForm('popUp${field}','addConfig${field}')" type="button" class="btn" style='display:block;'>Submit</button>
+                                                 </div>
+                                                 <div class="inner">
+                                                    <button type="button" class="btn cancel" onclick="closeForm('popUp${field}','addConfig${field}')">Close</button>
+                                                 </div>
+                                               </div>
 
                                              </div>
                                            </div>
