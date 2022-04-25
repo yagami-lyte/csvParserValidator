@@ -22,7 +22,7 @@ function csvReader() {
             var obj = {};
             var currentLine = lines[i].split(",");
             for (var j = 0; j < headers.length; j++) {
-                obj[headers[j]] = currentLine[j];
+                obj[headers[j]] = currentLine[j].replaceAll('"', '');
             }
             result.push(obj);
             localStorage.setItem(csv, JSON.stringify(result));
@@ -36,13 +36,14 @@ function showColFields(lines){
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
     fieldCount += 1
     var row = document.createElement('div');
+    var field = `${lines[j]}`.replaceAll('"', '');
     row.setAttribute("class", "row")
-    row.setAttribute("id", `row${lines[j]}`)
-        row.innerHTML = `<div id="addConfig${lines[j]}">
+    row.setAttribute("id", `row${field}`)
+        row.innerHTML = `<div id="addConfig${field}">
                         <div id="fields">
          <div class="input-field col s4"
           style="display:flex;  background: transparent;width: 400px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:35%;padding: 1em;margin-bottom: 3em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-           <h4> ${lines[j]}</h4>
+           <h4> ${field}</h4>
            </div>
 
                      <div style="display:flex; ">
@@ -50,8 +51,8 @@ function showColFields(lines){
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                             <label  style="border-radius: 150px;" for="type">Type</label>
-                            <select placeholder="Choose Type" data-cy="type" id="type${lines[j]}"
-                            onchange="showDateTimeOption(this.value,'dateDiv${lines[j]}','dateFormats${lines[j]}' , 'date${lines[j]}','timeDiv${lines[j]}','timeFormats${lines[j]}','time${lines[j]}','dateTimeDiv${lines[j]}','dateTimeFormats${lines[j]}' , 'dateTime${lines[j]}' ,'length-div${lines[j]}', 'value-div${lines[j]}');">
+                            <select placeholder="Choose Type" data-cy="type" id="type${field}"
+                            onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -65,12 +66,12 @@ function showColFields(lines){
                             </select>
                          </div>
                          
-                     <div  id = "dateTimeDiv${lines[j]}" class="input-field  col s4" 
+                     <div  id = "dateTimeDiv${field}" class="input-field  col s4" 
                                         style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-    <label for="datetime" id="dateTimeFormats${lines[j]}" style='display:none;'>Date-Time Format</label>
+    <label for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
                                                 
-    <select placeholder="Choose date time format"  name="datetime" id='dateTime${lines[j]}' style='display:none;'>
+    <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
          <option>"choose date time format"</option>
          <option value="MM-dd-yyyy">MM-dd-yyyy</option>
          <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
@@ -85,11 +86,11 @@ function showColFields(lines){
 
                          
                          
-                         <div id = "dateDiv${lines[j]}" class="input-field  col s4"
+                         <div id = "dateDiv${field}" class="input-field  col s4"
                                                 style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                                                 
-                            <label for="date" id="dateFormats${lines[j]}" style='display:none;'>Date Format</label>
-                            <select placeholder="Choose date format"  name="date" id='date${lines[j]}' style='display:none;'>
+                            <label for="date" id="dateFormats${field}" style='display:none;'>Date Format</label>
+                            <select placeholder="Choose date format"  name="date" id='date${field}' style='display:none;'>
                                  <option>"Choose Date Format"</option>
                                  <option value="MM-dd-yyyy">MM-DD-YYYY</option>
                                  <option value="dd-MM-yyyy">DD-MM-YYYY</option>
@@ -105,11 +106,11 @@ function showColFields(lines){
                          </div>
 
 
-                     <div id = "timeDiv${lines[j]}" class="input-field  col s4" 
+                     <div id = "timeDiv${field}" class="input-field  col s4" 
                       style="display:none;border-radius: 7px;  background: transparent;width: 300px; height: 30px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-                       <label for="time" style='display:none;' id="timeFormats${lines[j]}">Time Format</label>
-                           <select  placeholder="Choose time format"  name="time" id='time${lines[j]}' style='display:none;'>
+                       <label for="time" style='display:none;' id="timeFormats${field}">Time Format</label>
+                           <select  placeholder="Choose time format"  name="time" id='time${field}' style='display:none;'>
                                 <option>Choose Time Format</option>
                                 <option value="hh:mm:ss">HH:MM:SS</option>
                                 <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
@@ -118,30 +119,36 @@ function showColFields(lines){
                       </div>
 
 
-                         <div id="length-div${lines[j]}"class="input-field  col s4"
+                         <div id="length-div${field}"class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
-                            <input placeholder="Enter Length"  type="number" id="fixed-len${lines[j]}" data-cy="fixed-len">
+                            <input placeholder="Enter Length"  type="number" id="fixed-len${field}" data-cy="fixed-len">
                          </div>
                        </div>
 
                          <div style="display:flex; ">
 
-                         <div id="value-div${lines[j]}" class="input-field  col s4"
+                         <div id="value-div${field}" class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 400px;margin-right: 3% ;border-radius:7px;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                          <label style="border-radius:60px;margin-right:-140%;margin-top:7%;" for="values">Values</label>
                          <p style="font-size:14px;display: inline-block;white-space: nowrap;margin-top:-12%;margin-left:120%;"> Select to allow null values</p>
                          <label class="switch">
-                           <input id="allowNull${lines[j]}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
+                           <input id="allowNull${field}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
                            <span class="slider round"></span>
                          </label>
+<<<<<<< Updated upstream
                          <select type="text" name="values" id="values${lines[j]}"
                             onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}','addConfig${lines[j]}');">
                             <option value="Choose"> Choose</option>
+=======
+                         <select type="text" name="values" id="values${field}"
+                            onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
+                            <option value=""> Choose</option>
+>>>>>>> Stashed changes
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
                             </select>
-                            <input onchange="readFile(event,'${lines[j]}');" type="file" id="text_file_id${lines[j]}" style="display:none;" accept=".txt">
+                            <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
                             
                          </div>
 
@@ -150,7 +157,7 @@ function showColFields(lines){
                            style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                              <label for="dependent">Dependent</label>
-                             <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${lines[j]}">
+                             <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${field}">
                                  <option value="">Choose Dependent Field</option>
                                      ${lines.map((element) => {
                                          return `<option value='${element}'>${element}</option>`;
@@ -161,7 +168,7 @@ function showColFields(lines){
                          <div class="input-field  col s4"
                           style="display:flex;border-radius: 7px;  background: transparent;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;font-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                              <label for="dep-val">Dependent Value</label>
-                             <input type="text" id="dep-val${lines[j]}" data-cy="dep-val">
+                             <input type="text" id="dep-val${field}" data-cy="dep-val">
                          </div>
 
                     </div>
@@ -169,11 +176,11 @@ function showColFields(lines){
                   </div>
                   </div>
                   
-                   <div class="form-popup" id="popUp${lines[j]}" >
+                   <div class="form-popup" id="popUp${field}" >
                                              <div class="form-container">
                                                <h1>Enter Values</h1>
 
-                                               <textarea id="textArea${lines[j]}" placeholder="Enter Values"></textarea>
+                                               <textarea id="textArea${field}" placeholder="Enter Values"></textarea>
                                                <div id = "list"> 
                                                <ul style='margin-left: 55%; margin-top: -20%'>
                                                     <li> Please Enter the values in newline without any delimiters</li> 
@@ -187,8 +194,13 @@ function showColFields(lines){
                                                </ul>
                                                </div>
                                                
+<<<<<<< Updated upstream
                                                <button onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');" type="button" class="btn" style='display:block;'>Submit</button>
                                                <button type="button" class="btn cancel" onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}', 'values${lines[j]}');">Close</button>
+=======
+                                               <button onclick="closeForm('popUp${field}','addConfig${field}')" type="button" class="btn" style='display:block;'>Submit</button>
+                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${field}','addConfig${field}')">Close</button>
+>>>>>>> Stashed changes
                                              </div>
                                            </div>
                       <br>
@@ -338,16 +350,16 @@ function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
        let jsonObj = {}
         var field = fields[0][j]
-        var type = document.getElementById(`type${fields[0][j]}`)
-        var value = document.getElementById(`text_file_id${fields[0][j]}`).files[0]
-        var typedValues = document.getElementById(`textArea${fields[0][j]}`)
-        var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`)
-        var dependentOn = document.getElementById(`dependent${fields[0][j]}`)
-        var dependentValue = document.getElementById(`dep-val${fields[0][j]}`)
-        var dateFormat = document.getElementById(`date${fields[0][j]}`)
-        var timeFormat = document.getElementById(`time${fields[0][j]}`)
-        var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`)
-        var nullValues = document.getElementById(`allowNull${fields[0][j]}`)
+        var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
+        var value = document.getElementById(`text_file_id${fields[0][j]}`.replaceAll('"', '')).files[0]
+        var typedValues = document.getElementById(`textArea${fields[0][j]}`.replaceAll('"', ''))
+        var fixed_len = document.getElementById(`fixed-len${fields[0][j]}`.replaceAll('"', ''))
+        var dependentOn = document.getElementById(`dependent${fields[0][j]}`.replaceAll('"', ''))
+        var dependentValue = document.getElementById(`dep-val${fields[0][j]}`.replaceAll('"', ''))
+        var dateFormat = document.getElementById(`date${fields[0][j]}`.replaceAll('"', ''))
+        var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
+        var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
+        var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
