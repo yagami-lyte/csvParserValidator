@@ -38,7 +38,8 @@ function showColFields(lines){
     var row = document.createElement('div');
     row.setAttribute("class", "row")
     row.setAttribute("id", `row${lines[j]}`)
-        row.innerHTML = `<div id="fields">
+        row.innerHTML = `<div id="addConfig${lines[j]}">
+                        <div id="fields">
          <div class="input-field col s4"
           style="display:flex;  background: transparent;width: 400px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:35%;padding: 1em;margin-bottom: 3em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
            <h4> ${lines[j]}</h4>
@@ -135,7 +136,7 @@ function showColFields(lines){
                            <span class="slider round"></span>
                          </label>
                          <select type="text" name="values" id="values${lines[j]}"
-                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}');">
+                            onchange="onChangeHandler(this.value,'text_file_id${lines[j]}','popUp${lines[j]}','addConfig${lines[j]}');">
                             <option value=""> Choose</option>
                             <option value="Upload File">Upload File</option>
                             <option value="Type Values">Type Values</option>
@@ -166,6 +167,7 @@ function showColFields(lines){
                     </div>
                      <br> </br> <br>
                   </div>
+                  </div>
                   
                    <div class="form-popup" id="popUp${lines[j]}" >
                                              <div class="form-container">
@@ -185,8 +187,8 @@ function showColFields(lines){
                                                </ul>
                                                </div>
                                                
-                                               <button onclick="closeForm('popUp${lines[j]}','div1${lines[j]}')" type="button" class="btn" style='display:block;'>Submit</button>
-                                               
+                                               <button onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}')" type="button" class="btn" style='display:block;'>Submit</button>
+                                               <button type="button" class="btn cancel" onclick="closeForm('popUp${lines[j]}','addConfig${lines[j]}')">Close</button>
                                              </div>
                                            </div>
                       <br>
@@ -195,19 +197,21 @@ function showColFields(lines){
 }
 }
 
-function closeForm(popUp , div1) {
+function closeForm(popUp , addConfig) {
     document.getElementById(popUp).style.display = "none";
-    document.getElementById(div1).style.filter = "blur(0px)";
+    document.getElementById(addConfig).style.filter = "blur(0px)";
 }
 
-function onChangeHandler(valueOption, fileInput, textAreaInput){
+function onChangeHandler(valueOption, fileInput, textAreaInput,addConfig){
     var uploadFile = document.getElementById(fileInput);
     console.log(uploadFile.files[0])
     var typeValues = document.getElementById(textAreaInput);
+    var addConfig = document.getElementById(addConfig);
     if (valueOption === "Type Values"){
         console.log("Changing")
         uploadFile.style.display = "none";
         typeValues.style.display = "block";
+        addConfig.style.filter = "blur(3px)";
     }
     else {
         uploadFile.style.display = "flex";
