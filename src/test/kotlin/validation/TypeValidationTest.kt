@@ -233,15 +233,34 @@ class TypeValidationTest {
         assertTrue(actual)
     }
 
-    @Test
-    fun shouldCheckIfValueHasSpecialCharacters() {
+    @ParameterizedTest
+    @MethodSource("checkSpecialCharactersWithAllPossibleExpressions")
+    fun shouldCheckIfValueHasSpecialCharacters(specialCharactersValue: String) {
         val typeValidation = TypeValidation()
-        val value = "123_ @"
 
-        val actual = typeValidation.hasSpecialCharacters(value)
+        val actual = typeValidation.hasSpecialCharacters(specialCharactersValue)
 
         assertTrue(actual)
     }
+
+    private fun checkSpecialCharactersWithAllPossibleExpressions(): Stream<Arguments> = Stream.of(
+        Arguments.of("Ukarsh12"),
+        Arguments.of("SHreya@#"),
+        Arguments.of("Suraj#$"),
+        Arguments.of("Shikha()<>"),
+        Arguments.of("Gaurav+="),
+        Arguments.of("test{}"),
+        Arguments.of("""This is a test; "ParameterizedTest""""),
+        Arguments.of("SAHAJ!@"),
+        Arguments.of("SOftware|[]"),
+        Arguments.of("Solutions 123 !"),
+        Arguments.of("PVT LTD*"),
+        Arguments.of("2^(2)"),
+        Arguments.of("User & Stories"),
+        Arguments.of("Yes || No"),
+        Arguments.of("""user@somedomaincom123#$##%$^%&%$^%#$<>{}[]  ;:/|||~`'""_+=-*&^%$#@!~?/>M<>.,:;"'{}[]()()?.,"""),
+        Arguments.of("USA~AUS")
+    )
 
 
 

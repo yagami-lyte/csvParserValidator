@@ -111,10 +111,10 @@ class TypeValidation : Validation {
     }
 
     fun hasSpecialCharacters(value: String): Boolean {
-        val emailPattern = Regex("^[a-zA-Z0-9_,@\\s]+\$")
-        return emailPattern.matches(value)
+        val allKeyboardKeysRegex = ("""[A-Za-z0-9-]+[ 0-9A-Za-z#$%=@!{},`~&*()'<>?.:;_|^/+\t\r\n\[\]"-]*""").toRegex();
+        return allKeyboardKeysRegex.matches(value)
     }
-
+//    (?=^.{6,51}$)([A-Za-z]{1})([A-Za-z0-9!@#$%_<>{}\[]\^\&amp;\*\-\.\?]{5,49})$
     fun isEmail(value: String): Boolean {
         val emailPattern = Regex("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$")
         return emailPattern.matches(value)
