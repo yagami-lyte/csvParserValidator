@@ -1,10 +1,23 @@
 image: gradle:latest
 
 stages:
+  - build
   - test
+
+build:
+  stage: build
+  script:
+    - gradle --no-daemon build
+  artifacts:
+    paths:
+      - build/distributions
+    expire_in: 1 day
+    when: always
 
 unit-test:
   stage: test
+  dependencies:
+    - build
   script:
     - echo "Initiating Tests"
     - gradle test
@@ -13,6 +26,8 @@ unit-test:
 cypress-test:
   image: cypress/browsers:node12.14.1-chrome85-ff81
   stage: test
+  dependencies:
+    - build
   script:
     - echo "Starting Server"
     - apt-get --allow-releaseinfo-change update
