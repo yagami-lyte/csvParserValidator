@@ -74,6 +74,7 @@ class TypeValidationTest {
             Arguments.of("yyyy-MM-dd HH:mm:ss,SSS", "2017-06-26 02:31:29,573"),
             Arguments.of("yyyy/MM/dd*HH:mm:ss", "2017/04/12*19:37:50"),
             Arguments.of("yyyy MMM dd HH:mm:ss.SSS*zzz", "2018 Apr 13 22:08:13.211*PDT"),
+            Arguments.of("yyyy-MM-dd'T'HH:mm:ss", "2000-07-21T05:06:07"),
         )
 
     }

@@ -72,15 +72,25 @@ function showColFields(lines){
     <label for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
                                                 
     <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
-         <option>"choose date time format"</option>
-         <option value="MM-dd-yyyy">MM-dd-yyyy</option>
-         <option value="HH:mm:ss.SSSZ">HH:mm:ss.SSSZ</option>
-         <option value="MMMM dd, yy">MMMM dd, yy</option>
-         <option value="yy/MM/dd">yy/MM/dd</option>
-         <option value="dd/MM/yy">dd/MM/yy</option>
+         <option>Choose Date Time format</option>
+         <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
+         <option value="MMMM dd, yy">MMMM DD, YYYY</option>
          <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
          <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
          <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
+         <option value="yyyy-MM-dd'T'HH:mm:ss">YYYY-MM-DD'T'HH:MM:SS</option>
+         <option value="MMM dd, yyyy hh:mm:ss a">MMM DD, YYYY HH:MM:SS AM</option>
+         <option value="dd/MMM/yyyy:HH:mm:ss ZZZZ">DD/MMM/YYYY:HH:MM:SS ZZZZ</option>
+         <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM DD HH:MM:SS ZZZZ YYYY</option>
+         <option value="MMM dd yyyy HH:mm:ss">MMM DD YYYY HH:MM:SS</option>
+         <option value="MM/dd/yyyy hh:mm:ss a">MM/DD/YYYY HH:MM:SS AM</option>
+         <option value="MM/dd/yyyy hh:mm:ss a:SSS">MM/DD/YYYY HH:MM:SS AM:SSS</option>
+         <option value="MMdd_HH:mm:ss.SSS">MMDD_HH:MM:SS.SSS</option>
+         <option value="MMdd_HH:mm:ss">MMDD_HH:MM:SS</option>
+         <option value="dd MMM yyyy HH:mm:ss*SSS">DD MMM YYYY HH:MM:SS*SSS</option>
+         <option value="dd MMM yyyy HH:mm:ss">DD MMM YYYY HH:MM:SS</option>
+         <option value="dd/MMM/yyyy HH:mm:ss"">DD/MMM/YYYY HH:MM:SS</option>
+         <option value="dd/MMM HH:mm:ss,SSS"">DD/MMM HH:MM:SS,SSS</option>
     </select>
 </div>
 
