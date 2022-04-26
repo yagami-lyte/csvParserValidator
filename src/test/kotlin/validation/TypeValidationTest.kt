@@ -136,7 +136,17 @@ class TypeValidationTest {
     @Test
     fun shouldBeAbleToCheckIfValueIsNumeric() {
         val typeValidation = TypeValidation()
-        val value = "1234"
+        val value = "123"
+
+        val actual = typeValidation.isNumeric(value)
+
+        assertTrue(actual)
+    }
+
+    @Test
+    fun shouldReturnTrueIfValueIsZero() {
+        val typeValidation = TypeValidation()
+        val value = "0"
 
         val actual = typeValidation.isNumeric(value)
 
