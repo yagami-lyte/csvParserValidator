@@ -30,5 +30,3 @@ cypress-test:
   script:
     - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
     - npx cypress run
-  timeout: 5m
-
