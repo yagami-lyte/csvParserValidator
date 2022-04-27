@@ -1,41 +1,47 @@
-image: gradle:jdk11
-
 stages:
   - build
   - test
 
 build:
   stage: build
+  image: gradle:jdk11
   script:
-    - echo "Creating Jar for application."
-    - ./gradlew --no-daemon createJar
-    - echo "Jar created successfully and stored in build/libs."
+    - gradle clean shadowJar
+  cache:
+    key: gradle-cache-key
+    paths:
+      - .gradle/
+      - build/
+    policy: push
   artifacts:
     paths:
-      - build/libs/csv-parser-srijan-1.0.jar
+      - build/libs
     expire_in: 1 day
   timeout: 5m
 
-Junit-backend-test:
-  stage: test
-  dependencies:
-    - build
-  script:
-    - echo "Initiating Tests"
-    - gradle test
-    - echo "All Tests Passed"
 
-cypress-frontend-test:
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
+junit-test:
   stage: test
-  dependencies:
-    - build
+  image: gradle:jdk11
+  dependencies: []
+  cache:
+    key: gradle-cache-key
+    paths:
+      - .gradle/
+      - build/
+    policy: pull
   script:
-    - echo "Initiating Cypress tests"
-    - java -jar build/libs/csv-parser-srijan-1.0.jar &
-    - npx cypress run
-    - echo "All Cypress tests passed"
+    - gradle test
   timeout: 5m
 
-
+cypress-test:
+  stage: test
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
+  cache: []
+  dependencies:
+    - build
+  script:
+    - java -jar build/libs/cvsv-parser-srijan-1.0-SNAPSHOT-all.jar &
+    - npx cypress run
+  timeout: 5m
 
