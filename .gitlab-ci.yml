@@ -8,11 +8,11 @@ build:
   stage: build
   script:
     - echo "Creating Jar for application."
-    - ./gradlew assemble
+    - - ./gradlew --no-daemon jar
     - echo "Jar created successfully and stored in build/libs."
   artifacts:
     paths:
-      - build/libs
+      - build/libs/csv-parser-srijan-1.0.jar
     expire_in: 1 day
   timeout: 5m
 
@@ -31,8 +31,10 @@ cypress-frontend-test:
   dependencies:
     - build
   script:
-    - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
+    - echo "Initiating Cypress tests"
+    - java -jar build/libs/csv-parser-srijan-1.0.jar &
     - npx cypress run
+    - echo "All Cypress tests passed"
   timeout: 5m
 
 
