@@ -1,5 +1,6 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 apply plugin: 'application'
 
@@ -20,17 +21,7 @@ dependencies {
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.8.2"
     implementation 'org.mock-server:mockserver-netty:5.3.0'
     testImplementation 'io.mockk:mockk:1.12.3'
-}
-
-createJar {
-	archiveBaseName = 'csv-parser-srijan'
-    archiveVersion =  '1.0'
-
-    manifest {
-        attributes 'Main-Class': "$mainClassName"
-    }
-    duplicatesStrategy = DuplicatesStrategy.INCLUDE
-    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+    implementation 'com.vdurmont:emoji-java:5.1.1'
 }
 
 test {
