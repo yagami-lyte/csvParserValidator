@@ -46,7 +46,6 @@ body {
     h4{
             background: transparent;
                         margin-bottom: 1em;
-                        border-radius: 20px;
                         color: black;
                         font-size: 25px;
                         font-weight: bold;
@@ -85,16 +84,14 @@ body {
     }
 
      #fields{
-            margin-left:-33%;
-            margin-top: -25%;
-            padding: 20px;
-            width: 1350px;
-            height: 350px;
-            opacity: 80%;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            border: 3px solid white;
-            border-radius: 29px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+              padding: 16px;
+              text-align: center;
+              background-color: white;
+              margin-left:-30%;
+              margin-right:10%;
+              margin-top:-27%;
+              radius:20px;
         }
 
 
@@ -156,7 +153,6 @@ body {
             background: transparent;
             padding-right: 5px;
             margin-bottom: 1em;
-            border-radius: 20px;
             color: #696969;
             font-size: 20px;
             font-weight: bold;
@@ -286,6 +282,7 @@ body {
   padding: 16px;
   text-align: center;
   background-color: white;
+
 }
 
 .column {
@@ -358,6 +355,10 @@ border-radius: 20px;
   height: 0;
 }
 
+.chooseFile {
+    margin-left: -200%;
+}
+
 .slider {
   position: absolute;
   cursor: pointer;
@@ -366,7 +367,7 @@ border-radius: 20px;
   right: 0;
   bottom: 0;
   width:300%;
-  margin-left:-40%;
+  margin-left:-260%;
   background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;

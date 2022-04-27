@@ -130,7 +130,7 @@ function showColFields(lines){
 
 
                          <div id="length-div${field}"class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:5%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
                             <input placeholder="Enter Length" min=0 onkeypress="return event.charCode >= 48" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
                          </div>
@@ -138,28 +138,37 @@ function showColFields(lines){
 
                          <div style="display:flex; ">
 
-                         <div id="value-div${field}" class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 400px;margin-right: 3% ;border-radius:7px;margin-left:3%; height: 50px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                         <label style="border-radius:60px;margin-right:-140%;margin-top:7%;" for="values">Values</label>
-                         <p style="font-size:14px;display: inline-block;white-space: nowrap;margin-top:-12%;margin-left:120%;"> Select to allow null values</p>
+                         <div>
+                         <div id="allowNullDiv${field}" class="input-field  col s4"
+                         style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius:7px;margin-left:13%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                         <label style="border-radius:60px;margin-right:-140%;margin-top:7%;" for="values">Select to allow empty values</label>
+                         <p style="font-size:14px;display: inline-block;white-space: nowrap;margin-top:-12%;margin-left:36%;margin-right:160%;width:20px;"></p>
                          <label class="switch">
                            <input id="allowNull${field}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
                            <span class="slider round"></span>
                          </label>
+                         </div>
 
-                         <select type="text" name="values" id="values${field}"
-                            onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
-                            <option value=""> Choose</option>
-                            <option value="Upload File">Upload File</option>
-                            <option value="Type Values">Type Values</option>
-                            </select>
-                            <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
+                         <div id="value-div${field}" class="input-field  col s4"
+                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius:7px;margin-left:13%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                                  <label for="values">Values</label>
+                                     <select style="margin-left:5%;" type="text" name="values" id="values${field}"
+                                       onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
+                                     <option  style="display:flex;border-radius:60px;margin-top:7%;" value=""> Choose</option>
+                                       <option value="Upload File">Upload File</option>
+                                                   <option value="Type Values">Type Values</option>
+                                                            </select>
+                                             <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
+                                                  </label>
+                                                  </div>
+
+
                             
                          </div>
 
 
                          <div class="input-field  col s4"
-                           style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 3% ;margin-left:3%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                           style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 3% ;margin-left:12%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                              <label for="dependent">Dependent</label>
                              <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${field}">
