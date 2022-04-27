@@ -8,7 +8,7 @@ build:
   stage: build
   script:
     - echo "Creating Jar for application."
-    - - ./gradlew --no-daemon jar
+    - - ./gradlew --no-daemon createJar
     - echo "Jar created successfully and stored in build/libs."
   artifacts:
     paths:
