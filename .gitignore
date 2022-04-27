@@ -1,11 +1,8 @@
 .gradle
 .idea
-build/
+build
 .DS_Store
-cypress/h.txt
-node_modules
-package-lock.json
-.vscode
-cypress/videos
-cypress/screenshots
-cypress/videos/main.spec.js.mp4
+node_modules/
+bin/
+cypress/screenshots/
+cypress/videos/
