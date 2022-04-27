@@ -7,12 +7,6 @@ build:
   image: gradle:jdk11
   script:
     - gradle clean shadowJar
-  cache:
-    key: gradle-cache-key
-    paths:
-      - .gradle/
-      - build/
-    policy: push
   artifacts:
     paths:
       - build/libs
@@ -24,12 +18,6 @@ junit-test:
   stage: test
   image: gradle:jdk11
   dependencies: []
-  cache:
-    key: gradle-cache-key
-    paths:
-      - .gradle/
-      - build/
-    policy: pull
   script:
     - gradle test
   timeout: 5m
@@ -37,11 +25,10 @@ junit-test:
 cypress-test:
   stage: test
   image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
-  cache: []
   dependencies:
     - build
   script:
-    - java -jar build/libs/cvsv-parser-srijan-1.0-SNAPSHOT-all.jar &
+    - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
     - npx cypress run
   timeout: 5m
 
