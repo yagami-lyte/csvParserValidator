@@ -45,7 +45,6 @@ body {
 
     h4{
             background: transparent;
-                        width: 150px;
                         margin-bottom: 1em;
                         border-radius: 20px;
                         color: black;
@@ -136,7 +135,7 @@ body {
         margin: 8px 0;
         display: inline-block;
         border: 1px solid #696969;
-        border-radius: 25px;
+        border-radius: 7px;
         box-sizing: border-box;
         margin-left: 1%;
         height: 40px;
@@ -144,7 +143,7 @@ body {
 
     input[type=number], select {
             width: 195px;
-            padding: 12px 20px;
+            padding: 2px 2px 2px 2px;
             margin: 7px 0;
             display: inline-block;
             border: 1px solid #ccc;
@@ -155,7 +154,7 @@ body {
 
     label {
             background: transparent;
-            width: 150px;
+            padding-right: 5px;
             margin-bottom: 1em;
             border-radius: 20px;
             color: #696969;
