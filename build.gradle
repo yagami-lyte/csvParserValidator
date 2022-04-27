@@ -22,6 +22,17 @@ dependencies {
     testImplementation 'io.mockk:mockk:1.12.3'
 }
 
+createJar {
+	archiveBaseName = 'csv-parser-srijan'
+    archiveVersion =  '1.0'
+
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+    }
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
 test {
     useJUnitPlatform()
 }
