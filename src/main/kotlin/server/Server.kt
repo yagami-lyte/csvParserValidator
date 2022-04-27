@@ -28,6 +28,7 @@ class Server(port: Int) {
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
 
         val request = readRequest(inputStream)
+        println(request)
         val response = handleRequest(request, inputStream)
 
         sendResponse(outputStream, response)
