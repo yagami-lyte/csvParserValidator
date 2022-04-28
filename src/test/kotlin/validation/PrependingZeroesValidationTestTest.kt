@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 internal class PrependingZeroesValidationTest {
 
     @Test
-    fun shouldReqturnTrueForPrependingZeroesValues(){
+    fun shouldReturnTrueForPrependingZeroesValues(){
         val prependingZeroesValidation = PrependingZeroesValidation()
         val value = "0123"
 
