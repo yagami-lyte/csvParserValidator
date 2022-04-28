@@ -1,4 +1,4 @@
-var payload=[]
+var payload = []
 var result = []
 var fields = []
 var fieldCount = 0
@@ -25,7 +25,6 @@ function csvReader() {
                 obj[headers[j]] = currentLine[j].replaceAll('"', '');
             }
             result.push(obj);
-            //localStorage.setItem(csv, JSON.stringify(result));
         }
     };
     reader.readAsText(csv);
@@ -132,8 +131,7 @@ function showColFields(lines){
                          <div id="length-div${field}"class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:5%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
-                            <input placeholder="Enter Length" min=1  oninput="this.value = 
- !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" onkeypress="restrictFirstZero(event)" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
+                            <input placeholder="Enter Length" min=0 onkeypress="return event.charCode >=48" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
                          </div>
                        </div>
 
@@ -225,25 +223,18 @@ function showColFields(lines){
 }
 }
 
+ function RestrictFirstZero(e) {
+            if (e.srcElement.value.length == 0 && e.which == 48 && e.which == 109) {
+                e.preventDefault();
+                return false;
+            }
+        };
 
-function restrictFirstZero(event) {
-    if (event.srcElement.value.length === 0 && event.which === 48) {
-        event.preventDefault();
-        return false;
-    }
-}
-
-
-
-/*lengthDiv.keyup(function(event) {
-
-    var currentVal = $(this).val();
-
-    if (currentVal.length === 1 && (event.which === 48 || event.which === 96)) {
-        currentVal = currentVal.slice(0, -1);
-    }
-    $(this).val(currentVal);
-});*/
+        function PreventFirstZero(event) {
+            if (event.srcElement.value.charAt(0) == '0') {
+                event.srcElement.value = event.srcElement.value.slice(1);
+            }
+        };
 
 function closeForm(popUp , addConfig, valueOption) {
     document.getElementById(popUp).style.display = "none";
@@ -444,11 +435,9 @@ async function displayErrors(){
         console.log(jsonData)
         traverse(jsonData)
     }
-    payload=[]
 }
 
 function traverse(object){
-    errMap={}
     for(var i in object){
         console.log(object[i])
         console.log(object[i] != "")
@@ -459,9 +448,7 @@ function traverse(object){
         }
     }
     emptyErrorList()
-    console.log(errMap)
-    showErrPage(1)
-//    showErr(errMap)
+    showErr(errMap)
 }
 
 var errMap ={}
@@ -472,126 +459,36 @@ function pushErrToMaps(object){
     }
 }
 
-//function showErr(map){
-//
-//    var errors = document.getElementById("error-msgs");
-//    for (const [key, value] of Object.entries(map)) {
-//            var rowNo = parseInt(key)+1
-//            let row = document.createElement("div");
-//            row.setAttribute("class", "row");
-//            row.innerHTML = `<br>
-//            <div class="col s10 offset-s1">
-//          <div class="card-panel" id="${key}">
-//              <h3>Errors at Row Number: ${rowNo}</h3>
-//          </div>
-//      </div>`;
-//            errors.appendChild(row)
-//            value.forEach(element => {
-//                let p = document.createElement("p")
-//                p.setAttribute("id", "error")
-//                p.innerText = `    -  ${element}`
-//                let parent = document.getElementById(`${key}`)
-//                parent.appendChild(p)
-//            });
-//        }
-//
-//        if(Object.keys(map).length === 0){
-//        errors.innerHTML = `<div class="success-msg">
-//                              <h1>No error in your uploaded CSV file</h1>
-//                            </div>`;
-//        }
-//        errMap = {}
-//        payload = []
-//
-//}
+function showErr(map){
 
-
-
-var current_page = 1;
-var obj_per_page = 5;
-function totNumPages()
-{
-    return Math.ceil(Object.keys(errMap).length / obj_per_page);
-}
-
-function prevPage()
-{   emptyErrorList()
-    if (current_page > 1) {
-        current_page--;
-        showErrPage(current_page);
-    }
-    if(current_page == 1){
-    var btn_next = document.getElementById("btn_next");
-    var btn_prev = document.getElementById("btn_prev");
-    btn_prev.style.visibility = "hidden";
-    }
-}
-function nextPage()
-{        console.log(totNumPages())
-    emptyErrorList()
-    if (current_page < totNumPages()) {
-        current_page++;
-        //console.log(current_page)
-        showErrPage(current_page);
-    }
-    if(current_page == totNumPages()){
-        var btn_next = document.getElementById("btn_next");
-        var btn_prev = document.getElementById("btn_prev");
-        btn_next.style.visibility = "hidden";
-        }
-}
-
-function showErrPage(page)
-{   console.log(page)
-    var map = errMap
-    var btn_next = document.getElementById("btn_next");
-    var btn_prev = document.getElementById("btn_prev");
     var errors = document.getElementById("error-msgs");
-    //var page_span = document.getElementById("page");
-    if (page < 1) page = 1;
-    if (page > totNumPages()) page = totNumPages();
-    value = Object.values(map)
-    key = Object.keys(map)
-    for (var i = (page-1) * obj_per_page ;(Object.keys(errMap).length != 0) && (key[i] != undefined) && i < (page * obj_per_page); i++) {
-    //console.log(key[i] == undefined)
-                        var rowNo = parseInt(key[i])+1
-                        let row = document.createElement("div");
-                        row.setAttribute("class", "row");
-                        row.innerHTML = `<br>
-                        <div class="col s10 offset-s1">
-                      <div class="card-panel" id="${key[i]}">
-                          <h3>Errors at Row Number: ${rowNo}</h3>
-                      </div>
+    for (const [key, value] of Object.entries(map)) {
+            var rowNo = parseInt(key)+1
+            let row = document.createElement("div");
+            row.setAttribute("class", "row");
+            row.innerHTML = `<br>
+            <div class="col s10 offset-s1">
+          <div class="card-panel" id="${key}">
+              <h3>Errors at Row Number: ${rowNo}</h3>
+          </div>
+      </div>`;
+            errors.appendChild(row)
+            value.forEach(element => {
+                let p = document.createElement("p")
+                p.setAttribute("id", "error")
+                p.innerText = `    -  ${element}`
+                let parent = document.getElementById(`${key}`)
+                parent.appendChild(p)
+            });
+        }
 
-                  </div>`;
-                        errors.appendChild(row)
-                        value[i].forEach(element => {
-                            let p = document.createElement("p")
-                            p.setAttribute("id", "error")
-                            p.innerText = `    -  ${element}`
-                            let parent = document.getElementById(`${key[i]}`)
-                            parent.appendChild(p)
-                        });
-
-    }
-    //page_span.innerHTML = page;
-    if (page == 1) {
-        btn_next.style.visibility = "hidden";
-    } else {
-        btn_prev.style.visibility = "visible";
-    }
-    if (page == totNumPages()) {
-        btn_next.style.visibility = "hidden";
-    } else {
-        btn_next.style.visibility = "visible";
-    }
-    if(Object.keys(errMap).length === 0){
+        if(Object.keys(map).length === 0){
         errors.innerHTML = `<div class="success-msg">
                               <h1>No error in your uploaded CSV file</h1>
                             </div>`;
-        btn_next.style.visibility = "hidden";
-        btn_prev.style.visibility = "hidden";
         }
+        errMap = {}
+        payload = []
 
 }
 
