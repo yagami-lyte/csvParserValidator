@@ -17,6 +17,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private val nullValidation = NullValidation()
     private val responseHeader: ResponseHeader = ResponseHeader()
     private val pageNotFoundResponse = PageNotFoundResponse()
+    private val prePendingzero = PrependingZeroesValidation()
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
         return when (getPath(request)) {
@@ -44,7 +45,8 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val duplicates = duplicateValidation.validate(jsonBody , fieldArray)
         val dependencyChecks = dependencyValidation.validate(jsonBody, fieldArray)
         val nullChecks = nullValidation.validate(jsonBody,fieldArray)
-        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks, nullChecks)
+        val prePendingZero = prePendingzero.validate(jsonBody,fieldArray)
+        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks, nullChecks,prePendingZero)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
@@ -57,7 +59,8 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         typeValidation: JSONArray,
         valueValidation: JSONArray,
         dependencyChecks: Any,
-        nullChecks:JSONArray
+        nullChecks:JSONArray,
+        prePendingZero:JSONArray
     ): String {
         var responseBody = "{"
         responseBody += "\"Duplicates\" : $duplicates"
@@ -71,7 +74,10 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         responseBody += "\"Dependency\" : $dependencyChecks"
         responseBody += ","
         responseBody += "\"Null\" : $nullChecks"
+        responseBody += ","
+        responseBody += "\"PrePendingZero\" : $prePendingZero"
         responseBody += "}"
+
         return responseBody
     }
 
