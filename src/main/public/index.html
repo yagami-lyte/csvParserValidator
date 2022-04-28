@@ -50,15 +50,19 @@
         </form>
     </div>
 </div>
-<a id='view-errors' href="#error-msgs" class="btn-get-started scrollto " onclick="displayErrors()">View Errors </a>
+<a id='view-errors' onclick="displayErrors()">View Errors </a>
 
 
 <div class="container">
     <h5>CSV Errors</h5>
     <div  id="error-msgs">
 
-</div>
     </div>
+    <div class="button-control">
+    <a href="#error-msgs"  onclick="prevPage()" id="btn_prev">Prev</a>
+    <a href="#error-msgs"  onclick="nextPage()" id="btn_next">Next</a>
+    </div>
+</div>
 <br>
 </body>
 

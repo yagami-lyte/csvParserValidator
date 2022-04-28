@@ -492,3 +492,27 @@ textarea {
 {
     display: inline-block;
 }
+
+
+.button-control a{
+border: 1px solid #ccc;
+     border-radius: 7px;
+     background: #333333;
+                 font-family: 'Ubuntu', sans-serif;
+                color: white;
+                padding: 15px 30px;
+                text-decoration: none;
+                font-size: 25px;
+                margin: 4px 2px;
+                cursor: pointer;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                display: inline-block;
+                visibility: hidden;
+                justify-content: space-between;
+}
+
+.button-control{
+text-align: center;
+}
+
