@@ -132,7 +132,8 @@ function showColFields(lines){
                          <div id="length-div${field}"class="input-field  col s4"
                          style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius: 7px;margin-left:5%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                             <label for="fixed-len">Length</label>
-                            <input placeholder="Enter Length" min=0 onkeypress="return event.charCode >= 48" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
+                            <input placeholder="Enter Length" min=1  oninput="this.value = 
+ !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null" onkeypress="restrictFirstZero(event)" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
                          </div>
                        </div>
 
@@ -223,6 +224,26 @@ function showColFields(lines){
     document.getElementById("myform").appendChild(row)
 }
 }
+
+
+function restrictFirstZero(event) {
+    if (event.srcElement.value.length === 0 && event.which === 48) {
+        event.preventDefault();
+        return false;
+    }
+}
+
+
+
+/*lengthDiv.keyup(function(event) {
+
+    var currentVal = $(this).val();
+
+    if (currentVal.length === 1 && (event.which === 48 || event.which === 96)) {
+        currentVal = currentVal.slice(0, -1);
+    }
+    $(this).val(currentVal);
+});*/
 
 function closeForm(popUp , addConfig, valueOption) {
     document.getElementById(popUp).style.display = "none";
