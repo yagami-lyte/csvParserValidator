@@ -27,8 +27,8 @@ cypress-test:
   dependencies:
     - build
   script:
-    - unzip -q build/libs/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/libs
-    - sh build/libs/csv-parser-srijan-1.0-SNAPSHOT.zip &
+    - unzip -q build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar -d build/libs
+    - sh build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
     # - npm ci
     - npx cypress run --browser chrome
 
