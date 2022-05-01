@@ -1,4 +1,3 @@
-FROM cypress/base:16.14.2-slim
+FROM cypress/browsers:node16.13.2-chrome100-ff98
 
-RUN apt-get update && apt-get install -y openjdk-11-jre unzip && rm -rf /var/lib/apt/lists/* &&  npm install --save-dev cypress-file-upload 
-
+RUN apt-get --allow-releaseinfo-change update && apt-get install -y openjdk-11-jre
