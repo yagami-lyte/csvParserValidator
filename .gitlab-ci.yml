@@ -20,3 +20,13 @@ junit-test:
     - gradle test
   timeout: 5m
 
+cypress-test:
+  stage: test
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latest
+  dependencies:
+    - build
+  script:
+    - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
+    - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
+    - npm ci
+    - npx cypress run --browser chrome
