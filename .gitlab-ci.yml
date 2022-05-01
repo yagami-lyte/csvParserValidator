@@ -18,7 +18,6 @@ build:
 build-docker-image:
   stage: build-docker-image
   script:
-    - docker info
     - docker build -t registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan/ci .
 
 
