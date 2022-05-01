@@ -1,36 +1,45 @@
 stages:
   - build
-  - test
 
 build:
+  image: docker:19.03.12
   stage: build
-  image: gradle:jdk11
+  services:
+    - docker:19.03.12-dind
   script:
-    - gradle --no-daemon build
-  artifacts:
-    paths:
-      - build/distributions
-    expire_in: 1 day
-    when: always
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan/ci:latestSrigin .
+    - docker push $CI_REGISTRY/sahajsoft/gurukul2022/csv-parser-srijan:latestSrigin
 
-junit-test:
-  stage: test
-  image: gradle:jdk11
-  dependencies: []
-  script:
-    - gradle test
-  timeout: 5m
+# build:
+#   stage: build
+#   image: gradle:jdk11
+#   script:
+#     - gradle --no-daemon build
+#   artifacts:
+#     paths:
+#       - build/distributions
+#     expire_in: 1 day
+#     when: always
 
-cypress-test:
-  stage: test
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latest
-  dependencies:
-    - build
-  script:
-    - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
-    - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan & 
-    - npm ci
-    - npx cypress run --browser chrome
+# junit-test:
+#   stage: test
+#   image: gradle:jdk11
+#   dependencies: []
+#   script:
+#     - gradle test
+#   timeout: 5m
+
+# cypress-test:
+#   stage: test
+#   image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latest
+#   dependencies:
+#     - build
+#   script:
+#     - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
+#     - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan & 
+#     - npm ci
+#     - npx cypress run --browser chrome
 
 
 
