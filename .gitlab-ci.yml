@@ -4,6 +4,7 @@ stages:
 
 build:
   stage: build
+  image: gradle:jdk11
   script:
     - gradle --no-daemon build
   artifacts:
