@@ -4,14 +4,14 @@ stages:
 
 build:
   stage: build
-  image: gradle:jdk11
   script:
-    - gradle clean build
+    - gradle --no-daemon build
   artifacts:
     paths:
       - build/distributions
     expire_in: 1 day
-  timeout: 5m
+    when: always
+
 
 junit-test:
   stage: test
