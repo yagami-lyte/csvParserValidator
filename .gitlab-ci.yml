@@ -14,7 +14,9 @@ build:
 
 junit-test:
   stage: test
+  image: gradle:jdk11
+  dependencies: []
   script:
-    - exho "Run Tests"
+    - gradle test
   timeout: 5m
 
