@@ -1,6 +1,8 @@
 stages:
   - build
   - test
+  - build-docker-image
+  - push-image-to-gitlab-registry
 
 build:
   stage: build
