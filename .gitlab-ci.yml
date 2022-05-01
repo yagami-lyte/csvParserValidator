@@ -6,7 +6,7 @@ stages:
 build:
   stage: build
   script:
-    gradle build
+    ./gradlew assemble
   artifacts:
     paths:
       - /home/gitlab-runner/
