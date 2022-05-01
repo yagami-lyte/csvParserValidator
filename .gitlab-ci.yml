@@ -13,7 +13,6 @@ build:
     expire_in: 1 day
     when: always
 
-
 junit-test:
   stage: test
   image: gradle:jdk11
@@ -23,7 +22,7 @@ junit-test:
   timeout: 5m
 
 cypress-test:
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latest
   stage: test
   dependencies:
     - build
