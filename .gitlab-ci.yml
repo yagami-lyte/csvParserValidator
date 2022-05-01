@@ -21,7 +21,7 @@ build-docker-image:
 Push Docker Image to GitLab Registry:
   stage: push-image-to-gitlab-registry
   before_script:
-    - docker login registry.gitlab.com -u "utkarshs45" -p "glpat-xjNrtMUE3cJHibqRXSHy"
+    - docker login registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan -u "utkarshs45" -p "glpat-xjNrtMUE3cJHibqRXSHy"
   script:
     - docker info
     - docker push registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
