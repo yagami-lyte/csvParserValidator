@@ -7,7 +7,10 @@ describe("Testing Upload CSV", ()=>{
         cy.visit('http://localhost:3002')
     })
 
-
+    it("Should contain the header",()=>{
+        cy.visit('http://localhost:3002')
+        cy.contains("CSV Parser And Validator").should('exist')
+    })
 
 
 })
