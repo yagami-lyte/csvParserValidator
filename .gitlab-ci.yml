@@ -6,27 +6,9 @@ build:
   stage: build
   image: gradle:jdk11
   script:
-    - gradle clean shadowJar
+    - gradle clean build
   artifacts:
     paths:
-      - build/libs
+      - build/distributions
     expire_in: 1 day
   timeout: 5m
-
-
-junit-test:
-  stage: test
-  image: gradle:jdk11
-  dependencies: []
-  script:
-    - gradle test
-  timeout: 5m
-
-cypress-test:
-  stage: test
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
-  dependencies:
-    - build
-  script:
-    - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
-    - npx cypress run
