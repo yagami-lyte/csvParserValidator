@@ -9,7 +9,7 @@ build:
     - gradle --no-daemon build
   artifacts:
     paths:
-      - build/distributions
+      - build/libs
     expire_in: 1 day
     when: always
 
@@ -27,8 +27,8 @@ cypress-test:
   dependencies:
     - build
   script:
-    - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
-    - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip &
+    - unzip -q build/libs/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/libs
+    - sh build/libs/csv-parser-srijan-1.0-SNAPSHOT.zip &
     # - npm ci
     - npx cypress run --browser chrome
 
