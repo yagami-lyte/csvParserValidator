@@ -1,41 +1,25 @@
 stages:
   - build
   - test
-  - build-docker-image
-  - push-image-to-gitlab-registry
 
 build:
   stage: build
   image: gradle:jdk11
   script:
-    - gradle clean shadowJar
+    - gradle clean build
   artifacts:
     paths:
-      - build/libs
+      - build/distributions
     expire_in: 1 day
   timeout: 5m
 
-build-docker-image:
-  stage: build-docker-image
+junit-test:
+  stage: test
+  image: gradle:jdk11
+  dependencies: []
   script:
-    - docker build -t registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan/ci .
-
-
-Push Docker Image to GitLab Registry:
-  stage: push-image-to-gitlab-registry
-  before_script:
-    - docker login registry.gitlab.com -u "utkarshs45" -p "glpat-xjNrtMUE3cJHibqRXSHy" 
-  script:
-    - docker info
-    - docker push registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
-
-# junit-test:
-#   stage: test
-#   image: gradle:jdk11
-#   dependencies: []
-#   script:
-#     - gradle test
-#   timeout: 5m
+    - gradle test
+  timeout: 5m
 
 # cypress-test:
 #   stage: test
@@ -46,3 +30,4 @@ Push Docker Image to GitLab Registry:
 #     - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
 #     - npm ci
 #     - npx cypress run
+
