@@ -6,10 +6,12 @@ stages:
 build:
   stage: build
   script:
-    mvn package
+    - gradle --no-daemon build
   artifacts:
     paths:
-      - /home/gitlab-runner/
+      - build/distributions
+    expire_in: 1 day
+    when: always
 
 build-docker-image:
   stage: build-docker-image
