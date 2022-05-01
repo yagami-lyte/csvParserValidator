@@ -12,3 +12,13 @@ build:
       - build/distributions
     expire_in: 1 day
   timeout: 5m
+
+cypress-test:
+    stage: test
+    image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
+    dependencies:
+      - build
+    script:
+      - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
+      - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan & 
+      - npx cypress run
