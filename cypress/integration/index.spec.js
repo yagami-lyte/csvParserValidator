@@ -25,6 +25,6 @@ describe("Testing Upload CSV", ()=>{
         cy.visit('http://localhost:3002')
         cy.get('input[type="file"]').attachFile("countries.csv")
     })
-
+WAIT
 
 })
