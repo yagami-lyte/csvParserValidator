@@ -9,7 +9,7 @@ build:
     - gradle --no-daemon build
   artifacts:
     paths:
-      - build/libs
+      - build/distributions
     expire_in: 1 day
     when: always
 
