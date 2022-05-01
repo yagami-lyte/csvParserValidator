@@ -12,5 +12,13 @@ describe("Testing Upload CSV", ()=>{
         cy.contains("CSV Parser And Validator").should('exist')
     })
 
+    it("Should contain the body", ()=>{
+        cy.visit('http://localhost:3002')
+        cy.contains("Upload your CSV file here").should('exist')
+        cy.contains("Upload").should('exist')
+        cy.get('div#upload').should('exist')
+        cy.get('a#uploadCSV').should('exist')
+    })
+
 
 })
