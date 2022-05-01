@@ -22,7 +22,7 @@ junit-test:
 
 cypress-test:
   stage: test
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latest
+  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latestSrigin2
   dependencies:
     - build
   script:
