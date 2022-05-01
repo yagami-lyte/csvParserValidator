@@ -6,7 +6,7 @@ stages:
 build:
   stage: build
   script:
-    ./gradlew assemble
+    mvn package
   artifacts:
     paths:
       - /home/gitlab-runner/
@@ -22,7 +22,6 @@ Push Docker Image to GitLab Registry:
   stage: push-image-to-gitlab-registry
   before_script:
     - docker login registry.gitlab.com -u "utkarshs45" -p "glpat-xjNrtMUE3cJHibqRXSHy"
-    - docker login registry.gitlab.com
   script:
     - docker info
     - docker push registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan
