@@ -29,6 +29,6 @@ cypress-test:
     - build
   script:
     - java -jar build/libs/csv-parser-srijan-1.0-SNAPSHOT-all.jar &
-    - npm install --save-dev cypress-file-upload  
+    - npm ci
     - npx cypress run
    
