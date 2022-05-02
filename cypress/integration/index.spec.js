@@ -20,10 +20,10 @@ describe("Testing Upload CSV", ()=>{
         cy.get('a#uploadCSV').should('exist')
     })
 
-    // it("Links in the body should work properly",()=>{
-    //     cy.visit('http://localhost:3002')
-    //     cy.get('input[type="file"]').attachFile("countries.csv")
-    // })
+     it("Links in the body should work properly",()=>{
+         cy.visit('http://localhost:3002')
+         cy.get('input[type="file"]').attachFile("countries.csv")
+     })
 
 
 })
