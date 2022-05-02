@@ -28,5 +28,4 @@ cypress-test:
   script:
     - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
     - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
-    - npm ci
     - npx cypress run --browser chrome
