@@ -50,7 +50,7 @@ function showColFields(lines){
                          <div class="input-field col s4"
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-                            <label  style="border-radius: 150px;" for="type">Type</label>
+                            <label  style="border-radius: 150px;" for="type">Type <span class="required">*</span></label>
                             <select placeholder="Choose Type" data-cy="type" id="type${field}"
                             onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
                                <option value="">Choose Type of Data</option>
