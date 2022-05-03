@@ -58,7 +58,7 @@ function showColFields(lines){
                                 <option value="AlphaNumeric">AlphaNumeric</option>
                                 <option value="Alphabets">Alphabets</option>
                                 <option value="Floating Number">Floating Number</option>
-                                <option value="Special Characters">Special Characters</option>
+                                <option value="Special Characters">Text</option>
                                 <option value="Date Time">Date Time</option>
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
