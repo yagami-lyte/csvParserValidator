@@ -21,7 +21,7 @@ internal class PrependingZeroesValidationTest {
         val csvData = """[{"Export Number":"0034","Country Name":""},{"Export Number":"12","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected =
-            JSONArray("[{\"1\":\"Incorrect Type of Export Number. Please remove PrePending Zeros!\"}]")
+            JSONArray("[{\"1\":\"Incorrect Type of Export Number. Please remove Pre-pending Zeros!\"}]")
 
         val actual = prependingZeroesValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -38,7 +38,7 @@ internal class PrependingZeroesValidationTest {
         val csvData = """[{"Export Number":"0034","Country Name":""},{"Export Number":"012","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected =
-            JSONArray("[{\"1\":\"Incorrect Type of Export Number. Please remove PrePending Zeros!\"},{\"2\":\"Incorrect Type of Export Number. Please remove PrePending Zeros!\"}]")
+            JSONArray("[{\"1\":\"Incorrect Type of Export Number. Please remove Pre-pending Zeros!\"},{\"2\":\"Incorrect Type of Export Number. Please remove Pre-pending Zeros!\"}]")
 
         val actual = prependingZeroesValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
