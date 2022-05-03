@@ -22,7 +22,7 @@ class PrependingZeroesValidation:Validation {
                 if (!flag) {
                     val jsonObject = JSONObject().put(
                         (index + 1).toString(),
-                        "Incorrect Type of ${field.fieldName}. Please remove PrePending Zeros!"
+                        "Incorrect Type of ${field.fieldName}. Please remove Pre-pending Zeros!"
                     )
                     prePendingErrors.put(jsonObject)
                 }
