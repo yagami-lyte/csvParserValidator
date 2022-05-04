@@ -519,3 +519,15 @@ text-align: center;
 .required {
   color: red;
 }
+
+#button-load {
+  background-color: grey; /* Green background */
+  color: black; /* White text */
+  padding: 12px 24px; /* Some padding */
+  font-size: 36px; /* Set a font-size */
+  text-align: center;
+   margin-left:46%;
+   margin-top:3%;
+   visibility:hidden;
+   radius:24px;
+}
