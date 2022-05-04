@@ -420,9 +420,12 @@ async function displayErrors(){
 
     if (response.status === 200) {
         var jsonData =  await response.json();
+        loadingEffect();
         console.log(jsonData)
         traverse(jsonData)
     }
+    var loader = document.getElementById("button-load")
+        loader.style.visibility = "hidden";
     payload=[]
 }
 
@@ -595,4 +598,10 @@ function Buttontoggle()
 
 function resetForm(){
     document.getElementById("myform").reset()
+}
+
+
+function loadingEffect(){
+    var loader = document.getElementById("button-load")
+    loader.style.visibility = "visible";
 }
