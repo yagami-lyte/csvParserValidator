@@ -174,7 +174,7 @@ function showColFields(lines){
                              <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${field}">
                                  <option value="">Choose Dependent Field</option>
                                      ${lines.map((element) => {
-            return `<option value='${element}'>${element}</option>`;
+            return `<option value='${element}'>${element.replaceAll('"', '')}</option>`;
         })}
                              </select>
                          </div>
