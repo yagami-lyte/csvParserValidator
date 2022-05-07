@@ -1,6 +1,9 @@
 package server
 
+import database.DatabaseConnection
+
 
 fun main() {
-    Server(3002).startServer()
+    DatabaseConnection.makeConnection();
+    //Server(3002).startServer()
 }
