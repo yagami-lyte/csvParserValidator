@@ -516,9 +516,6 @@ border: 1px solid #ccc;
 text-align: center;
 }
 
-.required {
-  color: red;
-}
 
 #button-load {
   background-color: grey; /* Green background */
@@ -530,4 +527,10 @@ text-align: center;
    margin-top:3%;
    visibility:hidden;
    radius:24px;
+}
+
+.required-field::before {
+  content: "*";
+  color: red;
+  margin-right:-120%;
 }

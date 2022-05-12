@@ -39,19 +39,21 @@
 
 <br><br>
 
+<form action="" onsubmit="displayErrors();loadingEffect()">
 <div id="config">
     <div class="container">
         <h1><b>Configure your CSV fields</b></h1>
         <br><br><br>
         <h3> The fields in your CSV are listed down below.</h3>
-        <form id="myform">
+        <div id="FieldDiv">
 
-        </form>
+        </div>
     </div>
 </div>
-<button id='view-errors' type="submit" value="submit" onclick="displayErrors();loadingEffect()">
+<button id='view-errors' type="submit" value="submit">
     View Errors
 </button>
+</form>
 
 <button id="button-load">
     <i class="fa fa-refresh fa-spin"></i>Loading ...
