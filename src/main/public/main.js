@@ -2,6 +2,7 @@ var payload=[]
 var result = []
 var fields = []
 var fieldCount = 0
+var csvName = ""
 
 
 function removeConfiguredFields() {
@@ -11,6 +12,8 @@ function removeConfiguredFields() {
 
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
+    csvName = csv.name
+    console.log(csvName)
     const reader = new FileReader();
     reader.onload = async function (event) {
         csv = event.target.result
@@ -364,6 +367,7 @@ function readFile(event, fieldName){
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
         let jsonObj = {}
+        var csvFile = csvName
         var field = fields[0][j]
         var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
         var value = document.getElementById(`text_file_id${fields[0][j]}`.replaceAll('"', '')).files[0]
@@ -375,6 +379,7 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
+        jsonObj["csvName"] = csvFile
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value

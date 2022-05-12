@@ -1,13 +1,13 @@
 package routeHandler
 
 import com.google.gson.Gson
+import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import validation.*
 import java.io.BufferedReader
 
 class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) {
-
 
     private val dependencyValidation = DependencyValidation()
     private val lengthValidation = LengthValidation()
@@ -90,6 +90,12 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private fun getResponseForMetaData(body: String): String {
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
+        val csvName = fieldArray.first().csvName
+        val databaseOperations = DatabaseOperations()
+        databaseOperations.saveNewCSVInDatabase(csvName)
+        fieldArray.forEach {
+            databaseOperations.writeConfiguration(csvName, it)
+        }
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added Configuration File"
         val contentLength = responseBody.length

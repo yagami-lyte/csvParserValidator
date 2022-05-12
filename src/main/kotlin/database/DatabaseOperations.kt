@@ -5,7 +5,7 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class DatabaseOperations {
-    /*
+    /*To run .sql files: Source<absoule path>
     -- upload csv--
     1. should enter csv name in table: csv_file.
     2. create a new table with csv file's name if doesn't exist.
@@ -19,40 +19,28 @@ class DatabaseOperations {
      */
 
     fun saveNewCSVInDatabase(csvName: String){
-        val queryTemplate = "INSERT INTO csv_files VALUES(?)"
+        val queryTemplate = """
+            INSERT INTO csv_files (csv_name) 
+            SELECT * FROM (SELECT (?)) AS temp
+            WHERE NOT EXISTS (SELECT csv_name from csv_files WHERE csv_name = (?) )
+            LIMIT 1; """
         val insertStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate)
         insertStatement.setString(1, csvName)
+        insertStatement.setString(2, csvName)
         insertStatement.executeUpdate()
     }
 
-    fun createConfigTableForCSVFile(csvName: String){
-        val query = """
-            CREATE TABLE IF NOT EXISTS (?)(
-            entry_id      SERIAL PRIMARY KEY,
-            field_name    VARCHAR(255) NOT NULL,
-            field_type    VARCHAR(255) NOT NULL,
-            is_null_allowed VARCHAR(255),
-            field_length  INT,
-            field_values  VARCHAR(255),
-            dependent_field VARCHAR(255),
-            dependent_value VARCHAR(255)),
-            date VARCHAR(255)),
-            time VARCHAR(255)),
-            datetime VARCHAR(255)),
-        """
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
-        preparedStatement.setString(1, csvName)
-        preparedStatement.executeQuery()
-    }
-
-    private fun writeConfiguration(csvName: String, jsonData: ConfigurationTemplate) {
+    fun writeConfiguration(csvName: String, jsonData: ConfigurationTemplate) {
         val insertQueryTemplate =
-            "INSERT INTO (?)(field_name, field_type, is_null_allowed,field_length, dependent_field, dependent_value, date, time, datetime) VALUES(?,?,?,?,?,?,?,?,?)"
+            """INSERT INTO csv_fields
+              (csv_name,field_name, field_type, is_null_allowed,field_length,
+               dependent_field, dependent_value,date_type, time_type, datetime) 
+              VALUES(?,?,?,?,?,?,?,?,?,?)"""
         val preparedInsertStatement = DatabaseConnection.makeConnection().prepareStatement(insertQueryTemplate)
         setQueryFieldsWhileSavingConfig(preparedInsertStatement, csvName, jsonData)
         preparedInsertStatement.executeUpdate()
         if(jsonData.values?.isNotEmpty() == true){
-            insertAllowedValues(csvName, jsonData.values)
+            insertAllowedValues(csvName, jsonData.fieldName, jsonData.values)
         }
     }
 
@@ -73,12 +61,13 @@ class DatabaseOperations {
         preparedStatement.setString(10, jsonData.datetime)
     }
 
-    private fun insertAllowedValues(csvName: String, values: List<String>?) {
+    private fun insertAllowedValues(csvName: String, fieldName:String, values: List<String>?) {
         values?.forEach {
-            val queryTemplate = "INSERT INTO field_values(csvName, allowed_value) VALUES(?,?)"
+            val queryTemplate = "INSERT INTO field_values(csvName, fieldName, allowed_value) VALUES(?,?,?)"
             val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate)
             preparedStatement.setString(1, csvName)
-            preparedStatement.setString(2, it)
+            preparedStatement.setString(2, fieldName)
+            preparedStatement.setString(3, it)
             preparedStatement.executeUpdate()
         }
     }
@@ -94,12 +83,11 @@ class DatabaseOperations {
                    date,
                    time,
                    datetime
-            FROM (?)
-            WHERE entry_id = (SELECT MAX(entry_id) FROM (?))
+            FROM csv_fields
+            WHERE entry_id = (SELECT MAX(entry_date) FROM csv_fields WHERE csv_name = (?));
         """
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
         preparedStatement.setString(1, csvName)
-        preparedStatement.setString(2, csvName)
         val result = preparedStatement.executeQuery()
         val finalConfig = mutableListOf<ConfigurationTemplate>()
         while (result.next()) {
@@ -119,8 +107,9 @@ class DatabaseOperations {
         val date = result.getString("date")
         val time = result.getString("time")
         val datetime = result.getString("datetime")
-        val values = getValues(csvName)
+        val values = getValues(csvName, fieldName)
         return ConfigurationTemplate(
+            csvName = csvName,
             fieldName = fieldName,
             type = fieldType,
             nullValue = isNullAllowed,
@@ -135,10 +124,11 @@ class DatabaseOperations {
     }
 
 
-    private fun getValues(csvName: String): List<String>? {
-        val query = "SELECT allowed_value from field_values WHERE csv_name = ?"
+    private fun getValues(csvName: String, fieldName: String): List<String>? {
+        val query = "SELECT allowed_value from field_values WHERE csv_name = (?) AND field_name = (?);"
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
         preparedStatement.setString(1, csvName)
+        preparedStatement.setString(2, fieldName)
         val result = preparedStatement.executeQuery()
         val values = mutableListOf<String>()
         while (result.next()) {
