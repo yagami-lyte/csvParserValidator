@@ -8,7 +8,7 @@ class NullValidation : Validation {
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val nullErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            val (ele, keys) = getElementKeys(element)
+            val (ele, keys) = getElementKeys(JSONObject(element))
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 val isNullAllowed = validateNullInEachRow(field, value)
@@ -42,8 +42,8 @@ class NullValidation : Validation {
         return Pair(field, value)
     }
 
-    private fun getElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val ele = (element as JSONObject)
+    private fun getElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val ele = JSONObject(element)
         val keys = ele.keySet()
         return Pair(ele, keys)
     }

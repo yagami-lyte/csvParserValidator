@@ -10,7 +10,7 @@ class PrependingZeroesValidation:Validation {
         val prePendingErrors = JSONArray()
 
         jsonArrayData.forEachIndexed { index, element ->
-            val ele = (element as JSONObject)
+            val ele = JSONObject(element)
             val keys = ele.keySet()
             for (key in keys) {
                 val field = fieldArray.first { it.fieldName == key }

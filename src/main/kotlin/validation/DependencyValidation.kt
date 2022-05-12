@@ -9,7 +9,7 @@ class DependencyValidation : Validation {
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val dependencyErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            validateDependency(element as JSONObject, fieldArray, index, dependencyErrors)
+            validateDependency(JSONObject(element), fieldArray, index, dependencyErrors)
         }
         return dependencyErrors
 
@@ -40,8 +40,8 @@ class DependencyValidation : Validation {
         return Pair(field, value)
     }
 
-    private fun getFieldElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val fieldElement = (element as JSONObject)
+    private fun getFieldElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val fieldElement = JSONObject(element)
         val keys = fieldElement.keySet()
         return Pair(fieldElement, keys)
     }

@@ -9,7 +9,7 @@ class LengthValidation : Validation {
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val lengthErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            validateLengthInEachRow(element as JSONObject, fieldArray, index, lengthErrors)
+            validateLengthInEachRow(JSONObject(element), fieldArray, index, lengthErrors)
         }
         return lengthErrors
     }
@@ -38,8 +38,8 @@ class LengthValidation : Validation {
         }
     }
 
-    private fun getFieldElementsKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val fieldElement = (element as JSONObject)
+    private fun getFieldElementsKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val fieldElement = JSONObject(element)
         val keys = fieldElement.keySet()
         return Pair(fieldElement, keys)
     }

@@ -8,19 +8,22 @@ class ValueValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
         val valueErrors = JSONArray()
+        println("jsonarratData $jsonArrayData")
         jsonArrayData.forEachIndexed { index, element ->
+            println("index $index element $element")
             valueValidationForEachRow(element as JSONObject, fieldArray, index, valueErrors)
         }
         return valueErrors
     }
 
     private fun valueValidationForEachRow(
-        element: Any?,
+        element: JSONObject,
         fieldArray: Array<ConfigurationTemplate>,
         index: Int,
         valueErrors: JSONArray
     ) {
-        val (ele, keys) = getElementKeys(element)
+                println("element:-- $element")
+        val (ele, keys) = getElementKeys(JSONObject(element))
         for (key in keys) {
             val (field, value) = getFieldValues(fieldArray, key, ele)
             val flag = checkIfValueIsIncorrect(field, value)
@@ -28,13 +31,17 @@ class ValueValidation : Validation {
         }
     }
 
-    private fun getElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val ele = (element as JSONObject)
-        val keys = ele.keySet()
-        return Pair(ele, keys)
+    private fun getElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+//        println("element:-- $element")
+        val keys = element.keySet()
+        println("keys $keys element $element")
+        return Pair(element, keys)
     }
 
     private fun getFieldValues(fieldArray: Array<ConfigurationTemplate>, key: String?, ele: JSONObject): Pair<ConfigurationTemplate, String> {
+        fieldArray.forEach {
+            println("FieldName ${it.fieldName} key: $key")
+        }
         val field = fieldArray.first { it.fieldName == key }
         val value = ele.get(key) as String
         return Pair(field, value)
@@ -67,4 +74,5 @@ class ValueValidation : Validation {
             "Incorrect Value of ${field.fieldName}. Please select value from ${field.values} in the CSV."
         )
     }
+
 }

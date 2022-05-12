@@ -7,14 +7,20 @@ class GetRouteHandler {
     private val responseHeader = ResponseHeader()
     private val contentType = mapOf(
         "/index.html" to "text/html",
+        "/config.html" to "text/html",
+        "/errors.html" to "text/html",
         "/main.css" to "text/css",
-        "/main.js" to "text/javascript"
+        "/main.js" to "text/javascript",
+        "/config.js" to "text/javascript"
     )
 
     fun handleGetRequest(request: String): String {
         return when (getPath(request)) {
             "/" -> getResponse("/index.html")
+            "/config.html" -> getResponse("/config.html")
+            "/errors.html" -> getResponse("/errors.html")
             "/main.js" -> getResponse("/main.js")
+            "/config.js" -> getResponse("/config.js")
             "/main.css" -> getResponse("/main.css")
             else -> getResponse("/404.html")
         }
@@ -33,7 +39,7 @@ class GetRouteHandler {
     }
 
     private fun getStatusCode(path: String): StatusCodes {
-        if (path == "/index.html" || path == "/main.js" || path == "/main.css") {
+        if (path == "/index.html" || path == "/main.js" || path == "/main.css" ||  path == "/config.html" ||  path == "/errors.html" ||  path == "/config.js") {
             return StatusCodes.TWOHUNDRED
         }
         return StatusCodes.FOURHUNDREDFOUR

@@ -10,7 +10,7 @@ class DuplicateValidation : Validation {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
         val jsonArrayOfDuplicateElements = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            addElementToMap(mapOfJsonElements, element as JSONObject, index, jsonArrayOfDuplicateElements)
+            addElementToMap(mapOfJsonElements, JSONObject(element), index, jsonArrayOfDuplicateElements)
         }
         return jsonArrayOfDuplicateElements
     }
