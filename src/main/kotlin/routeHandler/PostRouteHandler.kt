@@ -93,10 +93,14 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val csvName = fieldArray.first().csvName
         println("csvName $csvName")
         val databaseOperations = DatabaseOperations()
-        databaseOperations.saveNewCSVInDatabase(csvName)
-        fieldArray.forEach {
-            databaseOperations.writeConfiguration(csvName, it)
+        if(csvName != null) {
+            databaseOperations.saveNewCSVInDatabase(csvName)
+            fieldArray.forEach {
+                databaseOperations.writeConfiguration(csvName, it)
+            }
         }
+
+
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added Configuration File"
         val contentLength = responseBody.length
