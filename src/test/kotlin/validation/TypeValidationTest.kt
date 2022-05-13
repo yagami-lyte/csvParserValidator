@@ -249,7 +249,7 @@ class TypeValidationTest {
     fun shouldCheckIfValueHasSpecialCharacters(specialCharactersValue: String) {
         val typeValidation = TypeValidation()
 
-        val actual = typeValidation.hasSpecialCharacters(specialCharactersValue)
+        val actual = typeValidation.hasText(specialCharactersValue)
 
         assertTrue(actual)
     }

@@ -44,7 +44,7 @@ class TypeValidation : Validation {
             isTypeValid = false
         } else if (field.type == "Floating Number" && value.isNotEmpty() && !isFloatingNumber(value)) {
             isTypeValid = false
-        } else if (field.type == "Special Characters" && value.isNotEmpty() && !hasSpecialCharacters(value)) {
+        } else if (field.type == "Text" && value.isNotEmpty() && !hasText(value)) {
             isTypeValid = false
         }
 
@@ -113,7 +113,7 @@ class TypeValidation : Validation {
         return value.all { it.isLetterOrDigit() }
     }
 
-    fun hasSpecialCharacters(value: String): Boolean {
+    fun hasText(value: String): Boolean {
         val allKeyboardKeysRegex = ("""[A-Za-z0-9-]+[ 0-9A-Za-z#$%=@!{},`~&*()'<>?.:;_|^/+\t\r\n\[\]"-]*""").toRegex();
         return allKeyboardKeysRegex.matches(value)
     }
