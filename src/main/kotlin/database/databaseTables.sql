@@ -1,6 +1,6 @@
 CREATE TABLE csv_files
 (
-    csv_name VARCHAR(255) NOT NULL UNIQUE
+    csv_name VARCHAR(255)  UNIQUE
 );
 
 CREATE TABLE csv_fields
@@ -8,7 +8,7 @@ CREATE TABLE csv_fields
      entry_date    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
      csv_name      VARCHAR(255),
      field_name    VARCHAR(255) NOT NULL,
-     field_type    VARCHAR(255) NOT NULL,
+     field_type    VARCHAR(255) ,
      is_null_allowed VARCHAR(255),
      field_length  VARCHAR(255),
      field_values  VARCHAR(255),

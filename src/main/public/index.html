@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="main.css">
     <title>Csv Parser</title>
 </head>
-
 <body>
 
 <div class="header">
@@ -39,21 +38,20 @@
 
 <br><br>
 
-<form action="" onsubmit="displayErrors();loadingEffect()">
+
+
+
 <div id="config">
     <div class="container">
         <h1><b>Configure your CSV fields</b></h1>
         <br><br><br>
         <h3> The fields in your CSV are listed down below.</h3>
-        <div id="FieldDiv">
+        <form id="myform">
 
-        </div>
+        </form>
     </div>
 </div>
-<button id='view-errors' type="submit" value="submit">
-    View Errors
-</button>
-</form>
+<a href="#error-msgs" id='view-errors' onclick="displayErrors();loadingEffect()">View Errors </a>
 
 <button id="button-load">
     <i class="fa fa-refresh fa-spin"></i>Loading ...
@@ -64,13 +62,14 @@
     <div  id="error-msgs">
 
     </div>
+
     <div class="button-control">
         <a href="#error-msgs"  onclick="prevPage()" id="btn_prev">Prev</a>
         <a href="#error-msgs"  onclick="nextPage()" id="btn_next">Next</a>
     </div>
 </div>
 <br>
-</body>
 
+</body>
 
 </html>

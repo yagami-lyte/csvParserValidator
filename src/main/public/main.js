@@ -2,7 +2,6 @@ var payload=[]
 var result = []
 var fields = []
 var fieldCount = 0
-var csvName = ""
 
 
 function removeConfiguredFields() {
@@ -12,11 +11,10 @@ function removeConfiguredFields() {
 
 function csvReader() {
     var csv = document.getElementById("csv_id").files[0];
-    csvName = csv.name
-    console.log(csvName)
     const reader = new FileReader();
     reader.onload = async function (event) {
         csv = event.target.result
+        console.log(csv.name)
         var lines = csv.toString().split("\n");
         var headers = lines[0].split(",");
         showColFields(headers);
@@ -49,12 +47,13 @@ function showColFields(lines){
            <h4> ${field}</h4>
            </div>
 
+
                      <div style="display:flex; ">
                          <div class="input-field col s4"
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                             <label  style="border-radius: 150px;" for="type" class ="required-field">Type </label>
-                            <select placeholder="Choose Type" data-cy="type" id="type${field}"
+                            <select  placeholder="Choose Type" data-cy="type" id="type${field}"
                             onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');" required>
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
@@ -63,11 +62,13 @@ function showColFields(lines){
                                 <option value="Floating Number">Floating Number</option>
                                 <option value="Special Characters">Text</option>
                                 <option value="Date Time">Date Time</option>
+                                
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
                                 <option value="Email">Email</option>
                             </select>
                          </div>
+
                          
                      <div  id = "dateTimeDiv${field}" class="input-field  col s4" 
                                         style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:3%;padding: 1em;margin-bottom: 2em;border-left: 0.5px solid black;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
@@ -223,7 +224,7 @@ function showColFields(lines){
                                            </div>
                       <br>
                  `
-        document.getElementById("FieldDiv").appendChild(row)
+        document.getElementById("myform").appendChild(row)
     }
 }
 
@@ -367,7 +368,6 @@ function readFile(event, fieldName){
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
         let jsonObj = {}
-        var csvFile = csvName
         var field = fields[0][j]
         var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
         var value = document.getElementById(`text_file_id${fields[0][j]}`.replaceAll('"', '')).files[0]
@@ -379,7 +379,7 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
-        jsonObj["csvName"] = csvFile
+        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
@@ -430,7 +430,7 @@ async function displayErrors(){
         traverse(jsonData)
     }
     var loader = document.getElementById("button-load")
-        loader.style.visibility = "hidden";
+    loader.style.visibility = "hidden";
     payload=[]
 }
 
@@ -602,7 +602,7 @@ function Buttontoggle()
 
 
 function resetForm(){
-    document.getElementById("FieldDiv").reset()
+    document.getElementById("myform").reset()
 }
 
 
@@ -610,3 +610,4 @@ function loadingEffect(){
     var loader = document.getElementById("button-load")
     loader.style.visibility = "visible";
 }
+
