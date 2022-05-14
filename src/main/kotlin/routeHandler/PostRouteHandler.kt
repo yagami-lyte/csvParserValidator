@@ -52,15 +52,11 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
 
     private fun getConfigResponse(body :String) :String{
         val databaseOperations = DatabaseOperations()
-        //println(JSONArray(body).first())
         val csvName = body.split(":")[1].replace("\"", "").replace("}]" , "")
-//        println(csvName)
+        var responseBody = ""
         val configDataTemplate = databaseOperations.readConfiguration(csvName)
-//        println("vdhb: $fieldArray")
-
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
-//        println("sss : $ss")
-        var responseBody = "{"
+        responseBody = "{"
         responseBody += "\"Type\" : $configJsonArrayResponse"
         responseBody += "}"
         return responseBody
@@ -148,11 +144,12 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
         val csvName = fieldArray.first().csvName
-        println("csvName $csvName")
         val databaseOperations = DatabaseOperations()
-        databaseOperations.saveNewCSVInDatabase(csvName)
-        fieldArray.forEach {
-            databaseOperations.writeConfiguration(csvName, it)
+        if(csvName != null) {
+            databaseOperations.saveNewCSVInDatabase(csvName)
+            fieldArray.forEach {
+                databaseOperations.writeConfiguration(csvName, it)
+            }
         }
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added Configuration File"
