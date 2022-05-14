@@ -4,8 +4,12 @@ import com.google.gson.Gson
 import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
+import org.json.JSONObject
+import org.slf4j.MDC.put
 import validation.*
 import java.io.BufferedReader
+import javax.swing.UIManager.put
+import kotlin.reflect.typeOf
 
 class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) {
 
@@ -23,12 +27,65 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         return when (getPath(request)) {
             "/csv" -> handleCsv(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData(request, inputStream)
+            "/get-config-response" -> handleSendConfigResponse(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
 
     private fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
+    }
+
+    private fun handleSendConfigResponse(request :String, inputStream : BufferedReader) : String{
+        val bodySize = getContentLength(request)
+        val body = getBody(bodySize, inputStream)
+        return getResponseForConfig(body)
+    }
+
+    fun getResponseForConfig(body: String): String {
+        val responseBody = getConfigResponse(body)
+        val contentLength = responseBody.length
+        val endOfHeader = "\r\n\r\n"
+        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
+                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun getConfigResponse(body :String) :String{
+        val databaseOperations = DatabaseOperations()
+        //println(JSONArray(body).first())
+        val csvName = body.split(":")[1].replace("\"", "").replace("}]" , "")
+//        println(csvName)
+        val configDataTemplate = databaseOperations.readConfiguration(csvName)
+//        println("vdhb: $fieldArray")
+
+        val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
+//        println("sss : $ss")
+        var responseBody = "{"
+        responseBody += "\"Type\" : $configJsonArrayResponse"
+        responseBody += "}"
+        return responseBody
+    }
+
+    private fun prepareJsonResponse(configDataTemplate: Array<ConfigurationTemplate>): JSONArray {
+        val jsonArrayOfConfigData = JSONArray()
+        configDataTemplate.forEach {
+            val jsonObject = JSONObject()
+            jsonObject.put("csvName", it.csvName)
+            jsonObject.put("type", it.type)
+            jsonObject.put("length", it.length)
+            jsonObject.put("dateTime", it.datetime)
+            jsonObject.put("date" , it.date)
+            jsonObject.put("time" , it.time)
+            jsonObject.put("values", it.values)
+            jsonObject.put("dependentOn", it.dependentOn)
+            jsonObject.put("dependentValue", it.dependentValue)
+            jsonObject.put("nullValue", it.nullValue)
+
+            val fieldJsonObject = JSONObject().put(it.fieldName,jsonObject)
+            jsonArrayOfConfigData.put(fieldJsonObject)
+        }
+        println("jsonArrayOfConfigData $jsonArrayOfConfigData")
+        return jsonArrayOfConfigData
     }
 
     private fun handleCsv(request: String, inputStream: BufferedReader): String {
@@ -93,14 +150,10 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val csvName = fieldArray.first().csvName
         println("csvName $csvName")
         val databaseOperations = DatabaseOperations()
-        if(csvName != null) {
-            databaseOperations.saveNewCSVInDatabase(csvName)
-            fieldArray.forEach {
-                databaseOperations.writeConfiguration(csvName, it)
-            }
+        databaseOperations.saveNewCSVInDatabase(csvName)
+        fieldArray.forEach {
+            databaseOperations.writeConfiguration(csvName, it)
         }
-
-
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added Configuration File"
         val contentLength = responseBody.length

@@ -14,7 +14,8 @@ function csvReader() {
     const reader = new FileReader();
     reader.onload = async function (event) {
         csv = event.target.result
-        console.log(csv.name)
+        console.log(document.getElementById("csv_id").value.split("\\")[2])
+       localStorage.setItem("csv" , document.getElementById("csv_id").value.split("\\")[2])
         var lines = csv.toString().split("\n");
         var headers = lines[0].split(",");
         showColFields(headers);
@@ -30,6 +31,18 @@ function csvReader() {
         }
     };
     reader.readAsText(csv);
+}
+
+async function getConfigResponse(){
+    var resp = await fetch('get-config-response', {
+            method: 'POST',
+            body: JSON.stringify([{ "csv" : localStorage.getItem("csv")}])
+        })
+
+        if (resp.status === 200) {
+            var jsonData = await resp.json();
+            console.log(jsonData)
+        }
 }
 
 function showColFields(lines){
@@ -378,6 +391,7 @@ function addDataToJson() {
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
         jsonObj["csvName"] = document.getElementById("csv_id").files[0].name
+        console.log(document.getElementById("csv_id").files[0].name)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
@@ -490,7 +504,30 @@ function pushErrToMaps(object){
 //
 //}
 
+function showErrByPageNo(){
 
+//$(function () {
+//        let container = $('#pagination');
+//        container.pagination({
+//            dataSource: Object.fromEntries(errMap),
+//            pageSize: 5,
+//            callback: function (data, pagination) {
+//                var dataHtml = '<ul>';
+//
+//                $.each(data, function (index, item) {
+//                console.log(index);
+//                console.log(item.number);
+//                    dataHtml += '<li>' + item.number + '</li>';
+//                });
+//
+//                dataHtml += '</ul>';
+//
+//                $("#container").html(dataHtml);
+//            }
+//        })
+//    })
+
+}
 
 var current_page = 1;
 var obj_per_page = 5;
