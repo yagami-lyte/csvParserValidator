@@ -205,8 +205,8 @@ function showColFields(lines){
                                      <select style="margin-left:5%;" type="text" name="values" id="values${field}"
                                        onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
                                      <option  style="display:flex;border-radius:60px;margin-top:7%;" value=""> Choose</option>
-                                       <option value="">Upload File</option>
-                                                   <option value="">Type Values</option>
+                                       <option value="Upload File">Upload File</option>
+                                                   <option value="Type Values">Type Values</option>
                                                             </select>
                                              <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
                                                   </label>
