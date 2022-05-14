@@ -84,14 +84,13 @@ h5{
 }
 
 #fields{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
+    padding: 10px;
     text-align: center;
     background-color: white;
     margin-left:-30%;
-    margin-right:10%;
+    margin-right:40%;
     margin-top:-27%;
-    radius:20px;
+    width:100%;
 }
 
 
@@ -282,7 +281,10 @@ input[type=submit]:hover {
     padding: 16px;
     text-align: center;
     background-color: white;
-
+    border-left:4px solid grey;
+    border-right:4px solid grey;
+    border-top:4px solid grey;
+    border-bottom:4px solid grey;
 }
 
 .column {
@@ -505,7 +507,7 @@ textarea {
     font-size: 25px;
     margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s; /* Safarif */
     transition-duration: 0.4s;
     display: inline-block;
     visibility: hidden;
@@ -534,5 +536,7 @@ textarea {
     color: red;
     margin-right:-120%;
 }
+
+
 
 
