@@ -1,5 +1,4 @@
 html {
-    scroll-behavior: smooth;
 }
 
 body {
@@ -152,7 +151,7 @@ label {
     background: transparent;
     padding-right: 5px;
     margin-bottom: 1em;
-    color: #696969;
+    color: black;
     font-size: 20px;
     font-weight: bold;
     margin-top : 5%;

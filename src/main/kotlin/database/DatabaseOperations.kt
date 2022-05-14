@@ -74,17 +74,9 @@ class DatabaseOperations {
 
     fun readConfiguration(csvName: String): Array<ConfigurationTemplate> {
         val query = """
-            SELECT field_name,
-                   field_type,
-                   is_null_allowed,
-                   field_length,
-                   dependent_field,
-                   dependent_value,
-                   date,
-                   time,
-                   datetime
+            SELECT * 
             FROM csv_fields
-            WHERE entry_id = (SELECT MAX(entry_date) FROM csv_fields WHERE csv_name = (?));
+            WHERE entry_date = (SELECT MAX(entry_date) FROM csv_fields WHERE csv_name = (?));
         """
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
         preparedStatement.setString(1, csvName)
@@ -104,8 +96,8 @@ class DatabaseOperations {
         val fieldLength = result.getString("field_length")
         val dependentField = result.getString("dependent_field")
         val dependentValue = result.getString("dependent_value")
-        val date = result.getString("date")
-        val time = result.getString("time")
+        val date = result.getString("date_type")
+        val time = result.getString("time_type")
         val datetime = result.getString("datetime")
         val values = getValues(csvName, fieldName)
         return ConfigurationTemplate(
@@ -139,5 +131,7 @@ class DatabaseOperations {
         }
         return values
     }
+
+
 
 }
