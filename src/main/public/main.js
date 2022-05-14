@@ -10,12 +10,12 @@ function removeConfiguredFields() {
 }
 
 function csvReader() {
+    localStorage.setItem("csv" , document.getElementById("csv_id").value.split("\\")[2])
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
     reader.onload = async function (event) {
         csv = event.target.result
         console.log(document.getElementById("csv_id").value.split("\\")[2])
-       localStorage.setItem("csv" , document.getElementById("csv_id").value.split("\\")[2])
         var lines = csv.toString().split("\n");
         var headers = lines[0].split(",");
         showColFields(headers);
@@ -41,6 +41,7 @@ async function getConfigResponse(){
 
         if (resp.status === 200) {
             var jsonData = await resp.json();
+
             console.log(jsonData)
         }
 }
@@ -390,7 +391,7 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
-        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name
+        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name.value
         console.log(document.getElementById("csv_id").files[0].name)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
