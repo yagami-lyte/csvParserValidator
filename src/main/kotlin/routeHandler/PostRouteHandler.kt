@@ -147,6 +147,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         fieldArray = jsonBody
         val csvName = fieldArray.first().csvName
         val databaseOperations = DatabaseOperations()
+        println(csvName)
         if(csvName != null) {
             databaseOperations.saveNewCSVInDatabase(csvName)
             fieldArray.forEach {

@@ -43,6 +43,40 @@ async function getConfigResponse(){
             var jsonData = await resp.json();
 
             console.log(jsonData)
+            setValuesInConfig(jsonData)
+        }
+}
+
+function setValuesInConfig(object){
+    console.log(object)
+    for(var i in object){
+            console.log(object[i])
+            console.log(object[i] != "")
+            if(object[i] != ""){
+                for( j in object[i]){
+                    changeDefaultValuesOfConfig(object[i][j])
+                }
+            }
+        }
+
+}
+
+function changeDefaultValuesOfConfig(object){
+    for (var fields in object) {
+            console.log(fields)
+            console.log(`type${fields}`)
+            document.getElementById(`type${fields}`).value = object[fields]["type"];
+            document.getElementById(`fixed-len${fields}`).value = object[fields]["length"];
+            document.getElementById(`allowNull${fields}`).value = object[fields]["nullValue"];
+            if(object[fields]["nullValue"] == "Allowed"){
+                document.getElementById(`allowNull${fields}`).checked = "checked";
+            }
+            document.getElementById(`date${fields}`).value = object[fields]["date"];
+            document.getElementById(`dateTime${fields}`).value = object[fields]["dateTime"];
+            document.getElementById(`dependent${fields}`).value = object[fields]["dependentOn"];
+            document.getElementById(`dep-val${fields}`).value = object[fields]["dependentValue"];
+            document.getElementById(`time${fields}`).value = object[fields]["time"];
+
         }
 }
 
@@ -391,7 +425,7 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
-        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name.value
+        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name
         console.log(document.getElementById("csv_id").files[0].name)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
