@@ -87,7 +87,7 @@ function showColFields(lines){
     <label for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
                                                 
     <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
-         <option>Choose Date Time format</option>
+         <option value="">Choose Date Time format</option>
          <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
          <option value="MMMM dd, yy">MMMM DD, YYYY</option>
          <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
@@ -116,7 +116,7 @@ function showColFields(lines){
                                                 
                             <label for="date" id="dateFormats${field}" style='display:none;'>Date Format</label>
                             <select placeholder="Choose date format"  name="date" id='date${field}' style='display:none;'>
-                                 <option>"Choose Date Format"</option>
+                                 <option value="">"Choose Date Format"</option>
                                  <option value="MM-dd-yyyy">MM-DD-YYYY</option>
                                  <option value="dd-MM-yyyy">DD-MM-YYYY</option>
                                  <option value="dd/MM/yyyy, yy">DD/MM/YYYY</option>
@@ -136,7 +136,7 @@ function showColFields(lines){
 
                        <label for="time" style='display:none;' id="timeFormats${field}">Time Format</label>
                            <select  placeholder="Choose time format"  name="time" id='time${field}' style='display:none;'>
-                                <option>Choose Time Format</option>
+                                <option value="">Choose Time Format</option>
                                 <option value="hh:mm:ss">HH:MM:SS</option>
                                 <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
                                 <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
@@ -170,8 +170,8 @@ function showColFields(lines){
                                      <select style="margin-left:5%;" type="text" name="values" id="values${field}"
                                        onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
                                      <option  style="display:flex;border-radius:60px;margin-top:7%;" value=""> Choose</option>
-                                       <option value="Upload File">Upload File</option>
-                                                   <option value="Type Values">Type Values</option>
+                                       <option value="">Upload File</option>
+                                                   <option value="">Type Values</option>
                                                             </select>
                                              <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
                                                   </label>
@@ -647,14 +647,6 @@ function loadingEffect(){
 }
 
 
-function dydf(){
-    var ddd = document.getElementById('dependent${field}')
-    var fff = document.getElementById('dep-val${field}')
-    if(ddd == ${element}){
-        fff.style.visibility = "visible"
-    }
-        fff.style.visibility = "hidden"
-}
 
 
 
