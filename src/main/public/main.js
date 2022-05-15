@@ -71,6 +71,12 @@ function changeDefaultValuesOfConfig(object){
             if(object[fields]["nullValue"] == "Allowed"){
                 document.getElementById(`allowNull${fields}`).checked = "checked";
             }
+            if(object[fields]["dateTime"]!== ""){
+                document.getElementById(`dateTime${fields}`).style.display = 'block'
+                document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
+                document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
+                document.getElementById(`length-div${fields}`).style.display = 'none'
+            }
             document.getElementById(`date${fields}`).value = object[fields]["date"];
             document.getElementById(`dateTime${fields}`).value = object[fields]["dateTime"];
             document.getElementById(`dependent${fields}`).value = object[fields]["dependentOn"];
