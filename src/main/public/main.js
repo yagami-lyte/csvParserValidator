@@ -87,6 +87,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
         document.getElementById(`length-div${fields}`).style.display = 'none'
+        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`time${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
     }
@@ -96,6 +97,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`dateFormats${fields}`).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`).style.display = 'none'
         document.getElementById(`length-div${fields}`).style.display = 'none'
+        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`time${fields}`).value = ''
     }
@@ -105,6 +107,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`timeDiv${fields}`).style.display = 'flex'
         document.getElementById(`timeFormats${fields}`).style.display = 'block'
         document.getElementById(`dateDiv${fields}`).style.display = 'none'
+        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`length-div${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
