@@ -68,30 +68,8 @@ function changeDefaultValuesOfConfig(object){
             document.getElementById(`type${fields}`).value = object[fields]["type"];
             document.getElementById(`fixed-len${fields}`).value = object[fields]["length"];
             document.getElementById(`allowNull${fields}`).value = object[fields]["nullValue"];
-            if(object[fields]["nullValue"] == "Allowed"){
+            if(object[fields]["nullValue"] === "Allowed"){
                 document.getElementById(`allowNull${fields}`).checked = "checked";
-            }
-            if(document.getElementById(`type${fields}`).value === "Date Time"){
-                document.getElementById(`dateTime${fields}`).style.display = 'block'
-                document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
-                document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
-                document.getElementById(`length-div${fields}`).style.display = 'none'
-            }
-
-            if( document.getElementById(`type${fields}`).value === "Date"){
-                document.getElementById(`date${fields}`).style.display = 'block'
-                document.getElementById(`dateDiv${fields}`).style.display = 'flex'
-                document.getElementById(`dateFormats${fields}`).style.display = 'block'
-                document.getElementById(`dateTimeDiv${fields}`).style.display = 'none'
-                document.getElementById(`length-div${fields}`).style.display = 'none'
-            }
-
-            if( document.getElementById(`type${fields}`).value === "Time"){
-                document.getElementById(`time${fields}`).style.display = 'block'
-                document.getElementById(`timeDiv${fields}`).style.display = 'flex'
-                document.getElementById(`timeFormats${fields}`).style.display = 'block'
-                document.getElementById(`dateDiv${fields}`).style.display = 'none'
-                document.getElementById(`length-div${fields}`).style.display = 'none'
             }
             document.getElementById(`date${fields}`).value = object[fields]["date"];
             document.getElementById(`dateTime${fields}`).value = object[fields]["dateTime"];
@@ -99,7 +77,38 @@ function changeDefaultValuesOfConfig(object){
             document.getElementById(`dep-val${fields}`).value = object[fields]["dependentValue"];
             document.getElementById(`time${fields}`).value = object[fields]["time"];
 
+            alterDateTimeOptions(fields)
         }
+}
+
+function alterDateTimeOptions(fields) {
+    if(document.getElementById(`type${fields}`).value === "Date Time"){
+        document.getElementById(`dateTime${fields}`).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
+        document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
+        document.getElementById(`length-div${fields}`).style.display = 'none'
+        document.getElementById(`time${fields}`).value = ''
+        document.getElementById(`date${fields}`).value = ''
+    }
+    if( document.getElementById(`type${fields}`).value === "Date"){
+        document.getElementById(`date${fields}`).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`).style.display = 'flex'
+        document.getElementById(`dateFormats${fields}`).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`).style.display = 'none'
+        document.getElementById(`length-div${fields}`).style.display = 'none'
+        document.getElementById(`dateTime${fields}`).value = ''
+        document.getElementById(`time${fields}`).value = ''
+    }
+
+    if( document.getElementById(`type${fields}`).value === "Time"){
+        document.getElementById(`time${fields}`).style.display = 'block'
+        document.getElementById(`timeDiv${fields}`).style.display = 'flex'
+        document.getElementById(`timeFormats${fields}`).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`).style.display = 'none'
+        document.getElementById(`length-div${fields}`).style.display = 'none'
+        document.getElementById(`dateTime${fields}`).value = ''
+        document.getElementById(`date${fields}`).value = ''
+    }
 }
 
 function showColFields(lines){
