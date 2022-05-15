@@ -561,12 +561,13 @@ textarea {
   font-weight: 500;
   cursor: pointer;
   user-select: none;
+  margin: 0 10px 0 10px
   transition: all 0.3s ease;
 }
 .pagination ul li.numb{
   list-style: none;
   height: 45px;
-  width: 45px;
+  width: 60px;
   margin: 0 3px;
   line-height: 45px;
   border-radius: 50%;
