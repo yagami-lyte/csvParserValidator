@@ -63,7 +63,7 @@ class DatabaseOperations {
 
     private fun insertAllowedValues(csvName: String, fieldName:String, values: List<String>?) {
         values?.forEach {
-            val queryTemplate = "INSERT INTO field_values(csvName, fieldName, allowed_value) VALUES(?,?,?)"
+            val queryTemplate = "INSERT INTO field_values(csv_name, field_name, allowed_value) VALUES(?,?,?)"
             val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate)
             preparedStatement.setString(1, csvName)
             preparedStatement.setString(2, fieldName)
