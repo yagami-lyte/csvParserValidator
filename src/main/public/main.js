@@ -495,6 +495,7 @@ function traverse(object){
     emptyErrorList()
     console.log(errMap)
     showErrPage(1)
+    createPagination(totNumPages(), 1)
 //    showErr(errMap)
 }
 
@@ -539,30 +540,7 @@ function pushErrToMaps(object){
 //
 //}
 
-function showErrByPageNo(){
 
-//$(function () {
-//        let container = $('#pagination');
-//        container.pagination({
-//            dataSource: Object.fromEntries(errMap),
-//            pageSize: 5,
-//            callback: function (data, pagination) {
-//                var dataHtml = '<ul>';
-//
-//                $.each(data, function (index, item) {
-//                console.log(index);
-//                console.log(item.number);
-//                    dataHtml += '<li>' + item.number + '</li>';
-//                });
-//
-//                dataHtml += '</ul>';
-//
-//                $("#container").html(dataHtml);
-//            }
-//        })
-//    })
-
-}
 
 var current_page = 1;
 var obj_per_page = 5;
@@ -632,21 +610,22 @@ function showErrPage(page)
 
     }
     //page_span.innerHTML = page;
-    if (page == 1) {
-        btn_next.style.visibility = "hidden";
-    } else {
-        btn_prev.style.visibility = "visible";
-    }
-    if (page == totNumPages()) {
-        btn_next.style.visibility = "hidden";
-    } else {
-        btn_next.style.visibility = "visible";
-    }
+//    if (page == 1) {
+//        btn_next.style.visibility = "hidden";
+//    } else {
+//        btn_prev.style.visibility = "visible";
+//    }
+//    if (page == totNumPages()) {
+//        btn_next.style.visibility = "hidden";
+//    } else {
+//        btn_next.style.visibility = "visible";
+//    }
     if(Object.keys(errMap).length === 0){
         errors.innerHTML = `<div class="success-msg">
                               <h1>No error in your uploaded CSV file</h1>
                             </div>`;
         btn_next.style.visibility = "hidden";
+        document.getElementById("paginationUl").style.visibility = "hidden";
         btn_prev.style.visibility = "hidden";
     }
 
@@ -682,6 +661,77 @@ function loadingEffect(){
 }
 
 
+// selecting required element
+const UlElement = document.getElementById("paginationUl");
+UlElement.style.visibility = "hidden";
+let totalPages = 20;
+let page = 1;
 
+//calling function with passing parameters and adding inside element which is ul tag
+function createPagination(totalPages, page){
+UlElement.style.visibility = "visible";
+console.log(totNumPages())
+if(totNumPages() == 1){
+UlElement.style.visibility = "hidden";
+}
+emptyErrorList()
+totalPages = totNumPages()
+showErrPage(page);
+  let liTag = '';
+  let active;
+  let beforePage = page - 1;
+  let afterPage = page + 1;
+  if(page > 1){ //show the next button if the page value is greater than 1
+    liTag += `<li class="btn prev" onclick="createPagination(totalPages, ${page - 1});"><span><i class="fas fa-angle-left"></i> Prev</span></li>`;
+  }
+
+  if(page > 2){ //if page value is less than 2 then add 1 after the previous button
+    liTag += `<li class="first numb" onclick="createPagination(totalPages, 1);"><span>1</span></li>`;
+    if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+  }
+
+  // how many pages or li show before the current li
+  if (page == totalPages) {
+    beforePage = beforePage - 2;
+  } else if (page == totalPages - 1) {
+    beforePage = beforePage - 1;
+  }
+  // how many pages or li show after the current li
+  if (page == 1) {
+    afterPage = afterPage + 2;
+  } else if (page == 2) {
+    afterPage  = afterPage + 1;
+  }
+
+  for (var plength = beforePage; plength <= afterPage; plength++) {
+    if (plength > totalPages) { //if plength is greater than totalPage length then continue
+      continue;
+    }
+    if (plength == 0) { //if plength is 0 than add +1 in plength value
+      plength = plength + 1;
+    }
+    if(page == plength){ //if page is equal to plength than assign active string in the active variable
+      active = "active";
+    }else{ //else leave empty to the active variable
+      active = "";
+    }
+    liTag += `<li class="numb ${active}" onclick="createPagination(totalPages, ${plength});"><span>${plength}</span></li>`;
+  }
+
+  if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
+    if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
+      liTag += `<li class="dots"><span>...</span></li>`;
+    }
+    liTag += `<li class="last numb" onclick="createPagination(totalPages, ${totalPages});"><span>${totalPages}</span></li>`;
+  }
+
+  if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
+    liTag += `<li class="btn next" onclick="createPagination(totalPages, ${page + 1});"><span>Next <i class="fas fa-angle-right"></i></span></li>`;
+  }
+  UlElement.innerHTML = liTag; //add li tag inside ul tag
+  return liTag;
+}
 
 
