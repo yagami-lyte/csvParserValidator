@@ -89,6 +89,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`length-div${fields}`).style.display = 'none'
         document.getElementById(`time${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
+        document.getElementById(`fixed-len${fields}`).value = ''
     }
     if( document.getElementById(`type${fields}`).value === "Date"){
         document.getElementById(`date${fields}`).style.display = 'block'
@@ -98,6 +99,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`length-div${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`time${fields}`).value = ''
+        document.getElementById(`fixed-len${fields}`).value = ''
     }
 
     if( document.getElementById(`type${fields}`).value === "Time"){
@@ -108,10 +110,17 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`length-div${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
+        document.getElementById(`fixed-len${fields}`).value = ''
     }
     const typeValue = document.getElementById(`type${fields}`).value;
     if( typeValue === "Date" || typeValue === "Time" || typeValue === "Date Time"){
-            document.getElementById(`value-div${fields}`).style.display = 'none'
+        document.getElementById(`value-div${fields}`).style.display = 'none'
+    }
+
+    if( typeValue !== "Date" || typeValue !== "Time" || typeValue !== "Date Time"){
+        document.getElementById(`dateTime${fields}`).value = ''
+        document.getElementById(`date${fields}`).value = ''
+        document.getElementById(`time${fields}`).value = ''
     }
 }
 
