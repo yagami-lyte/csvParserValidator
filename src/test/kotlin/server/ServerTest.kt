@@ -15,9 +15,9 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToGetResponseForGetRequest() {
-        val server = Server(3004)
+        val server = Server(3010)
         val request = """GET / HTTP/1.1 
-                |Host: localhost:3002""".trimMargin() + "\r\n\r\n"
+                |Host: localhost:3010""".trimMargin() + "\r\n\r\n"
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val mockSocket = createMockSocket(csvData)
         val inputStream = BufferedReader(InputStreamReader(mockSocket.getInputStream()))
@@ -31,9 +31,9 @@ class ServerTest {
 
     @Test
     fun shouldBeAbleToReturnPageNotFoundResponse() {
-        val server = Server(3007)
+        val server = Server(308)
         val request = """GET /113 HTTP/1.1 
-                |Host: localhost:3004""".trimMargin() + "\r\n\r\n"
+                |Host: localhost:3008""".trimMargin() + "\r\n\r\n"
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val mockSocket = createMockSocket(csvData)
         val inputStream = BufferedReader(InputStreamReader(mockSocket.getInputStream()))

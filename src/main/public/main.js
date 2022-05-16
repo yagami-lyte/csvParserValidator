@@ -87,7 +87,6 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
         document.getElementById(`length-div${fields}`).style.display = 'none'
-        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`time${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
     }
@@ -97,7 +96,6 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`dateFormats${fields}`).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`).style.display = 'none'
         document.getElementById(`length-div${fields}`).style.display = 'none'
-        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`time${fields}`).value = ''
     }
@@ -107,10 +105,13 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`timeDiv${fields}`).style.display = 'flex'
         document.getElementById(`timeFormats${fields}`).style.display = 'block'
         document.getElementById(`dateDiv${fields}`).style.display = 'none'
-        document.getElementById(`allowNullDiv${fields}`).style.display = 'none'
         document.getElementById(`length-div${fields}`).style.display = 'none'
         document.getElementById(`dateTime${fields}`).value = ''
         document.getElementById(`date${fields}`).value = ''
+    }
+    const typeValue = document.getElementById(`type${fields}`).value;
+    if( typeValue === "Date" || typeValue === "Time" || typeValue === "Date Time"){
+            document.getElementById(`value-div${fields}`).style.display = 'none'
     }
 }
 
@@ -544,40 +545,6 @@ function pushErrToMaps(object){
     }
 }
 
-//function showErr(map){
-//
-//    var errors = document.getElementById("error-msgs");
-//    for (const [key, value] of Object.entries(map)) {
-//            var rowNo = parseInt(key)+1
-//            let row = document.createElement("div");
-//            row.setAttribute("class", "row");
-//            row.innerHTML = `<br>
-//            <div class="col s10 offset-s1">
-//          <div class="card-panel" id="${key}">
-//              <h3>Errors at Row Number: ${rowNo}</h3>
-//          </div>
-//      </div>`;
-//            errors.appendChild(row)
-//            value.forEach(element => {
-//                let p = document.createElement("p")
-//                p.setAttribute("id", "error")
-//                p.innerText = `    -  ${element}`
-//                let parent = document.getElementById(`${key}`)
-//                parent.appendChild(p)
-//            });
-//        }
-//
-//        if(Object.keys(map).length === 0){
-//        errors.innerHTML = `<div class="success-msg">
-//                              <h1>No error in your uploaded CSV file</h1>
-//                            </div>`;
-//        }
-//        errMap = {}
-//        payload = []
-//
-//}
-
-
 
 var current_page = 1;
 var obj_per_page = 5;
@@ -613,8 +580,8 @@ function nextPage()
     }
 }
 
-function showErrPage(page)
-{   console.log(page)
+function showErrPage(page){
+    console.log(page)
     var map = errMap
     var btn_next = document.getElementById("btn_next");
     var btn_prev = document.getElementById("btn_prev");
