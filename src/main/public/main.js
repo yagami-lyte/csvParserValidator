@@ -65,66 +65,66 @@ function changeDefaultValuesOfConfig(object){
     for (var fields in object) {
             console.log(fields)
             console.log(`type${fields}`)
-            document.getElementById(`type${fields}`).value = object[fields]["type"];
-            document.getElementById(`fixed-len${fields}`).value = object[fields]["length"];
-            document.getElementById(`allowNull${fields}`).value = object[fields]["nullValue"];
+            document.getElementById(`type${fields}`.replaceAll('"', '')).value = object[fields]["type"];
+            document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = object[fields]["length"];
+            document.getElementById(`allowNull${fields}`.replaceAll('"', '')).value = object[fields]["nullValue"];
             if(object[fields]["nullValue"] === "Allowed"){
-                document.getElementById(`allowNull${fields}`).checked = "checked";
+                document.getElementById(`allowNull${fields}`.replaceAll('"', '')).checked = "checked";
             }
-            document.getElementById(`date${fields}`).value = object[fields]["date"];
-            document.getElementById(`dateTime${fields}`).value = object[fields]["dateTime"];
-            document.getElementById(`dependent${fields}`).value = object[fields]["dependentOn"];
-            document.getElementById(`dep-val${fields}`).value = object[fields]["dependentValue"];
-            document.getElementById(`time${fields}`).value = object[fields]["time"];
+            document.getElementById(`date${fields}`.replaceAll('"', '')).value = object[fields]["date"];
+            document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = object[fields]["dateTime"];
+            document.getElementById(`dependent${fields}`.replaceAll('"', '')).value = object[fields]["dependentOn"];
+            document.getElementById(`dep-val${fields}`.replaceAll('"', '')).value = object[fields]["dependentValue"];
+            document.getElementById(`time${fields}`.replaceAll('"', '')).value = object[fields]["time"];
 
             alterDateTimeOptions(fields)
         }
 }
 
 function alterDateTimeOptions(fields) {
-    if(document.getElementById(`type${fields}`).value === "Date Time"){
-        document.getElementById(`dateTime${fields}`).style.display = 'block'
-        document.getElementById(`dateTimeDiv${fields}`).style.display = 'flex'
-        document.getElementById(`dateTimeFormats${fields}`).style.display = 'block'
-        document.getElementById(`length-div${fields}`).style.display = 'none'
-        document.getElementById(`time${fields}`).value = ''
-        document.getElementById(`date${fields}`).value = ''
-        document.getElementById(`fixed-len${fields}`).value = ''
+    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date Time"){
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
-    if( document.getElementById(`type${fields}`).value === "Date"){
-        document.getElementById(`date${fields}`).style.display = 'block'
-        document.getElementById(`dateDiv${fields}`).style.display = 'flex'
-        document.getElementById(`dateFormats${fields}`).style.display = 'block'
-        document.getElementById(`dateTimeDiv${fields}`).style.display = 'none'
-        document.getElementById(`length-div${fields}`).style.display = 'none'
-        document.getElementById(`dateTime${fields}`).value = ''
-        document.getElementById(`time${fields}`).value = ''
-        document.getElementById(`fixed-len${fields}`).value = ''
+    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date"){
+        document.getElementById(`date${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
 
-    if( document.getElementById(`type${fields}`).value === "Time"){
-        document.getElementById(`time${fields}`).style.display = 'block'
-        document.getElementById(`timeDiv${fields}`).style.display = 'flex'
-        document.getElementById(`timeFormats${fields}`).style.display = 'block'
-        document.getElementById(`dateDiv${fields}`).style.display = 'none'
-        document.getElementById(`length-div${fields}`).style.display = 'none'
-        document.getElementById(`dateTime${fields}`).value = ''
-        document.getElementById(`date${fields}`).value = ''
-        document.getElementById(`fixed-len${fields}`).value = ''
+    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Time"){
+        document.getElementById(`time${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
-    const typeValue = document.getElementById(`type${fields}`).value;
+    const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
     if( typeValue === "Date" || typeValue === "Time" || typeValue === "Date Time"){
-        document.getElementById(`value-div${fields}`).style.display = 'none'
+        document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
     }
 
     if( typeValue !== "Date" ){
-        document.getElementById(`date${fields}`).value = ''
+        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
     }
     if( typeValue !== "Time" ){
-        document.getElementById(`time${fields}`).value = ''
+        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
     }
     if(  typeValue !== "Date Time"){
-            document.getElementById(`dateTime${fields}`).value = ''
+            document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
     }
 }
 
@@ -465,6 +465,7 @@ function readFile(event, fieldName){
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
         let jsonObj = {}
+        //fields[0][j] = fields[0][j].replaceAll('"', '')
         var field = fields[0][j]
         var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
         var value = document.getElementById(`text_file_id${fields[0][j]}`.replaceAll('"', '')).files[0]
@@ -496,7 +497,7 @@ function addDataToJson() {
         jsonObj["length"] = fixed_len.value
         jsonObj["dependentOn"] = dependentOn.value
         jsonObj["dependentValue"] = dependentValue.value
-        const typeValue = document.getElementById(`type${field}`).value
+        const typeValue = type.value
         if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "Date Time"){
                 jsonObj["datetime"] = ''
                 jsonObj["date"] = ''

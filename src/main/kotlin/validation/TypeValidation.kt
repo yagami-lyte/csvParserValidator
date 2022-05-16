@@ -114,8 +114,9 @@ class TypeValidation : Validation {
     }
 
     fun hasText(value: String): Boolean {
-        val allKeyboardKeysRegex = ("""[A-Za-z0-9-]+[ 0-9A-Za-z#$%=@!{},`~&*()'<>?.:;_|^/+\t\r\n\[\]"-]*""").toRegex();
-        return allKeyboardKeysRegex.matches(value)
+        return true
+//        val allKeyboardKeysRegex = ("""[A-Za-z0-9-]+[ 0-9A-Za-z#$%=@!{},`~&*()'<>?.:;_|^/+\t\r\n\[\]"-]*""").toRegex();
+//        return allKeyboardKeysRegex.matches(value)
     }
 
     fun isEmail(value: String): Boolean {
