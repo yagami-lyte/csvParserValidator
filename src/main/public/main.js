@@ -117,10 +117,14 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`value-div${fields}`).style.display = 'none'
     }
 
-    if( typeValue !== "Date" || typeValue !== "Time" || typeValue !== "Date Time"){
-        document.getElementById(`dateTime${fields}`).value = ''
+    if( typeValue !== "Date" ){
         document.getElementById(`date${fields}`).value = ''
+    }
+    if( typeValue !== "Time" ){
         document.getElementById(`time${fields}`).value = ''
+    }
+    if(  typeValue !== "Date Time"){
+            document.getElementById(`dateTime${fields}`).value = ''
     }
 }
 
@@ -492,6 +496,25 @@ function addDataToJson() {
         jsonObj["length"] = fixed_len.value
         jsonObj["dependentOn"] = dependentOn.value
         jsonObj["dependentValue"] = dependentValue.value
+        const typeValue = document.getElementById(`type${field}`).value
+        if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "Date Time"){
+                jsonObj["datetime"] = ''
+                jsonObj["date"] = ''
+                jsonObj["time"] = ''
+        }else if(typeValue === "Date"){
+            jsonObj["datetime"] = ''
+            jsonObj["length"] = ''
+            jsonObj["time"] = ''
+        }else if(typeValue === "Time"){
+            jsonObj["datetime"] = ''
+            jsonObj["date"] = ''
+            jsonObj["length"] = ''
+        }else if(typeValue === "Date Time"){
+            jsonObj["length"] = ''
+            jsonObj["date"] = ''
+            jsonObj["time"] = ''
+        }
+
         payload.push(jsonObj)
     }
     console.log(payload)
