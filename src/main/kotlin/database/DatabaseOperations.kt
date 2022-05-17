@@ -17,6 +17,13 @@ class DatabaseOperations {
     1. read from config table the configurations
     2. send to backend for parsing
      */
+    fun saveNewConfigurationInDatabase(configurationName: String){
+        val queryTemplate = "INSERT INTO configuration(config_name) VALUES('$configurationName');"
+        val insertStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate ,ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
+        insertStatement.executeUpdate()
+        //has not checked the configname already exist
+    }
 
     fun saveNewCSVInDatabase(csvName: String){
         val queryTemplate = """
@@ -30,44 +37,63 @@ class DatabaseOperations {
         insertStatement.executeUpdate()
     }
 
-    fun writeConfiguration(csvName: String, jsonData: ConfigurationTemplate) {
+    fun getConfigurationId(configurationName: String): Int {
+        val queryTemplate = "SELECT config_id FROM configuration WHERE config_name = '$configurationName';"
+        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
+        val result = preparedStatement.executeQuery()
+        result.first()
+        return result.getInt("config_id")
+    }
+
+
+    fun writeConfiguration(configurationName: String, jsonData: ConfigurationTemplate) {
+        val configId = getConfigurationId(configurationName)
         val insertQueryTemplate =
             """INSERT INTO csv_fields
-              (csv_name,field_name, field_type, is_null_allowed,field_length,
-               dependent_field, dependent_value,date_type, time_type, datetime) 
-              VALUES(?,?,?,?,?,?,?,?,?,?)"""
-        val preparedInsertStatement = DatabaseConnection.makeConnection().prepareStatement(insertQueryTemplate)
-        setQueryFieldsWhileSavingConfig(preparedInsertStatement, csvName, jsonData)
+              (config_id, field_name, field_type, is_null_allowed, field_length,
+               dependent_field, dependent_value,date_type, time_type, datetime_type) 
+              VALUES($configId,?,?,?,?,?,?,?,?,?)"""
+        val preparedInsertStatement = DatabaseConnection.makeConnection().prepareStatement(insertQueryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
+        setQueryFieldsWhileSavingConfig(preparedInsertStatement,  jsonData)
         preparedInsertStatement.executeUpdate()
         if(jsonData.values?.isNotEmpty() == true){
-            insertAllowedValues(csvName, jsonData.fieldName, jsonData.values)
+            val fieldId = getFieldId(configId)
+            insertAllowedValues(fieldId, jsonData.values)
         }
+    }
+
+    private fun getFieldId(configId: Int): Int {
+        val queryTemplate = "SELECT field_id FROM csv_fields WHERE config_id = $configId;"
+        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
+        val result = preparedStatement.executeQuery()
+        result.first()
+        return result.getInt("field_id")
     }
 
     private fun setQueryFieldsWhileSavingConfig(
         preparedStatement: PreparedStatement,
-        csvName: String,
         jsonData: ConfigurationTemplate
     ) {
-        preparedStatement.setString(1, csvName)
-        preparedStatement.setString(2, jsonData.fieldName)
-        preparedStatement.setString(3, jsonData.type)
-        preparedStatement.setString(4, jsonData.nullValue)
-        preparedStatement.setString(5, jsonData.length)
-        preparedStatement.setString(6, jsonData.dependentOn)
-        preparedStatement.setString(7, jsonData.dependentValue)
-        preparedStatement.setString(8, jsonData.date)
-        preparedStatement.setString(9, jsonData.time)
-        preparedStatement.setString(10, jsonData.datetime)
+        preparedStatement.setString(1, jsonData.fieldName)
+        preparedStatement.setString(2, jsonData.type)
+        preparedStatement.setString(3, jsonData.nullValue)
+        preparedStatement.setString(4, jsonData.length)
+        preparedStatement.setString(5, jsonData.dependentOn)
+        preparedStatement.setString(6, jsonData.dependentValue)
+        preparedStatement.setString(7, jsonData.date)
+        preparedStatement.setString(8, jsonData.time)
+        preparedStatement.setString(9, jsonData.datetime)
     }
 
-    private fun insertAllowedValues(csvName: String, fieldName:String, values: List<String>?) {
+    private fun insertAllowedValues(fieldId: Int,  values: List<String>?) {
         values?.forEach {
-            val queryTemplate = "INSERT INTO field_values(csv_name, field_name, allowed_value) VALUES(?,?,?)"
-            val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate)
-            preparedStatement.setString(1, csvName)
-            preparedStatement.setString(2, fieldName)
-            preparedStatement.setString(3, it)
+            val queryTemplate = "INSERT INTO field_values( allowed_value , field_id) VALUES(?,$fieldId)"
+            val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_UPDATABLE)
+            preparedStatement.setString(1, it)
             preparedStatement.executeUpdate()
         }
     }
@@ -78,7 +104,8 @@ class DatabaseOperations {
             FROM csv_fields
             WHERE entry_date = (SELECT MAX(entry_date) FROM csv_fields WHERE csv_name = (?));
         """
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
+        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
         preparedStatement.setString(1, csvName)
         val result = preparedStatement.executeQuery()
         val finalConfig = mutableListOf<ConfigurationTemplate>()
@@ -89,7 +116,7 @@ class DatabaseOperations {
     }
 
 
-    private fun getJsonConfig(result: ResultSet, csvName: String): ConfigurationTemplate{
+    private fun getJsonConfig(result: ResultSet, configName: String): ConfigurationTemplate{
         val fieldName = result.getString("field_name")
         val fieldType = result.getString("field_type")
         val isNullAllowed = result.getString("is_null_allowed")
@@ -99,9 +126,9 @@ class DatabaseOperations {
         val date = result.getString("date_type")
         val time = result.getString("time_type")
         val datetime = result.getString("datetime")
-        val values = getValues(csvName, fieldName)
+        val values = getValues(configName, fieldName)
         return ConfigurationTemplate(
-            csvName = csvName,
+            configName = configName,
             fieldName = fieldName,
             type = fieldType,
             nullValue = isNullAllowed,
@@ -118,7 +145,8 @@ class DatabaseOperations {
 
     private fun getValues(csvName: String, fieldName: String): List<String>? {
         val query = "SELECT allowed_value from field_values WHERE csv_name = (?) AND field_name = (?);"
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query)
+        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
         preparedStatement.setString(1, csvName)
         preparedStatement.setString(2, fieldName)
         val result = preparedStatement.executeQuery()
