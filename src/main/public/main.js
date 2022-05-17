@@ -477,7 +477,7 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
-        jsonObj["csvName"] = document.getElementById("csv_id").files[0].name
+        jsonObj["configName"] = document.getElementById("csv_id").files[0].name
         console.log(document.getElementById("csv_id").files[0].name)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
@@ -706,21 +706,21 @@ let page = 1;
 
 //calling function with passing parameters and adding inside element which is ul tag
 function createPagination(totalPages, page){
-UlElement.style.visibility = "visible";
-console.log(totNumPages())
-if(totNumPages() == 1){
-UlElement.style.visibility = "hidden";
-}
-emptyErrorList()
-totalPages = totNumPages()
-showErrPage(page);
-  let liTag = '';
-  let active;
-  let beforePage = page - 1;
-  let afterPage = page + 1;
-  if(page > 1){ //show the next button if the page value is greater than 1
+    UlElement.style.visibility = "visible";
+    console.log(totNumPages())
+    if(totNumPages() == 1){
+        UlElement.style.visibility = "hidden";
+    }
+    emptyErrorList()
+    totalPages = totNumPages()
+    showErrPage(page);
+    let liTag = '';
+    let active;
+    let beforePage = page - 1;
+    let afterPage = page + 1;
+    if(page > 1){ //show the next button if the page value is greater than 1
     liTag += `<li class="btn prev" onclick="createPagination(totalPages, ${page - 1});"><span><i class="fas fa-angle-left"></i> Prev</span></li>`;
-  }
+    }
 
   if(page > 2){ //if page value is less than 2 then add 1 after the previous button
     liTag += `<li class="first numb" onclick="createPagination(totalPages, 1);"><span>1</span></li>`;

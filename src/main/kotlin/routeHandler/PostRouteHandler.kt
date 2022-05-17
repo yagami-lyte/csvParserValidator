@@ -5,11 +5,8 @@ import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
-import org.slf4j.MDC.put
 import validation.*
 import java.io.BufferedReader
-import javax.swing.UIManager.put
-import kotlin.reflect.typeOf
 
 class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) {
 
@@ -67,8 +64,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val jsonArrayOfConfigData = JSONArray()
         configDataTemplate.forEach {
             val jsonObject = JSONObject()
-            println("csvname ${it.csvName}")
-            jsonObject.put("csvName", it.csvName)
+            jsonObject.put("configName", it.configName)
             jsonObject.put("type", it.type)
             jsonObject.put("length", it.length)
             jsonObject.put("dateTime", it.datetime)
@@ -145,13 +141,13 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private fun getResponseForMetaData(body: String): String {
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
-        val csvName = fieldArray.first().csvName
+        val configName = fieldArray.first().configName
         val databaseOperations = DatabaseOperations()
-        println(csvName)
-        if(csvName != null) {
-            databaseOperations.saveNewCSVInDatabase(csvName)
+        println(configName)
+        if(configName != null) {
+            databaseOperations.saveNewConfigurationInDatabase(configName)
             fieldArray.forEach {
-                databaseOperations.writeConfiguration(csvName, it)
+                databaseOperations.writeConfiguration(configName, it)
             }
         }
         val endOfHeader = "\r\n\r\n"

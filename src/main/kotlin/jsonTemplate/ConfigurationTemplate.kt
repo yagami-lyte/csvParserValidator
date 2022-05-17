@@ -1,7 +1,7 @@
 package jsonTemplate
 
 class ConfigurationTemplate(
-    val csvName: String,
+    val configName: String,
     val fieldName: String,
     val type: String?,
     val length: String?,
