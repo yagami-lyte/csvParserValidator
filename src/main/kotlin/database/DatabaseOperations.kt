@@ -37,7 +37,7 @@ class DatabaseOperations {
         insertStatement.executeUpdate()
     }
 
-    fun getConfigurationId(configurationName: String): Int {
+    private fun getConfigurationId(configurationName: String): Int {
         val queryTemplate = "SELECT config_id FROM configuration WHERE config_name = '$configurationName';"
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
@@ -113,19 +113,19 @@ class DatabaseOperations {
         }
     }
 
-    fun readConfiguration(csvName: String): Array<ConfigurationTemplate> {
+    fun readConfiguration(configName: String): Array<ConfigurationTemplate> {
+        val configId = getConfigurationId(configName)
         val query = """
             SELECT * 
             FROM csv_fields
-            WHERE entry_date = (SELECT MAX(entry_date) FROM csv_fields WHERE csv_name = (?));
+            WHERE config_id = ($configId);
         """
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
-        preparedStatement.setString(1, csvName)
         val result = preparedStatement.executeQuery()
         val finalConfig = mutableListOf<ConfigurationTemplate>()
         while (result.next()) {
-            finalConfig.add(getJsonConfig(result, csvName))
+            finalConfig.add(getJsonConfig(result, configName))
         }
         return finalConfig.toTypedArray()
     }
@@ -140,8 +140,8 @@ class DatabaseOperations {
         val dependentValue = result.getString("dependent_value")
         val date = result.getString("date_type")
         val time = result.getString("time_type")
-        val datetime = result.getString("datetime")
-        val values = getValues(configName, fieldName)
+        val datetime = result.getString("datetime_type")
+        val values = getValues(result.getInt("field_id"))
         return ConfigurationTemplate(
             configName = configName,
             fieldName = fieldName,
@@ -158,12 +158,10 @@ class DatabaseOperations {
     }
 
 
-    private fun getValues(csvName: String, fieldName: String): List<String>? {
-        val query = "SELECT allowed_value from field_values WHERE csv_name = (?) AND field_name = (?);"
+    private fun getValues(field_id: Int): List<String>? {
+        val query = "SELECT allowed_value FROM field_values WHERE field_id = ($field_id)"
         val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
-        preparedStatement.setString(1, csvName)
-        preparedStatement.setString(2, fieldName)
         val result = preparedStatement.executeQuery()
         val values = mutableListOf<String>()
         while (result.next()) {
