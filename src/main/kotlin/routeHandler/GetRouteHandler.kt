@@ -1,5 +1,7 @@
 package routeHandler
 
+import database.DatabaseOperations
+import org.json.JSONObject
 import java.io.File
 
 class GetRouteHandler {
@@ -16,9 +18,43 @@ class GetRouteHandler {
             "/" -> getResponse("/index.html")
             "/main.js" -> getResponse("/main.js")
             "/main.css" -> getResponse("/main.css")
+            "/get-config-files" -> sendConfigFileNames()
             else -> getResponse("/404.html")
         }
     }
+
+    private fun sendConfigFileNames(): String{
+        val responseBody = getConfigResponse()
+        val contentLength = responseBody.length
+        val endOfHeader = "\r\n\r\n"
+        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
+                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun getConfigResponse() :String{
+        val databaseOperations = DatabaseOperations()
+        var responseBody = ""
+        val configFiles = databaseOperations.getConfigNames()
+        val configJsonArrayResponse = prepareJsonResponse(configFiles)
+        responseBody = "{"
+            responseBody += "\"configFiles\" : $configJsonArrayResponse"
+        responseBody += "}"
+        println("responsecofig : $responseBody")
+        return responseBody
+    }
+
+
+    private fun prepareJsonResponse(configDataTemplate: List<String>?): JSONObject {
+        var countOfConfig = 1
+        val jsonObject = JSONObject()
+        configDataTemplate?.forEach {
+            jsonObject.put("$countOfConfig", it)
+            countOfConfig += 1
+        }
+
+        return jsonObject
+    }
+
 
     private fun getPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1]
