@@ -46,6 +46,21 @@ class DatabaseOperations {
         return result.getInt("config_id")
     }
 
+    fun getConfigNames(): List<String>? {
+        val queryTemplate = "SELECT config_name FROM configuration ;"
+        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            ResultSet.CONCUR_UPDATABLE)
+        val result = preparedStatement.executeQuery()
+        val values = mutableListOf<String>()
+        while (result.next()) {
+            values.add(result.getString("config_name"))
+        }
+        if (values.isEmpty()) {
+            return null
+        }
+        return values
+    }
+
 
     fun writeConfiguration(configurationName: String, jsonData: ConfigurationTemplate) {
         val configId = getConfigurationId(configurationName)
