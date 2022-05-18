@@ -62,12 +62,15 @@
         <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
             <div class="col s10 offset-s1 card-panel" style="border-radius: 6px; padding: 20px; align-items: center;justify-content: center;background-color:white;">
                 <div style="display: flex;align-items: center;justify-content: center;">
-                    <p class ="col s3"><b>Provide Configuration filename if you want to save it &nbsp;&nbsp;:</b></p>
+                    <p class ="col s3"><b>Provide Configuration filename  &nbsp;&nbsp;:</b></p>
                     <input class ="col s14"id="fileName" type="text" placeholder="Please enter the filename" required>
                 </div>
                 <div style="display: flex;align-items: center;justify-content: center; ">
                     <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;background-color: #eee;" name="configCheckBox" value="checked">
                     <p class ="col s3">&nbsp;&nbsp; : checked the checkBox if you want to save config Data</p><br>
+                </div>
+                <div style="margin-left: 27%; display: none; align-items: center;justify-content: center; color:red;" id="config_name_validation">
+                    Configuration filename do not meet the requirement! Please Change it!!
                 </div>
 
             </div>
@@ -77,7 +80,7 @@
     </div>
 </div>
 
-<a href="#error-msgs" id='view-errors' onclick="displayErrors();loadingEffect()">View Errors </a>
+<a  id='view-errors' onclick="displayErrors();loadingEffect()">View Errors </a>
 
 <button id="button-load">
     <i class="fa fa-refresh fa-spin"></i>Loading ...

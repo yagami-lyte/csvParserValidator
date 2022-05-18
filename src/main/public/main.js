@@ -2,11 +2,27 @@ var payload=[]
 var result = []
 var fields = []
 var fieldCount = 0
+var configName = []
 
 
 function removeConfiguredFields() {
     var addedField = document.getElementById("field");
     addedField.remove(addedField.selectedIndex);
+}
+
+function checkIfConfigNameAlreadyExit(file_name){
+    if(configName.indexOf(file_name) !== -1)return 1
+    return 0
+}
+
+function validateConfigName(){
+    var file_name = document.getElementById("fileName").value
+    var getCheckBox = document.getElementById("configCheckBox").checked
+    if((file_name == "" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){
+    document.getElementById("config_name_validation").style.display = 'block';
+    return 0
+    }
+    return 1
 }
 
 function csvReader() {
@@ -59,6 +75,7 @@ function setConfigInDropDown(object){
                 fileNameDropdownOption.value = object[i][j];
                 fileNameDropdownOption.text = object[i][j];
                 fileNameDropDown.appendChild(fileNameDropdownOption);
+                configName.push(object[i][j]);
             }
         }
     }
@@ -581,21 +598,25 @@ async function sendConfigData(){
 }
 
 async function displayErrors(){
-    sendConfigData()
-    const response = await fetch('csv', {
-        method: 'POST',
-        body: JSON.stringify(result)
-    })
+    document.getElementById("config_name_validation").style.display = 'none';
+    if(validateConfigName()){
+        sendConfigData()
+        const response = await fetch('csv', {
+            method: 'POST',
+            body: JSON.stringify(result)
+        })
 
-    if (response.status === 200) {
-        var jsonData =  await response.json();
-        loadingEffect();
-        console.log(jsonData)
-        traverse(jsonData)
+        if (response.status === 200) {
+            var jsonData =  await response.json();
+            loadingEffect();
+            console.log(jsonData)
+            traverse(jsonData)
+        }
+        var loader = document.getElementById("button-load")
+        loader.style.visibility = "hidden";
+        payload = []
+        configName = []
     }
-    var loader = document.getElementById("button-load")
-    loader.style.visibility = "hidden";
-    payload=[]
 }
 
 function traverse(object){
