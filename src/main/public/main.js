@@ -508,6 +508,7 @@ function addDataToJson() {
         let jsonObj = {}
         //fields[0][j] = fields[0][j].replaceAll('"', '')
         var field = fields[0][j]
+        var configName = document.getElementById("fileName")
         var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
         var value = document.getElementById(`text_file_id${fields[0][j]}`.replaceAll('"', '')).files[0]
         var typedValues = document.getElementById(`textArea${fields[0][j]}`.replaceAll('"', ''))
@@ -518,8 +519,9 @@ function addDataToJson() {
         var timeFormat = document.getElementById(`time${fields[0][j]}`.replaceAll('"', ''))
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
-        jsonObj["configName"] = document.getElementById("csv_id").files[0].name
-        console.log(document.getElementById("csv_id").files[0].name)
+        var configCheckBox = document.getElementById("configCheckBox").checked
+        jsonObj["configName"] = document.getElementById("fileName").value
+        console.log(document.getElementById("fileName").value)
         jsonObj["datetime"] = dateTimeFormat.value
         jsonObj["date"] = dateFormat.value
         jsonObj["time"] = timeFormat.value
@@ -527,6 +529,9 @@ function addDataToJson() {
         console.log(nullValues.value)
         jsonObj["fieldName"] = field
         jsonObj["type"] = type.value
+        if(!configCheckBox){
+            jsonObj["configName"] = ""
+        }
         if (value != null){
             jsonObj["values"] =JSON.parse(localStorage.getItem(field))
             console.log(localStorage.getItem(field))
