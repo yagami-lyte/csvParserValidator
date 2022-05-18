@@ -8,8 +8,7 @@ internal class DatabaseOperationsTest {
     @Test
     fun shouldBeAbleToReturnTrueIfConfigNameIsPresentInTheDatabase() {
 
-        DatabaseConnection.makeConnection()
-        val databaseOperations = DatabaseOperations()
+        val databaseOperations = DatabaseOperations(Connector())
         val configName = "test4"
         databaseOperations.saveNewConfigurationInDatabase(configName)
 
@@ -20,8 +19,7 @@ internal class DatabaseOperationsTest {
     @Test
     fun shouldBeAbleToReturnFalseIfConfigNameIsPresentInTheDatabase() {
 
-        DatabaseConnection.makeConnection()
-        val databaseOperations = DatabaseOperations()
+        val databaseOperations = DatabaseOperations(Connector())
         val configName = "xyz"
 
         val result = databaseOperations.isConfigPresentInDatabase(configName)

@@ -4,10 +4,11 @@ import jsonTemplate.ConfigurationTemplate
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 
-class DatabaseOperations {
+class DatabaseOperations(connector: DatabaseConnector) {
+    private val databaseConnection = connector.makeConnection()
     fun saveNewConfigurationInDatabase(configurationName: String){
         val queryTemplate = "INSERT INTO configuration(config_name) VALUES('$configurationName');"
-        val insertStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate ,ResultSet.TYPE_SCROLL_SENSITIVE,
+        val insertStatement = databaseConnection.prepareStatement(queryTemplate ,ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         insertStatement.executeUpdate()
     }
@@ -19,7 +20,7 @@ class DatabaseOperations {
                     "WHERE EXISTS\n" +
                     "(SELECT config_name FROM configuration WHERE config_name = '$configName');"
         val preparedStatement =
-            DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_READ_ONLY)
         val result = preparedStatement.executeQuery()
         return result.first()
@@ -27,7 +28,7 @@ class DatabaseOperations {
 
     private fun getConfigurationId(configurationName: String): Int {
         val queryTemplate = "SELECT config_id FROM configuration WHERE config_name = '$configurationName';"
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedStatement = databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         val result = preparedStatement.executeQuery()
         result.first()
@@ -36,7 +37,7 @@ class DatabaseOperations {
 
     fun getConfigNames(): List<String>? {
         val queryTemplate = "SELECT config_name FROM configuration ;"
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedStatement = databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         val result = preparedStatement.executeQuery()
         val values = mutableListOf<String>()
@@ -57,7 +58,7 @@ class DatabaseOperations {
               (config_id, field_name, field_type, is_null_allowed, field_length,
                dependent_field, dependent_value,date_type, time_type, datetime_type) 
               VALUES($configId,?,?,?,?,?,?,?,?,?)"""
-        val preparedInsertStatement = DatabaseConnection.makeConnection().prepareStatement(insertQueryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedInsertStatement = databaseConnection.prepareStatement(insertQueryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         setQueryFieldsWhileSavingConfig(preparedInsertStatement,  jsonData)
         preparedInsertStatement.executeUpdate()
@@ -69,7 +70,7 @@ class DatabaseOperations {
 
     private fun getFieldId(configId: Int): Int {
         val queryTemplate = "SELECT field_id FROM csv_fields WHERE config_id = $configId;"
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedStatement = databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         val result = preparedStatement.executeQuery()
         result.first()
@@ -94,7 +95,7 @@ class DatabaseOperations {
     private fun insertAllowedValues(fieldId: Int,  values: List<String>?) {
         values?.forEach {
             val queryTemplate = "INSERT INTO field_values( allowed_value , field_id) VALUES(?,$fieldId)"
-            val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+            val preparedStatement = databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_UPDATABLE)
             preparedStatement.setString(1, it)
             preparedStatement.executeUpdate()
@@ -108,7 +109,7 @@ class DatabaseOperations {
             FROM csv_fields
             WHERE config_id = ($configId);
         """
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedStatement = databaseConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         val result = preparedStatement.executeQuery()
         val finalConfig = mutableListOf<ConfigurationTemplate>()
@@ -148,7 +149,7 @@ class DatabaseOperations {
 
     private fun getValues(field_id: Int): List<String>? {
         val query = "SELECT allowed_value FROM field_values WHERE field_id = ($field_id)"
-        val preparedStatement = DatabaseConnection.makeConnection().prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
+        val preparedStatement =databaseConnection.prepareStatement(query, ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         val result = preparedStatement.executeQuery()
         val values = mutableListOf<String>()

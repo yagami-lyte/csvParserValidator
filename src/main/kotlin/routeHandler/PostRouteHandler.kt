@@ -1,6 +1,7 @@
 package routeHandler
 
 import com.google.gson.Gson
+import database.Connector
 import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
@@ -48,7 +49,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     }
 
     private fun getConfigResponse(body :String) :String{
-        val databaseOperations = DatabaseOperations()
+        val databaseOperations = DatabaseOperations(Connector())
         val configName = body.split(":")[1].replace("\"", "").replace("}]" , "")
         println("configName $configName")
         //val jsonObject = JSONObject()
@@ -143,7 +144,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
         val configName = fieldArray.first().configName
-        val databaseOperations = DatabaseOperations()
+        val databaseOperations = DatabaseOperations(Connector())
         println(configName)
         if(configName != null && configName != "") {
             databaseOperations.saveNewConfigurationInDatabase(configName)

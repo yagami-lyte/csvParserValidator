@@ -1,5 +1,6 @@
 package routeHandler
 
+import database.Connector
 import database.DatabaseOperations
 import org.json.JSONObject
 import java.io.File
@@ -32,7 +33,7 @@ class GetRouteHandler {
     }
 
     private fun getConfigResponse() :String{
-        val databaseOperations = DatabaseOperations()
+        val databaseOperations = DatabaseOperations(Connector())
         var responseBody = ""
         val configFiles = databaseOperations.getConfigNames()
         val configJsonArrayResponse = prepareJsonResponse(configFiles)
