@@ -600,6 +600,7 @@ async function sendConfigData(){
 async function displayErrors(){
     document.getElementById("config_name_validation").style.display = 'none';
     if(validateConfigName()){
+        loadingEffect()
         sendConfigData()
         const response = await fetch('csv', {
             method: 'POST',
