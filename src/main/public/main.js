@@ -76,7 +76,7 @@ async  function getConfigResponse(){
             var jsonData = await resp.json();
 
             console.log(jsonData)
-            //setValuesInConfig(jsonData)
+            setValuesInConfig(jsonData)
         }
     }
 }
@@ -97,8 +97,16 @@ function setValuesInConfig(object){
 
 function changeDefaultValuesOfConfig(object){
     for (var fields in object) {
-            console.log(fields)
-            console.log(`type${fields}`)
+        console.log(fields)
+        console.log(`type${fields}`)
+        var valueOfTypeId = document.getElementById(`type${fields}`.replaceAll('"', ''))
+        if(valueOfTypeId !== null){
+            setDefaultValues(object,fields)
+        }
+    }
+}
+
+function setDefaultValues(object,fields){
             document.getElementById(`type${fields}`.replaceAll('"', '')).value = object[fields]["type"];
             document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = object[fields]["length"];
             document.getElementById(`allowNull${fields}`.replaceAll('"', '')).value = object[fields]["nullValue"];
@@ -112,7 +120,6 @@ function changeDefaultValuesOfConfig(object){
             document.getElementById(`time${fields}`.replaceAll('"', '')).value = object[fields]["time"];
 
             alterDateTimeOptions(fields)
-        }
 }
 
 function alterDateTimeOptions(fields) {
