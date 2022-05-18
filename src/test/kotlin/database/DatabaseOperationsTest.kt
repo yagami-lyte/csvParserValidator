@@ -17,7 +17,16 @@ internal class DatabaseOperationsTest {
         assertTrue(result)
     }
 
+    @Test
+    fun shouldBeAbleToReturnFalseIfConfigNameIsPresentInTheDatabase() {
 
+        DatabaseConnection.makeConnection()
+        val databaseOperations = DatabaseOperations()
+        val configName = "xyz"
+
+        val result = databaseOperations.isConfigPresentInDatabase(configName)
+        assertFalse(result)
+    }
 
 
 }
