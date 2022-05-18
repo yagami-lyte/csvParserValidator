@@ -49,10 +49,11 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
 
     private fun getConfigResponse(body :String) :String{
         val databaseOperations = DatabaseOperations()
-        val csvName = body.split(":")[1].replace("\"", "").replace("}]" , "")
-        println("csvName $csvName")
+        val configName = body.split(":")[1].replace("\"", "").replace("}]" , "")
+        println("configName $configName")
+        //val jsonObject = JSONObject()
         var responseBody = ""
-        val configDataTemplate = databaseOperations.readConfiguration(csvName)
+        val configDataTemplate = databaseOperations.readConfiguration(configName)
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
         responseBody = "{"
         responseBody += "\"Type\" : $configJsonArrayResponse"
@@ -64,7 +65,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val jsonArrayOfConfigData = JSONArray()
         configDataTemplate.forEach {
             val jsonObject = JSONObject()
-            jsonObject.put("configName", it.configName)
+            //jsonObject.put("configName", it.configName)
             jsonObject.put("type", it.type)
             jsonObject.put("length", it.length)
             jsonObject.put("dateTime", it.datetime)

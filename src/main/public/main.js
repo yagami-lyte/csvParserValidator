@@ -50,32 +50,35 @@ async function getConfigFilesName(){
 function setConfigInDropDown(object){
     console.log(object)
     for(var i in object){
-            console.log(object[i])
-            console.log(object[i] != "")
-            if(object[i] != ""){
-                for( j in object[i]){
-                let fileNameDropDown = document.getElementById("listOfFileNames");
-                    var fileNameDropdownOption = document.createElement("option");
-                    fileNameDropdownOption.value = object[i][j];
-                    fileNameDropdownOption.text = object[i][j];
-                    fileNameDropDown.appendChild(fileNameDropdownOption);
-                }
+        console.log(object[i])
+        console.log(object[i] != "")
+        if(object[i] != ""){
+            for( j in object[i]){
+            let fileNameDropDown = document.getElementById("listOfFileNames");
+                var fileNameDropdownOption = document.createElement("option");
+                fileNameDropdownOption.value = object[i][j];
+                fileNameDropdownOption.text = object[i][j];
+                fileNameDropDown.appendChild(fileNameDropdownOption);
             }
         }
+    }
 }
 
-async function getConfigResponse(){
-    var resp = await fetch('get-config-response', {
+async  function getConfigResponse(){
+    let configName = document.getElementById("listOfFileNames").value
+    if(configName !== ""){
+        var resp = await fetch('get-config-response', {
             method: 'POST',
-            body: JSON.stringify([{ "csv" : localStorage.getItem("csv")}])
+            body: JSON.stringify([{ "configName" : configName}])
         })
 
         if (resp.status === 200) {
             var jsonData = await resp.json();
 
             console.log(jsonData)
-            setValuesInConfig(jsonData)
+            //setValuesInConfig(jsonData)
         }
+    }
 }
 
 function setValuesInConfig(object){
