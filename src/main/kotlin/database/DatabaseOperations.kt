@@ -14,7 +14,10 @@ class DatabaseOperations {
 
     fun isConfigPresentInDatabase(configName: String): Boolean {
         val queryTemplate =
-            "SELECT EXISTS (SELECT config_name FROM configuration WHERE config_name = '$configName')e;"
+            "SELECT config_name\n" +
+                    "FROM configuration\n" +
+                    "WHERE EXISTS\n" +
+                    "(SELECT config_name FROM configuration WHERE config_name = '$configName');"
         val preparedStatement =
             DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
                 ResultSet.CONCUR_READ_ONLY)

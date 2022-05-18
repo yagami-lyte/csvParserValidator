@@ -10,11 +10,14 @@ internal class DatabaseOperationsTest {
 
         DatabaseConnection.makeConnection()
         val databaseOperations = DatabaseOperations()
-        val configName = "test"
+        val configName = "test4"
         databaseOperations.saveNewConfigurationInDatabase(configName)
 
         val result = databaseOperations.isConfigPresentInDatabase(configName)
         assertTrue(result)
     }
+
+
+
 
 }
