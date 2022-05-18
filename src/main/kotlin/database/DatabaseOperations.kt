@@ -25,6 +25,16 @@ class DatabaseOperations {
         //has not checked the configname already exist
     }
 
+    fun isConfigPresentInDatabase(configName: String): Boolean {
+        val queryTemplate =
+            "SELECT EXISTS (SELECT config_name FROM configuration WHERE config_name = '$configName')e;"
+        val preparedStatement =
+            DatabaseConnection.makeConnection().prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_READ_ONLY)
+        val result = preparedStatement.executeQuery()
+        return result.first()
+    }
+
     fun saveNewCSVInDatabase(csvName: String){
         val queryTemplate = """
             INSERT INTO csv_files (csv_name) 
