@@ -29,13 +29,13 @@ class ServerIntegrationTest {
 
     @Test
     fun shouldReturnPageNotFoundResponse() {
-        val port = 3012
+        val port = 3034
         startServerInThread(port)
         val clientSocket = Socket("localhost", port)
         val outputStream = clientSocket.getOutputStream()
         val inputStream = clientSocket.getInputStream()
         val request = """GET /123 HTTP/1.1 
-                |Host: localhost:3000""".trimMargin() + "\r\n\r\n"
+                |Host: localhost:3004""".trimMargin() + "\r\n\r\n"
         outputStream.write(request.toByteArray())
         val expectedResponseCode = "404"
         val response = String(inputStream.readAllBytes())

@@ -76,6 +76,21 @@ internal class DatabaseOperationsTest {
         assertEquals(expectedFieldName , actualFieldName)
     }
 
+    @Test
+    fun shouldBeAbleToGetConfigNamesFromTheDatabase() {
+
+        val databaseOperations = DatabaseOperations(TestConnector())
+        val configName1 = "Config1"
+        val configName2 = "Config2"
+        databaseOperations.saveNewConfigurationInDatabase(configName1)
+        databaseOperations.saveNewConfigurationInDatabase(configName2)
+
+        val expectedConfigNames = "[Config1, Config2]"
+        val actualConfigNames = databaseOperations.getConfigNames().toString()
+
+        assertEquals(expectedConfigNames , actualConfigNames)
+    }
+
     private fun createJsonTemplate(): Array<ConfigurationTemplate> {
         val metaData =
             """[{"fieldName":"Export Number","type":"Number","length":"","dependentOn":"","dependentValue":"",nullValue: "Allowed"},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export",nullValue: "Allowed","dependentValue":"N"}]"""
