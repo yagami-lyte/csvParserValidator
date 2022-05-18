@@ -145,7 +145,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val configName = fieldArray.first().configName
         val databaseOperations = DatabaseOperations()
         println(configName)
-        if(configName != null || configName != "") {
+        if(configName != null && configName != "") {
             databaseOperations.saveNewConfigurationInDatabase(configName)
             fieldArray.forEach {
                 databaseOperations.writeConfiguration(configName, it)
