@@ -33,6 +33,37 @@ function csvReader() {
     reader.readAsText(csv);
 }
 
+
+async function getConfigFilesName(){
+    var resp = await fetch('get-config-files', {
+            method: 'GET',
+        })
+
+        if (resp.status === 200) {
+            var jsonData = await resp.json();
+
+            console.log(jsonData)
+            setConfigInDropDown(jsonData)
+        }
+}
+
+function setConfigInDropDown(object){
+    console.log(object)
+    for(var i in object){
+            console.log(object[i])
+            console.log(object[i] != "")
+            if(object[i] != ""){
+                for( j in object[i]){
+                let fileNameDropDown = document.getElementById("listOfFileNames");
+                    var fileNameDropdownOption = document.createElement("option");
+                    fileNameDropdownOption.value = object[i][j];
+                    fileNameDropdownOption.text = object[i][j];
+                    fileNameDropDown.appendChild(fileNameDropdownOption);
+                }
+            }
+        }
+}
+
 async function getConfigResponse(){
     var resp = await fetch('get-config-response', {
             method: 'POST',

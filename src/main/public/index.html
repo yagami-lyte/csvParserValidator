@@ -31,7 +31,7 @@
                 <br>
                 <br>
                 <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
-                   onclick="csvReader(); //getConfigResponse();" data-cy="upload"><b>Upload</b></a>
+                   onclick="csvReader();getConfigFilesName(); //getConfigResponse();" data-cy="upload"><b>Upload</b></a>
             </div>
         </div>
     </div>
@@ -47,11 +47,27 @@
         <h1><b>Configure your CSV fields</b></h1>
         <br><br><br>
         <h3> The fields in your CSV are listed down below.</h3>
-        <form id="myform">
+        <div style="width: 600px;align-items: center;justify-content: center; margin:auto;padding:20px;display: flex;">
+            <select name="type" id="listOfFileNames" style="display: block;   width:auto;height:auto;  padding: 16px 4px; border-radius:6px;">
+                <option value="">Please select the config filename</option>
+            </select>
+            <button class="btn waves-effect waves-light" style="margin-left: 15px;margin-top: 3px;" onclick="fetchConfigData()">
+                Fetch config file
+            </button>
+        </div>
+
+            <form id="myform">
 
         </form>
+        <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
+            <div class="col s10 offset-s1 card-panel" style="display: flex;border-radius: 6px; padding: 20px; align-items: center;justify-content: center;background-color:white;">
+                <p class ="col s3"><b>Provide Configuration filename if you want to save it &nbsp;&nbsp;:</b></p>
+                <input class ="col s14"id="fileName" type="text" placeholder="Please enter the filename" required>
+            </div>
+        </div>
     </div>
 </div>
+
 <a href="#error-msgs" id='view-errors' onclick="displayErrors();loadingEffect()">View Errors </a>
 
 <button id="button-load">
