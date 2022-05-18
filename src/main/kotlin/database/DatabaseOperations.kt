@@ -5,24 +5,11 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 
 class DatabaseOperations {
-    /*To run .sql files: Source<absoule path>
-    -- upload csv--
-    1. should enter csv name in table: csv_file.
-    2. create a new table with csv file's name if doesn't exist.
-    -- set configuration --
-    1. write config details into config table for that specific file
-    2. retrieve latest config details if file is uploaded again
-    3. should show configuration if previously added on UI for same file
-    -- view errors --
-    1. read from config table the configurations
-    2. send to backend for parsing
-     */
     fun saveNewConfigurationInDatabase(configurationName: String){
         val queryTemplate = "INSERT INTO configuration(config_name) VALUES('$configurationName');"
         val insertStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate ,ResultSet.TYPE_SCROLL_SENSITIVE,
             ResultSet.CONCUR_UPDATABLE)
         insertStatement.executeUpdate()
-        //has not checked the configname already exist
     }
 
     fun isConfigPresentInDatabase(configName: String): Boolean {
@@ -33,18 +20,6 @@ class DatabaseOperations {
                 ResultSet.CONCUR_READ_ONLY)
         val result = preparedStatement.executeQuery()
         return result.first()
-    }
-
-    fun saveNewCSVInDatabase(csvName: String){
-        val queryTemplate = """
-            INSERT INTO csv_files (csv_name) 
-            SELECT * FROM (SELECT (?)) AS temp
-            WHERE NOT EXISTS (SELECT csv_name from csv_files WHERE csv_name = (?) )
-            LIMIT 1; """
-        val insertStatement = DatabaseConnection.makeConnection().prepareStatement(queryTemplate)
-        insertStatement.setString(1, csvName)
-        insertStatement.setString(2, csvName)
-        insertStatement.executeUpdate()
     }
 
     private fun getConfigurationId(configurationName: String): Int {
