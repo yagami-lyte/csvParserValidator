@@ -615,6 +615,7 @@ async function sendConfigData(){
 }
 
 async function displayErrors(){
+    emptyErrorList()
    if (typeMandatory() == true) {
     document.getElementById("config_name_validation").style.display = 'none';
     document.getElementById("fields-empty").innerHTML = ""
@@ -685,8 +686,8 @@ let errorBase = document.getElementById("error-msgs");
                   text-align:left;
                   color:white;
                   margin:auto"><p style="margin:auto;">${key}
-                  <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="white" xmlns="http://www.w3.org/2000/svg" >
-                  <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="white" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
+                  <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
+                  <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
                   </svg>
                   </p>
                   </div>
@@ -752,7 +753,7 @@ function createTableOfErrors(value,key,type){
 
 function goDown(key)
 {
-    document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="white" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
+    document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
    // document.getElementById(`UpDrop${key}`).style.display="block";
    document.getElementById(`${key}`).style.display="none"
 console.log(key)
@@ -760,7 +761,7 @@ console.log(key)
 function goUp(key)
 {
     //document.getElementById(`DownDrop${key}`).style.display="block"
-    document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="white" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
+    document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="black" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
     document.getElementById(`${key}`).style.display="block"
 console.log(key)
 }
