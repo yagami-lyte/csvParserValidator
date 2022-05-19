@@ -34,7 +34,7 @@ internal class DatabaseOperationsTest {
     fun shouldBeAbleToAddTheFieldsInTheDatabase() {
         val databaseOperations = DatabaseOperations(TestConnector())
         val configName = "configuration"
-        val jsonData = createJsonTemplate()
+        val jsonData = createJsonTemplateWithDependencyFields()
         databaseOperations.saveNewConfigurationInDatabase(configName)
         jsonData.forEach {
             databaseOperations.writeConfiguration(configName,it)
@@ -50,7 +50,7 @@ internal class DatabaseOperationsTest {
     fun shouldNotBeAbleToAddTheFieldsInTheDatabase() {
         val databaseOperations = DatabaseOperations(TestConnector())
         val configurationName = "testConfiguration"
-        val jsonData = createJsonTemplate()
+        val jsonData = createJsonTemplateWithDependencyFields()
         databaseOperations.saveNewConfigurationInDatabase(configurationName)
         jsonData.forEach {
             databaseOperations.writeConfiguration(configurationName,it)
@@ -66,7 +66,7 @@ internal class DatabaseOperationsTest {
     fun shouldBeAbleToReadConfigDataFromDatabase() {
         val databaseOperations = DatabaseOperations(TestConnector())
         val configurationName = "testConfiguration"
-        val jsonData = createJsonTemplate()
+        val jsonData = createJsonTemplateWithDependencyFields()
         databaseOperations.saveNewConfigurationInDatabase(configurationName)
         jsonData.forEach {
             databaseOperations.writeConfiguration(configurationName,it)
@@ -94,9 +94,32 @@ internal class DatabaseOperationsTest {
         assertEquals(expectedConfigNames , actualConfigNames)
     }
 
-    private fun createJsonTemplate(): Array<ConfigurationTemplate> {
+
+    @Test
+    fun shouldBeAbleToAddTheDateTimeFieldsInTheDatabase() {
+        val databaseOperations = DatabaseOperations(TestConnector())
+        val configName = "configuration"
+        val jsonData = createJsonTemplateWithDateTimeFormats()
+        databaseOperations.saveNewConfigurationInDatabase(configName)
+        jsonData.forEach {
+            databaseOperations.writeConfiguration(configName,it)
+        }
+        val fieldName = "operation"
+
+        val actualResponse = databaseOperations.isFieldPresentInTheDatabase(fieldName)
+
+        assertTrue(actualResponse)
+    }
+
+    private fun createJsonTemplateWithDependencyFields(): Array<ConfigurationTemplate> {
         val metaData =
             """[{"fieldName":"Export Number","type":"Number","length":"","dependentOn":"","dependentValue":"",nullValue: "Allowed"},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export",nullValue: "Allowed","dependentValue":"N"}]"""
+        return Gson().fromJson(metaData, Array<ConfigurationTemplate>::class.java)
+    }
+
+    private fun createJsonTemplateWithDateTimeFormats(): Array<ConfigurationTemplate> {
+        val metaData =
+            """[{"configName":"configuration","datetime":"MMMM dd, yy","date":"","time":"","nullValue":"Not Allowed","fieldName":"operation","type":"Date Time","length":"","dependentOn":"","dependentValue":""},{"configName":"","datetime":"","date":"","time":"","nullValue":"Not Allowed","fieldName":"requestedAt","type":"Alphabets","length":"","dependentOn":"","dependentValue":""}]"""
         return Gson().fromJson(metaData, Array<ConfigurationTemplate>::class.java)
     }
 }
