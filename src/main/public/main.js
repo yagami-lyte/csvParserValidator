@@ -383,8 +383,6 @@ function showColFields(lines){
 function closeForm(popUp , addConfig, valueOption) {
     document.getElementById(popUp).style.display = "none";
     document.getElementById(addConfig).style.filter = "blur(0px)";
-    document.getElementById(valueOption).value = "Choose";
-
 }
 
 function onChangeHandler(valueOption, fileInput, textAreaInput,addConfig){
