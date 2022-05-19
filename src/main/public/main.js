@@ -381,16 +381,22 @@ function showColFields(lines){
 }
 
 function typeMandatory() {
+   var emptyFields = 0
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
          var typeField = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
          if (typeField.value == ""){
              document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="Please select a type";
              document.getElementById("fields-empty").innerHTML = "You have left mandatory fields empty!"
+             emptyFields += 1
          }
          else {
                 document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="";
          }
     }
+    if (emptyFields != 0){
+    return false}
+    else {
+    return true}
 }
 
 function closeForm(popUp , addConfig, valueOption) {
@@ -609,10 +615,10 @@ async function sendConfigData(){
 }
 
 async function displayErrors(){
-
    if (typeMandatory() == true) {
-
     document.getElementById("config_name_validation").style.display = 'none';
+    document.getElementById("fields-empty").innerHTML = ""
+
     if(validateConfigName()){
         loadingEffect()
         sendConfigData()
