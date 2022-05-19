@@ -10,6 +10,7 @@ class NullValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val nullErrors = JSONArray()
+        mapOfNullErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {

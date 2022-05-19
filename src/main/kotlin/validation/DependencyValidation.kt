@@ -9,6 +9,7 @@ class DependencyValidation : Validation {
     private val mapOfDependencyErrors = mutableMapOf<String , MutableList<Int>>()
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String,MutableList<Int>> {
+        mapOfDependencyErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             validateDependency(element as JSONObject, fieldArray, index)
         }

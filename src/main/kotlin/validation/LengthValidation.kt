@@ -10,6 +10,7 @@ class LengthValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val lengthErrors = JSONArray()
+        mapOfLengthErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             validateLengthInEachRow(element as JSONObject, fieldArray, index, lengthErrors)
         }

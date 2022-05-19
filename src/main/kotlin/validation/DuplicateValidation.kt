@@ -10,6 +10,7 @@ class DuplicateValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
+        mapOfDuplicationErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             addElementToMap(mapOfJsonElements, element as JSONObject, index)
         }

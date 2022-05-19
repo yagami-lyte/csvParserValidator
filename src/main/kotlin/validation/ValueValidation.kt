@@ -10,6 +10,7 @@ class ValueValidation : Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val valueErrors = JSONArray()
+        mapOfValueErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             valueValidationForEachRow(element as JSONObject, fieldArray, index, valueErrors)
         }

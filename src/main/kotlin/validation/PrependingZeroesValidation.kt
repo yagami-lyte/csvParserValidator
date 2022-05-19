@@ -10,6 +10,7 @@ class PrependingZeroesValidation:Validation {
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
 
+        mapOfPrePendingErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
             val keys = ele.keySet()
