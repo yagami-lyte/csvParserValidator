@@ -24,7 +24,7 @@ class DuplicateTest {
 
         val actual = duplicateValidation.validate(jsonArray,postRouteHandler.fieldArray)
 
-        assertTrue(actual.isEmpty)
+        assertTrue(actual.isEmpty())
     }
 
     @Test
@@ -32,10 +32,12 @@ class DuplicateTest {
         val duplicateValidation = DuplicateValidation()
         val jsonString = "[{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3}]"
         val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("[{2 : Row Duplicated From 1}]")
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
+        val expected = mutableMapOf(
+            "2" to mutableListOf(1)
+        )
 
         val actual = duplicateValidation.validate(jsonArray, postRouteHandler.fieldArray)
 
@@ -47,7 +49,10 @@ class DuplicateTest {
         val duplicateValidation = DuplicateValidation()
         val jsonString = "[{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3} ]"
         val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("[{2 : Row Duplicated From 1}, {3 : Row Duplicated From 1}]")
+        val expected = mutableMapOf(
+            "2" to listOf(1),
+            "3" to listOf(1)
+        )
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
@@ -62,7 +67,10 @@ class DuplicateTest {
         val duplicateValidation = DuplicateValidation()
         val jsonString = "[{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3},{a : 2, b : 2, c : 2}, {a : 2, b : 2, c : 2}]"
         val jsonArray = JSONArray(jsonString)
-        val expected = JSONArray("[{2 : Row Duplicated From 1}, {4 : Row Duplicated From 3}]")
+        val expected = mutableMapOf(
+            "2" to mutableListOf(1),
+            "4" to mutableListOf(3)
+        )
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData

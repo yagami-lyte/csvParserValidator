@@ -6,8 +6,9 @@ import org.json.JSONObject
 
 class PrependingZeroesValidation:Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
-        val prePendingErrors = JSONArray()
+    private val mapOfPrePendingErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
 
         jsonArrayData.forEachIndexed { index, element ->
             val ele = (element as JSONObject)
@@ -20,15 +21,15 @@ class PrependingZeroesValidation:Validation {
                     flag = false
                 }
                 if (!flag) {
-                    val jsonObject = JSONObject().put(
-                        (index + 1).toString(),
-                        "Incorrect Type of ${field.fieldName}. Please remove Pre-pending Zeros!"
-                    )
-                    prePendingErrors.put(jsonObject)
+                    if (mapOfPrePendingErrors[field.fieldName] == null) {
+                        mapOfPrePendingErrors[field.fieldName] = mutableListOf()
+                    }
+                    mapOfPrePendingErrors[field.fieldName]?.add(index + 1)
+                    return mapOfPrePendingErrors
                 }
             }
         }
-        return prePendingErrors
+        return mapOfPrePendingErrors
     }
 
     fun checkPrePendingZeros(value: String): Boolean {

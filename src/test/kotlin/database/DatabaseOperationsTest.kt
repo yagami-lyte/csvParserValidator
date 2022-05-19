@@ -40,9 +40,10 @@ internal class DatabaseOperationsTest {
             databaseOperations.writeConfiguration(configName,it)
         }
         val fieldName = "Export Number"
-        val result = databaseOperations.isFieldPresentInTheDatabase(fieldName)
-        assertTrue(result)
 
+        val actualResponse = databaseOperations.isFieldPresentInTheDatabase(fieldName)
+
+        assertTrue(actualResponse)
     }
 
     @Test
@@ -55,8 +56,10 @@ internal class DatabaseOperationsTest {
             databaseOperations.writeConfiguration(configurationName,it)
         }
         val fieldName = "abc"
-        val result = databaseOperations.isFieldPresentInTheDatabase(fieldName)
-        assertFalse(result)
+
+        val actualResponse = databaseOperations.isFieldPresentInTheDatabase(fieldName)
+
+        assertFalse(actualResponse)
     }
 
     @Test
@@ -84,8 +87,8 @@ internal class DatabaseOperationsTest {
         val configName2 = "Config2"
         databaseOperations.saveNewConfigurationInDatabase(configName1)
         databaseOperations.saveNewConfigurationInDatabase(configName2)
-
         val expectedConfigNames = "[Config1, Config2]"
+
         val actualConfigNames = databaseOperations.getConfigNames().toString()
 
         assertEquals(expectedConfigNames , actualConfigNames)

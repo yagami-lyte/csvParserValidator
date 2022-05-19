@@ -2,6 +2,7 @@ package validation
 
 import com.google.gson.Gson
 import jsonTemplate.ConfigurationTemplate
+import org.apache.commons.lang3.mutable.Mutable
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -22,12 +23,13 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"1":"Has empty value for Product Id. Please enter a value in your CSV."}]"""
-        val expectedErrorList = JSONArray(expectedError)
+        val expectedError = mutableMapOf(
+            "Product Id" to mutableListOf(1)
+        )
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
-        Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
+        Assertions.assertEquals(expectedError.toString(), actualErrorList.toString())
     }
 
     @Test
@@ -40,12 +42,11 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "1234","Price": "432","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[]"""
-        val expectedErrorList = JSONArray(expectedError)
+        val expectedError = mutableMapOf<String , MutableList<Int>>()
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
-        Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
+        Assertions.assertEquals(expectedError.toString(), actualErrorList.toString())
     }
 
     @Test
@@ -58,12 +59,14 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "1234","Price": "432","Export": ""},{"Product Id": "s@gmail,com","Price": "","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"1":"Has empty value for Export. Please enter a value in your CSV."}, {"2":"Has empty value for Price. Please enter a value in your CSV."}]"""
-        val expectedErrorList = JSONArray(expectedError)
+        val expectedError = mutableMapOf(
+            "Export" to mutableListOf(1),
+            "Price" to mutableListOf(2)
+        )
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
-        Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
+        Assertions.assertEquals(expectedError.toString(), actualErrorList.toString())
     }
 
     @Test
@@ -76,13 +79,11 @@ class NullValidationTest {
         val csvData =
             """[{"Product Id": "1234","Price": "432","Export": ""},{"Product Id": "s@gmail,com","Price": "","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[]"""
-
-        val expectedErrorList = JSONArray(expectedError)
+        val expectedError = mutableMapOf<String,MutableList<Int>>()
 
         val actualErrorList = nullValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
-        Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
+        Assertions.assertEquals(expectedError.toString(), actualErrorList.toString())
     }
 
 

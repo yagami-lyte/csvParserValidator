@@ -19,7 +19,9 @@ internal class ValueValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[{\"1\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS] in the CSV.\"}]")
+        val expected = mutableMapOf(
+            "Country Name" to mutableListOf(1)
+        )
 
         val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -34,7 +36,9 @@ internal class ValueValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"CHI"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[{\"1\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS] in the CSV.\"},{\"2\":\"Incorrect Value of Country Name. Please select value from [IND, USA, AUS] in the CSV.\"}]")
+        val expected = mutableMapOf(
+            "Country Name" to mutableListOf(1,2)
+        )
 
         val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -49,7 +53,7 @@ internal class ValueValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"AUS"},{"Export":"Y","Country Name":"IND"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[]")
+        val expected = mutableMapOf<String , MutableList<Int>>()
 
         val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 

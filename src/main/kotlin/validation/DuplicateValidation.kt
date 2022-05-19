@@ -6,38 +6,42 @@ import org.json.JSONObject
 
 class DuplicateValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    private val mapOfDuplicationErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
-        val jsonArrayOfDuplicateElements = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
-            addElementToMap(mapOfJsonElements, element as JSONObject, index, jsonArrayOfDuplicateElements)
+            addElementToMap(mapOfJsonElements, element as JSONObject, index)
         }
-        return jsonArrayOfDuplicateElements
+        return mapOfDuplicationErrors
     }
 
     private fun addElementToMap(
         mapOfJsonElements: MutableMap<String, Int>,
         element: JSONObject,
-        index: Int,
-        jsonArrayOfDuplicateElements: JSONArray
+        index: Int
     ) {
         if (mapOfJsonElements[element.toString()] == null) {
             mapOfJsonElements[element.toString()] = index + 1
             return
         }
 
-        getJsonObject(index, mapOfJsonElements, element, jsonArrayOfDuplicateElements)
+        getJsonObject(index, mapOfJsonElements, element)
     }
 
     private fun getJsonObject(
         index: Int,
         mapOfJsonElements: MutableMap<String, Int>,
-        element: JSONObject,
-        jsonArrayOfDuplicateElements: JSONArray
+        element: JSONObject
     ) {
-        val jsonObject = JSONObject().put(
-            (index + 1).toString(), "Row Duplicated From ${mapOfJsonElements[element.toString()]}"
-        )
-        jsonArrayOfDuplicateElements.put(jsonObject)
+        val duplicatedRowNumber = (index + 1).toString()
+        val duplicationRowNumber = mapOfJsonElements[element.toString()]
+        if(mapOfDuplicationErrors[(index + 1).toString()] == null) {
+            mapOfDuplicationErrors[duplicatedRowNumber] = mutableListOf()
+        }
+        if (duplicationRowNumber != null) {
+            mapOfDuplicationErrors[(index + 1).toString()]?.add(duplicationRowNumber)
+        }
+
     }
 }

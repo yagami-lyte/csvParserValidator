@@ -99,38 +99,81 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val dependencyChecks = dependencyValidation.validate(jsonBody, fieldArray)
         val nullChecks = nullValidation.validate(jsonBody,fieldArray)
         val prependingZeroesChecks = prependingZeroesValidation.validate(jsonBody,fieldArray)
-        val responseBody = getResponse(duplicates, lengthValidation, typeValidation, valueValidation, dependencyChecks, nullChecks,prependingZeroesChecks)
+        val responseBody = prepareErrorResponse(lengthValidation,typeValidation,valueValidation,duplicates,dependencyChecks,nullChecks,prependingZeroesChecks)
+//        val responseBody = getResponse(response)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
                 |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
-    private fun getResponse (
-        duplicates: JSONArray,
-        lengthValidation: JSONArray,
-        typeValidation: JSONArray,
-        valueValidation: JSONArray,
-        dependencyChecks: Any,
-        nullChecks:JSONArray,
-        prependingZeroesValidation: JSONArray
+    fun prepareErrorResponse(
+        lengthValidation: MutableMap<String, MutableList<Int>>,
+        typeValidation: MutableMap<String, MutableList<Int>>,
+        valueValidation: MutableMap<String, MutableList<Int>>,
+        duplicates: MutableMap<String, MutableList<Int>>,
+        dependencyChecks: MutableMap<String, MutableList<Int>>,
+        nullChecks: MutableMap<String, MutableList<Int>>,
+        prependingZeroesChecks: MutableMap<String, MutableList<Int>>,
     ): String {
-        var responseBody = "{"
-        responseBody += "\"Duplicates\" : $duplicates"
-        responseBody += ","
-        responseBody += "\"Length\" : $lengthValidation"
-        responseBody += ","
-        responseBody += "\"Type\" : $typeValidation"
-        responseBody += ","
-        responseBody += "\"Value\" : $valueValidation"
-        responseBody += ","
-        responseBody += "\"Dependency\" : $dependencyChecks"
-        responseBody += ","
-        responseBody += "\"Null\" : $nullChecks"
-        responseBody += ","
-        responseBody += "\"PrependingZeroes\" : $prependingZeroesValidation"
-        responseBody += "}"
-        return responseBody
+
+        val errors = JSONArray()
+        fieldArray.forEach {
+            val mapOfErrors = mutableMapOf<String,List<Int>>()
+            val fieldName = it.fieldName
+            lengthValidation.forEach{ it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Length Errors"] = it1.value
+                }
+            }
+            typeValidation.forEach { it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Type Errors"] = it1.value
+                }
+            }
+            valueValidation.forEach { it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Value Errors"] = it1.value
+                }
+            }
+
+            dependencyChecks.forEach { it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Dependency Errors"] = it1.value
+                }
+            }
+            nullChecks.forEach { it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Null Errors"] = it1.value
+                }
+            }
+
+            prependingZeroesChecks.forEach { it1 ->
+                if(fieldName == it1.key) {
+                    mapOfErrors["Prepending Errors"] = it1.value
+                }
+            }
+
+            val duplicateLines = mutableListOf<Int>()
+            duplicates.forEach { it1 ->
+                duplicateLines.add(it1.key.toInt())
+                duplicateLines.add(it1.value[0])
+            }
+            mapOfErrors["Duplicate Errors"] = duplicateLines
+
+            val jsonObject = JSONObject().put(
+                it.fieldName,
+                mapOfErrors
+            )
+            errors.put(jsonObject)
+        }
+        return "$errors"
+    }
+
+    private fun getResponse(
+        response: JSONArray
+    ): String {
+        return "$response"
     }
 
 

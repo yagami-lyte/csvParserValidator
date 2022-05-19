@@ -4,6 +4,6 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 
 interface Validation {
-    fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray
+    fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>>
 }
 

@@ -20,7 +20,9 @@ internal class LengthValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[{\"1\":\"Incorrect length of Country Name. Please change its length to 3 in the CSV.\"}]")
+        val expected = mutableMapOf(
+            "Country Name" to mutableListOf(1)
+        )
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -37,8 +39,9 @@ internal class LengthValidationTest {
         val csvData =
             """[{"Export":"Y","Country Name":""},{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected =
-            JSONArray("[{\"1\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"},{\"2\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"},{\"3\":\"Incorrect length of Export. Please change its length to 2 in the CSV.\"}]")
+        val expected = mutableMapOf(
+            "Export" to mutableListOf(1,2,3)
+        )
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -55,7 +58,7 @@ internal class LengthValidationTest {
         val csvData =
             """[{"Export":"Y","Country Name":"AUS"},{"Export":"Y","Country Name":"IND"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[]")
+        val expected = mutableMapOf<String,MutableList<Int>>()
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 

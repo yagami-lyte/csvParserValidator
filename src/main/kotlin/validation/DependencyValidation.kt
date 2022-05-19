@@ -6,20 +6,20 @@ import org.json.JSONObject
 
 class DependencyValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
-        val dependencyErrors = JSONArray()
-        jsonArrayData.forEachIndexed { index, element ->
-            validateDependency(element as JSONObject, fieldArray, index, dependencyErrors)
-        }
-        return dependencyErrors
+    private val mapOfDependencyErrors = mutableMapOf<String , MutableList<Int>>()
 
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String,MutableList<Int>> {
+        jsonArrayData.forEachIndexed { index, element ->
+            validateDependency(element as JSONObject, fieldArray, index)
+        }
+
+        return mapOfDependencyErrors
     }
 
     private fun validateDependency(
         element: JSONObject,
         fieldArray: Array<ConfigurationTemplate>,
-        index: Int,
-        dependencyErrors: JSONArray
+        index: Int
     ) {
         val (fieldElement, keys) = getFieldElementKeys(element)
         for (key in keys) {
@@ -30,7 +30,7 @@ class DependencyValidation : Validation {
                     flag = false
                 }
             }
-            getErrorMessages(flag, index, field, dependencyErrors)
+            getErrorMessages(flag, index, field)
         }
     }
 
@@ -49,15 +49,13 @@ class DependencyValidation : Validation {
     private fun getErrorMessages(
         flag: Boolean,
         index: Int,
-        field: ConfigurationTemplate,
-        dependencyErrors: JSONArray
+        field: ConfigurationTemplate
     ) {
         if (!flag) {
-            val jsonObject = JSONObject().put(
-                (index + 1).toString(),
-                "Value of ${field.fieldName} is dependent on ${field.dependentOn}.Do not leave ${field.fieldName} empty in the CSV."
-            )
-            dependencyErrors.put(jsonObject)
+            if(mapOfDependencyErrors[field.fieldName] == null) {
+                mapOfDependencyErrors[field.fieldName] = mutableListOf()
+            }
+            mapOfDependencyErrors[field.fieldName]?.add(index+1)
         }
     }
 }

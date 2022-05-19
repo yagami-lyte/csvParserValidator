@@ -6,12 +6,14 @@ import org.json.JSONObject
 
 class LengthValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    private val mapOfLengthErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val lengthErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             validateLengthInEachRow(element as JSONObject, fieldArray, index, lengthErrors)
         }
-        return lengthErrors
+        return mapOfLengthErrors
     }
 
     private fun validateLengthInEachRow(
@@ -70,11 +72,12 @@ class LengthValidation : Validation {
         return true
     }
 
-    private fun errorMessage(index: Int, field: ConfigurationTemplate): JSONObject {
-        return JSONObject().put(
-            (index + 1).toString(),
-            "Incorrect length of ${field.fieldName}. Please change its length to ${field.length} in the CSV."
-        )
-    }
+    private fun errorMessage(index: Int, field: ConfigurationTemplate): MutableMap<String, MutableList<Int>> {
 
+        if (mapOfLengthErrors[field.fieldName] == null) {
+            mapOfLengthErrors[field.fieldName] = mutableListOf()
+        }
+        mapOfLengthErrors[field.fieldName]?.add(index + 1)
+        return mapOfLengthErrors
+    }
 }

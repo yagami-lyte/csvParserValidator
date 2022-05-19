@@ -10,7 +10,9 @@ import java.text.SimpleDateFormat
 
 class TypeValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    private val mapOfTypeErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val typeErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
@@ -20,7 +22,7 @@ class TypeValidation : Validation {
                 getErrorMessages(isLengthValid, index, field, typeErrors)
             }
         }
-        return typeErrors
+        return mapOfTypeErrors
     }
 
     private fun validateTypeInEachRow(
@@ -75,25 +77,11 @@ class TypeValidation : Validation {
         typeErrors: JSONArray,
     ) {
         if (!isLengthValid) {
-            var errorMsg = "Incorrect Type of ${field.fieldName}. Please change to ${field.type} in the CSV."
-            if (field.type == "Date") {
-                errorMsg =
-                    "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.date} in the CSV."
-            }
-            if (field.type == "Time") {
-                errorMsg =
-                    "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.time} in the CSV."
-            }
 
-            if (field.type == "Date Time") {
-                errorMsg =
-                    "Incorrect Type of ${field.fieldName}. Please change  ${field.type} format to ${field.datetime} in the CSV."
+            if(mapOfTypeErrors[field.fieldName] == null) {
+                mapOfTypeErrors[field.fieldName] = mutableListOf()
             }
-
-            val jsonObject = JSONObject().put(
-                (index + 1).toString(), errorMsg
-            )
-            typeErrors.put(jsonObject)
+            mapOfTypeErrors[field.fieldName]?.add(index+1)
         }
     }
 

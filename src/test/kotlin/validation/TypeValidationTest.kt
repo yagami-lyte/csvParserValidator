@@ -2,6 +2,7 @@ package validation
 
 import com.google.gson.Gson
 import jsonTemplate.ConfigurationTemplate
+import org.apache.commons.lang3.mutable.Mutable
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -91,12 +92,13 @@ class TypeValidationTest {
         val csvData =
             """[{"Product Id": "s@gmail,com","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expectedError = """[{"2":"Incorrect Type of Price. Please change to Number in the CSV."}]"""
-        val expectedErrorList = JSONArray(expectedError)
+        val expectedError = mutableMapOf(
+            "Price" to mutableListOf(1,2,2)
+        )
 
         val actualErrorList = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
-        Assertions.assertEquals(expectedErrorList.toString(), actualErrorList.toString())
+        Assertions.assertEquals(expectedError.toString(), actualErrorList.toString())
     }
 
     @Test
@@ -109,8 +111,9 @@ class TypeValidationTest {
         val csvData =
             """[{"Product Id": "1564","Price": "4500.59a","Export": "N"},{"Product Id": "1565","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected =
-            JSONArray("[{\"1\":\"Incorrect Type of Price. Please change to Number in the CSV.\"},{\"2\":\"Incorrect Type of Price. Please change to Number in the CSV.\"}]")
+        val expected = mutableMapOf(
+            "Price" to mutableListOf(1,2)
+        )
 
         val actual = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -127,7 +130,7 @@ class TypeValidationTest {
         val csvData =
             """[{"Product Id": "1564","Price": "4500.59","Export": "N"},{"Product Id": "1565","Price": "1000","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected = JSONArray("[]")
+        val expected = mutableMapOf<String , MutableList<Int>>()
 
         val actual = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 

@@ -5,7 +5,10 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class NullValidation : Validation {
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+
+    private val mapOfNullErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val nullErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
@@ -15,7 +18,7 @@ class NullValidation : Validation {
                 getErrorMessages(isNullAllowed, index, field, nullErrors)
             }
         }
-        return nullErrors
+        return mapOfNullErrors
     }
 
     private fun validateNullInEachRow(
@@ -55,11 +58,12 @@ class NullValidation : Validation {
         nullErrors: JSONArray,
     ) {
         if (!isNullAllowed) {
-            var errorMsg = "Has empty value for ${field.fieldName}. Please enter a value in your CSV."
-            val jsonObject = JSONObject().put(
-                (index + 1).toString(), errorMsg
-            )
-            nullErrors.put(jsonObject)
+            if(mapOfNullErrors[field.fieldName] == null) {
+                mapOfNullErrors[field.fieldName] = mutableListOf()
+            }
+            if(!mapOfNullErrors[field.fieldName]!!.contains(index+1)) {
+                mapOfNullErrors[field.fieldName]?.add(index+1)
+            }
         }
     }
 

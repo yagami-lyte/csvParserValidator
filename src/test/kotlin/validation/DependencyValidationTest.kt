@@ -20,9 +20,9 @@ internal class DependencyValidationTest {
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
-        val expected =
-            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"}]")
-
+        val expected = mutableMapOf(
+            "Country Name" to mutableListOf(1)
+        )
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
         assertEquals(expected.toString(), actual.toString())
@@ -39,8 +39,9 @@ internal class DependencyValidationTest {
             """[{"Export":"Y","Country Name":""},{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val dependencyValidation = DependencyValidation()
-        val expected =
-            JSONArray("[{\"1\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"},{\"2\":\"Value of Country Name is dependent on Export.Do not leave Country Name empty in the CSV.\"}]]")
+        val expected = mutableMapOf(
+            "Country Name" to mutableListOf(1,2)
+        )
 
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -58,7 +59,7 @@ internal class DependencyValidationTest {
             """[{"Export":"Y","Country Name":"AUS"},{"Export":"Y","Country Name":"IND"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val dependencyValidation = DependencyValidation()
-        val expected = JSONArray("[]")
+        val expected = mutableMapOf<String,MutableList<Int>>()
 
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 

@@ -6,12 +6,14 @@ import org.json.JSONObject
 
 class ValueValidation : Validation {
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): JSONArray {
+    private val mapOfValueErrors = mutableMapOf<String , MutableList<Int>>()
+
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
         val valueErrors = JSONArray()
         jsonArrayData.forEachIndexed { index, element ->
             valueValidationForEachRow(element as JSONObject, fieldArray, index, valueErrors)
         }
-        return valueErrors
+        return mapOfValueErrors
     }
 
     private fun valueValidationForEachRow(
@@ -61,10 +63,13 @@ class ValueValidation : Validation {
         return true
     }
 
-    private fun errorMessage(index: Int, field: ConfigurationTemplate): JSONObject {
-        return JSONObject().put(
-            (index + 1).toString(),
-            "Incorrect Value of ${field.fieldName}. Please select value from ${field.values} in the CSV."
-        )
+    private fun errorMessage(index: Int, field: ConfigurationTemplate): MutableMap<String, MutableList<Int>> {
+
+        if (mapOfValueErrors[field.fieldName] == null) {
+            mapOfValueErrors[field.fieldName] = mutableListOf()
+        }
+        mapOfValueErrors[field.fieldName]?.add(index + 1)
+        return mapOfValueErrors
+
     }
 }
