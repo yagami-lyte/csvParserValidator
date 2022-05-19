@@ -671,7 +671,8 @@ function traverse(object){
 //    showErr(errMap)
 }
 function createDivElement(key , value){
-let errorBase = document.getElementById("error-msgs");
+    key = key.replaceAll('"', '')
+    let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
                 row.innerHTML = `
                 <div style="display:flex; flex-direction: row;padding:20px;">
@@ -709,9 +710,11 @@ let errorBase = document.getElementById("error-msgs");
 
         errorBase.appendChild(row)
         for(i in value){
-            console.log(value[i])
+            console.log(value[i].length)
             console.log(i)
-            createTableOfErrors(value[i],key,i)
+            if(value[i].length != 0){
+                createTableOfErrors(value[i],key,i)
+            }
         }
                         //console.log(i)
                         //console.log(object[i] != "")
@@ -737,7 +740,7 @@ function createTableOfErrors(value,key,type){
 
      while(i<value.length){
          let newRow=document.createElement("tr");
-         while(j<i+6 && j<value.length){
+         while(j<i+5 && j<value.length){
              let td=document.createElement("td")
              td.innerHTML = value[j]+1
              newRow.appendChild(td);
