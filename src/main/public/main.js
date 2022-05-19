@@ -390,7 +390,7 @@ function typeMandatory() {
              emptyFields += 1
          }
          else {
-                document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="";
+                //document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="";
          }
     }
     if (emptyFields != 0){
@@ -644,21 +644,127 @@ async function displayErrors(){
 
 function traverse(object){
     errMap={}
+    let errorBase = document.getElementById("error-msgs");
     for(var i in object){
         console.log(object[i])
-        console.log(object[i] != "")
+        //console.log(i)
+        //console.log(object[i] != "")
+        //console.log(Object.keys(object[i])[0])
+        let key = Object.keys(object[i])[0]
+        let value = Object.values(object[i])
+        createDivElement(key , value[0])
+        //console.log(Object.values(object[i])[0])
         if(object[i] != ""){
             for( j in object[i]){
-                pushErrToMaps(object[i][j])
+                //pushErrToMaps(object[i][j])
+                //console.log(object[i][j])
+                //console.log(Object.values(object[i][j]))
             }
         }
     }
-    emptyErrorList()
+
+    //emptyErrorList()
     console.log(errMap)
-    showErrPage(1)
-    createPagination(totNumPages(), 1)
+    //showErrPage(1)
+    //createPagination(totNumPages(), 1)
 //    showErr(errMap)
 }
+function createDivElement(key , value){
+let errorBase = document.getElementById("error-msgs");
+    let row = document.createElement("div");
+                row.innerHTML = `
+                <div style="display:flex; flex-direction: row;padding:20px;">
+                  <div style="
+                  width: 92%;
+                  font-size:20px;
+                  font-weight:400;
+
+                  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+                  border-radius: 3px;
+                  padding:18px;
+                  text-align:left;
+                  color:white;
+                  margin:auto"><p style="margin:auto;">${key}
+                  <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="white" xmlns="http://www.w3.org/2000/svg" >
+                  <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="white" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
+                  </svg>
+                  </p>
+                  </div>
+              </div>
+              <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;
+              font-weight:200;
+              background: white;
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+              border-radius: 3px;
+              padding:50px;
+              text-align:left;
+              color:black;
+              display:none;
+              "
+              id="${key}">
+                       </div>
+          </div>
+        `;
+
+        errorBase.appendChild(row)
+        for(i in value){
+            console.log(value[i])
+            console.log(i)
+            createTableOfErrors(value[i],key,i)
+        }
+                        //console.log(i)
+                        //console.log(object[i] != "")
+
+
+//        value.forEach(element => {
+
+//        });
+
+}
+
+function createTableOfErrors(value,key,type){
+    let p = document.createElement("p")
+    p.setAttribute("id", "error")
+    p.style.marginTop="0px"
+    p.innerHTML = `<b style="font-weight: 900;">${type} present in rows:</b><br/><br/>`
+    let table=document.createElement("table")
+    console.log(table)
+    let i=0;
+    let j=0;
+    console.log("size",value.length)
+
+
+     while(i<value.length){
+         let newRow=document.createElement("tr");
+         while(j<i+6 && j<value.length){
+             let td=document.createElement("td")
+             td.innerHTML = value[j]+1
+             newRow.appendChild(td);
+             j++;
+         }
+         table.appendChild(newRow)
+         i=j;
+     }
+     p.appendChild(table)
+     let parent = document.getElementById(`${key}`)
+     parent.appendChild(p)
+}
+
+function goDown(key)
+{
+    document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="white" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
+   // document.getElementById(`UpDrop${key}`).style.display="block";
+   document.getElementById(`${key}`).style.display="none"
+console.log(key)
+}
+function goUp(key)
+{
+    //document.getElementById(`DownDrop${key}`).style.display="block"
+    document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="white" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
+    document.getElementById(`${key}`).style.display="block"
+console.log(key)
+}
+
 
 var errMap ={}
 function pushErrToMaps(object){
