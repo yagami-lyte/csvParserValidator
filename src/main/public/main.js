@@ -616,7 +616,7 @@ async function sendConfigData(){
 
 async function displayErrors(){
     emptyErrorList()
-   if (typeMandatory() == true) {
+    if (typeMandatory() == true) {
     document.getElementById("config_name_validation").style.display = 'none';
     document.getElementById("fields-empty").innerHTML = ""
 
@@ -647,46 +647,50 @@ function traverse(object){
     errMap={}
     let errorBase = document.getElementById("error-msgs");
     for(var i in object){
-        console.log(object[i])
-        //console.log(i)
-        //console.log(object[i] != "")
-        //console.log(Object.keys(object[i])[0])
         let key = Object.keys(object[i])[0]
+        console.log(key)
         let value = Object.values(object[i])
         createDivElement(key , value[0])
-        //console.log(Object.values(object[i])[0])
-        if(object[i] != ""){
-            for( j in object[i]){
-                //pushErrToMaps(object[i][j])
-                //console.log(object[i][j])
-                //console.log(Object.values(object[i][j]))
-            }
+        let fieldsDivElement = document.getElementById(`${key}`)
+        if(fieldsDivElement.innerHTML === ''){
+            removeErrorDiv(key)
         }
     }
-
+    if(errorBase.innerHTML === ''){
+        createSuccessErrMsg(errorBase)
+    }
     //emptyErrorList()
-    console.log(errMap)
     //showErrPage(1)
     //createPagination(totNumPages(), 1)
 //    showErr(errMap)
 }
+
+function createSuccessErrMsg(errorBase){
+    let row = document.createElement("div");
+        row.innerHTML = `
+        <div style="display:flex; flex-direction: row;padding:20px;">
+          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:38px; text-align:left;color:white;margin:auto">
+          <marquee scrollamount="12">No Error Found In Your CSV File</marquee>
+          </div>
+      </div>`;
+      errorBase.appendChild(row);
+}
+
+function removeErrorDiv(key){
+    let errorBase = document.getElementById("error-msgs");
+    var child = document.getElementById(key+" error");
+    errorBase.removeChild(child);
+}
+
 function createDivElement(key , value){
     key = key.replaceAll('"', '')
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
+    row.setAttribute("id", key+" error")
                 row.innerHTML = `
                 <div style="display:flex; flex-direction: row;padding:20px;">
-                  <div style="
-                  width: 92%;
-                  font-size:20px;
-                  font-weight:400;
-
-                  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-                  border-radius: 3px;
-                  padding:18px;
-                  text-align:left;
-                  color:white;
-                  margin:auto"><p style="margin:auto;">${key}
+                  <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+                  <p style="margin:auto;">${key}
                   <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
                   <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
                   </svg>
@@ -703,8 +707,7 @@ function createDivElement(key , value){
               color:black;
               display:none;
               "
-              id="${key}">
-                       </div>
+              id="${key}"></div>
           </div>
         `;
 
@@ -716,14 +719,6 @@ function createDivElement(key , value){
                 createTableOfErrors(value[i],key,i)
             }
         }
-                        //console.log(i)
-                        //console.log(object[i] != "")
-
-
-//        value.forEach(element => {
-
-//        });
-
 }
 
 function createTableOfErrors(value,key,type){
@@ -736,8 +731,6 @@ function createTableOfErrors(value,key,type){
     let i=0;
     let j=0;
     console.log("size",value.length)
-
-
      while(i<value.length){
          let newRow=document.createElement("tr");
          while(j<i+5 && j<value.length){
@@ -757,16 +750,12 @@ function createTableOfErrors(value,key,type){
 function goDown(key)
 {
     document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
-   // document.getElementById(`UpDrop${key}`).style.display="block";
-   document.getElementById(`${key}`).style.display="none"
-console.log(key)
+    document.getElementById(`${key}`).style.display="none"
 }
 function goUp(key)
 {
-    //document.getElementById(`DownDrop${key}`).style.display="block"
     document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="black" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
     document.getElementById(`${key}`).style.display="block"
-console.log(key)
 }
 
 
@@ -786,32 +775,6 @@ function totNumPages()
     return Math.ceil(Object.keys(errMap).length / obj_per_page);
 }
 
-function prevPage()
-{   emptyErrorList()
-    if (current_page > 1) {
-        current_page--;
-        showErrPage(current_page);
-    }
-    if(current_page == 1){
-        var btn_next = document.getElementById("btn_next");
-        var btn_prev = document.getElementById("btn_prev");
-        btn_prev.style.visibility = "hidden";
-    }
-}
-function nextPage()
-{        console.log(totNumPages())
-    emptyErrorList()
-    if (current_page < totNumPages()) {
-        current_page++;
-        //console.log(current_page)
-        showErrPage(current_page);
-    }
-    if(current_page == totNumPages()){
-        var btn_next = document.getElementById("btn_next");
-        var btn_prev = document.getElementById("btn_prev");
-        btn_next.style.visibility = "hidden";
-    }
-}
 
 function showErrPage(page){
     console.log(page)
@@ -846,17 +809,7 @@ function showErrPage(page){
         });
 
     }
-    //page_span.innerHTML = page;
-//    if (page == 1) {
-//        btn_next.style.visibility = "hidden";
-//    } else {
-//        btn_prev.style.visibility = "visible";
-//    }
-//    if (page == totNumPages()) {
-//        btn_next.style.visibility = "hidden";
-//    } else {
-//        btn_next.style.visibility = "visible";
-//    }
+
     if(Object.keys(errMap).length === 0){
         errors.innerHTML = `<div class="success-msg">
                               <h1>No error in your uploaded CSV file</h1>
