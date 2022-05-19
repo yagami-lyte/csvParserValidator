@@ -200,14 +200,15 @@ function showColFields(lines){
           style="display:flex;  background: transparent;width: 400px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:35%;padding: 1em;margin-bottom: 3em;border-left: 4px solid grey;border-top: 4px solid grey;border-bottom: 4px solid grey;border-right: 4px solid grey;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
            <h4 style= " text-transform: uppercase;"> ${field}</h4>
            </div>
+                     <p style="color:red; margin-left: -25%; font-size: 15px;"><span id="typeEmpty${field}" class="error"></span></p>
 
                      <div style="display:flex; ">
                          <div class="input-field col s4"
                                      style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right:13% ;margin-left:15.4%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
                             <label  style="border-radius: 150px;" for="type" class ="required-field">Type </label>
-                            <select  placeholder="Choose Type" data-cy="type" id="type${field}"
-                            onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');" required>
+                            <select placeholder="Choose Type" data-cy="type" id="type${field}"
+                            onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -221,11 +222,10 @@ function showColFields(lines){
                             </select>
                          </div>
 
-                         
                      <div  id = "dateTimeDiv${field}" class="input-field  col s4" 
                                         style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 13% ;margin-left:10%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-    <label for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
+    <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
                                                 
     <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
          <option value="">Choose Date Time format</option>
@@ -255,7 +255,7 @@ function showColFields(lines){
                          <div id = "dateDiv${field}" class="input-field  col s4"
                                                 style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 2% ;margin-left:6%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
                                                 
-                            <label for="date" id="dateFormats${field}" style='display:none;'>Date Format</label>
+                            <label class ="required-field"  for="date" id="dateFormats${field}" style='display:none;'>Date Format</label>
                             <select placeholder="Choose date format"  name="date" id='date${field}' style='display:none;'>
                                  <option value="">"Choose Date Format"</option>
                                  <option value="MM-dd-yyyy">MM-DD-YYYY</option>
@@ -272,10 +272,10 @@ function showColFields(lines){
                          </div>
 
 
-                     <div id = "timeDiv${field}" class="input-field  col s4" 
+                     <div id = "timeDiv${field}" class="input-field  col s4"
                       style="display:none;border-radius: 7px;  background: transparent;width: 300px; height: 30px;margin-right: 3% ;margin-left:6%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-                       <label for="time" style='display:none;' id="timeFormats${field}">Time Format</label>
+                       <label class ="required-field"  for="time" style='display:none;' id="timeFormats${field}">Time Format</label>
                            <select  placeholder="Choose time format"  name="time" id='time${field}' style='display:none;'>
                                 <option value="">Choose Time Format</option>
                                 <option value="hh:mm:ss">HH:MM:SS</option>
@@ -377,6 +377,19 @@ function showColFields(lines){
                       <br>
                  `
         document.getElementById("myform").appendChild(row)
+    }
+}
+
+function typeMandatory() {
+    for (var i = 1, j = 0; i <= fieldCount; i++,j++){
+         var typeField = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
+         if (typeField.value == ""){
+             document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="Please select a type";
+             document.getElementById("fields-empty").innerHTML = "You have left mandatory fields empty!"
+         }
+         else {
+                document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="";
+         }
     }
 }
 
@@ -596,6 +609,9 @@ async function sendConfigData(){
 }
 
 async function displayErrors(){
+
+   if (typeMandatory() == true) {
+
     document.getElementById("config_name_validation").style.display = 'none';
     if(validateConfigName()){
         loadingEffect()
@@ -616,6 +632,8 @@ async function displayErrors(){
         payload = []
         configName = []
     }
+    }
+    else typeMandatory()
 }
 
 function traverse(object){

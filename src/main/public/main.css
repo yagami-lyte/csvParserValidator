@@ -166,7 +166,7 @@ p{
     font-weight: bold;
     font-family: 'Ubuntu', sans-serif;
     transition: all 0.2s ease-in-out;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);}
+}
 
 button {
     background-color: black;
@@ -601,3 +601,4 @@ textarea {
   color: #fff;
   background: #000;
 }
+
