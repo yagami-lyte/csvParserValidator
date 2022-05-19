@@ -98,15 +98,29 @@ internal class DatabaseOperationsTest {
     @Test
     fun shouldBeAbleToAddTheDateTimeFieldsInTheDatabase() {
         val databaseOperations = DatabaseOperations(TestConnector())
-        val configName = "configuration"
+        val configurationName = "testConfigurationForDateTimeFormat"
         val jsonData = createJsonTemplateWithDateTimeFormats()
+        databaseOperations.saveNewConfigurationInDatabase(configurationName)
+        jsonData.forEach {
+            databaseOperations.writeConfiguration(configurationName,it)
+        }
+
+        val actualResponse = databaseOperations.isConfigPresentInDatabase(configurationName)
+
+        assertTrue(actualResponse)
+    }
+
+    @Test
+    fun shouldBeAbleToAddTheLengthFieldInTheDatabase() {
+        val databaseOperations = DatabaseOperations(TestConnector())
+        val configName = "testConfigurationWithLengthFields"
+        val jsonData = createJsonTemplateWithLengthField()
         databaseOperations.saveNewConfigurationInDatabase(configName)
         jsonData.forEach {
             databaseOperations.writeConfiguration(configName,it)
         }
-        val fieldName = "operation"
 
-        val actualResponse = databaseOperations.isFieldPresentInTheDatabase(fieldName)
+        val actualResponse = databaseOperations.isConfigPresentInDatabase(configName)
 
         assertTrue(actualResponse)
     }
@@ -120,6 +134,12 @@ internal class DatabaseOperationsTest {
     private fun createJsonTemplateWithDateTimeFormats(): Array<ConfigurationTemplate> {
         val metaData =
             """[{"configName":"configuration","datetime":"MMMM dd, yy","date":"","time":"","nullValue":"Not Allowed","fieldName":"operation","type":"Date Time","length":"","dependentOn":"","dependentValue":""},{"configName":"","datetime":"","date":"","time":"","nullValue":"Not Allowed","fieldName":"requestedAt","type":"Alphabets","length":"","dependentOn":"","dependentValue":""}]"""
+        return Gson().fromJson(metaData, Array<ConfigurationTemplate>::class.java)
+    }
+
+    private fun createJsonTemplateWithLengthField(): Array<ConfigurationTemplate> {
+        val metaData =
+            """[{"configName":"testConfigurationWithLengthFields","datetime":"","date":"","time":"","nullValue":"Not Allowed","fieldName":"Requested At","type":"Alphabets","length":"12","dependentOn":"","dependentValue":""},{"configName":"testConfigurationWithLengthFields","datetime":"","date":"","time":"","nullValue":"Not Allowed","fieldName":"requestedAt","type":"Special Characters","length":"5","dependentOn":"","dependentValue":""},{"configName":"testConfigurationWithLengthFields","datetime":"","date":"","time":"","nullValue":"Not Allowed","fieldName":"completedAt","type":"Alphabets","length":"12","dependentOn":"","dependentValue":""}]"""
         return Gson().fromJson(metaData, Array<ConfigurationTemplate>::class.java)
     }
 }
