@@ -1,18 +1,20 @@
-html {
-}
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
 
 td, th {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
-}
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
 }
 
-marquee{
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+marquee {
     font-size: 30px;
     font-weight: 800;
     color: #8ebf42;
@@ -20,78 +22,80 @@ marquee{
 }
 
 body {
-    background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6,#F0FFF0,#FFFAFA);
+    background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6, #F0FFF0, #FFFAFA);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
     min-height: 100vh;
 
 }
+
 @keyframes gradient {
     0% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
     50% {
         background-position: 100% 50%;
     }
     100% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
 }
+
 h1 {
-    color:#333333;
+    color: #333333;
     text-align: center;
-    font-size : 40px;
+    font-size: 40px;
     font-family: 'Ubuntu', sans-serif;
 }
 
 h2 {
     color: blue;
     text-align: center;
-    font-size : 25px;
+    font-size: 25px;
 }
 
-h3{
+h3 {
     color: black;
     text-align: center;
-    font-size : 25px;
+    font-size: 25px;
     height: 35px;
     font-family: 'Ubuntu', sans-serif;
-    margin-top : -1%;
+    margin-top: -1%;
 
 }
 
-h4{
+h4 {
     background: transparent;
     margin-bottom: 1em;
     color: black;
     font-size: 25px;
     font-weight: bold;
-    margin-top : 5%;
+    margin-top: 5%;
     font-family: 'Ubuntu', sans-serif;
     transition: all 0.2s ease-in-out;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 
 }
 
-h5{
-    color:#333333;
+h5 {
+    color: #333333;
     text-align: center;
     margin-top: 15%;
     margin-left: 3%;
-    font-size : 40px;
+    font-size: 40px;
     font-family: 'Ubuntu', sans-serif;
 
 }
 
-.logo{
+.logo {
     color: black;
     text-align: center;
-    font-size : 25px;
+    font-size: 25px;
     font-family: 'Ubuntu', sans-serif;
     margin-left: 39%;
 }
 
-#config{
+#config {
     border-radius: 10px;
     padding: 20px;
     width: 100%;
@@ -100,29 +104,29 @@ h5{
     margin-bottom: 2%;
 }
 
-#fields{
+#fields {
     padding: 10px;
     text-align: center;
     background-color: white;
-    margin-left:-30%;
-    margin-right:40%;
-    margin-top:-27%;
-    width:100%;
+    margin-left: -30%;
+    margin-right: 40%;
+    margin-top: -27%;
+    width: 100%;
 }
 
 
-#upload{
+#upload {
     margin-left: 20%;
 }
 
 
-#error_msgs_list{
+#error_msgs_list {
     font-family: 'Ubuntu', sans-serif;
     font-size: medium;
     background: grey;
 }
 
-#error-msgs{
+#error-msgs {
     width: 50%;
     border-radius: 3px;
     padding: 20px;
@@ -145,24 +149,22 @@ input[type=text], select {
     width: 120px;
     font-size: 14px;
     padding: 12px 20px;
-    margin: 8px 0;
     display: inline-block;
     border: 1px solid #696969;
     border-radius: 7px;
     box-sizing: border-box;
-    margin-left: 1%;
+    margin: 8px 0 8px 1%;
     height: 40px;
 }
 
 input[type=number], select {
     width: 195px;
     padding: 2px 2px 2px 2px;
-    margin: 7px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 7px;
     box-sizing: border-box;
-    margin-left: 4%;
+    margin: 7px 0 7px 4%;
 }
 
 label {
@@ -172,13 +174,13 @@ label {
     color: black;
     font-size: 20px;
     font-weight: bold;
-    margin-top : 5%;
+    margin-top: 5%;
     font-family: 'Ubuntu', sans-serif;
     transition: all 0.2s ease-in-out;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-p{
+p {
     color: #333333;
     font-size: 20px;
     font-weight: bold;
@@ -201,15 +203,15 @@ button {
     transition-duration: 0.4s;
 }
 
-.form-type{
+.form-type {
     justify-content: center;
 }
 
-#fileName{
-    width:300px;
+#fileName {
+    width: 300px;
 }
 
-#uploadCSV{
+#uploadCSV {
     background-color: #333333; /* Green */
     color: white;
     padding: 15px 32px;
@@ -218,17 +220,16 @@ button {
     display: inline-block;
     font-size: 20px;
     font-family: 'Ubuntu', sans-serif;
-    margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    margin-left:-25%;
+    margin: 4px 2px 4px -25%;
     border-color: black;
     box-sizing: border-box;
     height: 50px;
 }
 
-#view-errors{
+#view-errors {
     border: 1px solid #ccc;
     border-radius: 7px;
     background: #333333;
@@ -239,16 +240,14 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 25px;
-    margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    margin-left:46%;
-    margin-right:7%;
+    margin: 4px 7% 4px 46%;
 }
 
 button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
 
 input[type=submit] {
@@ -267,7 +266,7 @@ input[type=submit]:hover {
 }
 
 
-.header{
+.header {
     background-color: white;
     z-index: 10;
     position: fixed;
@@ -281,10 +280,8 @@ input[type=submit]:hover {
 }
 
 
-
 .upload {
-    padding: 0;
-    background-color:#8c8c8c; ;
+    background-color: #8c8c8c;;
     height: 10%;
     -webkit-border-radius: 30px;
     -webkit-background-clip: padding-box;
@@ -296,20 +293,20 @@ input[type=submit]:hover {
     margin-right: 20%;
     margin-left: -4%;
     color: white;
-    font: bold;
     cursor: pointer;
     font-weight: 800;
     font-family: 'Ubuntu', sans-serif;
 }
-.card{
+
+.card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 16px;
     text-align: center;
     background-color: white;
-    border-left:4px solid grey;
-    border-right:4px solid grey;
-    border-top:4px solid grey;
-    border-bottom:4px solid grey;
+    border-left: 4px solid grey;
+    border-right: 4px solid grey;
+    border-top: 4px solid grey;
+    border-bottom: 4px solid grey;
 }
 
 .column {
@@ -317,20 +314,17 @@ input[type=submit]:hover {
     padding: 0 10px;
 }
 
-/* Remove extra left and right margins, due to padding */
 .row {
     margin-left: 34%;
     margin-top: 20%;
 }
 
-/* Clear floats after the columns */
 .row:after {
     content: "";
     display: table;
     clear: both;
 }
 
-/* Responsive columns */
 @media screen and (max-width: 600px) {
     .column {
         width: 100%;
@@ -339,10 +333,10 @@ input[type=submit]:hover {
     }
 }
 
-.card-panel{
+.card-panel {
     font-family: 'Ubuntu', sans-serif;
     border-radius: 20px;
-    margin-left:-60%;
+    margin-left: -60%;
     padding: 40px;
     margin-top: -20%;
     width: 1000px;
@@ -350,19 +344,15 @@ input[type=submit]:hover {
     overflow: hidden;
     opacity: 80%;
     background: #FFFFF0;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
-
 .success-msg {
-    margin: 10px 0;
     padding: 10px;
     box-sizing: border-box;
-    border: 3px solid #969696;
-    border-color: black;
+    border: 3px solid black;
     color: black;
-    margin-left: 2%;
+    margin: 10px 0 10px 2%;
 }
 
 .switch {
@@ -370,15 +360,15 @@ input[type=submit]:hover {
     display: inline-block;
     width: 20px;
     height: 30px;
-    margin-top:5%;
-    margin-right:4%;
-    margin-left:-12%;
+    margin-top: 5%;
+    margin-right: 4%;
+    margin-left: -12%;
 
 }
 
 .switch input {
     opacity: 0;
-    width: 4;
+    width: 4%;
     height: 0;
 }
 
@@ -393,8 +383,8 @@ input[type=submit]:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    width:300%;
-    margin-left:-260%;
+    width: 300%;
+    margin-left: -260%;
     background-color: #ccc;
     -webkit-transition: .4s;
     transition: .4s;
@@ -403,7 +393,7 @@ input[type=submit]:hover {
 .slider:before {
     position: absolute;
     content: "";
-    font-size:16px;
+    font-size: 16px;
     height: 26px;
     width: 26px;
     left: 4px;
@@ -427,7 +417,6 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
     border-radius: 24px;
 }
@@ -436,28 +425,25 @@ input:checked + .slider:before {
     border-radius: 50%;
 }
 
-/* The popup form - hidden by default */
-.form-popup  {
-    width:50%;
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+.form-popup {
+    width: 50%;
+    display: none;
+    position: fixed;
+    z-index: 1;
     left: 0;
     top: 0;
-    height: 30%; /* Full height */
-    overflow-block: auto; /* Enable scroll if needed */
+    height: 30%;
+    overflow-block: auto;
     margin-top: 10%;
-    margin-left : 25%;
+    margin-left: 25%;
     opacity: 1;
 }
 
-/* Add styles to the form container */
 .form-container {
     padding: 10px;
     background-color: white;
 }
 
-/* Full-width input fields */
 .form-container input[type=text]:focus, .form-container input[type=password] {
     width: 100%;
     padding: 15px;
@@ -465,29 +451,26 @@ input:checked + .slider:before {
     background: #f1f1f1;
 }
 
-/* When the inputs get focus, do something */
 .form-container input[type=text]:focus, .form-container input[type=password]:focus {
     background-color: #ddd;
     outline: none;
 }
 
-/* Set a style for the submit/login button */
 .form-container .btn {
     background-color: #04AA6D;
     color: white;
     border: none;
     cursor: pointer;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     opacity: 0.8;
     border-radius: 10px;
     margin-left: 8px;
 }
 
-/* Add a red background color to the cancel button */
 .form-container .cancel {
     background-color: red;
 }
-/* Add some hover effects to buttons */
+
 .form-container .btn:hover, .open-button:hover {
     opacity: 1;
 }
@@ -495,11 +478,10 @@ input:checked + .slider:before {
 textarea {
     overflow-y: scroll;
     height: 150px;
-    resize: none; /* Remove this if you want the user to resize the textarea */
+    resize: none;
     width: 50%;
     padding: 15px;
-    margin: 5px 0 22px 0;
-    margin-left: 8px;
+    margin: 5px 0 22px 8px;
     border: none;
     background: #f1f1f1;
     border-radius: 10px;
@@ -507,21 +489,20 @@ textarea {
 }
 
 #list {
-    font-family: "Bodoni";
+    font-family: "Bodoni", serif;
     font-size: 20px;
 }
 
-#outer
-{
-    width:100%;
+#outer {
+    width: 100%;
 }
-.inner
-{
+
+.inner {
     display: inline-block;
 }
 
 
-.button-control a{
+.button-control a {
     border: 1px solid #ccc;
     border-radius: 7px;
     background: #333333;
@@ -532,97 +513,93 @@ textarea {
     font-size: 25px;
     margin: 4px 2px;
     cursor: pointer;
-    -webkit-transition-duration: 0.4s; /* Safarif */
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     display: inline-block;
     visibility: hidden;
     justify-content: space-between;
 }
 
-.button-control{
+.button-control {
     text-align: center;
 }
 
 
 #button-load {
-    color: black; /* White text */
-    padding: 12px 24px; /* Some padding */
-    font-size: 36px; /* Set a font-size */
+    color: black;
+    padding: 12px 24px;
+    font-size: 36px;
     text-align: center;
-    margin-left:48%;
-    margin-top:3%;
-    visibility:hidden;
-    radius:24px;
+    margin-left: 48%;
+    margin-top: 3%;
+    visibility: hidden;
+    radius: 24px;
 }
 
 .required-field::before {
     content: "*";
     color: red;
-    margin-right:-120%;
+    margin-right: -120%;
 }
 
-
-
-/*Pagination */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
-
-.pagination ul{
-  width: 100%;
-  align-items: center;
+.pagination ul {
+    width: 100%;
+    align-items: center;
     justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 8px;
-  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
 }
-.pagination ul li{
- /* color: #20B2AA; */
-  list-style: none;
-  line-height: 45px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  user-select: none;
-  margin: 0 10px 0 10px
-  transition: all 0.3s ease;
+
+.pagination ul li {
+    list-style: none;
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
+    margin: 0 10px 0 10px;
+    transition: all 0.3s ease;
 }
-.pagination ul li.numb{
-  list-style: none;
-  height: 45px;
-  width: 60px;
-  margin: 0 3px;
-  line-height: 45px;
-  border-radius: 50%;
+
+.pagination ul li.numb {
+    list-style: none;
+    height: 45px;
+    width: 60px;
+    margin: 0 3px;
+    line-height: 45px;
+    border-radius: 50%;
 }
-.pagination ul li.numb.first{
-  margin: 0px 3px 0 -5px;
+
+.pagination ul li.numb.first {
+    margin: 0 3px 0 -5px;
 }
-.pagination ul li.numb.last{
-  margin: 0px -5px 0 3px;
+
+.pagination ul li.numb.last {
+    margin: 0 -5px 0 3px;
 }
-.pagination ul li.dots{
-  font-size: 22px;
-  cursor: default;
+
+.pagination ul li.dots {
+    font-size: 22px;
+    cursor: default;
 }
-.pagination ul li.btn{
-  padding: 0 20px;
-  border-radius: 50px;
+
+.pagination ul li.btn {
+    padding: 0 20px;
+    border-radius: 50px;
 }
+
 .pagination li.active,
 .pagination ul li.numb:hover,
 .pagination ul li:first-child:hover,
-.pagination ul li:last-child:hover{
-  color: #fff;
-  background: #000;
+.pagination ul li:last-child:hover {
+    color: #fff;
+    background: #000;
 }
 
-/*Loading*/
-
-
-.loader  {
+.loader {
     animation: rotate 1s infinite;
     height: 50px;
     width: 50px;
@@ -636,12 +613,14 @@ textarea {
     height: 20px;
     width: 20px;
 }
+
 .loader:before {
     animation: ball1 1s infinite;
     background-color: #cb2025;
     box-shadow: 30px 0 0 #f8b334;
     margin-bottom: 10px;
 }
+
 .loader:after {
     animation: ball2 1s infinite;
     background-color: #00a096;
@@ -670,7 +649,7 @@ textarea {
     50% {
         box-shadow: 0 0 0 #f8b334;
         margin-bottom: 0;
-        -webkit-transform: translate(15px,15px);
+        -webkit-transform: translate(15px, 15px);
         -moz-transform: translate(15px, 15px);
     }
     100% {
@@ -686,7 +665,7 @@ textarea {
     50% {
         box-shadow: 0 0 0 #97bf0d;
         margin-top: -20px;
-        -webkit-transform: translate(15px,15px);
+        -webkit-transform: translate(15px, 15px);
         -moz-transform: translate(15px, 15px);
     }
     100% {
