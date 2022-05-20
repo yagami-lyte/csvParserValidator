@@ -20,7 +20,7 @@ internal class ValueValidationTest {
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Country Name" to mutableListOf(1)
+            "Country Name" to mutableListOf(2)
         )
 
         val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
@@ -37,7 +37,7 @@ internal class ValueValidationTest {
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"CHI"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Country Name" to mutableListOf(1,2)
+            "Country Name" to mutableListOf(2,3)
         )
 
         val actual = valueValidation.validate(jsonCsvData, postRouteHandler.fieldArray)

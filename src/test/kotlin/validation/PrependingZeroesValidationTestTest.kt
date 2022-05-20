@@ -21,7 +21,7 @@ internal class PrependingZeroesValidationTest {
         val csvData = """[{"Export Number":"0034","Country Name":""},{"Export Number":"12","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Export Number" to mutableListOf(1)
+            "Export Number" to mutableListOf(2)
         )
 
         val actual = prependingZeroesValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
@@ -39,7 +39,7 @@ internal class PrependingZeroesValidationTest {
         val csvData = """[{"Export Number":"0034","Country Name":""},{"Export Number":"012","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Export Number" to mutableListOf(1)
+            "Export Number" to mutableListOf(2)
         )
 
         val actual = prependingZeroesValidation.validate(jsonCsvData, postRouteHandler.fieldArray)

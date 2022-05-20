@@ -21,7 +21,7 @@ internal class DependencyValidationTest {
         val csvData = """[{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Country Name" to mutableListOf(1)
+            "Country Name" to mutableListOf(2)
         )
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
 
@@ -40,7 +40,7 @@ internal class DependencyValidationTest {
         val jsonCsvData = JSONArray(csvData)
         val dependencyValidation = DependencyValidation()
         val expected = mutableMapOf(
-            "Country Name" to mutableListOf(1,2)
+            "Country Name" to mutableListOf(2,3)
         )
 
         val actual = dependencyValidation.validate(jsonCsvData, postRouteHandler.fieldArray)

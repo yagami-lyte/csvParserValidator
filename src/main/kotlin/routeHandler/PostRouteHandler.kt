@@ -117,6 +117,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         prependingZeroesChecks: MutableMap<String, MutableList<String>>,
     ): String {
 
+        println("lengthValidation $lengthValidation")
         val errors = JSONArray()
         fieldArray.forEach {
             val mapOfErrors = mutableMapOf<String,List<String>>()

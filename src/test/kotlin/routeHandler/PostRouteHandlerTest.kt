@@ -28,7 +28,7 @@ internal class PostRouteHandlerTest {
         val mockSocket = createMockSocket(csvData)
         val inputStream = getInputStream(mockSocket)
         val response = postRouteHandler.handlePostRequest(request , inputStream)
-        val expectedResponse = """[{"Export":{"Duplicate Errors":[]}},{"Country Name":{"Length Errors":[1,2],"Value Errors":[1,2],"Duplicate Errors":[]}}]"""
+        val expectedResponse = """[{"Export":{"Duplicate Errors":[]}},{"Country Name":{"Length Errors":["2-3"],"Value Errors":["2-3"],"Duplicate Errors":[]}}]"""
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]
 

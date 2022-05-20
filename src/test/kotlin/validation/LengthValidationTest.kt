@@ -21,7 +21,7 @@ internal class LengthValidationTest {
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Country Name" to mutableListOf(1)
+            "Country Name" to mutableListOf(2)
         )
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
@@ -40,7 +40,7 @@ internal class LengthValidationTest {
             """[{"Export":"Y","Country Name":""},{"Export":"Y","Country Name":""},{"Export":"N","Country Name":"USA"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Export" to mutableListOf(1,2,3)
+            "Export" to mutableListOf(2,3,4)
         )
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
