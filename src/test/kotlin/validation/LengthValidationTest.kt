@@ -44,6 +44,7 @@ internal class LengthValidationTest {
         )
 
         val actual = lengthValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
+        println(actual.toString())
 
         assertEquals(expected.toString(), actual.toString())
     }
