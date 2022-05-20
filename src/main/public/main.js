@@ -660,6 +660,8 @@ function traverse(object){
     if(errorBase.innerHTML === ''){
         createSuccessErrMsg(errorBase)
     }
+
+
     //emptyErrorList()
     //showErrPage(1)
     //createPagination(totNumPages(), 1)
@@ -715,11 +717,76 @@ function createDivElement(key , value){
         errorBase.appendChild(row)
         for(i in value){
             console.log(value[i].length)
+            if(i === 'Duplicate Errors' && value[i].length != 0 && document.getElementById("Duplicate Errors error") === null){
+                createDuplicationErrMsg(value[i],i)
+            }
             console.log(i)
-            if(value[i].length != 0){
+            if(value[i].length != 0 && i !== 'Duplicate Errors'){
                 createTableOfErrors(value[i],key,i)
             }
         }
+}
+
+function createDuplicationErrMsg(value,key){
+
+    let errorBase = document.getElementById("error-msgs");
+        let row = document.createElement("div");
+        row.setAttribute("id", key+" error")
+                    row.innerHTML = `
+                    <div style="display:flex; flex-direction: row;padding:20px;">
+                      <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+                      <p style="margin:auto;">${key}
+                      <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
+                      <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
+                      </svg>
+                      </p>
+                      </div>
+                  </div>
+                  <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;
+                  font-weight:200;
+                  background: white;
+                  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+                  border-radius: 3px;
+                  padding:50px;
+                  text-align:left;
+                  color:black;
+                  display:none;
+                  "
+                  id="${key}"></div>
+              </div>
+            `;
+
+            errorBase.appendChild(row)
+            let p = document.createElement("p")
+                p.setAttribute("id", "error")
+                p.style.marginTop="0px"
+                p.innerHTML = `<b style="font-weight: 900;">${key} present in rows:</b><br/><br/>`
+                let table=document.createElement("table")
+                console.log(table)
+                let i=0;
+                console.log("size",value.length)
+                let firstRow = document.createElement("tr");
+                let firstHeading = document.createElement("td")
+                let secondHeading = document.createElement("td")
+                firstHeading.innerHTML = "Row Number "
+                secondHeading.innerHTML = "Copied From Row Number"
+                firstRow.appendChild(firstHeading);
+                firstRow.appendChild(secondHeading);
+                table.appendChild(firstRow)
+                 while(i<value.length){
+                        let newRow = document.createElement("tr");
+                        let td_1 = document.createElement("td")
+                        let td_2 = document.createElement("td")
+                        td_1.innerHTML = value[i]
+                        td_2.innerHTML = value[i+1]
+                        newRow.appendChild(td_1);
+                        newRow.appendChild(td_2);
+                        table.appendChild(newRow)
+                        i = i+2;
+                 }
+                 p.appendChild(table)
+                 let parent = document.getElementById(`${key}`)
+                 parent.appendChild(p)
 }
 
 function createTableOfErrors(value,key,type){
