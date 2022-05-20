@@ -82,7 +82,7 @@ class TypeValidation : Validation {
             if(mapOfTypeErrors[field.fieldName] == null) {
                 mapOfTypeErrors[field.fieldName] = mutableListOf()
             }
-            mapOfTypeErrors[field.fieldName]?.add((index+1).toString())
+            mapOfTypeErrors[field.fieldName]?.add((index+2).toString())
         }
     }
 

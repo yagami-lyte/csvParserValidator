@@ -56,7 +56,7 @@ class DependencyValidation : Validation {
             if(mapOfDependencyErrors[field.fieldName] == null) {
                 mapOfDependencyErrors[field.fieldName] = mutableListOf()
             }
-            mapOfDependencyErrors[field.fieldName]?.add((index+1).toString())
+            mapOfDependencyErrors[field.fieldName]?.add((index+2).toString())
         }
     }
 }

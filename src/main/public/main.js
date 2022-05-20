@@ -735,7 +735,7 @@ function createTableOfErrors(value,key,type){
          let newRow=document.createElement("tr");
          while(j<i+5 && j<value.length){
              let td=document.createElement("td")
-             td.innerHTML = value[j]+1
+             td.innerHTML = value[j]
              newRow.appendChild(td);
              j++;
          }

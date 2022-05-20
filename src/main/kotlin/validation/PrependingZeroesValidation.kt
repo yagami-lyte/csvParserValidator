@@ -25,7 +25,7 @@ class PrependingZeroesValidation:Validation {
                     if (mapOfPrePendingErrors[field.fieldName] == null) {
                         mapOfPrePendingErrors[field.fieldName] = mutableListOf()
                     }
-                    mapOfPrePendingErrors[field.fieldName]?.add((index + 1).toString())
+                    mapOfPrePendingErrors[field.fieldName]?.add((index + 2).toString())
                     return mapOfPrePendingErrors
                 }
             }

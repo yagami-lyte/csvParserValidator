@@ -78,7 +78,7 @@ class LengthValidation : Validation {
         if (mapOfLengthErrors[field.fieldName] == null) {
             mapOfLengthErrors[field.fieldName] = mutableListOf()
         }
-        mapOfLengthErrors[field.fieldName]?.add((index + 1).toString())
+        mapOfLengthErrors[field.fieldName]?.add((index + 2).toString())
         return mapOfLengthErrors
     }
 }

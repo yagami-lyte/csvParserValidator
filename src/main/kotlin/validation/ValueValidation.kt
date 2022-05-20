@@ -69,7 +69,7 @@ class ValueValidation : Validation {
         if (mapOfValueErrors[field.fieldName] == null) {
             mapOfValueErrors[field.fieldName] = mutableListOf()
         }
-        mapOfValueErrors[field.fieldName]?.add((index + 1).toString())
+        mapOfValueErrors[field.fieldName]?.add((index + 2).toString())
         return mapOfValueErrors
 
     }

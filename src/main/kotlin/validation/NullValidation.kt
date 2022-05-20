@@ -63,7 +63,7 @@ class NullValidation : Validation {
                 mapOfNullErrors[field.fieldName] = mutableListOf()
             }
             if(!mapOfNullErrors[field.fieldName]!!.contains((index+1).toString())) {
-                mapOfNullErrors[field.fieldName]?.add((index+1).toString())
+                mapOfNullErrors[field.fieldName]?.add((index+2).toString())
             }
         }
     }
