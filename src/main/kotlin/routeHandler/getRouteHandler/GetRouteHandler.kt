@@ -1,8 +1,10 @@
-package routeHandler
+package routeHandler.getRouteHandler
 
 import database.Connector
 import database.DatabaseOperations
 import org.json.JSONObject
+import routeHandler.ResponseHeader
+import routeHandler.StatusCodes
 import java.io.File
 
 class GetRouteHandler {

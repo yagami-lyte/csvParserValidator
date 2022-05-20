@@ -3,6 +3,7 @@ package routeHandler
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
+import routeHandler.getRouteHandler.GetRouteHandler
 
 class GetRouteHandlerTest {
 
