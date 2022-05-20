@@ -1,33 +1,25 @@
+.macos_saas_runners:
+  tags:
+    - shared-macos-amd64
+  image: macos-11-xcode-12
+
 stages:
   - build
   - test
 
+before_script:
+  - echo "started by ${GITLAB_USER_NAME}"
+
 build:
+  extends:
+    - .macos_saas_runners
   stage: build
-  image: gradle:jdk11
   script:
-    - gradle --no-daemon build
-  artifacts:
-    paths:
-      - build/distributions
-    expire_in: 1 day
-    when: always
+    - echo "running scripts in the build job"
 
-junit-test:
+test:
+  extends:
+    - .macos_saas_runners
   stage: test
-  image: gradle:jdk11
-  dependencies: []
   script:
-    - gradle test
-  timeout: 5m
-
-cypress-test:
-  stage: test
-  image: registry.gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan:latestSrigin
-  dependencies:
-    - build
-  script:
-    - unzip -q build/distributions/csv-parser-srijan-1.0-SNAPSHOT.zip -d build/distributions
-    - sh build/distributions/csv-parser-srijan-1.0-SNAPSHOT/bin/csv-parser-srijan &
-    - npm ci
-    - npx cypress run --browser chrome
+    - echo "running scripts in the test job"
