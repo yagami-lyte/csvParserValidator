@@ -12,6 +12,12 @@ table {
   width: 100%;
 }
 
+marquee{
+    font-size: 30px;
+    font-weight: 800;
+    color: #8ebf42;
+    font-family: sans-serif;
+}
 
 body {
     background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6,#F0FFF0,#FFFAFA);
