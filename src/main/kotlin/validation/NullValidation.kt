@@ -9,14 +9,14 @@ class NullValidation : Validation {
     private val mapOfNullErrors = mutableMapOf<String , MutableList<String>>()
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
-        val nullErrors = JSONArray()
+
         mapOfNullErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 val isNullAllowed = validateNullInEachRow(field, value)
-                getErrorMessages(isNullAllowed, index, field, nullErrors)
+                getErrorMessages(isNullAllowed, index, field)
             }
         }
         return mapOfNullErrors
@@ -55,8 +55,7 @@ class NullValidation : Validation {
     private fun getErrorMessages(
         isNullAllowed: Boolean,
         index: Int,
-        field: ConfigurationTemplate,
-        nullErrors: JSONArray,
+        field: ConfigurationTemplate
     ) {
         if (!isNullAllowed) {
             if(mapOfNullErrors[field.fieldName] == null) {
