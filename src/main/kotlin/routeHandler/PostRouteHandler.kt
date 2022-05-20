@@ -179,26 +179,26 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
 
     private fun convertToRanges(listOfErrorLines: MutableList<String>): MutableList<String> {
 
-        var i = 0
-        var j = 0
+        var index1 = 0
+        var index2 = 0
         val listOfRangeErrors = mutableListOf<String>()
         val lineErrorsList = listOfErrorLines.map(String::toInt)
         val errorListSize = listOfErrorLines.size
-        while (i < errorListSize) {
+        while (index1 < errorListSize) {
 
-            j = i
+            index2 = index1
 
-            while (j + 1 < errorListSize && lineErrorsList[j + 1] === lineErrorsList[j] + 1) {
-                j++
+            while (index2 + 1 < errorListSize && lineErrorsList[index2 + 1] === lineErrorsList[index2] + 1) {
+                index2++
             }
-            if (i == j) {
-                val singleErrorLine = lineErrorsList[i]
+            if (index1 == index2) {
+                val singleErrorLine = lineErrorsList[index1]
                 listOfRangeErrors.add(singleErrorLine.toString())
-                i++
+                index1++
             } else {
-                val errorLinesInRange = "${lineErrorsList[i]}-${lineErrorsList[j]}"
+                val errorLinesInRange = "${lineErrorsList[index1]}-${lineErrorsList[index2]}"
                 listOfRangeErrors.add(errorLinesInRange)
-                i = j + 1
+                index1 = index2 + 1
             }
         }
         return listOfRangeErrors
