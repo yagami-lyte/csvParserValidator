@@ -1,6 +1,12 @@
 stages:
   - build
   - test
+
+build docker:
+  stage: build
+  script:
+    - docker run -d --name gitlab-runner --restart always
+
 build:
   stage: build
   image: gradle:jdk11
@@ -11,6 +17,7 @@ build:
       - build/distributions
     expire_in: 1 day
     when: always
+
 
 junit-test:
   stage: test
