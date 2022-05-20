@@ -20,7 +20,7 @@ class TypeValidation : Validation {
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 val isLengthValid = validateTypeInEachRow(field, value)
-                getErrorMessages(isLengthValid, index, field, typeErrors)
+                getErrorMessages(isLengthValid, index, field)
             }
         }
         return mapOfTypeErrors
@@ -74,8 +74,7 @@ class TypeValidation : Validation {
     private fun getErrorMessages(
         isLengthValid: Boolean,
         index: Int,
-        field: ConfigurationTemplate,
-        typeErrors: JSONArray,
+        field: ConfigurationTemplate
     ) {
         if (!isLengthValid) {
 

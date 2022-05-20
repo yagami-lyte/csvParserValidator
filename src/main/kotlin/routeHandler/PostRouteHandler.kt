@@ -101,14 +101,13 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val nullChecks = nullValidation.validate(jsonBody,fieldArray)
         val prependingZeroesChecks = prependingZeroesValidation.validate(jsonBody,fieldArray)
         val responseBody = prepareErrorResponse(lengthValidation,typeValidation,valueValidation,duplicates,dependencyChecks,nullChecks,prependingZeroesChecks)
-//        val responseBody = getResponse(response)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
                 |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
     }
 
-    fun prepareErrorResponse(
+    private fun prepareErrorResponse(
         lengthValidation: MutableMap<String, MutableList<String>>,
         typeValidation: MutableMap<String, MutableList<String>>,
         valueValidation: MutableMap<String, MutableList<String>>,
