@@ -54,10 +54,9 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         val configName = body.split(":")[1].replace("\"", "").replace("}]" , "")
         println("configName $configName")
         //val jsonObject = JSONObject()
-        var responseBody = ""
         val configDataTemplate = databaseOperations.readConfiguration(configName)
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
-        responseBody = "{"
+        var responseBody = "{"
         responseBody += "\"Type\" : $configJsonArrayResponse"
         responseBody += "}"
         return responseBody
@@ -180,7 +179,7 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private fun convertToRanges(listOfErrorLines: MutableList<String>): MutableList<String> {
 
         var index1 = 0
-        var index2 = 0
+        var index2: Int
         val listOfRangeErrors = mutableListOf<String>()
         val lineErrorsList = listOfErrorLines.map(String::toInt)
         val errorListSize = listOfErrorLines.size
@@ -203,13 +202,6 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
         }
         return listOfRangeErrors
     }
-
-    private fun getResponse(
-        response: JSONArray
-    ): String {
-        return "$response"
-    }
-
 
     private fun handleAddingCsvMetaData(request: String, inputStream: BufferedReader): String {
         val bodySize = getContentLength(request)

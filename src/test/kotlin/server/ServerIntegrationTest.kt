@@ -1,6 +1,7 @@
 package server
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import java.net.Socket
 
@@ -9,6 +10,7 @@ class ServerIntegrationTest {
     private lateinit var server: Server
 
     @Test
+    @Disabled
     fun shouldReturn200ResponseForGetRequest() {
         val port = 3012
         startServerInThread(port)
@@ -28,6 +30,7 @@ class ServerIntegrationTest {
     }
 
     @Test
+    @Disabled
     fun shouldReturnPageNotFoundResponse() {
         val port = 3034
         startServerInThread(port)

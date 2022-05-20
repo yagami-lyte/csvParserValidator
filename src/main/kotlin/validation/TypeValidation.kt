@@ -13,7 +13,6 @@ class TypeValidation : Validation {
     private val mapOfTypeErrors = mutableMapOf<String , MutableList<String>>()
 
     override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
-        val typeErrors = JSONArray()
         mapOfTypeErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)

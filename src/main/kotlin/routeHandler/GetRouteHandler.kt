@@ -34,10 +34,9 @@ class GetRouteHandler {
 
     private fun getConfigResponse() :String{
         val databaseOperations = DatabaseOperations(Connector())
-        var responseBody = ""
         val configFiles = databaseOperations.getConfigNames()
         val configJsonArrayResponse = prepareJsonResponse(configFiles)
-        responseBody = "{"
+        var responseBody = "{"
             responseBody += "\"configFiles\" : $configJsonArrayResponse"
         responseBody += "}"
         println("responsecofig : $responseBody")
