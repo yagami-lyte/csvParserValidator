@@ -6,9 +6,9 @@ import org.json.JSONObject
 
 class PrependingZeroesValidation:Validation {
 
-    private val mapOfPrePendingErrors = mutableMapOf<String , MutableList<Int>>()
+    private val mapOfPrePendingErrors = mutableMapOf<String , MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
 
         mapOfPrePendingErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -25,7 +25,7 @@ class PrependingZeroesValidation:Validation {
                     if (mapOfPrePendingErrors[field.fieldName] == null) {
                         mapOfPrePendingErrors[field.fieldName] = mutableListOf()
                     }
-                    mapOfPrePendingErrors[field.fieldName]?.add(index + 1)
+                    mapOfPrePendingErrors[field.fieldName]?.add((index + 1).toString())
                     return mapOfPrePendingErrors
                 }
             }

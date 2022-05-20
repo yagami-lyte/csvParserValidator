@@ -6,9 +6,9 @@ import org.json.JSONObject
 
 class NullValidation : Validation {
 
-    private val mapOfNullErrors = mutableMapOf<String , MutableList<Int>>()
+    private val mapOfNullErrors = mutableMapOf<String , MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
         val nullErrors = JSONArray()
         mapOfNullErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -62,8 +62,8 @@ class NullValidation : Validation {
             if(mapOfNullErrors[field.fieldName] == null) {
                 mapOfNullErrors[field.fieldName] = mutableListOf()
             }
-            if(!mapOfNullErrors[field.fieldName]!!.contains(index+1)) {
-                mapOfNullErrors[field.fieldName]?.add(index+1)
+            if(!mapOfNullErrors[field.fieldName]!!.contains((index+1).toString())) {
+                mapOfNullErrors[field.fieldName]?.add((index+1).toString())
             }
         }
     }

@@ -10,9 +10,9 @@ import java.text.SimpleDateFormat
 
 class TypeValidation : Validation {
 
-    private val mapOfTypeErrors = mutableMapOf<String , MutableList<Int>>()
+    private val mapOfTypeErrors = mutableMapOf<String , MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<Int>> {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
         val typeErrors = JSONArray()
         mapOfTypeErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -82,7 +82,7 @@ class TypeValidation : Validation {
             if(mapOfTypeErrors[field.fieldName] == null) {
                 mapOfTypeErrors[field.fieldName] = mutableListOf()
             }
-            mapOfTypeErrors[field.fieldName]?.add(index+1)
+            mapOfTypeErrors[field.fieldName]?.add((index+1).toString())
         }
     }
 

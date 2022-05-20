@@ -71,7 +71,7 @@ internal class PostRouteHandlerTest {
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
-        val response = postRouteHandler.prepareErrorResponse(mutableMapOf("Export" to mutableListOf(1,2,3)),mutableMapOf("Country Name" to mutableListOf(1,2,3)),mutableMapOf("Export" to mutableListOf(1,2,3)),mutableMapOf("2" to mutableListOf(1)),mutableMapOf("Export" to mutableListOf(1,2,3)),mutableMapOf("Export" to mutableListOf(1,2,3)),mutableMapOf("Export" to mutableListOf(1,2,3)))
+        val response = postRouteHandler.prepareErrorResponse(mutableMapOf("Export" to mutableListOf("1","2","3")),mutableMapOf("Country Name" to mutableListOf("1","2","3")),mutableMapOf("Export" to mutableListOf("1","2","3")),mutableMapOf("2" to mutableListOf("1")),mutableMapOf("Export" to mutableListOf("1","2","3")),mutableMapOf("Export" to mutableListOf("1","2","3")),mutableMapOf("Export" to mutableListOf("1","2","3")))
         println(response)
     }
 }

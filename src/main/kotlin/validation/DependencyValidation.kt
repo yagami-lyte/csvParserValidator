@@ -6,9 +6,9 @@ import org.json.JSONObject
 
 class DependencyValidation : Validation {
 
-    private val mapOfDependencyErrors = mutableMapOf<String , MutableList<Int>>()
+    private val mapOfDependencyErrors = mutableMapOf<String , MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String,MutableList<Int>> {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String,MutableList<String>> {
         mapOfDependencyErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             validateDependency(element as JSONObject, fieldArray, index)
@@ -56,7 +56,7 @@ class DependencyValidation : Validation {
             if(mapOfDependencyErrors[field.fieldName] == null) {
                 mapOfDependencyErrors[field.fieldName] = mutableListOf()
             }
-            mapOfDependencyErrors[field.fieldName]?.add(index+1)
+            mapOfDependencyErrors[field.fieldName]?.add((index+1).toString())
         }
     }
 }
