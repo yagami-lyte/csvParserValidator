@@ -93,7 +93,7 @@ class TypeValidationTest {
             """[{"Product Id": "s@gmail,com","Price": "4500.59","Export": "N"},{"Product Id": "s@gmail,com","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expectedError = mutableMapOf(
-            "Price" to mutableListOf(1,2,2)
+            "Price" to mutableListOf(3)
         )
 
         val actualErrorList = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)
@@ -112,7 +112,7 @@ class TypeValidationTest {
             """[{"Product Id": "1564","Price": "4500.59a","Export": "N"},{"Product Id": "1565","Price": "1000abc","Export": "Y"}]"""
         val jsonCsvData = JSONArray(csvData)
         val expected = mutableMapOf(
-            "Price" to mutableListOf(1,2)
+            "Price" to mutableListOf(2,3)
         )
 
         val actual = typeValidation.validate(jsonCsvData, postRouteHandler.fieldArray)

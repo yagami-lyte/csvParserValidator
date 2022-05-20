@@ -35,13 +35,11 @@ class DuplicateTest {
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
-        val expected = mutableMapOf(
-            "2" to mutableListOf(1)
-        )
+        val expected = """{2=[1]}"""
 
-        val actual = duplicateValidation.validate(jsonArray, postRouteHandler.fieldArray)
+        val actual = duplicateValidation.validate(jsonArray, postRouteHandler.fieldArray).toString()
 
-        assertEquals(expected.toList(), actual.toList())
+        assertEquals(expected, actual)
     }
 
     @Test
@@ -49,15 +47,13 @@ class DuplicateTest {
         val duplicateValidation = DuplicateValidation()
         val jsonString = "[{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3} ]"
         val jsonArray = JSONArray(jsonString)
-        val expected = mutableMapOf(
-            "2" to listOf(1),
-            "3" to listOf(1)
-        )
+        val expected = """{2=[1], 3=[1]}"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
 
-        val actual = duplicateValidation.validate(jsonArray , postRouteHandler.fieldArray)
+        val actual = duplicateValidation.validate(jsonArray , postRouteHandler.fieldArray).toString()
+        println(actual)
 
         assertEquals(expected.toList(), actual.toList())
     }
@@ -67,15 +63,13 @@ class DuplicateTest {
         val duplicateValidation = DuplicateValidation()
         val jsonString = "[{a : 1, b : 2, c : 3},{a : 1, b : 2, c : 3},{a : 2, b : 2, c : 2}, {a : 2, b : 2, c : 2}]"
         val jsonArray = JSONArray(jsonString)
-        val expected = mutableMapOf(
-            "2" to mutableListOf(1),
-            "4" to mutableListOf(3)
-        )
+        val expected = """{2=[1], 4=[3]}"""
         val postRouteHandler = PostRouteHandler()
         val jsonData = getMetaData(metaData)
         postRouteHandler.fieldArray = jsonData
 
-        val actual = duplicateValidation.validate(jsonArray , postRouteHandler.fieldArray)
+        val actual = duplicateValidation.validate(jsonArray , postRouteHandler.fieldArray).toString()
+        println(actual)
 
         assertEquals(expected.toList(), actual.toList())
     }
