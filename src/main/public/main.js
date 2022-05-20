@@ -649,6 +649,7 @@ function traverse(object){
     for(var i in object){
         let key = Object.keys(object[i])[0]
         console.log(key)
+        key = key.replaceAll('"', '')
         let value = Object.values(object[i])
         createDivElement(key , value[0])
         let fieldsDivElement = document.getElementById(`${key}`)
