@@ -5,11 +5,6 @@ var fieldCount = 0
 var configName = []
 
 
-function removeConfiguredFields() {
-    var addedField = document.getElementById("field");
-    addedField.remove(addedField.selectedIndex);
-}
-
 function checkIfConfigNameAlreadyExit(file_name){
     if(configName.indexOf(file_name) !== -1)return 1
     return 0
@@ -19,8 +14,8 @@ function validateConfigName(){
     var file_name = document.getElementById("fileName").value
     var getCheckBox = document.getElementById("configCheckBox").checked
     if((file_name == "" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){
-    document.getElementById("config_name_validation").style.display = 'block';
-    return 0
+        document.getElementById("config_name_validation").style.display = 'block';
+        return 0
     }
     return 1
 }
@@ -43,7 +38,6 @@ function csvReader() {
                 obj[headers[j]] = currentLine[j].replaceAll('"', '');
             }
             result.push(obj);
-            //localStorage.setItem(csv, JSON.stringify(result));
         }
     };
     reader.readAsText(csv);
@@ -52,15 +46,14 @@ function csvReader() {
 
 async function getConfigFilesName(){
     var resp = await fetch('get-config-files', {
-            method: 'GET',
-        })
+        method: 'GET',
+    })
 
-        if (resp.status === 200) {
-            var jsonData = await resp.json();
-
-            console.log(jsonData)
-            setConfigInDropDown(jsonData)
-        }
+    if (resp.status === 200) {
+        var jsonData = await resp.json();
+        console.log(jsonData)
+        setConfigInDropDown(jsonData)
+    }
 }
 
 function setConfigInDropDown(object){
@@ -91,7 +84,6 @@ async  function getConfigResponse(){
 
         if (resp.status === 200) {
             var jsonData = await resp.json();
-
             console.log(jsonData)
             setValuesInConfig(jsonData)
         }
@@ -101,15 +93,14 @@ async  function getConfigResponse(){
 function setValuesInConfig(object){
     console.log(object)
     for(var i in object){
-            console.log(object[i])
-            console.log(object[i] != "")
-            if(object[i] != ""){
-                for( j in object[i]){
-                    changeDefaultValuesOfConfig(object[i][j])
-                }
+        console.log(object[i])
+        console.log(object[i] != "")
+        if(object[i] != ""){
+            for( j in object[i]){
+                changeDefaultValuesOfConfig(object[i][j])
             }
         }
-
+    }
 }
 
 function changeDefaultValuesOfConfig(object){
@@ -124,19 +115,19 @@ function changeDefaultValuesOfConfig(object){
 }
 
 function setDefaultValues(object,fields){
-            document.getElementById(`type${fields}`.replaceAll('"', '')).value = object[fields]["type"];
-            document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = object[fields]["length"];
-            document.getElementById(`allowNull${fields}`.replaceAll('"', '')).value = object[fields]["nullValue"];
-            if(object[fields]["nullValue"] === "Allowed"){
-                document.getElementById(`allowNull${fields}`.replaceAll('"', '')).checked = "checked";
-            }
-            document.getElementById(`date${fields}`.replaceAll('"', '')).value = object[fields]["date"];
-            document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = object[fields]["dateTime"];
-            document.getElementById(`dependent${fields}`.replaceAll('"', '')).value = object[fields]["dependentOn"];
-            document.getElementById(`dep-val${fields}`.replaceAll('"', '')).value = object[fields]["dependentValue"];
-            document.getElementById(`time${fields}`.replaceAll('"', '')).value = object[fields]["time"];
+    document.getElementById(`type${fields}`.replaceAll('"', '')).value = object[fields]["type"];
+    document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = object[fields]["length"];
+    document.getElementById(`allowNull${fields}`.replaceAll('"', '')).value = object[fields]["nullValue"];
+    if(object[fields]["nullValue"] === "Allowed"){
+        document.getElementById(`allowNull${fields}`.replaceAll('"', '')).checked = "checked";
+    }
+    document.getElementById(`date${fields}`.replaceAll('"', '')).value = object[fields]["date"];
+    document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = object[fields]["dateTime"];
+    document.getElementById(`dependent${fields}`.replaceAll('"', '')).value = object[fields]["dependentOn"];
+    document.getElementById(`dep-val${fields}`.replaceAll('"', '')).value = object[fields]["dependentValue"];
+    document.getElementById(`time${fields}`.replaceAll('"', '')).value = object[fields]["time"];
 
-            alterDateTimeOptions(fields)
+    alterDateTimeOptions(fields)
 }
 
 function alterDateTimeOptions(fields) {
@@ -381,22 +372,19 @@ function showColFields(lines){
 }
 
 function typeMandatory() {
-   var emptyFields = 0
+    var emptyFields = 0
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
          var typeField = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
          if (typeField.value == ""){
-             document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="Please select a type";
+             document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="Please select a type";
              document.getElementById("fields-empty").innerHTML = "You have left mandatory fields empty!"
              emptyFields += 1
          }
          else {
-                //document.getElementById(`typeEmpty${fields[0][j]}`).innerHTML="";
+                document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="";
          }
     }
-    if (emptyFields != 0){
-    return false}
-    else {
-    return true}
+    return (emptyFields == 0)
 }
 
 function closeForm(popUp , addConfig, valueOption) {
@@ -524,23 +512,16 @@ function readFile(event, fieldName){
         reader.addEventListener('load', function(e) {
             let text = e.target.result
             console.log(JSON.stringify(text.split('\n')))
-
-
             localStorage.setItem(fieldName, JSON.stringify(text.split('\n')));
-
         });
         reader.readAsText(value)
     }
     return null;
 }
 
-
-
-
 function addDataToJson() {
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
         let jsonObj = {}
-        //fields[0][j] = fields[0][j].replaceAll('"', '')
         var field = fields[0][j]
         var configName = document.getElementById("fileName")
         var type = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
@@ -616,11 +597,9 @@ async function sendConfigData(){
 
 async function displayErrors(){
     emptyErrorList()
-    if (typeMandatory() == true) {
     document.getElementById("config_name_validation").style.display = 'none';
-    document.getElementById("fields-empty").innerHTML = ""
-
-    if(validateConfigName()){
+    if(validateConfigName() && typeMandatory()){
+        document.getElementById("fields-empty").innerHTML = ""
         loadingEffect()
         sendConfigData()
         const response = await fetch('csv', {
@@ -639,8 +618,6 @@ async function displayErrors(){
         payload = []
         configName = []
     }
-    }
-    else typeMandatory()
 }
 
 function traverse(object){
@@ -660,12 +637,6 @@ function traverse(object){
     if(errorBase.innerHTML === ''){
         createSuccessErrMsg(errorBase)
     }
-
-
-    //emptyErrorList()
-    //showErrPage(1)
-    //createPagination(totNumPages(), 1)
-//    showErr(errMap)
 }
 
 function createSuccessErrMsg(errorBase){
@@ -676,6 +647,7 @@ function createSuccessErrMsg(errorBase){
           <marquee scrollamount="12">No Error Found In Your CSV File</marquee>
           </div>
       </div>`;
+
       errorBase.appendChild(row);
 }
 
@@ -700,16 +672,9 @@ function createDivElement(key , value){
                   </p>
                   </div>
               </div>
-              <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;
-              font-weight:200;
-              background: white;
-              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-              border-radius: 3px;
-              padding:50px;
-              text-align:left;
-              color:black;
-              display:none;
-              "
+              <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;font-weight:200;
+              background: white; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px;
+              text-align:left; color:black; display:none;"
               id="${key}"></div>
           </div>
         `;
@@ -730,63 +695,56 @@ function createDivElement(key , value){
 function createDuplicationErrMsg(value,key){
 
     let errorBase = document.getElementById("error-msgs");
-        let row = document.createElement("div");
-        row.setAttribute("id", key+" error")
-                    row.innerHTML = `
-                    <div style="display:flex; flex-direction: row;padding:20px;">
-                      <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
-                      <p style="margin:auto;">${key}
-                      <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
-                      <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
-                      </svg>
-                      </p>
-                      </div>
-                  </div>
-                  <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;
-                  font-weight:200;
-                  background: white;
-                  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-                  border-radius: 3px;
-                  padding:50px;
-                  text-align:left;
-                  color:black;
-                  display:none;
-                  "
-                  id="${key}"></div>
-              </div>
-            `;
+    let row = document.createElement("div");
+    row.setAttribute("id", key+" error")
+        row.innerHTML = `
+        <div style="display:flex; flex-direction: row;padding:20px;">
+          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+          <p style="margin:auto;">${key}
+          <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
+          <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
+          </svg>
+          </p>
+          </div>
+      </div>
+      <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px; font-weight:200;background: white;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px; text-align:left; color:black; display:none;
+      "
+      id="${key}"></div>
+      </div>
+    `;
 
-            errorBase.appendChild(row)
-            let p = document.createElement("p")
-                p.setAttribute("id", "error")
-                p.style.marginTop="0px"
-                p.innerHTML = `<b style="font-weight: 900;">${key} present in rows:</b><br/><br/>`
-                let table=document.createElement("table")
-                console.log(table)
-                let i=0;
-                console.log("size",value.length)
-                let firstRow = document.createElement("tr");
-                let firstHeading = document.createElement("td")
-                let secondHeading = document.createElement("td")
-                firstHeading.innerHTML = "Row Number "
-                secondHeading.innerHTML = "Copied From Row Number"
-                firstRow.appendChild(firstHeading);
-                firstRow.appendChild(secondHeading);
-                table.appendChild(firstRow)
-                 while(i<value.length){
-                        let newRow = document.createElement("tr");
-                        let td_1 = document.createElement("td")
-                        let td_2 = document.createElement("td")
-                        td_1.innerHTML = value[i]
-                        td_2.innerHTML = value[i+1]
-                        newRow.appendChild(td_1);
-                        newRow.appendChild(td_2);
-                        table.appendChild(newRow)
-                        i = i+2;
-                 }
-                 p.appendChild(table)
-                 let parent = document.getElementById(`${key}`)
-                 parent.appendChild(p)
+    errorBase.appendChild(row)
+    let p = document.createElement("p")
+    p.setAttribute("id", "error")
+    p.style.marginTop="0px"
+    p.innerHTML = `<b style="font-weight: 900;">${key} present in rows:</b><br/><br/>`
+    let table=document.createElement("table")
+    console.log(table)
+    let i=0;
+    console.log("size",value.length)
+    let firstRow = document.createElement("tr");
+    let firstHeading = document.createElement("td")
+    let secondHeading = document.createElement("td")
+    firstHeading.innerHTML = "Row Number "
+    secondHeading.innerHTML = "Copied From Row Number"
+    firstRow.appendChild(firstHeading);
+    firstRow.appendChild(secondHeading);
+    table.appendChild(firstRow)
+     while(i<value.length){
+            let newRow = document.createElement("tr");
+            let td_1 = document.createElement("td")
+            let td_2 = document.createElement("td")
+            td_1.innerHTML = value[i]
+            td_2.innerHTML = value[i+1]
+            newRow.appendChild(td_1);
+            newRow.appendChild(td_2);
+            table.appendChild(newRow)
+            i = i+2;
+     }
+     p.appendChild(table)
+     let parent = document.getElementById(`${key}`)
+     parent.appendChild(p)
 }
 
 function createTableOfErrors(value,key,type){
@@ -827,14 +785,6 @@ function goUp(key)
 }
 
 
-var errMap ={}
-function pushErrToMaps(object){
-    for (var i in object) {
-        errMap[i] = errMap[i] || [];
-        errMap[i].push(object[i]);
-    }
-}
-
 
 var current_page = 1;
 var obj_per_page = 5;
@@ -843,53 +793,6 @@ function totNumPages()
     return Math.ceil(Object.keys(errMap).length / obj_per_page);
 }
 
-
-function showErrPage(page){
-    console.log(page)
-    var map = errMap
-    var btn_next = document.getElementById("btn_next");
-    var btn_prev = document.getElementById("btn_prev");
-    var errors = document.getElementById("error-msgs");
-    //var page_span = document.getElementById("page");
-    if (page < 1) page = 1;
-    if (page > totNumPages()) page = totNumPages();
-    value = Object.values(map)
-    key = Object.keys(map)
-    for (var i = (page-1) * obj_per_page ;(Object.keys(errMap).length != 0) && (key[i] != undefined) && i < (page * obj_per_page); i++) {
-        //console.log(key[i] == undefined)
-        var rowNo = parseInt(key[i])+1
-        let row = document.createElement("div");
-        row.setAttribute("class", "row");
-        row.innerHTML = `<br>
-                        <div class="col s10 offset-s1">
-                      <div class="card-panel" id="${key[i]}">
-                          <h3>Errors at Row Number: ${rowNo}</h3>
-                      </div>
-
-                  </div>`;
-        errors.appendChild(row)
-        value[i].forEach(element => {
-            let p = document.createElement("p")
-            p.setAttribute("id", "error")
-            p.innerText = `    -  ${element}`
-            let parent = document.getElementById(`${key[i]}`)
-            parent.appendChild(p)
-        });
-
-    }
-
-    if(Object.keys(errMap).length === 0){
-        errors.innerHTML = `<div class="success-msg">
-                              <h1>No error in your uploaded CSV file</h1>
-                            </div>`;
-        btn_next.style.visibility = "hidden";
-        document.getElementById("paginationUl").style.visibility = "hidden";
-        btn_prev.style.visibility = "hidden";
-    }
-
-}
-
-
 function emptyErrorList(){
     const el = document.getElementById("error-msgs");
     while (el.firstChild) {
@@ -897,99 +800,7 @@ function emptyErrorList(){
     };
 }
 
-
-function Buttontoggle()
-{
-    var t = document.getElementById("myButton");
-    if(t.value=="YES"){
-        t.value="NO";}
-    else if(t.value=="NO"){
-        t.value="YES";}
-}
-
-
-function resetForm(){
-    document.getElementById("myform").reset()
-}
-
-
 function loadingEffect(){
     var loader = document.getElementById("button-load")
     loader.style.visibility = "visible";
 }
-
-
-// selecting required element
-const UlElement = document.getElementById("paginationUl");
-UlElement.style.visibility = "hidden";
-let totalPages = 20;
-let page = 1;
-
-//calling function with passing parameters and adding inside element which is ul tag
-function createPagination(totalPages, page){
-    UlElement.style.visibility = "visible";
-    console.log(totNumPages())
-    if(totNumPages() == 1){
-        UlElement.style.visibility = "hidden";
-    }
-    emptyErrorList()
-    totalPages = totNumPages()
-    showErrPage(page);
-    let liTag = '';
-    let active;
-    let beforePage = page - 1;
-    let afterPage = page + 1;
-    if(page > 1){ //show the next button if the page value is greater than 1
-    liTag += `<li class="btn prev" onclick="createPagination(totalPages, ${page - 1});"><span><i class="fas fa-angle-left"></i> Prev</span></li>`;
-    }
-
-  if(page > 2){ //if page value is less than 2 then add 1 after the previous button
-    liTag += `<li class="first numb" onclick="createPagination(totalPages, 1);"><span>1</span></li>`;
-    if(page > 3){ //if page value is greater than 3 then add this (...) after the first li or page
-      liTag += `<li class="dots"><span>...</span></li>`;
-    }
-  }
-
-  // how many pages or li show before the current li
-  if (page == totalPages) {
-    beforePage = beforePage - 2;
-  } else if (page == totalPages - 1) {
-    beforePage = beforePage - 1;
-  }
-  // how many pages or li show after the current li
-  if (page == 1) {
-    afterPage = afterPage + 2;
-  } else if (page == 2) {
-    afterPage  = afterPage + 1;
-  }
-
-  for (var plength = beforePage; plength <= afterPage; plength++) {
-    if (plength > totalPages) { //if plength is greater than totalPage length then continue
-      continue;
-    }
-    if (plength == 0) { //if plength is 0 than add +1 in plength value
-      plength = plength + 1;
-    }
-    if(page == plength){ //if page is equal to plength than assign active string in the active variable
-      active = "active";
-    }else{ //else leave empty to the active variable
-      active = "";
-    }
-    liTag += `<li class="numb ${active}" onclick="createPagination(totalPages, ${plength});"><span>${plength}</span></li>`;
-  }
-
-  if(page < totalPages - 1){ //if page value is less than totalPage value by -1 then show the last li or page
-    if(page < totalPages - 2){ //if page value is less than totalPage value by -2 then add this (...) before the last li or page
-      liTag += `<li class="dots"><span>...</span></li>`;
-    }
-    liTag += `<li class="last numb" onclick="createPagination(totalPages, ${totalPages});"><span>${totalPages}</span></li>`;
-  }
-
-  if (page < totalPages) { //show the next button if the page value is less than totalPage(20)
-    liTag += `<li class="btn next" onclick="createPagination(totalPages, ${page + 1});"><span>Next <i class="fas fa-angle-right"></i></span></li>`;
-  }
-  UlElement.innerHTML = liTag; //add li tag inside ul tag
-  return liTag;
-}
-
-
