@@ -1,4 +1,4 @@
-package routeHandler
+package routeHandler.postRouteHandler
 
 import com.google.gson.Gson
 import database.Connector
@@ -6,6 +6,9 @@ import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
+import routeHandler.PageNotFoundResponse
+import routeHandler.ResponseHeader
+import routeHandler.StatusCodes
 import validation.*
 import java.io.BufferedReader
 

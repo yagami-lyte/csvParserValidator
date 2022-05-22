@@ -2,11 +2,10 @@ package validation
 
 import com.google.gson.Gson
 import jsonTemplate.ConfigurationTemplate
-import org.apache.commons.lang3.mutable.Mutable
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import routeHandler.PostRouteHandler
+import routeHandler.postRouteHandler.PostRouteHandler
 
 class NullValidationTest {
 

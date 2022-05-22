@@ -2,17 +2,12 @@ package validation
 
 import com.google.gson.Gson
 import jsonTemplate.ConfigurationTemplate
-import org.apache.commons.lang3.mutable.Mutable
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
-import org.junit.jupiter.params.provider.MethodSource
-import routeHandler.PostRouteHandler
+import routeHandler.postRouteHandler.PostRouteHandler
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

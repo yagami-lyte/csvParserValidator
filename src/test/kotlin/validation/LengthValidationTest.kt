@@ -5,7 +5,7 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import routeHandler.PostRouteHandler
+import routeHandler.postRouteHandler.PostRouteHandler
 
 internal class LengthValidationTest {
 
