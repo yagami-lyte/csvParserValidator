@@ -1,5 +1,6 @@
 package routeHandler.postRouteHandler.postResponse
 
+import Extractor
 import com.google.gson.Gson
 import database.Connector
 import database.DatabaseOperations
@@ -12,28 +13,14 @@ import java.io.File
 class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : PostResponse {
 
     private val responseHeader = ResponseHeader()
+    private val extractor = Extractor()
 
     override fun postResponse(request: String, inputStream: BufferedReader): String {
-        val bodySize = getContentLength(request)
-        val body = getBody(bodySize, inputStream)
+        val bodySize = extractor.extractContentLength(request)
+        val body = extractor.extractBody(bodySize, inputStream)
         return getResponseForMetaData(body)
     }
 
-    private fun getContentLength(request: String): Int {
-        request.split("\n").forEach { headerString ->
-            val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
-                return keyValue[1].trim().toInt()
-            }
-        }
-        return 0
-    }
-
-    private fun getBody(bodySize: Int, inputStream: BufferedReader): String {
-        val buffer = CharArray(bodySize)
-        inputStream.read(buffer)
-        return String(buffer)
-    }
 
     private fun getResponseForMetaData(body: String): String {
         storeConfigDataInAFile(body)

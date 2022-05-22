@@ -1,6 +1,6 @@
 package routeHandler.postRouteHandler.postResponse
 
-import database.Connector
+import Extractor
 import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
@@ -12,30 +12,16 @@ import java.io.BufferedReader
 class SendConfigurations(private val databaseOperations: DatabaseOperations) : PostResponse {
 
     private val responseHeader = ResponseHeader()
+    private val extractor = Extractor()
 
     override fun postResponse(request: String, inputStream: BufferedReader): String {
-        val bodySize = getContentLength(request)
-        val body = getBody(bodySize, inputStream)
+        val bodySize = extractor.extractContentLength(request)
+        val body = extractor.extractBody(bodySize, inputStream)
         val regex = Regex("[^A-Za-z0-9]")
         val configData = regex.replace(body, "")
         return getResponseForConfig(configData)
     }
 
-    private fun getContentLength(request: String): Int {
-        request.split("\n").forEach { headerString ->
-            val keyValue = headerString.split(":", limit = 2)
-            if (keyValue[0].contains("Content-Length")) {
-                return keyValue[1].trim().toInt()
-            }
-        }
-        return 0
-    }
-
-    private fun getBody(bodySize: Int, inputStream: BufferedReader): String {
-        val buffer = CharArray(bodySize)
-        inputStream.read(buffer)
-        return String(buffer)
-    }
 
     fun getResponseForConfig(body: String): String {
         val responseBody = getConfigResponse(body)
@@ -61,7 +47,6 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
         val jsonArrayOfConfigData = JSONArray()
         configDataTemplate.forEach {
             val jsonObject = JSONObject()
-            //jsonObject.put("configName", it.configName)
             jsonObject.put("type", it.type)
             jsonObject.put("length", it.length)
             jsonObject.put("dateTime", it.datetime)

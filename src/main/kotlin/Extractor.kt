@@ -5,7 +5,6 @@ import java.io.File
 class Extractor {
 
 
-
     fun extractFileContent(path: String): String {
         val filePath = System.getProperty("user.dir")
         val file = File("$filePath/src/main/public$path")

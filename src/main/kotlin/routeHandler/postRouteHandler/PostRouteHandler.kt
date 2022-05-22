@@ -1,18 +1,12 @@
 package routeHandler.postRouteHandler
 
-import com.google.gson.Gson
 import database.Connector
 import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
-import org.json.JSONArray
-import org.json.JSONObject
 import routeHandler.PageNotFoundResponse
-import routeHandler.ResponseHeader
-import routeHandler.StatusCodes
 import routeHandler.postRouteHandler.postResponse.HandleCSVMetaData
 import routeHandler.postRouteHandler.postResponse.HandleCsv
 import routeHandler.postRouteHandler.postResponse.SendConfigurations
-import validation.*
 import java.io.BufferedReader
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
