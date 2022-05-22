@@ -131,7 +131,7 @@ function setDefaultValues(object,fields){
 }
 
 function alterDateTimeOptions(fields) {
-    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date Time"){
+    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "DateTime"){
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
@@ -162,7 +162,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
     const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
-    if( typeValue === "Date" || typeValue === "Time" || typeValue === "Date Time"){
+    if( typeValue === "Date" || typeValue === "Time" || typeValue === "DateTime"){
         document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
     }
 
@@ -172,7 +172,7 @@ function alterDateTimeOptions(fields) {
     if( typeValue !== "Time" ){
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
     }
-    if(  typeValue !== "Date Time"){
+    if(  typeValue !== "DateTime"){
             document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
     }
 }
@@ -204,9 +204,9 @@ function showColFields(lines){
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
                                 <option value="Alphabets">Alphabets</option>
-                                <option value="Floating Number">Floating Number</option>
+                                <option value="FloatingNumber">Floating Number</option>
                                 <option value="Special Characters">Text</option>
-                                <option value="Date Time">Date Time</option>
+                                <option value="DateTime">Date Time</option>
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
                                 <option value="Email">Email</option>
@@ -432,7 +432,7 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
     var dateTimeFormatElement = document.getElementById(dateTimeFormatId);
     var dateTimeIdFormatElement = document.getElementById(dateTimeId);
 
-    if(value === 'Date Time'){
+    if(value === 'DateTime'){
         dateTimeDivIDElement.style.display='flex';
         dateTimeFormatElement.style.display='block';
         dateTimeIdFormatElement.style.display='block';
@@ -472,7 +472,7 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
         valueDivElement.style.display='none';
         lengthDivElement.style.display='none';
     }
-    else if(value === 'Date Time'){
+    else if(value === 'DateTime'){
         dateDivIDElement.style.display='none';
         dateFormatElement.style.display='none';
         dateIdFormatElement.style.display='none';
@@ -559,7 +559,7 @@ function addDataToJson() {
         jsonObj["dependentOn"] = dependentOn.value
         jsonObj["dependentValue"] = dependentValue.value
         const typeValue = type.value
-        if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "Date Time"){
+        if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "DateTime"){
                 jsonObj["datetime"] = ''
                 jsonObj["date"] = ''
                 jsonObj["time"] = ''
@@ -571,7 +571,7 @@ function addDataToJson() {
             jsonObj["datetime"] = ''
             jsonObj["date"] = ''
             jsonObj["length"] = ''
-        }else if(typeValue === "Date Time"){
+        }else if(typeValue === "DateTime"){
             jsonObj["length"] = ''
             jsonObj["date"] = ''
             jsonObj["time"] = ''
