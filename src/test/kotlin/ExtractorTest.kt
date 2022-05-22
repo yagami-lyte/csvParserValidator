@@ -1,13 +1,20 @@
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.io.BufferedReader
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
+import java.io.InputStreamReader
+import java.net.Socket
 
 internal class ExtractorTest {
 
+    private val extractor = Extractor()
 
     @Test
     fun shouldBeAbleToExtractThePathForAGetRequest() {
 
-        val extractor = Extractor()
         val request = "GET / HTTP/1.0" + "\n\n"
         val expectedPath = "/"
 
@@ -19,7 +26,6 @@ internal class ExtractorTest {
 
     @Test
     fun shouldBeAbleToExtractThePathForAPostRequest() {
-        val extractor = Extractor()
         val request = """POST /add-meta-data HTTP/1.1 
                 |Host: localhost:3002
                 |Connection: keep-alive
@@ -33,7 +39,6 @@ internal class ExtractorTest {
 
     @Test
     fun shouldBeAbleToExtractTheContentLength() {
-        val extractor = Extractor()
         val request = """POST /add-meta-data HTTP/1.1 
                 |Host: localhost:3002
                 |Connection: keep-alive
@@ -48,7 +53,6 @@ internal class ExtractorTest {
 
     @Test
     fun shouldBeAbleToExtractTheFileContentForMainJs() {
-        val extractor = Extractor()
         val path = "/main.js"
         val content = extractor.extractFileContent(path)
 
@@ -69,7 +73,6 @@ internal class ExtractorTest {
 
     @Test
     fun shouldBeAbleToExtractTheFileContentForMainCss() {
-        val extractor = Extractor()
         val path = "/main.css"
         val content = extractor.extractFileContent(path)
         println(content)
@@ -89,7 +92,6 @@ internal class ExtractorTest {
 
     @Test
     fun shouldBeAbleToExtractTheFileContentForIndexHTML() {
-        val extractor = Extractor()
         val path = "/index.html"
         val content = extractor.extractFileContent(path)
         println(content)
@@ -104,4 +106,71 @@ internal class ExtractorTest {
 
         assertTrue(actualContent)
     }
+
+
+
+    @Test
+    fun shouldBeAbleToReturn200StatusCodeForValidCSSRequest() {
+        val requestPath = "/main.css"
+        val expectedStatusCode = 200
+
+        val actualStatusCode = extractor.extractStatusCode(requestPath).statusCode
+
+        assertEquals(expectedStatusCode ,actualStatusCode)
+    }
+
+    @Test
+    fun shouldBeAbleToReturn200StatusCodeForValidRequest() {
+        val requestPath = "/index.html"
+        val expectedStatusCode = 200
+
+        val actualStatusCode = extractor.extractStatusCode(requestPath).statusCode
+
+        assertEquals(expectedStatusCode ,actualStatusCode)
+    }
+
+    @Test
+    fun shouldBeAbleToReturn400StatusCodeForInValidRequest() {
+        val requestPath = "/indebbx.html"
+        val expectedStatusCode = 404
+
+        val actualStatusCode = extractor.extractStatusCode(requestPath).statusCode
+
+        assertEquals(expectedStatusCode ,actualStatusCode)
+    }
+
+    @Test
+    fun shouldBeAbleToReturn400StatusCodeForInValidJSRequest() {
+        val requestPath = "/main.js"
+        val expectedStatusCode = 200
+
+        val actualStatusCode = extractor.extractStatusCode(requestPath).statusCode
+
+        assertEquals(expectedStatusCode ,actualStatusCode)
+    }
+
+    @Test
+    fun shouldBeAbleToExtractBodyFromInputStream() {
+        val expectedMetaData =
+            """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
+        val mockSocket = createMockSocket(expectedMetaData)
+        val inputStream = getInputStream(mockSocket)
+        val bodySize = 266
+
+        val actualMetaData = extractor.extractBody(bodySize , inputStream)
+
+        assertEquals(expectedMetaData , actualMetaData)
+    }
+
+    private fun getInputStream(mockSocket: Socket): BufferedReader {
+        return BufferedReader(InputStreamReader(mockSocket.getInputStream()))
+    }
+
+    private fun createMockSocket(data: String): Socket {
+        val mockSocket = mockk<Socket>()
+        every { mockSocket.getOutputStream() } returns ByteArrayOutputStream()
+        every { mockSocket.getInputStream() } returns ByteArrayInputStream(data.toByteArray())
+        return mockSocket
+    }
+
 }

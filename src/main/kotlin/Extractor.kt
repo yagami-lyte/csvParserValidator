@@ -4,7 +4,6 @@ import java.io.File
 
 class Extractor {
 
-
     fun extractFileContent(path: String): String {
         val filePath = System.getProperty("user.dir")
         val file = File("$filePath/src/main/public$path")
@@ -30,4 +29,12 @@ class Extractor {
         inputStream.read(buffer)
         return String(buffer)
     }
+
+    fun extractStatusCode(path: String): StatusCodes {
+        if (path == "/index.html" || path == "/main.js" || path == "/main.css") {
+            return StatusCodes.TWOHUNDRED
+        }
+        return StatusCodes.FOURHUNDREDFOUR
+    }
+
 }
