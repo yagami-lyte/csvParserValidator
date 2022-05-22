@@ -31,7 +31,7 @@ internal class HandleCsvTest {
         val mockSocket = createMockSocket(csvData)
         val inputStream = getInputStream(mockSocket)
         val response = handleCsv.postResponse(request, inputStream)
-        val expectedResponse ="""[{"Export":{"Duplicate Errors":[]}},{"Country Name":{"Null Errors":["2"],"Duplicate Errors":[],"Type Errors":["3"]}}]"""
+        val expectedResponse ="""[{"Export":{"Duplicate Errors":[]}},{"Country Name":{"Value Errors":["3"],"Duplicate Errors":[],"Dependency Errors":["2"],"Length Errors":["3"]}}]"""
 
         val actualErrorResponse = response.split("\r\n")[2]
 

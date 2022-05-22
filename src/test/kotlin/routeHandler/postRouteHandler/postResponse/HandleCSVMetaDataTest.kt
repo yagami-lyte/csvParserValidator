@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import io.mockk.every
 import io.mockk.mockk
 import jsonTemplate.ConfigurationTemplate
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.io.BufferedReader
@@ -46,9 +45,5 @@ internal class HandleCSVMetaDataTest {
         return mockSocket
     }
 
-    private fun getMetaData(body: String): Array<ConfigurationTemplate> {
-        val gson = Gson()
-        return gson.fromJson(body, Array<ConfigurationTemplate>::class.java)
-    }
 
 }

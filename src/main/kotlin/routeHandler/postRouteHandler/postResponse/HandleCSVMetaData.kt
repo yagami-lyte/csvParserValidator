@@ -7,6 +7,7 @@ import jsonTemplate.ConfigurationTemplate
 import routeHandler.ResponseHeader
 import routeHandler.StatusCodes
 import java.io.BufferedReader
+import java.io.File
 
 class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : PostResponse {
 
@@ -35,6 +36,7 @@ class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()
     }
 
     private fun getResponseForMetaData(body: String): String {
+        storeConfigDataInAFile(body)
         val jsonBody = getMetaData(body)
         fieldArray = jsonBody
         val configName = fieldArray.first().configName
@@ -58,6 +60,9 @@ class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()
         return gson.fromJson(body, Array<ConfigurationTemplate>::class.java)
     }
 
-
+    private fun storeConfigDataInAFile(fieldArray: String) {
+        val pathToProjectDirectory = System.getProperty("user.dir")
+        File("$pathToProjectDirectory/src/main/kotlin/resources/config.json").writeText(fieldArray)
+    }
 
 }

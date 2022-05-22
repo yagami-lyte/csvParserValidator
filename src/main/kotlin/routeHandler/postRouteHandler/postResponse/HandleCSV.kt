@@ -39,7 +39,8 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()): PostR
     }
 
     fun getResponseForCSV(body: String): String {
-
+        val configBody = getConfigResponse()
+        fieldArray = getMetaData(configBody)
         val jsonBody = JSONArray(body)
         val lengthValidation = lengthValidation.validate(jsonBody, fieldArray)
         val typeValidation = typeValidation.validate(jsonBody, fieldArray)
