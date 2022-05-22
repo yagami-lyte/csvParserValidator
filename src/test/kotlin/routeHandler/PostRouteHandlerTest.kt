@@ -7,12 +7,14 @@ import jsonTemplate.ConfigurationTemplate
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import routeHandler.postRouteHandler.PostRouteHandler
+import routeHandler.postRouteHandler.postResponse.HandleCsv
 import java.io.*
 import java.net.Socket
 
 internal class PostRouteHandlerTest {
 
     private val postRouteHandler = PostRouteHandler()
+    private val handleCsv = HandleCsv()
 
     @Test
     fun shouldBeAbleToGetResponseForCsvPOSTRequest() {
@@ -24,7 +26,7 @@ internal class PostRouteHandlerTest {
         val metaData =
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
         val jsonData = getMetaData(metaData)
-        postRouteHandler.fieldArray = jsonData
+        handleCsv.fieldArray = jsonData
         val csvData = """[{"Export":"Y","Country Name":"INDIA"},{"Export":"N","Country Name":"USA"}]"""
         val mockSocket = createMockSocket(csvData)
         val inputStream = getInputStream(mockSocket)
