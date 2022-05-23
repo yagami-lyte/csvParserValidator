@@ -17,9 +17,7 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
     override fun postResponse(request: String, inputStream: BufferedReader): String {
         val bodySize = extractor.extractContentLength(request)
         val body = extractor.extractBody(bodySize, inputStream)
-        val regex = Regex("[^A-Za-z0-9]")
-        val configData = regex.replace(body, "")
-        return getResponseForConfig(configData)
+        return getResponseForConfig(body)
     }
 
 
@@ -33,7 +31,7 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
 
     private fun getConfigResponse(body: String): String {
         println("body $body")
-        val configName = body.split("configName")[1]
+        val configName = body.split('"')[3]
         println("configName $configName")
         val configDataTemplate = databaseOperations.readConfiguration(configName)
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)

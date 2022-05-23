@@ -535,6 +535,7 @@ function addDataToJson() {
         var dateTimeFormat = document.getElementById(`dateTime${fields[0][j]}`.replaceAll('"', ''))
         var nullValues = document.getElementById(`allowNull${fields[0][j]}`.replaceAll('"', ''))
         var configCheckBox = document.getElementById("configCheckBox").checked
+
         jsonObj["configName"] = document.getElementById("fileName").value
         console.log(document.getElementById("fileName").value)
         jsonObj["datetime"] = dateTimeFormat.value
