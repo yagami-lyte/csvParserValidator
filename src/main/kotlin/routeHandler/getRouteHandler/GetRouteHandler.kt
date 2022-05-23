@@ -11,15 +11,16 @@ class GetRouteHandler {
     private val configNames = ConfigNames(DatabaseOperations(Connector()))
     private val errorPage = ErrorPage()
     private val homePage = HomePage()
+    private val mapOfPaths = mapOf(
+        "/" to homePage.getResponse("/index.html"),
+        "/main.js" to homePage.getResponse("/main.js"),
+        "/main.css" to homePage.getResponse("/main.css"),
+        "/get-config-files" to configNames.getResponse("/get-config-files")
+    )
 
     fun handleGetRequest(request: String): String {
-        return when (getPath(request)) {
-            "/" -> homePage.getResponse("/index.html")
-            "/main.js" -> homePage.getResponse("/main.js")
-            "/main.css" -> homePage.getResponse("/main.css")
-            "/get-config-files" -> configNames.getResponse("/get-config-files")
-            else -> errorPage.getResponse("/404.html")
-        }
+        val path = getPath(request)
+        return mapOfPaths.getOrDefault(path , errorPage.getResponse("/404.html"))
     }
 
     private fun getPath(request: String): String {
