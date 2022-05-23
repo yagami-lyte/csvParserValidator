@@ -19,18 +19,13 @@ class ConfigNames(private val databaseOperations: DatabaseOperations) : GetRespo
 
     private fun getConfigResponse(): String {
         val configFiles = databaseOperations.getConfigNames()
-        val configJsonArrayResponse = prepareJsonResponse(configFiles)
-        return "{\"configFiles\" : $configJsonArrayResponse}"
+        val configJsonObject = prepareJsonObject(configFiles)
+        return "{\"configFiles\" : $configJsonObject}"
     }
 
-    private fun prepareJsonResponse(configDataTemplate: List<String>?): JSONObject {
-        var countOfConfig = 1
+    private fun prepareJsonObject(configDataTemplate: List<String>?): JSONObject {
         val jsonObject = JSONObject()
-        configDataTemplate?.forEach {
-            jsonObject.put("$countOfConfig", it)
-            countOfConfig += 1
-        }
-
+        configDataTemplate?.mapIndexed { index, it -> jsonObject.put(index.toString() , it) }
         return jsonObject
     }
 }
