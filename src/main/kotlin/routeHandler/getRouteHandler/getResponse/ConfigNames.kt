@@ -1,6 +1,5 @@
 package routeHandler.getRouteHandler.getResponse
 
-import database.Connector
 import database.DatabaseOperations
 import org.json.JSONObject
 import routeHandler.ResponseHeader
@@ -21,9 +20,7 @@ class ConfigNames(private val databaseOperations: DatabaseOperations):GetRespons
     private fun getConfigResponse(): String {
         val configFiles = databaseOperations.getConfigNames()
         val configJsonArrayResponse = prepareJsonResponse(configFiles)
-        val responseBody = "{\"configFiles\" : $configJsonArrayResponse}"
-        println("responsecofig : $responseBody")
-        return responseBody
+        return "{\"configFiles\" : $configJsonArrayResponse}"
     }
 
     private fun prepareJsonResponse(configDataTemplate: List<String>?): JSONObject {
