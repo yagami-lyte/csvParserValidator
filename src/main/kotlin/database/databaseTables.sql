@@ -1,7 +1,3 @@
-DROP TABLE IF EXISTS field_values;
-DROP TABLE IF EXISTS csv_fields;
-DROP TABLE IF EXISTS csv_files;
-
 CREATE TABLE configuration
 (
     config_id   INT NOT NULL AUTO_INCREMENT,
