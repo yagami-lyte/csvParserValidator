@@ -131,36 +131,10 @@ function setDefaultValues(object,fields){
 }
 
 function alterDateTimeOptions(fields) {
-    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "DateTime"){
-        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
-        document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
-    }
-    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date"){
-        document.getElementById(`date${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
-        document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
-    }
+    alterDateOption(fields)
+    alterDateTimeOption(fields)
+    alterTimeOption(fields)
 
-    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Time"){
-        document.getElementById(`time${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
-        document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
-        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
-    }
     const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
     if( typeValue === "Date" || typeValue === "Time" || typeValue === "DateTime"){
         document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
@@ -174,6 +148,44 @@ function alterDateTimeOptions(fields) {
     }
     if(  typeValue !== "DateTime"){
             document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+    }
+}
+
+function alterDateTimeOption(fields){
+    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "DateTime"){
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
+    }
+}
+
+function alterDateOption(fields){
+    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date"){
+        document.getElementById(`date${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
+    }
+}
+
+function alterTimeOption(fields){
+    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Time"){
+        document.getElementById(`time${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
+        document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
+        document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
 }
 
@@ -199,7 +211,7 @@ function showColFields(lines){
 
                             <label  style="border-radius: 150px;" for="type" class ="required-field">Type </label>
                             <select placeholder="Choose Type" data-cy="type" id="type${field}"
-                            onchange="showDateTimeOption(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
+                            onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -419,7 +431,7 @@ function toggleYesOrNo(element) {
     document.getElementById(element).value = "Not Allowed"
 }
 
-function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId){
+function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId){
     var dateDivIDElement = document.getElementById(dateDivID);
     var dateFormatElement = document.getElementById(dateFormatId);
     var dateIdFormatElement = document.getElementById(dateId);
@@ -433,58 +445,17 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
     var dateTimeIdFormatElement = document.getElementById(dateTimeId);
 
     if(value === 'DateTime'){
-        dateTimeDivIDElement.style.display='flex';
-        dateTimeFormatElement.style.display='block';
-        dateTimeIdFormatElement.style.display='block';
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+        showDateTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
     }
 
     else if(value === 'Date'){
-        dateDivIDElement.style.display='flex';
-        dateFormatElement.style.display='block';
-        dateIdFormatElement.style.display='block';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+        showDateField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
     }
+
     else if(value === 'Time'){
-        timeDivIDElement.style.display='flex';
-        timeFormatElement.style.display='block';
-        timeIdFormatElement.style.display='block';
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+        showTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
     }
-    else if(value === 'DateTime'){
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='flex';
-        timeFormatElement.style.display='block';
-        timeIdFormatElement.style.display='block';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
-    }
+
     else{
         dateDivIDElement.style.display='none';
         dateFormatElement.style.display='none';
@@ -503,7 +474,47 @@ function showDateTimeOption(value, dateDivID, dateFormatId, dateId , timeDivID, 
     }
 }
 
+function showDateField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
+        dateDivIDElement.style.display='flex';
+        dateFormatElement.style.display='block';
+        dateIdFormatElement.style.display='block';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+}
 
+function showTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
+        timeDivIDElement.style.display='flex';
+        timeFormatElement.style.display='block';
+        timeIdFormatElement.style.display='block';
+        dateDivIDElement.style.display='none';
+        dateFormatElement.style.display='none';
+        dateIdFormatElement.style.display='none';
+        dateTimeDivIDElement.style.display='none';
+        dateTimeFormatElement.style.display='none';
+        dateTimeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+}
+
+function showDateTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
+        dateTimeDivIDElement.style.display='flex';
+        dateTimeFormatElement.style.display='block';
+        dateTimeIdFormatElement.style.display='block';
+        dateDivIDElement.style.display='none';
+        dateFormatElement.style.display='none';
+        dateIdFormatElement.style.display='none';
+        timeDivIDElement.style.display='none';
+        timeFormatElement.style.display='none';
+        timeIdFormatElement.style.display='none';
+        valueDivElement.style.display='none';
+        lengthDivElement.style.display='none';
+}
 
 function readFile(event, fieldName){
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
@@ -622,7 +633,6 @@ async function displayErrors(){
 }
 
 function traverse(object){
-    errMap={}
     let errorBase = document.getElementById("error-msgs");
     for(var i in object){
         let key = Object.keys(object[i])[0]
@@ -688,13 +698,12 @@ function createDivElement(key , value){
             }
             console.log(i)
             if(value[i].length != 0 && i !== 'Duplicate Errors'){
-                createTableOfErrors(value[i],key,i)
+                createTableForDisplayingErrorMsg(value[i],key,i)
             }
         }
 }
 
 function createDuplicationErrMsg(value,key){
-
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
     row.setAttribute("id", key+" error")
@@ -716,6 +725,10 @@ function createDuplicationErrMsg(value,key){
     `;
 
     errorBase.appendChild(row)
+    createTableForDuplicateErrors(value,key)
+}
+
+function createTableForDuplicateErrors(value,key){
     let p = document.createElement("p")
     p.setAttribute("id", "error")
     p.style.marginTop="0px"
@@ -743,12 +756,13 @@ function createDuplicationErrMsg(value,key){
             table.appendChild(newRow)
             i = i+2;
      }
+
      p.appendChild(table)
      let parent = document.getElementById(`${key}`)
      parent.appendChild(p)
 }
 
-function createTableOfErrors(value,key,type){
+function createTableForDisplayingErrorMsg(value,key,type){
     let p = document.createElement("p")
     p.setAttribute("id", "error")
     p.style.marginTop="0px"
@@ -779,20 +793,13 @@ function goDown(key)
     document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
     document.getElementById(`${key}`).style.display="none"
 }
+
 function goUp(key)
 {
     document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="black" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
     document.getElementById(`${key}`).style.display="block"
 }
 
-
-
-var current_page = 1;
-var obj_per_page = 5;
-function totNumPages()
-{
-    return Math.ceil(Object.keys(errMap).length / obj_per_page);
-}
 
 function emptyErrorList(){
     const el = document.getElementById("error-msgs");
