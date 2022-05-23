@@ -21,9 +21,7 @@ class ConfigNames(private val databaseOperations: DatabaseOperations):GetRespons
     private fun getConfigResponse(): String {
         val configFiles = databaseOperations.getConfigNames()
         val configJsonArrayResponse = prepareJsonResponse(configFiles)
-        var responseBody = "{"
-        responseBody += "\"configFiles\" : $configJsonArrayResponse"
-        responseBody += "}"
+        val responseBody = "{\"configFiles\" : $configJsonArrayResponse}"
         println("responsecofig : $responseBody")
         return responseBody
     }
