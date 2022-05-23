@@ -1,6 +1,6 @@
-package routeHandler
+package routeHandler.postRouteHandler.postResponse
 
-class PageNotFoundResponse {
+class ErrorResponse {
 
     fun handleUnknownRequest(): String {
         val httpHead = "HTTP/1.1 400 Bad Request"
