@@ -16,7 +16,7 @@ internal class ConfigNamesTest {
         val testConfigurationName1 = "testConfigurationName1"
         databaseOperations.saveNewConfigurationInDatabase(testConfigurationName1)
         val configNames = ConfigNames(databaseOperations)
-        val expectedConfigNames = """{"configFiles" : {"1":"testConfigurationName1"}}"""
+        val expectedConfigNames = """{"configFiles" : {"0":"testConfigurationName1"}}"""
         val response = configNames.getResponse(configNamesPath)
 
         val actualConfigNames = response.split("\r\n")[2]
@@ -31,7 +31,7 @@ internal class ConfigNamesTest {
         databaseOperations.saveNewConfigurationInDatabase(testConfigurationName1)
         databaseOperations.saveNewConfigurationInDatabase(testConfigurationName2)
         val configNames = ConfigNames(databaseOperations)
-        val expectedConfigNames = """{"configFiles" : {"1":"testConfigurationName1","2":"testConfigurationName2"}}"""
+        val expectedConfigNames = """{"configFiles" : {"0":"testConfigurationName1","1":"testConfigurationName2"}}"""
         val response = configNames.getResponse(configNamesPath)
 
         val actualConfigNames = response.split("\r\n")[2]
