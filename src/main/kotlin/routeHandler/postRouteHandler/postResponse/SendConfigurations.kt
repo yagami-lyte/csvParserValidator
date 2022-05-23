@@ -29,7 +29,8 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
     }
 
     private fun getConfigResponse(body: String): String {
-        val configName = body.split('"')[3]
+        println("configName $body")
+        val configName = extractor.extractConfigurationName(body)
         val configDataTemplate = databaseOperations.readConfiguration(configName)
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
         return "{\"Type\" : $configJsonArrayResponse}"

@@ -162,6 +162,16 @@ internal class ExtractorTest {
         assertEquals(expectedMetaData , actualMetaData)
     }
 
+    @Test
+    fun shouldBeAbleToExtractConfigName() {
+        val body = """[{"configName":"testConfig1"}]"""
+        val expectedConfigName = "testConfig1"
+
+        val actualConfigName = extractor.extractConfigurationName(body)
+
+        assertEquals(expectedConfigName , actualConfigName)
+    }
+
     private fun getInputStream(mockSocket: Socket): BufferedReader {
         return BufferedReader(InputStreamReader(mockSocket.getInputStream()))
     }

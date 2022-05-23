@@ -37,4 +37,6 @@ class Extractor {
         return StatusCodes.FOURHUNDREDFOUR
     }
 
+    fun extractConfigurationName(body: String) = body.split('"')[3]
+
 }
