@@ -37,14 +37,19 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
 
     private fun prepareJsonResponse(configDataTemplate: Array<ConfigurationTemplate>): JSONArray {
         val jsonArrayOfConfigData = JSONArray()
+        getJSONArrayOfConfigurations(configDataTemplate, jsonArrayOfConfigData)
+        return jsonArrayOfConfigData
+    }
 
+    private fun getJSONArrayOfConfigurations(
+        configDataTemplate: Array<ConfigurationTemplate>,
+        jsonArrayOfConfigData: JSONArray,
+    ) {
         configDataTemplate.map {
             val jsonObject = prepareJsonObjectForField(it)
             val fieldConfig = JSONObject().put(it.fieldName, jsonObject)
             jsonArrayOfConfigData.put(fieldConfig)
         }
-
-        return jsonArrayOfConfigData
     }
 
     private fun prepareJsonObjectForField(it: ConfigurationTemplate): JSONObject {
