@@ -6,9 +6,12 @@ import org.json.JSONObject
 
 class ValueValidation : Validation {
 
-    private val mapOfValueErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfValueErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
         val valueErrors = JSONArray()
         mapOfValueErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -37,7 +40,11 @@ class ValueValidation : Validation {
         return Pair(ele, keys)
     }
 
-    private fun getFieldValues(fieldArray: Array<ConfigurationTemplate>, key: String?, ele: JSONObject): Pair<ConfigurationTemplate, String> {
+    private fun getFieldValues(
+        fieldArray: Array<ConfigurationTemplate>,
+        key: String?,
+        ele: JSONObject
+    ): Pair<ConfigurationTemplate, String> {
         val field = fieldArray.first { it.fieldName == key }
         val value = ele.get(key) as String
         return Pair(field, value)

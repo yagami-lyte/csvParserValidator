@@ -6,9 +6,12 @@ import org.json.JSONObject
 
 class DependencyValidation : Validation {
 
-    private val mapOfDependencyErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfDependencyErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String,MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
         mapOfDependencyErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             validateDependency(element as JSONObject, fieldArray, index)
@@ -35,7 +38,11 @@ class DependencyValidation : Validation {
         }
     }
 
-    private fun getValueKeys(fieldArray: Array<ConfigurationTemplate>, key: String, fieldElement: JSONObject): Pair<ConfigurationTemplate, String> {
+    private fun getValueKeys(
+        fieldArray: Array<ConfigurationTemplate>,
+        key: String,
+        fieldElement: JSONObject
+    ): Pair<ConfigurationTemplate, String> {
         val field = fieldArray.first { it.fieldName == key }
         val value = fieldElement.get(key) as String
         return Pair(field, value)
@@ -53,10 +60,10 @@ class DependencyValidation : Validation {
         field: ConfigurationTemplate
     ) {
         if (!flag) {
-            if(mapOfDependencyErrors[field.fieldName] == null) {
+            if (mapOfDependencyErrors[field.fieldName] == null) {
                 mapOfDependencyErrors[field.fieldName] = mutableListOf()
             }
-            mapOfDependencyErrors[field.fieldName]?.add((index+2).toString())
+            mapOfDependencyErrors[field.fieldName]?.add((index + 2).toString())
         }
     }
 }

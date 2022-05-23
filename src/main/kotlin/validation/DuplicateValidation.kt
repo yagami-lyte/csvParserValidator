@@ -6,9 +6,12 @@ import org.json.JSONObject
 
 class DuplicateValidation : Validation {
 
-    private val mapOfDuplicationErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfDuplicationErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
         val mapOfJsonElements: MutableMap<String, Int> = mutableMapOf()
         mapOfDuplicationErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -37,7 +40,7 @@ class DuplicateValidation : Validation {
     ) {
         val duplicatedRowNumber = (index + 1).toString()
         val duplicationRowNumber = mapOfJsonElements[element.toString()]
-        if(mapOfDuplicationErrors[(index + 1).toString()] == null) {
+        if (mapOfDuplicationErrors[(index + 1).toString()] == null) {
             mapOfDuplicationErrors[duplicatedRowNumber] = mutableListOf()
         }
         if (duplicationRowNumber != null) {

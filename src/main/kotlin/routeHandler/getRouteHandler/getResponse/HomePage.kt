@@ -4,7 +4,7 @@ import routeHandler.ResponseHeader
 import routeHandler.StatusCodes
 import java.io.File
 
-class HomePage: GetResponse {
+class HomePage : GetResponse {
 
     private val responseHeader = ResponseHeader()
     private val contentType = mapOf(

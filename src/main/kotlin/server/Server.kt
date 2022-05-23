@@ -25,7 +25,7 @@ class Server(port: Int) {
 
         val request = readRequest(inputStream)
         val methodType = getMethodType(request)
-        val response = routeHandler.handleRequest(request,inputStream,methodType)
+        val response = routeHandler.handleRequest(request, inputStream, methodType)
 
         sendResponse(outputStream, response)
         clientSocket.close()

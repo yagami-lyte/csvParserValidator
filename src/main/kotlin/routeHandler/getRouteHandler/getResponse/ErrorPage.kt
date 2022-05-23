@@ -4,7 +4,7 @@ import routeHandler.ResponseHeader
 import routeHandler.StatusCodes
 import java.io.File
 
-class ErrorPage:GetResponse {
+class ErrorPage : GetResponse {
 
     private val responseHeader = ResponseHeader()
 

@@ -6,9 +6,12 @@ import org.json.JSONObject
 
 class NullValidation : Validation {
 
-    private val mapOfNullErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfNullErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
 
         mapOfNullErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -29,8 +32,7 @@ class NullValidation : Validation {
         var isNullAllowed = true
         if (field.nullValue == "Allowed" && value.isEmpty()) {
             isNullAllowed = true
-        }
-        else if (field.nullValue == "Not Allowed" && value.isEmpty())  {
+        } else if (field.nullValue == "Not Allowed" && value.isEmpty()) {
             isNullAllowed = false
         }
         return isNullAllowed
@@ -58,11 +60,11 @@ class NullValidation : Validation {
         field: ConfigurationTemplate
     ) {
         if (!isNullAllowed) {
-            if(mapOfNullErrors[field.fieldName] == null) {
+            if (mapOfNullErrors[field.fieldName] == null) {
                 mapOfNullErrors[field.fieldName] = mutableListOf()
             }
-            if(!mapOfNullErrors[field.fieldName]!!.contains((index+1).toString())) {
-                mapOfNullErrors[field.fieldName]?.add((index+2).toString())
+            if (!mapOfNullErrors[field.fieldName]!!.contains((index + 1).toString())) {
+                mapOfNullErrors[field.fieldName]?.add((index + 2).toString())
             }
         }
     }

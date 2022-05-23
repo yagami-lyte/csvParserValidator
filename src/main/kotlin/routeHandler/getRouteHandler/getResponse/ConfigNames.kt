@@ -5,11 +5,11 @@ import org.json.JSONObject
 import routeHandler.ResponseHeader
 import routeHandler.StatusCodes
 
-class ConfigNames(private val databaseOperations: DatabaseOperations):GetResponse {
+class ConfigNames(private val databaseOperations: DatabaseOperations) : GetResponse {
 
     private val responseHeader = ResponseHeader()
 
-    override fun getResponse(path:String): String{
+    override fun getResponse(path: String): String {
         val responseBody = getConfigResponse()
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"

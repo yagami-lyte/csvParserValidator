@@ -10,7 +10,7 @@ class RouteHandler {
     private val postRouteHandler = PostRouteHandler()
     private val pageNotFoundResponse = PageNotFoundResponse()
 
-    fun handleRequest(request: String, inputStream: BufferedReader,methodType:String): String {
+    fun handleRequest(request: String, inputStream: BufferedReader, methodType: String): String {
         return when (methodType) {
             "GET" -> getRouteHandler.handleGetRequest(request)
             "POST" -> postRouteHandler.handlePostRequest(request, inputStream)

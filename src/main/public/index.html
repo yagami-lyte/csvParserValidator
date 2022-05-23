@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200&family=Roboto:wght@100&family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@200&family=Roboto:wght@100&family=Ubuntu&display=swap"
+          rel="stylesheet">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -40,36 +41,39 @@
 <br><br>
 
 
-
-
 <div id="config">
     <div class="container">
         <h1><b>Configure your CSV fields</b></h1>
         <br><br><br>
         <h3> The fields in your CSV are listed down below.</h3>
         <div style="width: 600px;align-items: center;justify-content: center; margin:auto;padding:20px;display: flex;">
-            <select name="type" id="listOfFileNames" style="display: block;   width:auto;height:auto;  padding: 16px 4px; border-radius:6px;">
+            <select name="type" id="listOfFileNames"
+                    style="display: block;   width:auto;height:auto;  padding: 16px 4px; border-radius:6px;">
                 <option value="">Please select the config filename</option>
             </select>
-            <button class="btn waves-effect waves-light" style="margin-left: 15px;margin-top: 3px;" onclick="getConfigResponse()">
+            <button class="btn waves-effect waves-light" style="margin-left: 15px;margin-top: 3px;"
+                    onclick="getConfigResponse()">
                 Fetch config file
             </button>
         </div>
 
-            <form id="myform">
+        <form id="myform">
 
         </form>
         <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
-            <div class="col s10 offset-s1 card-panel" style="border-radius: 6px; padding: 20px; align-items: center;justify-content: center;background-color:white;">
+            <div class="col s10 offset-s1 card-panel"
+                 style="border-radius: 6px; padding: 20px; align-items: center;justify-content: center;background-color:white;">
                 <div style="display: flex;align-items: center;justify-content: center;">
-                    <p class ="col s3"><b>Provide Configuration filename  &nbsp;&nbsp;:</b></p>
-                    <input class ="col s14" id="fileName" type="text" placeholder="Please enter the filename" required>
+                    <p class="col s3"><b>Provide Configuration filename &nbsp;&nbsp;:</b></p>
+                    <input class="col s14" id="fileName" type="text" placeholder="Please enter the filename" required>
                 </div>
                 <div style="display: flex;align-items: center;justify-content: center; ">
-                    <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;background-color: #eee;" name="configCheckBox" value="checked">
-                    <p class ="col s3">&nbsp;<strong>Tick the checkBox to save the config Data</strong></p><br>
+                    <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;background-color: #eee;"
+                           name="configCheckBox" value="checked">
+                    <p class="col s3">&nbsp;<strong>Tick the checkBox to save the config Data</strong></p><br>
                 </div>
-                <div style="margin-left: 27%; display: none; align-items: center;justify-content: center; color:red;" id="config_name_validation">
+                <div style="margin-left: 27%; display: none; align-items: center;justify-content: center; color:red;"
+                     id="config_name_validation">
                     Configuration filename do not meet the requirement! Please Change it!!
                 </div>
 
@@ -80,14 +84,14 @@
     </div>
 </div>
 
-<a  id='view-errors' onclick="displayErrors();">View Errors </a>
-<p style = "text-align:center; color: red;" id = 'fields-empty'></p>
+<a id='view-errors' onclick="displayErrors();">View Errors </a>
+<p style="text-align:center; color: red;" id='fields-empty'></p>
 
-<div class="loader" id = "button-load"></div>
+<div class="loader" id="button-load"></div>
 
 <div class="container">
     <h5>CSV Errors</h5>
-    <div  id="error-msgs"></div>
+    <div id="error-msgs"></div>
 </div>
 
 <script src="main.js" type="text/javascript"></script>

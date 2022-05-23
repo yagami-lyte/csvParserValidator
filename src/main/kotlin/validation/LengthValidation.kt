@@ -6,9 +6,12 @@ import org.json.JSONObject
 
 class LengthValidation : Validation {
 
-    private val mapOfLengthErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfLengthErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
         val lengthErrors = JSONArray()
         mapOfLengthErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->

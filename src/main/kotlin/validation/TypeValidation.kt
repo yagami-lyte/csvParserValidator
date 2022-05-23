@@ -8,7 +8,7 @@ import org.json.JSONObject
 
 class TypeValidation : Validation {
 
-    private val mapOfTypeErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfTypeErrors = mutableMapOf<String, MutableList<String>>()
 
     private fun validateTypeInEachRow(
         field: ConfigurationTemplate,
@@ -16,18 +16,23 @@ class TypeValidation : Validation {
     ): Boolean {
         var isTypeValid = true
         val typeMap = mapOf(
-            "DateTime"  to field.datetime,
+            "DateTime" to field.datetime,
             "Date" to field.date,
             "Time" to field.time,
         )
 
-        if(value.isNotEmpty() && !TypeEnum.valueOf(field.type.toString()).typeCheck(value,typeMap.getOrDefault(field.type.toString(),""))) {
+        if (value.isNotEmpty() && !TypeEnum.valueOf(field.type.toString())
+                .typeCheck(value, typeMap.getOrDefault(field.type.toString(), ""))
+        ) {
             isTypeValid = false
         }
         return isTypeValid
     }
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
         mapOfTypeErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             val (ele, keys) = getElementKeys(element)
@@ -63,10 +68,10 @@ class TypeValidation : Validation {
     ) {
         if (!isLengthValid) {
 
-            if(mapOfTypeErrors[field.fieldName] == null) {
+            if (mapOfTypeErrors[field.fieldName] == null) {
                 mapOfTypeErrors[field.fieldName] = mutableListOf()
             }
-            mapOfTypeErrors[field.fieldName]?.add((index+2).toString())
+            mapOfTypeErrors[field.fieldName]?.add((index + 2).toString())
         }
     }
 }

@@ -79,10 +79,13 @@ class DatabaseOperations(connector: DatabaseConnector) {
     }
 
     fun isFieldPresentInTheDatabase(field_name: String): Boolean {
-        val queryTemplate = "SELECT EXISTS (SELECT field_name FROM csv_fields WHERE field_name = '$field_name') AS Result;"
+        val queryTemplate =
+            "SELECT EXISTS (SELECT field_name FROM csv_fields WHERE field_name = '$field_name') AS Result;"
         val preparedStatement =
-            databaseConnection.prepareStatement(queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
-                ResultSet.CONCUR_READ_ONLY)
+            databaseConnection.prepareStatement(
+                queryTemplate, ResultSet.TYPE_SCROLL_SENSITIVE,
+                ResultSet.CONCUR_READ_ONLY
+            )
         val result = preparedStatement.executeQuery()
         result.first()
         return result.getInt("Result") == 1

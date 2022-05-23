@@ -4,11 +4,14 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
-class PrependingZeroesValidation:Validation {
+class PrependingZeroesValidation : Validation {
 
-    private val mapOfPrePendingErrors = mutableMapOf<String , MutableList<String>>()
+    private val mapOfPrePendingErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
+    override fun validate(
+        jsonArrayData: JSONArray,
+        fieldArray: Array<ConfigurationTemplate>
+    ): MutableMap<String, MutableList<String>> {
 
         mapOfPrePendingErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->

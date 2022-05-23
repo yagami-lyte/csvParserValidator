@@ -20,7 +20,7 @@ class GetRouteHandler {
 
     fun handleGetRequest(request: String): String {
         val path = getPath(request)
-        return mapOfPaths.getOrDefault(path , errorPage.getResponse("/404.html"))
+        return mapOfPaths.getOrDefault(path, errorPage.getResponse("/404.html"))
     }
 
     private fun getPath(request: String): String {
