@@ -8,6 +8,7 @@ import io.mockk.mockk
 import jsonTemplate.ConfigurationTemplate
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import routeHandler.postRouteHandler.postResponse.SendConfigurations
 import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
