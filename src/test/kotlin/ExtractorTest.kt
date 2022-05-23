@@ -172,6 +172,16 @@ internal class ExtractorTest {
         assertEquals(expectedConfigName , actualConfigName)
     }
 
+    @Test
+    fun shouldReturn404PageErrorForInvalidJavascriptFileGetRequest() {
+        val extractor = Extractor()
+        val response = extractor.extractErrorPageFileContent()
+        val expectedFileContent = "<title>404PageNotFound</title>"
+        val actualResponse = response.split('\n')[4].replace(" ", "")
+
+        assertEquals(expectedFileContent, actualResponse)
+    }
+
     private fun getInputStream(mockSocket: Socket): BufferedReader {
         return BufferedReader(InputStreamReader(mockSocket.getInputStream()))
     }

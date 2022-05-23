@@ -10,6 +10,12 @@ class Extractor {
         return file.readText(Charsets.UTF_8)
     }
 
+    fun extractErrorPageFileContent(): String {
+        val filePath = System.getProperty("user.dir")
+        val file = File("$filePath/src/main/public/404.html")
+        return file.readText(Charsets.UTF_8)
+    }
+
     fun extractPath(request: String): String {
         return request.split("\r\n")[0].split(" ")[1]
     }
@@ -38,5 +44,6 @@ class Extractor {
     }
 
     fun extractConfigurationName(body: String) = body.split('"')[3]
+
 
 }
