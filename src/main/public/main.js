@@ -205,7 +205,7 @@ function showColFields(lines){
                                 <option value="AlphaNumeric">AlphaNumeric</option>
                                 <option value="Alphabets">Alphabets</option>
                                 <option value="FloatingNumber">Floating Number</option>
-                                <option value="Special Characters">Text</option>
+                                <option value="Text">Text</option>
                                 <option value="DateTime">Date Time</option>
                                 <option value="Date">Date</option>
                                 <option value="Time">Time</option>
