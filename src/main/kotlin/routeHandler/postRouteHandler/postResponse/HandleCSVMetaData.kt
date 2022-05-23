@@ -21,25 +21,28 @@ class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()
         return getResponseForMetaData(body)
     }
 
-
     private fun getResponseForMetaData(body: String): String {
         storeConfigDataInAFile(body)
-        val jsonBody = getMetaData(body)
-        fieldArray = jsonBody
-        val configName = fieldArray.first().configName
-        val databaseOperations = DatabaseOperations(Connector())
-        println(configName)
-        if (configName != null && configName != "") {
-            databaseOperations.saveNewConfigurationInDatabase(configName)
-            fieldArray.forEach {
-                databaseOperations.writeConfiguration(configName, it)
-            }
-        }
+        fieldArray = getMetaData(body)
+        addConfigurationsToDatabase()
         val endOfHeader = "\r\n\r\n"
         val responseBody = "Successfully Added Configuration File"
         val contentLength = responseBody.length
         return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/plain; charset=utf-8
     |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+    }
+
+    private fun addConfigurationsToDatabase() {
+        val configName = fieldArray.first().configName
+        val databaseOperations = DatabaseOperations(Connector())
+        if (configName != null && configName != "") {
+            databaseOperations.saveNewConfigurationInDatabase(configName)
+            writeConfigurationsToDatabase(databaseOperations, configName)
+        }
+    }
+
+    private fun writeConfigurationsToDatabase(databaseOperations: DatabaseOperations, configName: String) {
+        fieldArray.map { databaseOperations.writeConfiguration(configName, it) }
     }
 
     fun getMetaData(body: String): Array<ConfigurationTemplate> {
