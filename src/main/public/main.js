@@ -226,9 +226,9 @@ function showColFields(lines){
                          </div>
 
                      <div  id = "dateTimeDiv${field}" class="input-field  col s4" 
-                                        style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 13% ;margin-left:10%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                                        style="display:none;  background: transparent;width: 310px;border-radius: 7px; height: 40px;margin-right: 13% ;margin-left:10%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
 
-    <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;'>Date-Time Format</label>
+    <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;width:40%; white-space: nowrap;'>Date-Time Format</label>
                                                 
     <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
          <option value="">Choose Date Time format</option>
