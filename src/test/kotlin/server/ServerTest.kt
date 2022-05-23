@@ -25,7 +25,7 @@ class ServerTest {
 
     @Test
     fun shouldReturnFalseIfTheServerHasNotStarted() {
-        val port = 3002
+        val port = 3011
         var actual = true
 
         try {
