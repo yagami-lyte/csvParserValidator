@@ -3,6 +3,7 @@ package validation
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlin.concurrent.fixedRateTimer
 
 class LengthValidation : Validation {
 
@@ -19,16 +20,10 @@ class LengthValidation : Validation {
 
     private fun validateLengthInEachRow(element: JSONObject,fieldArray: Array<ConfigurationTemplate>,index: Int,lengthErrors: JSONArray) {
         val (fieldElement, keys) = getFieldElementsAndKeys(element)
-        validateLength(keys, fieldArray, fieldElement, index, lengthErrors)
-    }
-
-    private fun validateLength( keys: MutableSet<String>,fieldArray: Array<ConfigurationTemplate>,fieldElement: JSONObject,index: Int,lengthErrors: JSONArray,) {
         for (key in keys) {
             val (field, value) = getFieldAndValue(fieldArray, key, fieldElement)
             var flag = true
-            if (field.length != "") {
-                flag = checkLengthForRow(field, value)
-            }
+            when { field.length != "" -> flag = checkLengthForRow(field,value)}
             getErrorMessages(index, field, lengthErrors, flag)
         }
     }
