@@ -117,8 +117,12 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         mapOfErrors: MutableMap<String, List<String>>,
         it1: Map.Entry<String, MutableList<String>>,
         fieldName: String,
-        errorHeading: String 
-    ) = mapOfErrors.put(errorHeading, convertToRanges(it1.value).takeIf { fieldName == it1.key }!!)
+        errorHeading: String,
+    ) {
+        if (fieldName == it1.key) {
+            mapOfErrors[errorHeading] = convertToRanges(it1.value)
+        }
+    }
 
     private fun convertToRanges(listOfErrorLines: MutableList<String>): MutableList<String> {
 
