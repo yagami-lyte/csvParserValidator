@@ -4,6 +4,7 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 
+@Suppress("NAME_SHADOWING", "UNREACHABLE_CODE")
 class ValueValidation : Validation {
 
     private val mapOfValueErrors = mutableMapOf<String, MutableList<String>>()
@@ -21,32 +22,32 @@ class ValueValidation : Validation {
     }
 
     private fun valueValidationForEachRow(
-        element: Any?,
+        element: JSONObject,
         fieldArray: Array<ConfigurationTemplate>,
         index: Int,
         valueErrors: JSONArray
     ) {
-        val (ele, keys) = getElementKeys(element)
+        val (element, keys) = getElementKeys(element)
         for (key in keys) {
-            val (field, value) = getFieldValues(fieldArray, key, ele)
+            val (field, value) = getFieldValues(fieldArray, key, element)
             val flag = checkIfValueIsIncorrect(field, value)
             getErrorMessages(flag, index, field, valueErrors)
         }
     }
 
-    private fun getElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val ele = (element as JSONObject)
-        val keys = ele.keySet()
-        return Pair(ele, keys)
+    private fun getElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val element = element
+        val keys = element.keySet()
+        return Pair(element, keys)
     }
 
     private fun getFieldValues(
         fieldArray: Array<ConfigurationTemplate>,
         key: String?,
-        ele: JSONObject
+        element: JSONObject
     ): Pair<ConfigurationTemplate, String> {
         val field = fieldArray.first { it.fieldName == key }
-        val value = ele.get(key) as String
+        val value = element.get(key) as String
         return Pair(field, value)
     }
 
@@ -57,10 +58,8 @@ class ValueValidation : Validation {
         }
     }
 
-    fun valueCheck(allowedValues: List<String>?, value: String): Boolean {
-        if (allowedValues != null) {
-            return allowedValues.contains(value)
-        }
+    fun valueCheck(allowedValues: List<String>, value: String): Boolean {
+        return allowedValues.contains(value)
         return false
     }
 
