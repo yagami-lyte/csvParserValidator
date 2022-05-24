@@ -80,60 +80,45 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         fieldArray.forEach {
             val mapOfErrors = mutableMapOf<String, List<String>>()
             val fieldName = it.fieldName
-            lengthValidation.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Length Errors"] = listOfRangeErrors
-                }
-            }
-            typeValidation.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Type Errors"] = listOfRangeErrors
-                }
-            }
-            valueValidation.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Value Errors"] = listOfRangeErrors
-                }
-            }
-
-            dependencyChecks.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Dependency Errors"] = listOfRangeErrors
-                }
-            }
-            nullChecks.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Null Errors"] = listOfRangeErrors
-                }
-            }
-
-            prependingZeroesChecks.forEach { it1 ->
-                if (fieldName == it1.key) {
-                    val listOfRangeErrors = convertToRanges(it1.value)
-                    mapOfErrors["Prepending Errors"] = listOfRangeErrors
-                }
-            }
-
-            val duplicateLines = mutableListOf<String>()
-            duplicates.forEach { it1 ->
-                duplicateLines.add(it1.key.toInt().toString())
-                duplicateLines.add(it1.value[0])
-            }
+            lengthValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Length Errors") }
+            typeValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Type Errors") }
+            valueValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Value Errors") }
+            dependencyChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Dependency Errors") }
+            nullChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Null Errors") }
+            prependingZeroesChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"PrependingZero Errors") }
+            val duplicateLines = getDuplicateErrors(duplicates)
             mapOfErrors["Duplicate Errors"] = duplicateLines
-
-            val jsonObject = JSONObject().put(
-                it.fieldName,
-                mapOfErrors
-            )
+            val jsonObject = getJsonObjectForRespectiveField(it, mapOfErrors)
             errors.put(jsonObject)
         }
         return "$errors"
     }
+
+    private fun getJsonObjectForRespectiveField(
+        it: ConfigurationTemplate,
+        mapOfErrors: MutableMap<String, List<String>>,
+    ): JSONObject? {
+        return JSONObject().put(
+            it.fieldName,
+            mapOfErrors
+        )
+    }
+
+    private fun getDuplicateErrors(duplicates: MutableMap<String, MutableList<String>>): MutableList<String> {
+        val duplicateLines = mutableListOf<String>()
+        duplicates.map { it1 ->
+            duplicateLines.add(it1.key.toInt().toString())
+            duplicateLines.add(it1.value[0])
+        }
+        return duplicateLines
+    }
+
+    private fun appendErrorsForRespectiveField(
+        mapOfErrors: MutableMap<String, List<String>>,
+        it1: Map.Entry<String, MutableList<String>>,
+        fieldName: String,
+        errorHeading: String 
+    ) = mapOfErrors.put(errorHeading, convertToRanges(it1.value).takeIf { fieldName == it1.key }!!)
 
     private fun convertToRanges(listOfErrorLines: MutableList<String>): MutableList<String> {
 
