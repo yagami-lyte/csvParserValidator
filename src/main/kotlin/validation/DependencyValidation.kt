@@ -8,57 +8,38 @@ class DependencyValidation : Validation {
 
     private val mapOfDependencyErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(
-        jsonArrayData: JSONArray,
-        fieldArray: Array<ConfigurationTemplate>
-    ): MutableMap<String, MutableList<String>> {
+    override fun validate(jsonArrayData: JSONArray, fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
         mapOfDependencyErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
             validateDependency(element as JSONObject, fieldArray, index)
         }
-
         return mapOfDependencyErrors
     }
 
-    private fun validateDependency(
-        element: JSONObject,
-        fieldArray: Array<ConfigurationTemplate>,
-        index: Int
-    ) {
+    private fun validateDependency(element: JSONObject, fieldArray: Array<ConfigurationTemplate>, index: Int) {
         val (fieldElement, keys) = getFieldElementKeys(element)
         for (key in keys) {
             val (field, value) = getValueKeys(fieldArray, key, fieldElement)
             var flag = true
-            if (field.dependentOn.isNotEmpty()) {
-                if (field.dependentValue.isNotEmpty() && value.isEmpty()) {
-                    flag = false
-                }
+            if (field.dependentOn.isNotEmpty() && (field.dependentValue.isNotEmpty() && value.isEmpty())) {
+                flag = false
             }
             getErrorMessages(flag, index, field)
         }
     }
 
-    private fun getValueKeys(
-        fieldArray: Array<ConfigurationTemplate>,
-        key: String,
-        fieldElement: JSONObject
-    ): Pair<ConfigurationTemplate, String> {
+    private fun getValueKeys(fieldArray: Array<ConfigurationTemplate>, key: String, fieldElement: JSONObject): Pair<ConfigurationTemplate, String> {
         val field = fieldArray.first { it.fieldName == key }
         val value = fieldElement.get(key) as String
         return Pair(field, value)
     }
 
-    private fun getFieldElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val fieldElement = (element as JSONObject)
-        val keys = fieldElement.keySet()
-        return Pair(fieldElement, keys)
+    private fun getFieldElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val keys = element.keySet()
+        return Pair(element, keys)
     }
 
-    private fun getErrorMessages(
-        flag: Boolean,
-        index: Int,
-        field: ConfigurationTemplate
-    ) {
+    private fun getErrorMessages(flag: Boolean, index: Int, field: ConfigurationTemplate) {
         if (!flag) {
             if (mapOfDependencyErrors[field.fieldName] == null) {
                 mapOfDependencyErrors[field.fieldName] = mutableListOf()
