@@ -69,12 +69,26 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         fieldArray.forEach {
             val mapOfErrors = mutableMapOf<String, List<String>>()
             val fieldName = it.fieldName
-            lengthValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Length Errors") }
-            typeValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Type Errors") }
-            valueValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Value Errors") }
-            dependencyChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Dependency Errors") }
-            nullChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"Null Errors") }
-            prependingZeroesChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName,"PrependingZero Errors") }
+            lengthValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName, "Length Errors") }
+            typeValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName, "Type Errors") }
+            valueValidation.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName, "Value Errors") }
+            dependencyChecks.map { it1 ->
+                appendErrorsForRespectiveField(
+                    mapOfErrors,
+                    it1,
+                    fieldName,
+                    "Dependency Errors"
+                )
+            }
+            nullChecks.map { it1 -> appendErrorsForRespectiveField(mapOfErrors, it1, fieldName, "Null Errors") }
+            prependingZeroesChecks.map { it1 ->
+                appendErrorsForRespectiveField(
+                    mapOfErrors,
+                    it1,
+                    fieldName,
+                    "PrependingZero Errors"
+                )
+            }
             val duplicateLines = getDuplicateErrors(duplicates)
             mapOfErrors["Duplicate Errors"] = duplicateLines
             val jsonObject = getJsonObjectForRespectiveField(it, mapOfErrors)
@@ -121,23 +135,60 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         val lineErrorsList = listOfErrorLines.map(String::toInt)
         val errorListSize = listOfErrorLines.size
         while (index1 < errorListSize) {
-
             index2 = index1
-
-            while (index2 + 1 < errorListSize && lineErrorsList[index2 + 1] === lineErrorsList[index2] + 1) {
-                index2++
-            }
-            if (index1 == index2) {
-                val singleErrorLine = lineErrorsList[index1]
-                listOfRangeErrors.add(singleErrorLine.toString())
-                index1++
-            } else {
-                val errorLinesInRange = "${lineErrorsList[index1]}-${lineErrorsList[index2]}"
-                listOfRangeErrors.add(errorLinesInRange)
-                index1 = index2 + 1
-            }
+            index2 = incrementConsecutiveErrors(index2, errorListSize, lineErrorsList)
+            index1 = appendErrorInList(index1, index2, lineErrorsList, listOfRangeErrors)
         }
         return listOfRangeErrors
+    }
+
+    private fun appendErrorInList(
+        index1: Int,
+        index2: Int,
+        lineErrorsList: List<Int>,
+        listOfRangeErrors: MutableList<String>,
+    ): Int {
+        return when (index2) {
+            index1 -> getSingleLineError(lineErrorsList, index1, listOfRangeErrors)
+            else -> getConsecutiveErrorsInRanges(lineErrorsList, index1, index2, listOfRangeErrors)
+        }
+    }
+
+    private fun getSingleLineError(
+        lineErrorsList: List<Int>,
+        index11: Int,
+        listOfRangeErrors: MutableList<String>,
+    ): Int {
+        var index111 = index11
+        val singleErrorLine = lineErrorsList[index111]
+        listOfRangeErrors.add(singleErrorLine.toString())
+        index111++
+        return index111
+    }
+
+    private fun getConsecutiveErrorsInRanges(
+        lineErrorsList: List<Int>,
+        index11: Int,
+        index2: Int,
+        listOfRangeErrors: MutableList<String>,
+    ): Int {
+        var index111 = index11
+        val errorLinesInRange = "${lineErrorsList[index111]}-${lineErrorsList[index2]}"
+        listOfRangeErrors.add(errorLinesInRange)
+        index111 = index2 + 1
+        return index111
+    }
+
+    private fun incrementConsecutiveErrors(
+        index2: Int,
+        errorListSize: Int,
+        lineErrorsList: List<Int>,
+    ): Int {
+        var index21 = index2
+        while (index21 + 1 < errorListSize && lineErrorsList[index21 + 1] === lineErrorsList[index21] + 1) {
+            index21++
+        }
+        return index21
     }
 
     private fun getMetaData(body: String): Array<ConfigurationTemplate> {
