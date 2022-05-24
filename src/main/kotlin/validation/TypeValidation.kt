@@ -15,12 +15,7 @@ class TypeValidation : Validation {
         value: String,
     ): Boolean {
         var isTypeValid = true
-        val typeMap = mapOf(
-            "DateTime" to field.datetime,
-            "Date" to field.date,
-            "Time" to field.time,
-        )
-
+        val typeMap = createDateTimeMap(field)
         if (value.isNotEmpty() && !TypeEnum.valueOf(field.type.toString())
                 .typeCheck(value, typeMap.getOrDefault(field.type.toString(), ""))
         ) {
@@ -35,7 +30,7 @@ class TypeValidation : Validation {
     ): MutableMap<String, MutableList<String>> {
         mapOfTypeErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
-            val (ele, keys) = getElementKeys(element)
+            val (ele, keys) = getElementKeys(element as JSONObject)
             for (key in keys) {
                 val (field, value) = getFieldValues(fieldArray, key, ele)
                 val isLengthValid = validateTypeInEachRow(field, value)
@@ -55,10 +50,9 @@ class TypeValidation : Validation {
         return Pair(field, value)
     }
 
-    private fun getElementKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
-        val ele = (element as JSONObject)
-        val keys = ele.keySet()
-        return Pair(ele, keys)
+    private fun getElementKeys(element: JSONObject): Pair<JSONObject, MutableSet<String>> {
+        val keys = element.keySet()
+        return Pair(element, keys)
     }
 
     private fun getErrorMessages(
@@ -67,11 +61,16 @@ class TypeValidation : Validation {
         field: ConfigurationTemplate
     ) {
         if (!isLengthValid) {
-
-            if (mapOfTypeErrors[field.fieldName] == null) {
-                mapOfTypeErrors[field.fieldName] = mutableListOf()
-            }
+            when(mapOfTypeErrors[field.fieldName]){ null -> mapOfTypeErrors[field.fieldName] = mutableListOf() }
             mapOfTypeErrors[field.fieldName]?.add((index + 2).toString())
         }
+    }
+
+    private fun createDateTimeMap(field: ConfigurationTemplate): Map<String, String?> {
+        return mapOf(
+            "DateTime" to field.datetime,
+            "Date" to field.date,
+            "Time" to field.time,
+        )
     }
 }
