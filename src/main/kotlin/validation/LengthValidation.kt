@@ -8,10 +8,7 @@ class LengthValidation : Validation {
 
     private val mapOfLengthErrors = mutableMapOf<String, MutableList<String>>()
 
-    override fun validate(
-        jsonArrayData: JSONArray,
-        fieldArray: Array<ConfigurationTemplate>
-    ): MutableMap<String, MutableList<String>> {
+    override fun validate(jsonArrayData: JSONArray,fieldArray: Array<ConfigurationTemplate>): MutableMap<String, MutableList<String>> {
         val lengthErrors = JSONArray()
         mapOfLengthErrors.clear()
         jsonArrayData.forEachIndexed { index, element ->
@@ -20,15 +17,14 @@ class LengthValidation : Validation {
         return mapOfLengthErrors
     }
 
-    private fun validateLengthInEachRow(
-        element: JSONObject,
-        fieldArray: Array<ConfigurationTemplate>,
-        index: Int,
-        lengthErrors: JSONArray
-    ) {
-        val (fieldElement, keys) = getFieldElementsKeys(element)
+    private fun validateLengthInEachRow(element: JSONObject,fieldArray: Array<ConfigurationTemplate>,index: Int,lengthErrors: JSONArray) {
+        val (fieldElement, keys) = getFieldElementsAndKeys(element)
+        validateLength(keys, fieldArray, fieldElement, index, lengthErrors)
+    }
+
+    private fun validateLength( keys: MutableSet<String>,fieldArray: Array<ConfigurationTemplate>,fieldElement: JSONObject,index: Int,lengthErrors: JSONArray,) {
         for (key in keys) {
-            val (field, value) = getFieldValues(fieldArray, key, fieldElement)
+            val (field, value) = getFieldAndValue(fieldArray, key, fieldElement)
             var flag = true
             if (field.length != "") {
                 flag = checkLengthForRow(field, value)
@@ -44,17 +40,13 @@ class LengthValidation : Validation {
         }
     }
 
-    private fun getFieldElementsKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
+    private fun getFieldElementsAndKeys(element: Any?): Pair<JSONObject, MutableSet<String>> {
         val fieldElement = (element as JSONObject)
         val keys = fieldElement.keySet()
         return Pair(fieldElement, keys)
     }
 
-    private fun getFieldValues(
-        fieldArray: Array<ConfigurationTemplate>,
-        key: String?,
-        fieldElement: JSONObject
-    ): Pair<ConfigurationTemplate, String> {
+    private fun getFieldAndValue( fieldArray: Array<ConfigurationTemplate>,key: String?,fieldElement: JSONObject): Pair<ConfigurationTemplate, String> {
         val field = fieldArray.first { it.fieldName == key }
         val value = fieldElement.get(key) as String
         return Pair(field, value)
@@ -82,6 +74,7 @@ class LengthValidation : Validation {
             mapOfLengthErrors[field.fieldName] = mutableListOf()
         }
         mapOfLengthErrors[field.fieldName]?.add((index + 2).toString())
+
         return mapOfLengthErrors
     }
 }
