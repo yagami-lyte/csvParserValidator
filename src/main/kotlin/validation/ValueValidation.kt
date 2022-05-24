@@ -72,9 +72,7 @@ class ValueValidation : Validation {
 
     private fun errorMessage(index: Int, field: ConfigurationTemplate): MutableMap<String, MutableList<String>> {
 
-        if (mapOfValueErrors[field.fieldName] == null) {
-            mapOfValueErrors[field.fieldName] = mutableListOf()
-        }
+        when(mapOfValueErrors[field.fieldName]) {null -> mapOfValueErrors[field.fieldName] = mutableListOf() }
         mapOfValueErrors[field.fieldName]?.add((index + 2).toString())
         return mapOfValueErrors
 

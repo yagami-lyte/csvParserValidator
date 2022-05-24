@@ -3,7 +3,6 @@ package validation
 import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.concurrent.fixedRateTimer
 
 class LengthValidation : Validation {
 
@@ -65,9 +64,7 @@ class LengthValidation : Validation {
 
     private fun errorMessage(index: Int, field: ConfigurationTemplate): MutableMap<String, MutableList<String>> {
 
-        if (mapOfLengthErrors[field.fieldName] == null) {
-            mapOfLengthErrors[field.fieldName] = mutableListOf()
-        }
+        when(mapOfLengthErrors[field.fieldName]) {null -> mapOfLengthErrors[field.fieldName] = mutableListOf() }
         mapOfLengthErrors[field.fieldName]?.add((index + 2).toString())
 
         return mapOfLengthErrors
