@@ -41,8 +41,7 @@ class DependencyValidation : Validation {
 
     private fun getErrorMessages(flag: Boolean, index: Int, field: ConfigurationTemplate) {
         if (!flag) {
-            if (mapOfDependencyErrors[field.fieldName] == null) {
-                mapOfDependencyErrors[field.fieldName] = mutableListOf()
+            when(mapOfDependencyErrors[field.fieldName]) {null -> mapOfDependencyErrors[field.fieldName] = mutableListOf()
             }
             mapOfDependencyErrors[field.fieldName]?.add((index + 2).toString())
         }

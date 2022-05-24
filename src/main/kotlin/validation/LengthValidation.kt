@@ -63,10 +63,8 @@ class LengthValidation : Validation {
     }
 
     private fun errorMessage(index: Int, field: ConfigurationTemplate): MutableMap<String, MutableList<String>> {
-
-        when(mapOfLengthErrors[field.fieldName]) {null -> mapOfLengthErrors[field.fieldName] = mutableListOf() }
+        when(mapOfLengthErrors[field.fieldName]){null -> mapOfLengthErrors[field.fieldName] = mutableListOf() }
         mapOfLengthErrors[field.fieldName]?.add((index + 2).toString())
-
         return mapOfLengthErrors
     }
 }

@@ -40,12 +40,11 @@ class DuplicateValidation : Validation {
     ) {
         val duplicatedRowNumber = (index + 1).toString()
         val duplicationRowNumber = mapOfJsonElements[element.toString()]
-        if (mapOfDuplicationErrors[(index + 1).toString()] == null) {
-            mapOfDuplicationErrors[duplicatedRowNumber] = mutableListOf()
+        when (mapOfDuplicationErrors[(index + 1).toString()]) {
+            null -> mapOfDuplicationErrors[duplicatedRowNumber] = mutableListOf()
         }
         if (duplicationRowNumber != null) {
             mapOfDuplicationErrors[(index + 1).toString()]?.add(duplicationRowNumber.toString())
         }
-
     }
 }
