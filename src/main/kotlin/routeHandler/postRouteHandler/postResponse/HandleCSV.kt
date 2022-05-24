@@ -11,6 +11,7 @@ import validation.*
 import java.io.BufferedReader
 import java.io.File
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : PostResponse {
     private val dependencyValidation = DependencyValidation()
     private val lengthValidation = LengthValidation()

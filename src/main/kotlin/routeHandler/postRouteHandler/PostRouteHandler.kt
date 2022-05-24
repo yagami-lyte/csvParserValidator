@@ -1,5 +1,6 @@
 package routeHandler.postRouteHandler
 
+import Extractor
 import database.Connector
 import database.DatabaseOperations
 import jsonTemplate.ConfigurationTemplate
@@ -16,17 +17,14 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private val handleAddingCsvMetaData = HandleCSVMetaData()
     private val sendConfigurations = SendConfigurations(DatabaseOperations(Connector()))
     private val pageNotFoundResponse = ErrorResponse()
+    private val extractor = Extractor()
 
     fun handlePostRequest(request: String, inputStream: BufferedReader): String {
-        return when (getPath(request)) {
+        return when (extractor.extractPath(request)) {
             "/csv" -> handleCsv.postResponse(request, inputStream)
             "/add-meta-data" -> handleAddingCsvMetaData.postResponse(request, inputStream)
             "/get-config-response" -> sendConfigurations.postResponse(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
-    }
-
-    private fun getPath(request: String): String {
-        return request.split("\r\n")[0].split(" ")[1].substringBefore("?")
     }
 }
