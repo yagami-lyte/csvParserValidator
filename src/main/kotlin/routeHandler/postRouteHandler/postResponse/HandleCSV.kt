@@ -29,33 +29,22 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         return getResponseForCSV(body)
     }
 
-    private fun getConfigResponse(): String {
-        val filePath = System.getProperty("user.dir")
-        val file = File("$filePath/src/main/kotlin/resources/config.json")
-        return file.readText(Charsets.UTF_8)
-    }
-
-    fun getMetaData(body: String): Array<ConfigurationTemplate> {
-        val gson = Gson()
-        return gson.fromJson(body, Array<ConfigurationTemplate>::class.java)
-    }
-
     private fun getResponseForCSV(body: String): String {
         val configBody = getConfigResponse()
         fieldArray = getMetaData(configBody)
         val jsonBody = JSONArray(body)
-        val lengthValidation = lengthValidation.validate(jsonBody, fieldArray)
-        val typeValidation = typeValidation.validate(jsonBody, fieldArray)
-        val valueValidation = valueValidation.validate(jsonBody, fieldArray)
-        val duplicates = duplicateValidation.validate(jsonBody, fieldArray)
+        val lengthChecks = lengthValidation.validate(jsonBody, fieldArray)
+        val typeChecks = typeValidation.validate(jsonBody, fieldArray)
+        val valueChecks = valueValidation.validate(jsonBody, fieldArray)
+        val duplicateChecks = duplicateValidation.validate(jsonBody, fieldArray)
         val dependencyChecks = dependencyValidation.validate(jsonBody, fieldArray)
         val nullChecks = nullValidation.validate(jsonBody, fieldArray)
         val prependingZeroesChecks = prependingZeroesValidation.validate(jsonBody, fieldArray)
         val responseBody = prepareErrorResponse(
-            lengthValidation,
-            typeValidation,
-            valueValidation,
-            duplicates,
+            lengthChecks,
+            typeChecks,
+            valueChecks,
+            duplicateChecks,
             dependencyChecks,
             nullChecks,
             prependingZeroesChecks
@@ -151,7 +140,14 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         return listOfRangeErrors
     }
 
+    private fun getMetaData(body: String): Array<ConfigurationTemplate> {
+        val gson = Gson()
+        return gson.fromJson(body, Array<ConfigurationTemplate>::class.java)
+    }
 
-
-
+    private fun getConfigResponse(): String {
+        val filePath = System.getProperty("user.dir")
+        val file = File("$filePath/src/main/kotlin/resources/config.json")
+        return file.readText(Charsets.UTF_8)
+    }
 }
