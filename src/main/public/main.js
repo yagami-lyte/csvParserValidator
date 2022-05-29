@@ -326,7 +326,7 @@ function showColFields(lines){
 
           <div id="uploadFileDiv${field}"  class="form-group col-md-8" style="margin-top: 0.4%; display:flex; margin-left: 19%">
             <div class="mb-3">
-              <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:flex;" accept=".txt" class="form-control" type="file" id="formFile">
+              <input onchange="readFile(event,'${field}');" id="text_file_id${field}" style="display:flex;  accept=".txt" class="form-control" type="file" id="formFile">
             </div>
           </div>
 
@@ -334,7 +334,7 @@ function showColFields(lines){
           
           <h6 style="font-size: medium;margin-top: -10%">OR</h6>
 
-          <button data-dismiss="modal" style="margin-left: 3%;"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#typeValues${field}">
+          <button data-dismiss="modal" style="margin-left: 40%;"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#typeValues${field}">
             Type Values
           </button>
 
@@ -365,7 +365,7 @@ function showColFields(lines){
 
           <textarea style="margin-right: 50%" id="textArea${field}" placeholder="Enter Values"></textarea>
           <div id = "list"> 
-          <ul style='font-size:15px;font-family: "Bodoni", serif;margin-left: 47%; margin-top: -35%'>
+          <ul style='font-size:15px;font-family: "Bodoni", serif;margin-left: 47%; margin-top: -42%'>
                <li> Please Enter the values in newline without any delimiters</li> 
                <li> Example:</li>
                <ul>

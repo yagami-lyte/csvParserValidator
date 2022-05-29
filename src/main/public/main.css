@@ -1,3 +1,6 @@
+html {
+    scroll-behavior: smooth;
+}
 
 .font-robo {
     font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
@@ -209,15 +212,12 @@ h4 {
 
 h5 {
     color: #333333;
-   margin-top: 15%;
-   margin-left: 45%;
     font-size: 30px;
     font-family: "Bodoni", serif;
 }
 
 h6 {
     color: #333333;
-    margin-top: 15%;
     margin-left: 3%;
     font-size: 20px;
     font-family: "Bodoni", serif;
@@ -237,7 +237,6 @@ h6 {
     border-radius: 10px;
     padding: 20px;
     width: 100%;
-    margin-top: 30%;
     min-height: 540px;
     margin-bottom: 2%;
 }
@@ -300,11 +299,11 @@ input[type=number], select {
     margin: 7px 0 7px 4%;
 }
 
-[type="file"] {
-    height: 0;
-    overflow: hidden;
-    width: 0;
-}
+/*[type="file"] {*/
+/*    height: 0;*/
+/*    overflow: hidden;*/
+/*    width: 0;*/
+/*}*/
 
 [type="file"] + label {
     border: none;
@@ -605,8 +604,9 @@ input[type=submit]:hover {
 }
 
 .row1 {
-    margin-left: 34%;
-    margin-top: 20%;
+    margin-bottom: 40%;
+    text-align: center;
+    margin-left: 30%;
 }
 
 .row:after {
