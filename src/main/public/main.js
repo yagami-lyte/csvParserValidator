@@ -63,7 +63,7 @@ function setConfigInDropDown(object){
         console.log(object[i] != "")
         if(object[i] != ""){
             for( j in object[i]){
-            let fileNameDropDown = document.getElementById("listOfFileNames");
+                let fileNameDropDown = document.getElementById("listOfFileNames");
                 var fileNameDropdownOption = document.createElement("option");
                 fileNameDropdownOption.value = object[i][j];
                 fileNameDropdownOption.text = object[i][j];
@@ -136,9 +136,9 @@ function alterDateTimeOptions(fields) {
     alterTimeOption(fields)
 
     const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
-    if( typeValue === "Date" || typeValue === "Time" || typeValue === "DateTime"){
-        document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
-    }
+    // if( typeValue === "Date" || typeValue === "Time" || typeValue === "DateTime"){
+    //     document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
+    // }
 
     if( typeValue !== "Date" ){
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
@@ -147,7 +147,7 @@ function alterDateTimeOptions(fields) {
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
     }
     if(  typeValue !== "DateTime"){
-            document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
+        document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
     }
 }
 
@@ -156,7 +156,7 @@ function alterDateTimeOption(fields){
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
@@ -169,7 +169,7 @@ function alterDateOption(fields){
         document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
@@ -182,12 +182,13 @@ function alterTimeOption(fields){
         document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
+        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
     }
 }
+
 
 function showColFields(lines){
     var arr = lines[0].split(",")
@@ -197,21 +198,21 @@ function showColFields(lines){
         var field = `${lines[j]}`.replaceAll('"', '');
         row.setAttribute("class", "row")
         row.setAttribute("id", `row${field}`)
-        row.innerHTML = `<div id="addConfig${field}">
-                        <div id="fields">
-         <div class="input-field col s4"
-          style="display:flex;  background: transparent;width: 400px;border-radius: 7px; height: 40px;margin-right: 3% ;margin-left:35%;padding: 1em;margin-bottom: 3em;border-left: 4px solid grey;border-top: 4px solid grey;border-bottom: 4px solid grey;border-right: 4px solid grey;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-           <h4 style= " text-transform: uppercase;"> ${field}</h4>
-           </div>
-                     <p style="color:red; margin-left: -25%; font-size: 15px;"><span id="typeEmpty${field}" class="error"></span></p>
+        row.innerHTML = `
 
-                     <div style="display:flex; ">
-                         <div class="input-field col s4"
-                                     style="display:flex;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right:13% ;margin-left:15.4%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+        
+        <div id="addConfig${field}">
+            <div id = "fields">
 
-                            <label  style="border-radius: 150px;" for="type" class ="required-field">Type </label>
-                            <select placeholder="Choose Type" data-cy="type" id="type${field}"
-                            onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field}');">
+              <h2 class="title"><b>${field}</b></h2>
+                  <form>
+                    <div class="form-row">
+
+<!--                       <p><span id="typeEmpty${field}" class="error"></span></p>-->
+
+                      <div class="form-group col-md-1.5" style="margin-left: -2%">
+                      <select class="form-control" data-cy="type" id="type${field}" 
+                            onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field},uploadFileDiv${field}');">
                                <option value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
@@ -223,44 +224,74 @@ function showColFields(lines){
                                 <option value="Time">Time</option>
                                 <option value="Email">Email</option>
                             </select>
-                         </div>
+                      </div>
 
-                     <div  id = "dateTimeDiv${field}" class="input-field  col s4" 
-                                        style="display:none;  background: transparent;width: 310px;border-radius: 7px; height: 40px;margin-right: 13% ;margin-left:10%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
+                      <div class="form-group col-md-1." style="margin-left: 0.5%;display:flex;" id="length-div${field}">
+                        <input type="number" class="form-control"  placeholder="Enter Length" min=0 onkeypress="return event.charCode >= 49" type="number" id="fixed-len${field}" data-cy="fixed-len">
+                      </div>
+                      
+                  
+                    
+                        <div id="value-div${field}" class="form-group col-md-1" style="margin-left: 0.5%;margin-top:0.5%"  >
+                        <button style="margin-left: 3%;" class="btn btn-primary btn-sm" type="button"  data-toggle="modal" data-target="#chooseValues${field}">Upload or Type Values</button>
+                        </div>
+         
 
-    <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;width:40%; white-space: nowrap;'>Date-Time Format</label>
-                                                
-    <select placeholder="Choose date time format"  name="datetime" id='dateTime${field}' style='display:none;'>
-         <option value="">Choose Date Time format</option>
-         <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
-         <option value="MMMM dd, yy">MMMM DD, YYYY</option>
-         <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
-         <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
-         <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
-         <option value="yyyy-MM-dd'T'HH:mm:ss">YYYY-MM-DD'T'HH:MM:SS</option>
-         <option value="MMM dd, yyyy hh:mm:ss a">MMM DD, YYYY HH:MM:SS AM</option>
-         <option value="dd/MMM/yyyy:HH:mm:ss ZZZZ">DD/MMM/YYYY:HH:MM:SS ZZZZ</option>
-         <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM DD HH:MM:SS ZZZZ YYYY</option>
-         <option value="MMM dd yyyy HH:mm:ss">MMM DD YYYY HH:MM:SS</option>
-         <option value="MM/dd/yyyy hh:mm:ss a">MM/DD/YYYY HH:MM:SS AM</option>
-         <option value="MM/dd/yyyy hh:mm:ss a:SSS">MM/DD/YYYY HH:MM:SS AM:SSS</option>
-         <option value="MMdd_HH:mm:ss.SSS">MMDD_HH:MM:SS.SSS</option>
-         <option value="MMdd_HH:mm:ss">MMDD_HH:MM:SS</option>
-         <option value="dd MMM yyyy HH:mm:ss*SSS">DD MMM YYYY HH:MM:SS*SSS</option>
-         <option value="dd MMM yyyy HH:mm:ss">DD MMM YYYY HH:MM:SS</option>
-         <option value="dd/MMM/yyyy HH:mm:ss"">DD/MMM/YYYY HH:MM:SS</option>
-         <option value="dd/MMM HH:mm:ss,SSS"">DD/MMM HH:MM:SS,SSS</option>
-    </select>
-</div>
+                    <div id = "allowEmptyValues1${field}" class="form-group col-md-0" style=" ;margin-top: 1%;margin-left: 6%;">
+                      <label>Allow Empty Values</label>
+                    </div>
 
-                         
-                         
-                         <div id = "dateDiv${field}" class="input-field  col s4"
-                                                style="display:none;  background: transparent;width: 300px;border-radius: 7px; height: 40px;margin-right: 2% ;margin-left:6%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                                                
-                            <label class ="required-field"  for="date" id="dateFormats${field}" style='display:none;'>Date Format</label>
-                            <select placeholder="Choose date format"  name="date" id='date${field}' style='display:none;'>
-                                 <option value="">"Choose Date Format"</option>
+                    <div id = "allowEmptyValues2${field}" class="form-group col-md-1" style=" white-space: nowrap;margin-left: -2%;margin-top:1%;">
+                      <input id="allowNull${field}" value="Not Allowed" onclick="toggleYesOrNo(this.id);" style="margin-left: 1.5%;" type="checkbox" class="toggle">
+                    </div>
+
+
+                    <div class="form-group col-md-1.5" style="margin-left: -1%;">
+                      <select id="dependent${field}" class="form-control">
+                        <option disabled="disabled" value ="" selected="selected">Dependent Field</option>
+                        ${lines.map((element) => {
+            return `<option value='${element}'>${element.replaceAll('"', '')}</option>`;
+        })}
+                      </select>
+                      </div>
+
+
+
+                        <div class="form-group col-md-1." style="margin-left: 0.5%;display:flex;">
+                          <input id="dep-val${field}" type="number" class="form-control" id="inputEmail4" placeholder="Dependent Value">
+                        </div>
+                        
+                     </div>
+                     
+                      <div id = "dateTimeDiv${field}"  style="display: none; margin-left: -2.3%;width:19.5%;">
+                        <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;'></label>
+                        <select  class="form-control" name="datetime" id='dateTime${field}' style='display:none;'>
+                             <option selected="selected" value="">Choose Date Time format</option>
+                             <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
+                             <option value="MMMM dd, yy">MMMM DD, YYYY</option>
+                             <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
+                             <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM dd HH:mm:ss ZZZZ yyyy</option>
+                             <option value="yyyy-MM-dd'T'HH:mm:ss.SSS'Z'">yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</option>
+                             <option value="yyyy-MM-dd'T'HH:mm:ss">YYYY-MM-DD'T'HH:MM:SS</option>
+                             <option value="MMM dd, yyyy hh:mm:ss a">MMM DD, YYYY HH:MM:SS AM</option>
+                             <option value="dd/MMM/yyyy:HH:mm:ss ZZZZ">DD/MMM/YYYY:HH:MM:SS ZZZZ</option>
+                             <option value="MMM dd HH:mm:ss ZZZZ yyyy">MMM DD HH:MM:SS ZZZZ YYYY</option>
+                             <option value="MMM dd yyyy HH:mm:ss">MMM DD YYYY HH:MM:SS</option>
+                             <option value="MM/dd/yyyy hh:mm:ss a">MM/DD/YYYY HH:MM:SS AM</option>
+                             <option value="MM/dd/yyyy hh:mm:ss a:SSS">MM/DD/YYYY HH:MM:SS AM:SSS</option>
+                             <option value="MMdd_HH:mm:ss.SSS">MMDD_HH:MM:SS.SSS</option>
+                             <option value="MMdd_HH:mm:ss">MMDD_HH:MM:SS</option>
+                             <option value="dd MMM yyyy HH:mm:ss*SSS">DD MMM YYYY HH:MM:SS*SSS</option>
+                             <option value="dd MMM yyyy HH:mm:ss">DD MMM YYYY HH:MM:SS</option>
+                             <option value="dd/MMM/yyyy HH:mm:ss"">DD/MMM/YYYY HH:MM:SS</option>
+                             <option value="dd/MMM HH:mm:ss,SSS"">DD/MMM HH:MM:SS,SSS</option>
+                        </select>
+                        </div>
+                        
+                        <div id = "dateDiv${field}" style="display: none; margin-left: -2.2%;width:16.0%;">
+                          <label class ="required-field"  for="date" id="dateFormats${field}" style='display:none;'></label>
+                            <select  class="form-control" name="date" id='date${field}' style='display:none;'>
+                                 <option selected="selected" value="">Choose Date Format</option>
                                  <option value="MM-dd-yyyy">MM-DD-YYYY</option>
                                  <option value="dd-MM-yyyy">DD-MM-YYYY</option>
                                  <option value="dd/MM/yyyy, yy">DD/MM/YYYY</option>
@@ -272,151 +303,149 @@ function showColFields(lines){
                                 <option value="ddMMyYYy">DDMMYYYY</option>
                                 <option value="yyyy-MM-dd">YYYY-MM-DD</option>
                             </select>
-                         </div>
+                          </div>
 
-
-                     <div id = "timeDiv${field}" class="input-field  col s4"
-                      style="display:none;border-radius: 7px;  background: transparent;width: 300px; height: 30px;margin-right: 3% ;margin-left:6%;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-
-                       <label class ="required-field"  for="time" style='display:none;' id="timeFormats${field}">Time Format</label>
-                           <select  placeholder="Choose time format"  name="time" id='time${field}' style='display:none;'>
+                          <div id = "timeDiv${field}"  style="display: none; margin-left: -2.2%;width:16.0%;">
+                            <label class ="required-field"  for="time" style='display:none;' id="timeFormats${field}"</label>
+                           <select  class="form-control" name="time" id='time${field}' style='display:none;'>
                                 <option value="">Choose Time Format</option>
                                 <option value="hh:mm:ss">HH:MM:SS</option>
                                 <option value="HH:mm:ss zzz">HH:MM:SS ZZZ</option>
                                 <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
                            </select>
-                      </div>
+                            </div>
+                     
+                     
+                                            
+                     <!-- Modal -->
+<div class="modal fade" id="chooseValues${field}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Choose Values</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-container">
+
+          <h6>Upload Values in the form of text file</h6>
+
+          <div id="uploadFileDiv${field}"  class="form-group col-md-8" style="margin-top: 0.4%; display:flex; margin-left: 19%">
+            <div class="mb-3">
+              <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:flex;" accept=".txt" class="form-control" type="file" id="formFile">
+            </div>
+          </div>
+
+          <br><br><br>
+          
+          <h6 style="font-size: medium;margin-top: -10%">OR</h6>
+
+          <button data-dismiss="modal" style="margin-left: 3%;"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#typeValues${field}">
+            Type Values
+          </button>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-                         <div id="length-div${field}"class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 300px;margin-right: 7% ;border-radius: 7px;margin-left:7%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                            <label for="fixed-len">Length</label>
-                            <input placeholder="Enter Length" min=0 onkeypress="return event.charCode >= 49" style="padding:10px" type="number" id="fixed-len${field}" data-cy="fixed-len">
-                         </div>
-                       </div>
 
-                         <div style="display:flex; ">
+<!-- Modal -->
+<div class="modal fade" id="typeValues${field}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Type Values</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-container">
 
-                         <div>
-                         <div id="allowNullDiv${field}" class="input-field  col s4"
-                         style="display:flex;  background: transparent;width: 300px;margin-right: 53% ;border-radius:7px;margin-left:55%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                         <label style="border-radius:60px;margin-right:-140%;margin-top:7%;" for="values">Select to allow empty values</label>
-                         <p style="font-size:14px;display: inline-block;white-space: nowrap;margin-top:-12%;margin-left:36%;margin-right:160%;width:20px;"></p>
-                         <label class="switch">
-                           <input id="allowNull${field}" type="checkbox" value="Not Allowed" onclick="toggleYesOrNo(this.id);">
-                           <span class="slider round"></span>
-                         </label>
-                         </div>
+          <textarea style="margin-right: 50%" id="textArea${field}" placeholder="Enter Values"></textarea>
+          <div id = "list"> 
+          <ul style='font-size:15px;font-family: "Bodoni", serif;margin-left: 47%; margin-top: -35%'>
+               <li> Please Enter the values in newline without any delimiters</li> 
+               <li> Example:</li>
+               <ul>
+                   <li> Val1 </li>
+                   <li> Val2 </li>
+                   <li> Val3 </li>
+               </ul>
 
-                         <div id="value-div${field}" class="input-field  col s4"
-                                  style="display:flex;  background: transparent;width: 300px;margin-right: 3% ;border-radius:7px;margin-left:55%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                                  <label for="values">Values</label>
-                                     <select style="margin-left:5%;" type="text" name="values" id="values${field}"
-                                       onchange="onChangeHandler(this.value,'text_file_id${field}','popUp${field}','addConfig${field}');">
-                                     <option  style="display:flex;border-radius:60px;margin-top:7%;" value=""> Choose</option>
-                                       <option value="Upload File">Upload File</option>
-                                                   <option value="Type Values">Type Values</option>
-                                                            </select>
-                                             <input onchange="readFile(event,'${field}');" type="file" id="text_file_id${field}" style="display:none;" accept=".txt">
-                                                  </label>
-                                                  </div>
+          </ul>
+          </div>
+      
 
-
-                            
-                         </div>
-
-
-                         <div class="input-field  col s4"
-                           style="display:flex;  background: transparent;border-radius: 7px;width: 300px;margin-right: 10% ;margin-left:35%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid black;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;ont-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-
-                             <label for="dependent">Dependent</label>
-                             <select placeholder="Choose dependant-field" name="dependentField" style="display: block;" id="dependent${field}">
-                                 <option value="">Choose Dependent Field</option>
-                                     ${lines.map((element) => {
-            return `<option value='${element}'>${element.replaceAll('"', '')}</option>`;
-        })}
-                             </select>
-                         </div>
-
-                         <div class="input-field  col s4"
-                          style="display:flex;border-radius: 7px;  background: transparent;width: 300px;margin-right: 7% ;margin-left:-39%;margin-top: 9%; height: 40px;padding: 1em;margin-bottom: 2em;border-left: 4px solid grey;border-right: 4px solid grey;border-top: 1px solid grey;backdrop-filter: blur(5px); box-shadow: 4px 4px 60px rgba(0,0,0,0.2);color: #fff;   font-family: Montserrat, sans-serif;font-weight: 500;transition: all 0.2s ease-in-out;     text-shadow: 2px 2px 4px rgba(0,0,0,0.2);flex-direction: row; justify-content: center; align-items: center">
-                             <label for="dep-val">Dependent Value</label>
-                             <input type="text" id="dep-val${field}" data-cy="dep-val">
-                         </div>
-
-                    </div>
-                     <br> </br> <br>
-                  </div>
-                  </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+                     
                   
-                   <div class="form-popup" id="popUp${field}" >
-                                             <div class="form-container">
-                                               <h1>Enter Values</h1>
-
-                                               <textarea id="textArea${field}" placeholder="Enter Values"></textarea>
-                                               <div id = "list"> 
-                                               <ul style='margin-left: 55%; margin-top: -20%'>
-                                                    <li> Please Enter the values in newline without any delimiters</li> 
-                                                    <li> Example:</li>
-                                                    <ul>
-                                                        <li> Val1 </li>
-                                                        <li> Val2 </li>
-                                                        <li> Val3 </li>
-                                                    </ul>
-
-                                               </ul>
-                                               </div>
-                                               <div id="outer">
-                                                 <div class="inner">
-                                                    <button onclick="closeForm('popUp${field}','addConfig${field}')" type="button" class="btn" style='display:block;'>Submit</button>
-                                                 </div>
-                                                 <div class="inner">
-                                                    <button type="button" class="btn cancel" onclick="closeForm('popUp${field}','addConfig${field}')">Close</button>
-                                                 </div>
-                                               </div>
-
-                                             </div>
-                                           </div>
-                      <br>
+                  </form>
+               
+                  </div>
+                  </div>
                  `
         document.getElementById("myform").appendChild(row)
     }
 }
 
-function typeMandatory() {
+
+
+
+/*function typeMandatory() {
     var emptyFields = 0
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
-         var typeField = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
-         if (typeField.value == ""){
-             document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="Please select a type";
-             document.getElementById("fields-empty").innerHTML = "You have left mandatory fields empty!"
-             emptyFields += 1
-         }
-         else {
-                document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="";
-         }
+        var typeField = document.getElementById(`type${fields[0][j]}`.replaceAll('"', ''))
+        if (typeField.value == ""){
+            document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="Please select a type";
+            document.getElementById("fields-empty").innerHTML = "You have left mandatory fields empty!"
+            emptyFields += 1
+        }
+        else {
+            document.getElementById(`typeEmpty${fields[0][j]}`.replaceAll('"', '')).innerHTML="";
+        }
     }
     return (emptyFields == 0)
-}
+}*/
 
 function closeForm(popUp , addConfig, valueOption) {
     document.getElementById(popUp).style.display = "none";
     document.getElementById(addConfig).style.filter = "blur(0px)";
 }
 
-function onChangeHandler(valueOption, fileInput, textAreaInput,addConfig){
+function onChangeHandler(valueOption, fileInput, uploadDIV,textAreaInput,addConfig){
     var uploadFile = document.getElementById(fileInput);
+    var uploadFileDIV = document.getElementById(uploadDIV);
     console.log(uploadFile.files[0])
     var typeValues = document.getElementById(textAreaInput);
     var addConfig = document.getElementById(addConfig);
     if (valueOption === "Type Values"){
         console.log("Changing")
+        uploadFileDIV.style.display = "none";
         uploadFile.style.display = "none";
-        typeValues.style.display = "block";
-        addConfig.style.filter = "blur(3px)";
+        // typeValues.style.display = "block";
+        // addConfig.style.filter = "blur(3px)";
     }
     else {
         uploadFile.style.display = "flex";
+        uploadFileDIV.style.display = "flex";
         typeValues.style.display = "none";
     }
 }
@@ -431,7 +460,7 @@ function toggleYesOrNo(element) {
     document.getElementById(element).value = "Not Allowed"
 }
 
-function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId){
+function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId,uploadFileDiv){
     var dateDivIDElement = document.getElementById(dateDivID);
     var dateFormatElement = document.getElementById(dateFormatId);
     var dateIdFormatElement = document.getElementById(dateId);
@@ -443,9 +472,10 @@ function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID,
     var dateTimeDivIDElement = document.getElementById(dateTimeDivID);
     var dateTimeFormatElement = document.getElementById(dateTimeFormatId);
     var dateTimeIdFormatElement = document.getElementById(dateTimeId);
+    var uploadFileElement = document.getElementById(uploadFileDiv);
 
     if(value === 'DateTime'){
-        showDateTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
+        showDateTimeField(uploadFileElement, dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
     }
 
     else if(value === 'Date'){
@@ -475,45 +505,46 @@ function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID,
 }
 
 function showDateField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-        dateDivIDElement.style.display='flex';
-        dateFormatElement.style.display='block';
-        dateIdFormatElement.style.display='block';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+    dateDivIDElement.style.display='flex';
+    dateFormatElement.style.display='block';
+    dateIdFormatElement.style.display='block';
+    timeDivIDElement.style.display='none';
+    timeFormatElement.style.display='none';
+    timeIdFormatElement.style.display='none';
+    dateTimeDivIDElement.style.display='none';
+    dateTimeFormatElement.style.display='none';
+    dateTimeIdFormatElement.style.display='none';
+    valueDivElement.style.display='none';
+    lengthDivElement.style.display='none';
 }
 
 function showTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-        timeDivIDElement.style.display='flex';
-        timeFormatElement.style.display='block';
-        timeIdFormatElement.style.display='block';
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+    timeDivIDElement.style.display='flex';
+    timeFormatElement.style.display='block';
+    timeIdFormatElement.style.display='block';
+    dateDivIDElement.style.display='none';
+    dateFormatElement.style.display='none';
+    dateIdFormatElement.style.display='none';
+    dateTimeDivIDElement.style.display='none';
+    dateTimeFormatElement.style.display='none';
+    dateTimeIdFormatElement.style.display='none';
+    valueDivElement.style.display='none';
+    lengthDivElement.style.display='none';
 }
 
-function showDateTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-        dateTimeDivIDElement.style.display='flex';
-        dateTimeFormatElement.style.display='block';
-        dateTimeIdFormatElement.style.display='block';
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
-        valueDivElement.style.display='none';
-        lengthDivElement.style.display='none';
+function showDateTimeField(uploadFileDivElement, dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
+    dateTimeDivIDElement.style.display='flex';
+    dateTimeFormatElement.style.display='block';
+    dateTimeIdFormatElement.style.display='block';
+    uploadFileDivElement.style.display = 'none';
+    dateDivIDElement.style.display='none';
+    dateFormatElement.style.display='none';
+    dateIdFormatElement.style.display='none';
+    timeDivIDElement.style.display='none';
+    timeFormatElement.style.display='none';
+    timeIdFormatElement.style.display='none';
+    valueDivElement.style.display='none';
+    lengthDivElement.style.display='none';
 }
 
 function readFile(event, fieldName){
@@ -572,9 +603,9 @@ function addDataToJson() {
         jsonObj["dependentValue"] = dependentValue.value
         const typeValue = type.value
         if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "DateTime"){
-                jsonObj["datetime"] = ''
-                jsonObj["date"] = ''
-                jsonObj["time"] = ''
+            jsonObj["datetime"] = ''
+            jsonObj["date"] = ''
+            jsonObj["time"] = ''
         }else if(typeValue === "Date"){
             jsonObj["datetime"] = ''
             jsonObj["length"] = ''
@@ -610,7 +641,7 @@ async function sendConfigData(){
 async function displayErrors(){
     emptyErrorList()
     document.getElementById("config_name_validation").style.display = 'none';
-    if(validateConfigName() && typeMandatory()){
+    if(validateConfigName() ){
         document.getElementById("fields-empty").innerHTML = ""
         loadingEffect()
         sendConfigData()
@@ -652,14 +683,14 @@ function traverse(object){
 
 function createSuccessErrMsg(errorBase){
     let row = document.createElement("div");
-        row.innerHTML = `
+    row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
           <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:38px; text-align:left;color:white;margin:auto">
           <marquee scrollamount="12">No Error Found In Your CSV File</marquee>
           </div>
       </div>`;
 
-      errorBase.appendChild(row);
+    errorBase.appendChild(row);
 }
 
 function removeErrorDiv(key){
@@ -673,9 +704,9 @@ function createDivElement(key , value){
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
     row.setAttribute("id", key+" error")
-                row.innerHTML = `
-                <div style="display:flex; flex-direction: row;padding:20px;">
-                  <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+    row.innerHTML = `
+                <div style="display:flex; flex-direction: row;padding:20px;width:700px">
+                  <div style="width: 150%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
                   <p style="margin:auto;">${key}
                   <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
                   <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
@@ -690,24 +721,24 @@ function createDivElement(key , value){
           </div>
         `;
 
-        errorBase.appendChild(row)
-        for(i in value){
-            console.log(value[i].length)
-            if(i === 'Duplicate Errors' && value[i].length != 0 && document.getElementById("Duplicate Errors error") === null){
-                createDuplicationErrMsg(value[i],i)
-            }
-            console.log(i)
-            if(value[i].length != 0 && i !== 'Duplicate Errors'){
-                createTableForDisplayingErrorMsg(value[i],key,i)
-            }
+    errorBase.appendChild(row)
+    for(i in value){
+        console.log(value[i].length)
+        if(i === 'Duplicate Errors' && value[i].length != 0 && document.getElementById("Duplicate Errors error") === null){
+            createDuplicationErrMsg(value[i],i)
         }
+        console.log(i)
+        if(value[i].length != 0 && i !== 'Duplicate Errors'){
+            createTableForDisplayingErrorMsg(value[i],key,i)
+        }
+    }
 }
 
 function createDuplicationErrMsg(value,key){
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
     row.setAttribute("id", key+" error")
-        row.innerHTML = `
+    row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
           <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
           <p style="margin:auto;">${key}
@@ -745,21 +776,21 @@ function createTableForDuplicateErrors(value,key){
     firstRow.appendChild(firstHeading);
     firstRow.appendChild(secondHeading);
     table.appendChild(firstRow)
-     while(i<value.length){
-            let newRow = document.createElement("tr");
-            let td_1 = document.createElement("td")
-            let td_2 = document.createElement("td")
-            td_1.innerHTML = value[i]
-            td_2.innerHTML = value[i+1]
-            newRow.appendChild(td_1);
-            newRow.appendChild(td_2);
-            table.appendChild(newRow)
-            i = i+2;
-     }
+    while(i<value.length){
+        let newRow = document.createElement("tr");
+        let td_1 = document.createElement("td")
+        let td_2 = document.createElement("td")
+        td_1.innerHTML = value[i]
+        td_2.innerHTML = value[i+1]
+        newRow.appendChild(td_1);
+        newRow.appendChild(td_2);
+        table.appendChild(newRow)
+        i = i+2;
+    }
 
-     p.appendChild(table)
-     let parent = document.getElementById(`${key}`)
-     parent.appendChild(p)
+    p.appendChild(table)
+    let parent = document.getElementById(`${key}`)
+    parent.appendChild(p)
 }
 
 function createTableForDisplayingErrorMsg(value,key,type){
@@ -772,20 +803,20 @@ function createTableForDisplayingErrorMsg(value,key,type){
     let i=0;
     let j=0;
     console.log("size",value.length)
-     while(i<value.length){
-         let newRow=document.createElement("tr");
-         while(j<i+5 && j<value.length){
-             let td=document.createElement("td")
-             td.innerHTML = value[j]
-             newRow.appendChild(td);
-             j++;
-         }
-         table.appendChild(newRow)
-         i=j;
-     }
-     p.appendChild(table)
-     let parent = document.getElementById(`${key}`)
-     parent.appendChild(p)
+    while(i<value.length){
+        let newRow=document.createElement("tr");
+        while(j<i+5 && j<value.length){
+            let td=document.createElement("td")
+            td.innerHTML = value[j]
+            newRow.appendChild(td);
+            j++;
+        }
+        table.appendChild(newRow)
+        i=j;
+    }
+    p.appendChild(table)
+    let parent = document.getElementById(`${key}`)
+    parent.appendChild(p)
 }
 
 function goDown(key)
