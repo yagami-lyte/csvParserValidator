@@ -173,7 +173,9 @@ h1 {
     text-align: center;
     font-size: 40px;
     font-family: 'Ubuntu', sans-serif;
+    margin-top:8%;
 }
+
 
 h2 {
     color: darkblue;
@@ -281,8 +283,8 @@ input[type=text], select {
     font-size: 14px;
     padding: 12px 20px;
     display: inline-block;
-    border: 1px solid #696969;
     border-radius: 7px;
+    color: black;
     box-sizing: border-box;
     margin: 8px 0 8px 1%;
     height: 40px;
@@ -428,6 +430,7 @@ h1, p {
 h1 {
     font-family: 'Rubik', sans-serif;
     font-size: 1.7rem;
+    color:red;
 }
 
 a {
@@ -506,8 +509,11 @@ button {
 #view-errors {
     border: 1px solid #ccc;
     border-radius: 7px;
-    background: #333333;
     font-family: 'Ubuntu', sans-serif;
+    background: radial-gradient(
+            hsl(5, 66%, 51%),
+            hsl(11, 56%, 69%)
+    ) ;
     color: white;
     padding: 15px 30px;
     text-align: center;
@@ -929,7 +935,7 @@ textarea {
     left: 35%;
     width: 650px;
     height: 440px;
-    margin-top: 150px;
+    margin-top: 300px;
     margin-left: -200px;
     border-radius: 39px;
     box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
