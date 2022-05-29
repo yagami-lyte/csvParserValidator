@@ -1,14 +1,7 @@
-/* ==========================================================================
-   #FONT
-   ========================================================================== */
+
 .font-robo {
     font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
 }
-
-
-
-
-
 
 
 .card {
@@ -27,23 +20,18 @@
     border-radius: 10px;
     margin-left: -13%;
     margin-bottom: 20%;
-    /*padding: 5%;*/
-    width: 127%;
+    /*padding-top: 10%;*/
+    width: 140%;
     display: table;
     background-color: white;
     vertical-align: top;
 }
 
-#myform{
-    /*margin-top: -20%;*/
+#myform {
+    margin-top: 1.5%;
     margin-left: -60%;
-
 }
 
-
-/*/#field {/*/
-/*     !*    margin-top: -13%;*!*/
-/* /}/*/
 
 .card-2 .card-heading {
     width: 29.1%;
@@ -58,12 +46,14 @@
     .card-2 {
         display: block;
     }
+
     .card-2 .card-heading {
         width: 100%;
         display: block;
         padding-top: 300px;
         background-position: left center;
     }
+
     .card-2 .card-body {
         display: block;
         padding: 60px 50px;
@@ -71,15 +61,17 @@
 }
 
 
-
 input[type="checkbox"] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
-    cursor: pointer; }
+    cursor: pointer;
+}
+
 input[type="checkbox"]:focus {
-    outline: 0; }
+    outline: 0;
+}
 
 .toggle {
     height: 22px;
@@ -89,7 +81,9 @@ input[type="checkbox"]:focus {
     position: relative;
     border: 2px solid #474755;
     background: linear-gradient(180deg, #2D2F39 0%, #1F2027 100%);
-    transition: all .2s ease; }
+    transition: all .2s ease;
+}
+
 .toggle:after {
     content: '';
     position: absolute;
@@ -100,11 +94,16 @@ input[type="checkbox"]:focus {
     border-radius: 50%;
     background: white;
     box-shadow: 0 1px 2px rgba(44, 44, 44, 0.2);
-    transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35); }
+    transition: all 0.2s cubic-bezier(0.5, 0.1, 0.75, 1.35);
+}
+
 .toggle:checked {
-    border-color: #654FEC; }
+    border-color: #654FEC;
+}
+
 .toggle:checked:after {
-    transform: translatex(20px); }
+    transform: translatex(20px);
+}
 
 .custom-file-button input[type=file] {
     margin-left: -2px !important;
@@ -122,8 +121,6 @@ input[type="checkbox"]:focus {
     background-color: #dde0e3;
     cursor: pointer;
 }
-
-
 
 
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
@@ -150,11 +147,13 @@ marquee {
 }
 
 body {
-    background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6, #F0FFF0, #FFFAFA);
     background-size: 400% 400%;
+    background: radial-gradient(
+            hsl(30, 41%, 48%),
+            hsl(199, 14%, 49%)
+    ) fixed;
     animation: gradient 15s ease infinite;
     min-height: 100vh;
-
 }
 
 @keyframes gradient {
@@ -208,15 +207,15 @@ h4 {
 
 h5 {
     color: #333333;
-    /*margin-top: 15%;*/
-    margin-left: 45%;
+   margin-top: 15%;
+   margin-left: 45%;
     font-size: 30px;
     font-family: "Bodoni", serif;
 }
 
 h6 {
     color: #333333;
-    /*margin-top: 15%;*/
+    margin-top: 15%;
     margin-left: 3%;
     font-size: 20px;
     font-family: "Bodoni", serif;
@@ -225,7 +224,7 @@ h6 {
 
 
 .logo {
-    color: black;
+    color: white;
     text-align: center;
     font-size: 25px;
     font-family: 'Ubuntu', sans-serif;
@@ -244,16 +243,11 @@ h6 {
 #fields {
     padding: 10px;
     text-align: center;
-    /*background-color: white;*/
-    margin-top: -13%;
+    background-color: white;
+    margin-top: -6%;
     margin-left: 10%;
     margin-right: 15%;
     width: 110%;
-}
-
-
-#upload {
-    margin-left: 20%;
 }
 
 
@@ -304,6 +298,144 @@ input[type=number], select {
     margin: 7px 0 7px 4%;
 }
 
+[type="file"] {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+[type="file"] + label {
+    border: none;
+    background: radial-gradient(
+            hsl(180, 12%, 37%),
+            hsl(11, 58%, 69%)
+    ) fixed;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Rubik', sans-serif;
+    font-size: inherit;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    outline: none;
+    padding: 1rem 50px;
+    position: relative;
+    transition: all 0.3s;
+    vertical-align: middle;
+}
+
+[type="file"] + label:hover {
+    background-color: #d3460d;
+}
+
+[type="file"] + label.btn-1 {
+    background-color: #f79159;
+    box-shadow: 0 6px #f57128;
+    transition: none;
+}
+
+[type="file"] + label.btn-1:hover {
+    box-shadow: 0 4px #f57128;
+    top: 2px;
+}
+
+[type="file"] + label.btn-2 {
+    background-color: #99c793;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+[type="file"] + label.btn-2::before {
+    color: #fff;
+    content: "\f382";
+    font-family: "Font Awesome 5 Pro";
+    font-size: 100%;
+    height: 100%;
+    right: 130%;
+    line-height: 3.3;
+    position: absolute;
+    top: 0px;
+    transition: all 0.3s;
+}
+
+[type="file"] + label.btn-2:hover {
+    background-color: #497f42;
+}
+
+[type="file"] + label.btn-2:hover::before {
+    right: 75%;
+}
+
+[type="file"] + label.btn-3 {
+    background-color: #ee6d9e;
+    border-radius: 0;
+    overflow: hidden;
+}
+
+[type="file"] + label.btn-3 span {
+    display: inline-block;
+    height: 100%;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+[type="file"] + label.btn-3::before {
+    color: #fff;
+    content: "\f382";
+    font-family: "Font Awesome 5 Pro";
+    font-size: 130%;
+    height: 100%;
+    left: 0;
+    line-height: 2.6;
+    position: absolute;
+    top: -180%;
+    transition: all 0.3s;
+    width: 100%;
+}
+
+[type="file"] + label.btn-3:hover {
+    background-color: #ae144f;
+}
+
+[type="file"] + label.btn-3:hover span {
+    transform: translateY(300%);
+}
+
+[type="file"] + label.btn-3:hover::before {
+    top: 0;
+}
+
+.wrapper {
+    background-color: #fff;
+    border-radius: 1rem;
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 2rem;
+    width: 100%;
+}
+
+.footer {
+    font-size: 0.8rem;
+    margin-bottom: 0;
+    margin-top: 3rem;
+}
+
+h1, p {
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.7rem;
+}
+
+a {
+    color: #31c1ef;
+    text-decoration: none;
+}
+
+
 /*label {
     background: transparent;
     padding-right: 5px;
@@ -316,6 +448,7 @@ input[type=number], select {
     transition: all 0.2s ease-in-out;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }*/
+
 
 p {
     color: #333333;
@@ -349,9 +482,13 @@ button {
 }
 
 #uploadCSV {
-    background-color: #333333; /* Green */
-    color: white;
+    background: radial-gradient(
+            hsl(180, 12%, 37%),
+            hsl(11, 56%, 69%)
+    ) fixed;
+    color: black;
     padding: 15px 32px;
+    border-radius: 4px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -360,7 +497,7 @@ button {
     cursor: pointer;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    margin: 4px 2px 4px -25%;
+    margin: 4px 2px -97px -1%;
     border-color: black;
     box-sizing: border-box;
     height: 50px;
@@ -404,8 +541,11 @@ input[type=submit]:hover {
 
 
 .header {
-    background-color: white;
     z-index: 10;
+    background: radial-gradient(
+            hsla(351, 53%, 67%, 0.97),
+            hsl(119, 8%, 51%)
+    ) fixed;
     position: fixed;
     top: 0;
     left: 0;
@@ -414,26 +554,28 @@ input[type=submit]:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 99px;
 }
 
 
 .upload {
-    background-color: #8c8c8c;;
-    height: 10%;
+    background-color: #a99a86;
+    height: 5%;
+    display: none;
     -webkit-border-radius: 30px;
     -webkit-background-clip: padding-box;
-    -moz-border-radius: 20px;
+    -moz-border-radius: 2px;
     -moz-background-clip: padding;
     border-radius: 6px;
     background-clip: padding-box;
     padding: 20px 20px;
-    margin-right: 20%;
-    margin-left: -4%;
+    margin-top: 4%;
     color: white;
     cursor: pointer;
-    font-weight: 800;
+    font-weight: 600;
     font-family: 'Ubuntu', sans-serif;
 }
+
 
 .card1 {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -453,7 +595,7 @@ input[type=submit]:hover {
 
 .row {
     margin-left: 34%;
-    margin-top: 8%;
+    margin-top: 3%;
 }
 
 .row1 {
@@ -585,7 +727,6 @@ input:checked + .slider:before {
 }
 
 
-
 textarea {
     overflow-y: scroll;
     height: 150px;
@@ -647,11 +788,6 @@ textarea {
     radius: 24px;
 }
 
-.required-field::before {
-    /*content: "*";*/
-    color: red;
-    margin-right: -120%;
-}
 
 .pagination ul {
     width: 100%;
@@ -784,3 +920,90 @@ textarea {
         margin-top: 0;
     }
 }
+
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,300);
+
+.frame {
+    position: absolute;
+    left: 35%;
+    width: 650px;
+    height: 440px;
+    margin-top: 150px;
+    margin-left: -200px;
+    border-radius: 39px;
+    box-shadow: 4px 8px 16px 0 rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    color: #acacac;
+    font-family: "Open Sans", Helvetica, sans-serif;
+}
+
+.center {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 550px;
+    height: 360px;
+    border-radius: 39px;
+    box-shadow: 8px 10px 15px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    background: radial-gradient(
+            hsl(180, 35%, 73%),
+            hsl(18, 29%, 60%)
+    ) fixed;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+
+h1 {
+    font-size: 36px;
+    font-weight: 500;
+    color: black;
+}
+
+
+h11 {
+    font-size: 34px;
+    color: black;
+    border-radius: 6px;
+}
+
+.dropzone {
+    width: 200px;
+    height: 10px;
+    margin-top: -2%;
+}
+
+.upload-icon {
+    margin: 25px 2px 2px 2px;
+}
+
+
+.upload-input {
+    position: relative;
+    top: -62px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+.btn {
+    display: block;
+    height: 40px;
+    color: #fff;
+    border-radius: 3px;
+    border: 0;
+    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+}
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+

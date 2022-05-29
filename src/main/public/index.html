@@ -41,14 +41,24 @@
 
 <div class="row">
     <div class="column">
-        <div id="csv" class="card1">
-            <h1>Upload your CSV file here</h1>
+        <div id="csv" class="card">
             <div id="upload">
-                <input type="file" class="upload" name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv">
-                <br>
-                <br>
-                <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
-                   onclick="csvReader();getConfigFilesName(); //getConfigResponse();" data-cy="upload"><b>Upload</b></a>
+                <div class="frame">
+                    <div class="center">
+                        <div class="title">
+                            <h11>Choose CSV file to upload</h11>
+                        </div>
+
+                        <div class="dropzone">
+                            <input type="file"  name="csv-file" data-cy="chooseFile" id="csv_id" accept=".csv"/>
+                            <label for="csv_id" >Choose File</label>
+                        </div>
+
+                        <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
+                           onclick="csvReader();getConfigFilesName(); //getConfigResponse();" data-cy="upload"><b>Upload</b></a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
