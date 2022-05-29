@@ -13,7 +13,7 @@ function checkIfConfigNameAlreadyExit(file_name){
 function validateConfigName(){
     var file_name = document.getElementById("fileName").value
     var getCheckBox = document.getElementById("configCheckBox").checked
-    if((file_name == "" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){
+    if((file_name === "" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){
         document.getElementById("config_name_validation").style.display = 'block';
         return 0
     }
@@ -60,8 +60,8 @@ function setConfigInDropDown(object){
     console.log(object)
     for(var i in object){
         console.log(object[i])
-        console.log(object[i] != "")
-        if(object[i] != ""){
+        console.log(object[i] !== "")
+        if(object[i] !== ""){
             for( j in object[i]){
                 let fileNameDropDown = document.getElementById("listOfFileNames");
                 var fileNameDropdownOption = document.createElement("option");
@@ -94,8 +94,8 @@ function setValuesInConfig(object){
     console.log(object)
     for(var i in object){
         console.log(object[i])
-        console.log(object[i] != "")
-        if(object[i] != ""){
+        console.log(object[i] !== "")
+        if(object[i] !== ""){
             for( j in object[i]){
                 changeDefaultValuesOfConfig(object[i][j])
             }
@@ -136,10 +136,6 @@ function alterDateTimeOptions(fields) {
     alterTimeOption(fields)
 
     const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
-    // if( typeValue === "Date" || typeValue === "Time" || typeValue === "DateTime"){
-    //     document.getElementById(`value-div${fields}`.replaceAll('"', '')).style.display = 'none'
-    // }
-
     if( typeValue !== "Date" ){
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
     }
@@ -156,7 +152,6 @@ function alterDateTimeOption(fields){
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
-        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
@@ -169,7 +164,6 @@ function alterDateOption(fields){
         document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
@@ -182,7 +176,6 @@ function alterTimeOption(fields){
         document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'none'
-        // document.getElementById(`length-div${fields}`.replaceAll('"', '')).style.display = 'none'
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
         document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = ''
@@ -191,7 +184,6 @@ function alterTimeOption(fields){
 
 
 function showColFields(lines){
-    var arr = lines[0].split(",")
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
         fieldCount += 1
         var row = document.createElement('div');
@@ -227,7 +219,7 @@ function showColFields(lines){
                       </div>
 
                       <div class="form-group col-md-1." style="margin-left: 0.5%;display:flex;" id="length-div${field}">
-                        <input type="number" class="form-control"  placeholder="Enter Length" min=0 onkeypress="return event.charCode >= 49" type="number" id="fixed-len${field}" data-cy="fixed-len">
+                        <input type="number" class="form-control"  placeholder="Enter Length" min=1 onkeypress="return event.charCode >= 49" type="number" id="fixed-len${field}" data-cy="fixed-len">
                       </div>
                       
                   
@@ -425,30 +417,6 @@ function showColFields(lines){
     return (emptyFields == 0)
 }*/
 
-function closeForm(popUp , addConfig, valueOption) {
-    document.getElementById(popUp).style.display = "none";
-    document.getElementById(addConfig).style.filter = "blur(0px)";
-}
-
-function onChangeHandler(valueOption, fileInput, uploadDIV,textAreaInput,addConfig){
-    var uploadFile = document.getElementById(fileInput);
-    var uploadFileDIV = document.getElementById(uploadDIV);
-    console.log(uploadFile.files[0])
-    var typeValues = document.getElementById(textAreaInput);
-    var addConfig = document.getElementById(addConfig);
-    if (valueOption === "Type Values"){
-        console.log("Changing")
-        uploadFileDIV.style.display = "none";
-        uploadFile.style.display = "none";
-        // typeValues.style.display = "block";
-        // addConfig.style.filter = "blur(3px)";
-    }
-    else {
-        uploadFile.style.display = "flex";
-        uploadFileDIV.style.display = "flex";
-        typeValues.style.display = "none";
-    }
-}
 
 
 function toggleYesOrNo(element) {
@@ -594,7 +562,7 @@ function addDataToJson() {
             jsonObj["values"] =JSON.parse(localStorage.getItem(field))
             console.log(localStorage.getItem(field))
         }
-        if(typedValues.value != '' )
+        if(typedValues.value !== '' )
         {
             jsonObj["values"] = typedValues.value.split('\n')
         }
@@ -685,7 +653,7 @@ function createSuccessErrMsg(errorBase){
     let row = document.createElement("div");
     row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
-          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:38px; text-align:left;color:white;margin:auto">
+          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:38px; text-align:left;color:white;margin:auto">
           <marquee scrollamount="12">No Error Found In Your CSV File</marquee>
           </div>
       </div>`;
@@ -706,7 +674,7 @@ function createDivElement(key , value){
     row.setAttribute("id", key+" error")
     row.innerHTML = `
                 <div style="display:flex; flex-direction: row;padding:20px;width:700px">
-                  <div style="width: 150%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+                  <div style="width: 150%;font-size:20px; font-weight:400; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
                   <p style="margin:auto;">${key}
                   <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
                   <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
@@ -715,7 +683,7 @@ function createDivElement(key , value){
                   </div>
               </div>
               <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;font-weight:200;
-              background: white; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px;
+              background: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px;
               text-align:left; color:black; display:none;"
               id="${key}"></div>
           </div>
@@ -724,11 +692,11 @@ function createDivElement(key , value){
     errorBase.appendChild(row)
     for(i in value){
         console.log(value[i].length)
-        if(i === 'Duplicate Errors' && value[i].length != 0 && document.getElementById("Duplicate Errors error") === null){
+        if(i === 'Duplicate Errors' && value[i].length !== 0 && document.getElementById("Duplicate Errors error") === null){
             createDuplicationErrMsg(value[i],i)
         }
         console.log(i)
-        if(value[i].length != 0 && i !== 'Duplicate Errors'){
+        if(value[i].length !== 0 && i !== 'Duplicate Errors'){
             createTableForDisplayingErrorMsg(value[i],key,i)
         }
     }
@@ -740,7 +708,7 @@ function createDuplicationErrMsg(value,key){
     row.setAttribute("id", key+" error")
     row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
-          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
+          <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
           <p style="margin:auto;">${key}
           <svg  style="float:right;" width="15" height="25" viewBox="0 0 9 7" fill="black" xmlns="http://www.w3.org/2000/svg" >
           <path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>
@@ -749,7 +717,7 @@ function createDuplicationErrMsg(value,key){
           </div>
       </div>
       <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px; font-weight:200;background: white;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px; text-align:left; color:black; display:none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px; text-align:left; color:black; display:none;
       "
       id="${key}"></div>
       </div>
@@ -836,7 +804,7 @@ function emptyErrorList(){
     const el = document.getElementById("error-msgs");
     while (el.firstChild) {
         el.removeChild(el.firstChild)
-    };
+    }
 }
 
 function loadingEffect(){
