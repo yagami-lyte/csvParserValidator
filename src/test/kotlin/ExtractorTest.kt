@@ -55,16 +55,11 @@ internal class ExtractorTest {
     fun shouldBeAbleToExtractTheFileContentForMainJs() {
         val path = "/main.js"
         val content = extractor.extractFileContent(path)
-
+        println(content)
         val actualContent = content.contains(
-            "function validateConfigName(){\n" +
-                    "    var file_name = document.getElementById(\"fileName\").value\n" +
-                    "    var getCheckBox = document.getElementById(\"configCheckBox\").checked\n" +
-                    "    if((file_name == \"\" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){\n" +
-                    "        document.getElementById(\"config_name_validation\").style.display = 'block';\n" +
-                    "        return 0\n" +
-                    "    }\n" +
-                    "    return 1\n" +
+            "function checkIfConfigNameAlreadyExit(file_name){\n" +
+                    "    if(configName.indexOf(file_name) !== -1)return 1\n" +
+                    "    return 0\n" +
                     "}"
         )
 
@@ -78,12 +73,9 @@ internal class ExtractorTest {
         println(content)
 
         val actualContent = content.contains(
-            "body {\n" +
-                    "    background: linear-gradient(-45deg, #FFFAFA, #F5F5F5, #FDF5E6, #F0FFF0, #FFFAFA);\n" +
-                    "    background-size: 400% 400%;\n" +
-                    "    animation: gradient 15s ease infinite;\n" +
-                    "    min-height: 100vh;\n" +
-                    "\n" +
+            "#myform {\n" +
+                    "    margin-top: 1.5%;\n" +
+                    "    margin-left: -60%;\n" +
                     "}"
         )
 
