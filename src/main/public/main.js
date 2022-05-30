@@ -182,6 +182,11 @@ function alterTimeOption(fields){
     }
 }
 
+function mySubmitFunction(e) {
+    e.preventDefault();
+    someBug();
+    return false;
+}
 
 function showColFields(lines){
     for (var i = 1, j = 0; i <= lines.length; i++,j++){
@@ -197,15 +202,15 @@ function showColFields(lines){
             <div id = "fields">
 
               <h2 class="title"><b>${field}</b></h2>
-                  <form>
                     <div class="form-row">
 
 <!--                       <p><span id="typeEmpty${field}" class="error"></span></p>-->
 
+
                       <div class="form-group col-md-1.5" style="margin-left: -2%">
                       <select class="form-control" data-cy="type" id="type${field}" 
-                            onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field},uploadFileDiv${field}');">
-                               <option value="">Choose Type of Data</option>
+                            onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field},uploadFileDiv${field}');" required>
+                               <option selected="selected" value="">Choose Type of Data</option>
                                 <option value="Number">Number</option>
                                 <option value="AlphaNumeric">AlphaNumeric</option>
                                 <option value="Alphabets">Alphabets</option>
@@ -217,9 +222,13 @@ function showColFields(lines){
                                 <option value="Email">Email</option>
                             </select>
                       </div>
+                      
+                      
+                      
+              
 
                       <div class="form-group col-md-1." style="margin-left: 0.5%;display:flex;" id="length-div${field}">
-                        <input type="number" class="form-control"  placeholder="Enter Length" min=1 onkeypress="return event.charCode >= 49" type="number" id="fixed-len${field}" data-cy="fixed-len">
+                        <input type="number" class="form-control"  placeholder="Enter Length" min=1 onkeypress="return event.charCode >= 49" type="number" id="fixed-len${field}" data-cy="fixed-len" >
                       </div>
                       
                   
@@ -258,7 +267,7 @@ function showColFields(lines){
                       <div id = "dateTimeDiv${field}"  style="display: none; margin-left: -2.3%;width:19.5%;">
                         <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;'></label>
                         <select  class="form-control" name="datetime" id='dateTime${field}' style='display:none;'>
-                             <option selected="selected" value="">Choose Date Time format</option>
+                             <option disabled = "disabled" selected="selected" value="">Choose Date Time format</option>
                              <option value="HH:mm:ss.SSSZ">HH:MM:SS.SSSZ</option>
                              <option value="MMMM dd, yy">MMMM DD, YYYY</option>
                              <option value="MMM dd, yyyy hh:mm:ss a">MMM dd, yyyy hh:mm:ss a</option>
@@ -389,13 +398,19 @@ function showColFields(lines){
 </div>
                      
                   
-                  </form>
                
                   </div>
                   </div>
                  `
-        document.getElementById("myform").appendChild(row)
+        document.getElementById("card-2").appendChild(row)
     }
+
+    var name = document.createElement('div');
+    row.setAttribute("id", `name`);
+
+    name.innerHTML = `<button style="margin-left:45%; margin-top: 1%; margin-bottom: 1%" class="btn btn-dark" type="submit">Save</button>`
+    document.getElementById("card-2").appendChild(name)
+
 }
 
 

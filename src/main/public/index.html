@@ -89,16 +89,12 @@
             </button>
         </div>
 
-        <!--        <div class = "card">-->
-        <div class="card-2">
-            <div class="card-heading"></div>
-            <!--                <div class="card-body">-->
-            <form id="myform">
 
-            </form>
-            <!--                </div>-->
+        <form onsubmit="return mySubmitFunction(event)">
+        <div id="card-2">
+
         </div>
-        <!--        </div>-->
+        </form>
 
         <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
             <div class="col s10 offset-s1 card1-panel"
@@ -134,7 +130,10 @@
 </div>
 
 <a  id='view-errors' onclick="displayErrors();">View Errors </a>
+
 <p style = "text-align:center; color: red;" id = 'fields-empty'></p>
+
+
 
 <div class="loader" id = "button-load"></div>
 

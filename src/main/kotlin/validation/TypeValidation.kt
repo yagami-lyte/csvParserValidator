@@ -6,6 +6,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 
+
 class TypeValidation : Validation {
 
     private val mapOfTypeErrors = mutableMapOf<String, MutableList<String>>()
