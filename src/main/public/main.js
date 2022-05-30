@@ -1,19 +1,19 @@
-var payload=[]
+var payload = []
 var result = []
 var fields = []
 var fieldCount = 0
 var configName = []
 
 
-function checkIfConfigNameAlreadyExit(file_name){
-    if(configName.indexOf(file_name) !== -1)return 1
+function checkIfConfigNameAlreadyExit(file_name) {
+    if (configName.indexOf(file_name) !== -1) return 1
     return 0
 }
 
-function validateConfigName(){
+function validateConfigName() {
     var file_name = document.getElementById("fileName").value
     var getCheckBox = document.getElementById("configCheckBox").checked
-    if((file_name === "" ||  checkIfConfigNameAlreadyExit(file_name)) && getCheckBox){
+    if ((file_name === "" || checkIfConfigNameAlreadyExit(file_name)) && getCheckBox) {
         document.getElementById("config_name_validation").style.display = 'block';
         return 0
     }
@@ -21,7 +21,7 @@ function validateConfigName(){
 }
 
 function csvReader() {
-    localStorage.setItem("csv" , document.getElementById("csv_id").value.split("\\")[2])
+    localStorage.setItem("csv", document.getElementById("csv_id").value.split("\\")[2])
     var csv = document.getElementById("csv_id").files[0];
     const reader = new FileReader();
     reader.onload = async function (event) {
@@ -31,7 +31,7 @@ function csvReader() {
         var headers = lines[0].split(",");
         showColFields(headers);
         fields.push(headers)
-        for (var i = 1; i < lines.length-1; i++) {
+        for (var i = 1; i < lines.length - 1; i++) {
             var obj = {};
             var currentLine = lines[i].split(",");
             for (var j = 0; j < headers.length; j++) {
@@ -44,7 +44,7 @@ function csvReader() {
 }
 
 
-async function getConfigFilesName(){
+async function getConfigFilesName() {
     var resp = await fetch('get-config-files', {
         method: 'GET',
     })
@@ -56,13 +56,13 @@ async function getConfigFilesName(){
     }
 }
 
-function setConfigInDropDown(object){
+function setConfigInDropDown(object) {
     console.log(object)
-    for(var i in object){
+    for (var i in object) {
         console.log(object[i])
         console.log(object[i] !== "")
-        if(object[i] !== ""){
-            for( j in object[i]){
+        if (object[i] !== "") {
+            for (j in object[i]) {
                 let fileNameDropDown = document.getElementById("listOfFileNames");
                 var fileNameDropdownOption = document.createElement("option");
                 fileNameDropdownOption.value = object[i][j];
@@ -74,12 +74,12 @@ function setConfigInDropDown(object){
     }
 }
 
-async  function getConfigResponse(){
+async function getConfigResponse() {
     let configName = document.getElementById("listOfFileNames").value
-    if(configName !== ""){
+    if (configName !== "") {
         var resp = await fetch('get-config-response', {
             method: 'POST',
-            body: JSON.stringify([{ "configName" : configName}])
+            body: JSON.stringify([{"configName": configName}])
         })
 
         if (resp.status === 200) {
@@ -90,35 +90,35 @@ async  function getConfigResponse(){
     }
 }
 
-function setValuesInConfig(object){
+function setValuesInConfig(object) {
     console.log(object)
-    for(var i in object){
+    for (var i in object) {
         console.log(object[i])
         console.log(object[i] !== "")
-        if(object[i] !== ""){
-            for( j in object[i]){
+        if (object[i] !== "") {
+            for (j in object[i]) {
                 changeDefaultValuesOfConfig(object[i][j])
             }
         }
     }
 }
 
-function changeDefaultValuesOfConfig(object){
+function changeDefaultValuesOfConfig(object) {
     for (var fields in object) {
         console.log(fields)
         console.log(`type${fields}`)
         var valueOfTypeId = document.getElementById(`type${fields}`.replaceAll('"', ''))
-        if(valueOfTypeId !== null){
-            setDefaultValues(object,fields)
+        if (valueOfTypeId !== null) {
+            setDefaultValues(object, fields)
         }
     }
 }
 
-function setDefaultValues(object,fields){
+function setDefaultValues(object, fields) {
     document.getElementById(`type${fields}`.replaceAll('"', '')).value = object[fields]["type"];
     document.getElementById(`fixed-len${fields}`.replaceAll('"', '')).value = object[fields]["length"];
     document.getElementById(`allowNull${fields}`.replaceAll('"', '')).value = object[fields]["nullValue"];
-    if(object[fields]["nullValue"] === "Allowed"){
+    if (object[fields]["nullValue"] === "Allowed") {
         document.getElementById(`allowNull${fields}`.replaceAll('"', '')).checked = "checked";
     }
     document.getElementById(`date${fields}`.replaceAll('"', '')).value = object[fields]["date"];
@@ -136,19 +136,19 @@ function alterDateTimeOptions(fields) {
     alterTimeOption(fields)
 
     const typeValue = document.getElementById(`type${fields}`.replaceAll('"', '')).value;
-    if( typeValue !== "Date" ){
+    if (typeValue !== "Date") {
         document.getElementById(`date${fields}`.replaceAll('"', '')).value = ''
     }
-    if( typeValue !== "Time" ){
+    if (typeValue !== "Time") {
         document.getElementById(`time${fields}`.replaceAll('"', '')).value = ''
     }
-    if(  typeValue !== "DateTime"){
+    if (typeValue !== "DateTime") {
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).value = ''
     }
 }
 
-function alterDateTimeOption(fields){
-    if(document.getElementById(`type${fields}`.replaceAll('"', '')).value === "DateTime"){
+function alterDateTimeOption(fields) {
+    if (document.getElementById(`type${fields}`.replaceAll('"', '')).value === "DateTime") {
         document.getElementById(`dateTime${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateTimeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateTimeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
@@ -158,8 +158,8 @@ function alterDateTimeOption(fields){
     }
 }
 
-function alterDateOption(fields){
-    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date"){
+function alterDateOption(fields) {
+    if (document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Date") {
         document.getElementById(`date${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`dateDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`dateFormats${fields}`.replaceAll('"', '')).style.display = 'block'
@@ -170,8 +170,8 @@ function alterDateOption(fields){
     }
 }
 
-function alterTimeOption(fields){
-    if( document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Time"){
+function alterTimeOption(fields) {
+    if (document.getElementById(`type${fields}`.replaceAll('"', '')).value === "Time") {
         document.getElementById(`time${fields}`.replaceAll('"', '')).style.display = 'block'
         document.getElementById(`timeDiv${fields}`.replaceAll('"', '')).style.display = 'flex'
         document.getElementById(`timeFormats${fields}`.replaceAll('"', '')).style.display = 'block'
@@ -188,8 +188,8 @@ function mySubmitFunction(e) {
     return false;
 }
 
-function showColFields(lines){
-    for (var i = 1, j = 0; i <= lines.length; i++,j++){
+function showColFields(lines) {
+    for (var i = 1, j = 0; i <= lines.length; i++, j++) {
         fieldCount += 1
         var row = document.createElement('div');
         var field = `${lines[j]}`.replaceAll('"', '');
@@ -414,8 +414,6 @@ function showColFields(lines){
 }
 
 
-
-
 /*function typeMandatory() {
     var emptyFields = 0
     for (var i = 1, j = 0; i <= fieldCount; i++,j++){
@@ -433,7 +431,6 @@ function showColFields(lines){
 }*/
 
 
-
 function toggleYesOrNo(element) {
     let oldValue = document.getElementById(element).value
     if (oldValue === "Not Allowed") {
@@ -443,7 +440,7 @@ function toggleYesOrNo(element) {
     document.getElementById(element).value = "Not Allowed"
 }
 
-function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID, timeFormatId,timeId, dateTimeDivID, dateTimeFormatId, dateTimeId ,lengthDivId, valueDivId,uploadFileDiv){
+function showDateTimeOptions(value, dateDivID, dateFormatId, dateId, timeDivID, timeFormatId, timeId, dateTimeDivID, dateTimeFormatId, dateTimeId, lengthDivId, valueDivId, uploadFileDiv) {
     var dateDivIDElement = document.getElementById(dateDivID);
     var dateFormatElement = document.getElementById(dateFormatId);
     var dateIdFormatElement = document.getElementById(dateId);
@@ -457,84 +454,78 @@ function showDateTimeOptions(value, dateDivID, dateFormatId, dateId , timeDivID,
     var dateTimeIdFormatElement = document.getElementById(dateTimeId);
     var uploadFileElement = document.getElementById(uploadFileDiv);
 
-    if(value === 'DateTime'){
-        showDateTimeField(uploadFileElement, dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
-    }
-
-    else if(value === 'Date'){
-        showDateField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
-    }
-
-    else if(value === 'Time'){
-        showTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement)
-    }
-
-    else{
-        dateDivIDElement.style.display='none';
-        dateFormatElement.style.display='none';
-        dateIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        timeDivIDElement.style.display='none';
-        timeFormatElement.style.display='none';
-        timeIdFormatElement.style.display='none';
-        dateTimeDivIDElement.style.display='none';
-        dateTimeFormatElement.style.display='none';
-        dateTimeIdFormatElement.style.display='none';
-        valueDivElement.style.display='flex';
-        lengthDivElement.style.display='block';
+    if (value === 'DateTime') {
+        showDateTimeField(uploadFileElement, dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement)
+    } else if (value === 'Date') {
+        showDateField(dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement)
+    } else if (value === 'Time') {
+        showTimeField(dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement)
+    } else {
+        dateDivIDElement.style.display = 'none';
+        dateFormatElement.style.display = 'none';
+        dateIdFormatElement.style.display = 'none';
+        dateTimeDivIDElement.style.display = 'none';
+        dateTimeFormatElement.style.display = 'none';
+        dateTimeIdFormatElement.style.display = 'none';
+        timeDivIDElement.style.display = 'none';
+        timeFormatElement.style.display = 'none';
+        timeIdFormatElement.style.display = 'none';
+        dateTimeDivIDElement.style.display = 'none';
+        dateTimeFormatElement.style.display = 'none';
+        dateTimeIdFormatElement.style.display = 'none';
+        valueDivElement.style.display = 'flex';
+        lengthDivElement.style.display = 'block';
     }
 }
 
-function showDateField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-    dateDivIDElement.style.display='flex';
-    dateFormatElement.style.display='block';
-    dateIdFormatElement.style.display='block';
-    timeDivIDElement.style.display='none';
-    timeFormatElement.style.display='none';
-    timeIdFormatElement.style.display='none';
-    dateTimeDivIDElement.style.display='none';
-    dateTimeFormatElement.style.display='none';
-    dateTimeIdFormatElement.style.display='none';
-    valueDivElement.style.display='none';
-    lengthDivElement.style.display='none';
+function showDateField(dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement) {
+    dateDivIDElement.style.display = 'flex';
+    dateFormatElement.style.display = 'block';
+    dateIdFormatElement.style.display = 'block';
+    timeDivIDElement.style.display = 'none';
+    timeFormatElement.style.display = 'none';
+    timeIdFormatElement.style.display = 'none';
+    dateTimeDivIDElement.style.display = 'none';
+    dateTimeFormatElement.style.display = 'none';
+    dateTimeIdFormatElement.style.display = 'none';
+    valueDivElement.style.display = 'none';
+    lengthDivElement.style.display = 'none';
 }
 
-function showTimeField( dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-    timeDivIDElement.style.display='flex';
-    timeFormatElement.style.display='block';
-    timeIdFormatElement.style.display='block';
-    dateDivIDElement.style.display='none';
-    dateFormatElement.style.display='none';
-    dateIdFormatElement.style.display='none';
-    dateTimeDivIDElement.style.display='none';
-    dateTimeFormatElement.style.display='none';
-    dateTimeIdFormatElement.style.display='none';
-    valueDivElement.style.display='none';
-    lengthDivElement.style.display='none';
+function showTimeField(dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement) {
+    timeDivIDElement.style.display = 'flex';
+    timeFormatElement.style.display = 'block';
+    timeIdFormatElement.style.display = 'block';
+    dateDivIDElement.style.display = 'none';
+    dateFormatElement.style.display = 'none';
+    dateIdFormatElement.style.display = 'none';
+    dateTimeDivIDElement.style.display = 'none';
+    dateTimeFormatElement.style.display = 'none';
+    dateTimeIdFormatElement.style.display = 'none';
+    valueDivElement.style.display = 'none';
+    lengthDivElement.style.display = 'none';
 }
 
-function showDateTimeField(uploadFileDivElement, dateDivIDElement ,dateFormatElement,dateIdFormatElement,timeDivIDElement , timeFormatElement ,timeIdFormatElement,lengthDivElement ,valueDivElement ,dateTimeDivIDElement ,dateTimeFormatElement ,dateTimeIdFormatElement){
-    dateTimeDivIDElement.style.display='flex';
-    dateTimeFormatElement.style.display='block';
-    dateTimeIdFormatElement.style.display='block';
+function showDateTimeField(uploadFileDivElement, dateDivIDElement, dateFormatElement, dateIdFormatElement, timeDivIDElement, timeFormatElement, timeIdFormatElement, lengthDivElement, valueDivElement, dateTimeDivIDElement, dateTimeFormatElement, dateTimeIdFormatElement) {
+    dateTimeDivIDElement.style.display = 'flex';
+    dateTimeFormatElement.style.display = 'block';
+    dateTimeIdFormatElement.style.display = 'block';
     uploadFileDivElement.style.display = 'none';
-    dateDivIDElement.style.display='none';
-    dateFormatElement.style.display='none';
-    dateIdFormatElement.style.display='none';
-    timeDivIDElement.style.display='none';
-    timeFormatElement.style.display='none';
-    timeIdFormatElement.style.display='none';
-    valueDivElement.style.display='none';
-    lengthDivElement.style.display='none';
+    dateDivIDElement.style.display = 'none';
+    dateFormatElement.style.display = 'none';
+    dateIdFormatElement.style.display = 'none';
+    timeDivIDElement.style.display = 'none';
+    timeFormatElement.style.display = 'none';
+    timeIdFormatElement.style.display = 'none';
+    valueDivElement.style.display = 'none';
+    lengthDivElement.style.display = 'none';
 }
 
-function readFile(event, fieldName){
+function readFile(event, fieldName) {
     var value = document.getElementById(`text_file_id${fieldName}`).files[0];
-    if (value != null){
+    if (value != null) {
         let reader = new FileReader();
-        reader.addEventListener('load', function(e) {
+        reader.addEventListener('load', function (e) {
             let text = e.target.result
             console.log(JSON.stringify(text.split('\n')))
             localStorage.setItem(fieldName, JSON.stringify(text.split('\n')));
@@ -545,7 +536,7 @@ function readFile(event, fieldName){
 }
 
 function addDataToJson() {
-    for (var i = 1, j = 0; i <= fieldCount; i++,j++){
+    for (var i = 1, j = 0; i <= fieldCount; i++, j++) {
         let jsonObj = {}
         var field = fields[0][j]
         var configName = document.getElementById("fileName")
@@ -570,34 +561,33 @@ function addDataToJson() {
         console.log(nullValues.value)
         jsonObj["fieldName"] = field
         jsonObj["type"] = type.value
-        if(!configCheckBox){
+        if (!configCheckBox) {
             jsonObj["configName"] = ""
         }
-        if (value != null){
-            jsonObj["values"] =JSON.parse(localStorage.getItem(field))
+        if (value != null) {
+            jsonObj["values"] = JSON.parse(localStorage.getItem(field))
             console.log(localStorage.getItem(field))
         }
-        if(typedValues.value !== '' )
-        {
+        if (typedValues.value !== '') {
             jsonObj["values"] = typedValues.value.split('\n')
         }
         jsonObj["length"] = fixed_len.value
         jsonObj["dependentOn"] = dependentOn.value
         jsonObj["dependentValue"] = dependentValue.value
         const typeValue = type.value
-        if( typeValue !== "Date" && typeValue !== "Time" && typeValue !== "DateTime"){
+        if (typeValue !== "Date" && typeValue !== "Time" && typeValue !== "DateTime") {
             jsonObj["datetime"] = ''
             jsonObj["date"] = ''
             jsonObj["time"] = ''
-        }else if(typeValue === "Date"){
+        } else if (typeValue === "Date") {
             jsonObj["datetime"] = ''
             jsonObj["length"] = ''
             jsonObj["time"] = ''
-        }else if(typeValue === "Time"){
+        } else if (typeValue === "Time") {
             jsonObj["datetime"] = ''
             jsonObj["date"] = ''
             jsonObj["length"] = ''
-        }else if(typeValue === "DateTime"){
+        } else if (typeValue === "DateTime") {
             jsonObj["length"] = ''
             jsonObj["date"] = ''
             jsonObj["time"] = ''
@@ -608,7 +598,7 @@ function addDataToJson() {
     console.log(payload)
 }
 
-async function sendConfigData(){
+async function sendConfigData() {
     addDataToJson()
     var resp = await fetch('add-meta-data', {
         method: 'POST',
@@ -621,10 +611,10 @@ async function sendConfigData(){
     }
 }
 
-async function displayErrors(){
+async function displayErrors() {
     emptyErrorList()
     document.getElementById("config_name_validation").style.display = 'none';
-    if(validateConfigName() ){
+    if (validateConfigName()) {
         document.getElementById("fields-empty").innerHTML = ""
         loadingEffect()
         sendConfigData()
@@ -634,7 +624,7 @@ async function displayErrors(){
         })
 
         if (response.status === 200) {
-            var jsonData =  await response.json();
+            var jsonData = await response.json();
             loadingEffect();
             console.log(jsonData)
             traverse(jsonData)
@@ -646,25 +636,25 @@ async function displayErrors(){
     }
 }
 
-function traverse(object){
+function traverse(object) {
     let errorBase = document.getElementById("error-msgs");
-    for(var i in object){
+    for (var i in object) {
         let key = Object.keys(object[i])[0]
         console.log(key)
         key = key.replaceAll('"', '')
         let value = Object.values(object[i])
-        createDivElement(key , value[0])
+        createDivElement(key, value[0])
         let fieldsDivElement = document.getElementById(`${key}`)
-        if(fieldsDivElement.innerHTML === ''){
+        if (fieldsDivElement.innerHTML === '') {
             removeErrorDiv(key)
         }
     }
-    if(errorBase.innerHTML === ''){
+    if (errorBase.innerHTML === '') {
         createSuccessErrMsg(errorBase)
     }
 }
 
-function createSuccessErrMsg(errorBase){
+function createSuccessErrMsg(errorBase) {
     let row = document.createElement("div");
     row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
@@ -676,17 +666,17 @@ function createSuccessErrMsg(errorBase){
     errorBase.appendChild(row);
 }
 
-function removeErrorDiv(key){
+function removeErrorDiv(key) {
     let errorBase = document.getElementById("error-msgs");
-    var child = document.getElementById(key+" error");
+    var child = document.getElementById(key + " error");
     errorBase.removeChild(child);
 }
 
-function createDivElement(key , value){
+function createDivElement(key, value) {
     key = key.replaceAll('"', '')
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
-    row.setAttribute("id", key+" error")
+    row.setAttribute("id", key + " error")
     row.innerHTML = `
                 <div style="display:flex; flex-direction: row;padding:20px;width:700px">
                   <div style="width: 150%;font-size:20px; font-weight:400; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
@@ -697,30 +687,33 @@ function createDivElement(key , value){
                   </p>
                   </div>
               </div>
-              <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px;font-weight:200;
-              background: white; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px;
-              text-align:left; color:black; display:none;"
+              <div class="card-panel left-align" style=" width:63%; font-size:20px;font-weight:200;
+                background: radial-gradient(
+            hsl(30, 41%, 48%),
+            hsl(199, 14%, 49%)
+    ) fixed ; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px;
+              text-align:left; color:black; display:none;width: 100%;margin-left: 20%;border-radius: 9px;"
               id="${key}"></div>
           </div>
         `;
 
     errorBase.appendChild(row)
-    for(i in value){
+    for (i in value) {
         console.log(value[i].length)
-        if(i === 'Duplicate Errors' && value[i].length !== 0 && document.getElementById("Duplicate Errors error") === null){
-            createDuplicationErrMsg(value[i],i)
+        if (i === 'Duplicate Errors' && value[i].length !== 0 && document.getElementById("Duplicate Errors error") === null) {
+            createDuplicationErrMsg(value[i], i)
         }
         console.log(i)
-        if(value[i].length !== 0 && i !== 'Duplicate Errors'){
-            createTableForDisplayingErrorMsg(value[i],key,i)
+        if (value[i].length !== 0 && i !== 'Duplicate Errors') {
+            createTableForDisplayingErrorMsg(value[i], key, i)
         }
     }
 }
 
-function createDuplicationErrMsg(value,key){
+function createDuplicationErrMsg(value, key) {
     let errorBase = document.getElementById("error-msgs");
     let row = document.createElement("div");
-    row.setAttribute("id", key+" error")
+    row.setAttribute("id", key + " error")
     row.innerHTML = `
         <div style="display:flex; flex-direction: row;padding:20px;">
           <div style="width: 92%;font-size:20px; font-weight:400; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);  border-radius: 3px;  padding:18px; text-align:left;color:white;margin:auto">
@@ -731,7 +724,10 @@ function createDuplicationErrMsg(value,key){
           </p>
           </div>
       </div>
-      <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px; font-weight:200;background: white;
+      <div class="card-panel left-align" style="margin:auto; width:83%; font-size:20px; font-weight:200;  background: radial-gradient(
+            hsl(30, 41%, 48%),
+            hsl(199, 14%, 49%)
+    ) fixed;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); border-radius: 3px; padding:50px; text-align:left; color:black; display:none;
       "
       id="${key}"></div>
@@ -739,18 +735,18 @@ function createDuplicationErrMsg(value,key){
     `;
 
     errorBase.appendChild(row)
-    createTableForDuplicateErrors(value,key)
+    createTableForDuplicateErrors(value, key)
 }
 
-function createTableForDuplicateErrors(value,key){
+function createTableForDuplicateErrors(value, key) {
     let p = document.createElement("p")
     p.setAttribute("id", "error")
-    p.style.marginTop="0px"
+    p.style.marginTop = "0px"
     p.innerHTML = `<b style="font-weight: 900;">${key} present in rows:</b><br/><br/>`
-    let table=document.createElement("table")
+    let table = document.createElement("table")
     console.log(table)
-    let i=0;
-    console.log("size",value.length)
+    let i = 0;
+    console.log("size", value.length)
     let firstRow = document.createElement("tr");
     let firstHeading = document.createElement("td")
     let secondHeading = document.createElement("td")
@@ -759,16 +755,16 @@ function createTableForDuplicateErrors(value,key){
     firstRow.appendChild(firstHeading);
     firstRow.appendChild(secondHeading);
     table.appendChild(firstRow)
-    while(i<value.length){
+    while (i < value.length) {
         let newRow = document.createElement("tr");
         let td_1 = document.createElement("td")
         let td_2 = document.createElement("td")
         td_1.innerHTML = value[i]
-        td_2.innerHTML = value[i+1]
+        td_2.innerHTML = value[i + 1]
         newRow.appendChild(td_1);
         newRow.appendChild(td_2);
         table.appendChild(newRow)
-        i = i+2;
+        i = i + 2;
     }
 
     p.appendChild(table)
@@ -776,53 +772,51 @@ function createTableForDuplicateErrors(value,key){
     parent.appendChild(p)
 }
 
-function createTableForDisplayingErrorMsg(value,key,type){
+function createTableForDisplayingErrorMsg(value, key, type) {
     let p = document.createElement("p")
     p.setAttribute("id", "error")
-    p.style.marginTop="0px"
+    p.style.marginTop = "0px"
     p.innerHTML = `<b style="font-weight: 900;">${type} present in rows:</b><br/><br/>`
-    let table=document.createElement("table")
+    let table = document.createElement("table")
     console.log(table)
-    let i=0;
-    let j=0;
-    console.log("size",value.length)
-    while(i<value.length){
-        let newRow=document.createElement("tr");
-        while(j<i+5 && j<value.length){
-            let td=document.createElement("td")
+    let i = 0;
+    let j = 0;
+    console.log("size", value.length)
+    while (i < value.length) {
+        let newRow = document.createElement("tr");
+        while (j < i + 5 && j < value.length) {
+            let td = document.createElement("td")
             td.innerHTML = value[j]
             newRow.appendChild(td);
             j++;
         }
         table.appendChild(newRow)
-        i=j;
+        i = j;
     }
     p.appendChild(table)
     let parent = document.getElementById(`${key}`)
     parent.appendChild(p)
 }
 
-function goDown(key)
-{
-    document.getElementById(`DownDrop${key}`).outerHTML=`<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
-    document.getElementById(`${key}`).style.display="none"
+function goDown(key) {
+    document.getElementById(`DownDrop${key}`).outerHTML = `<path style="display:block;z-index:-1" d="M5.81565 1.5L4.4261 3.75802L2.86285 1.5H5.81565Z" stroke="black" stroke-width="4" onclick="goUp('${key}')" id="UpDrop${key}"/>`
+    document.getElementById(`${key}`).style.display = "none"
 }
 
-function goUp(key)
-{
-    document.getElementById(`UpDrop${key}`).outerHTML=`  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="black" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
-    document.getElementById(`${key}`).style.display="block"
+function goUp(key) {
+    document.getElementById(`UpDrop${key}`).outerHTML = `  <path d="M5.81565 5L4.4261 2.74198L2.86285 5H5.81565Z" stroke="black" stroke-width="4" onclick="goDown('${key}')" id="DownDrop${key}"/>`
+    document.getElementById(`${key}`).style.display = "block"
 }
 
 
-function emptyErrorList(){
+function emptyErrorList() {
     const el = document.getElementById("error-msgs");
     while (el.firstChild) {
         el.removeChild(el.firstChild)
     }
 }
 
-function loadingEffect(){
+function loadingEffect() {
     var loader = document.getElementById("button-load")
     loader.style.visibility = "visible";
 }

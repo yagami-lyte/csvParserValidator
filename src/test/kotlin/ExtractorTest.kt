@@ -56,12 +56,11 @@ internal class ExtractorTest {
         val path = "/main.js"
         val content = extractor.extractFileContent(path)
         println(content)
-        val actualContent = content.contains(
-            "function checkIfConfigNameAlreadyExit(file_name){\n" +
-                    "    if(configName.indexOf(file_name) !== -1)return 1\n" +
-                    "    return 0\n" +
-                    "}"
-        )
+        val actualContent = content.contains("\n" +
+                "async function getConfigFilesName() {\n" +
+                "    var resp = await fetch('get-config-files', {\n" +
+                "        method: 'GET',\n" +
+                "    })")
 
         assertTrue(actualContent)
     }
