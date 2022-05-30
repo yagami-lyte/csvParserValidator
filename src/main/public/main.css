@@ -23,13 +23,32 @@ html {
     -moz-border-radius: 10px;
     border-radius: 10px;
     margin-left: -18%;
-    margin-bottom: 20%;
+    margin-bottom: 25%;
     margin-top: 1.5%;
     background: radial-gradient(
             hsl(0, 2%, 59%),
             hsl(12, 3%, 69%)
     );
     width: 140%;
+    display: table;
+    vertical-align: top;
+}
+
+#card-3 {
+    -webkit-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 8px 20px 0px rgba(0, 0, 0, 0.15);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    margin-left: 10%;
+    margin-bottom: 25%;
+    margin-top: -15%;
+    background: radial-gradient(
+            hsl(0, 2%, 59%),
+            hsl(12, 3%, 69%)
+    );
+    width: 80%;
     display: table;
     vertical-align: top;
 }
@@ -68,19 +87,25 @@ html {
 }
 
 
-input[type="checkbox"] {
+/*input[type="checkbox"] {*/
+/*    -webkit-appearance: none;*/
+/*    -moz-appearance: none;*/
+/*    appearance: none;*/
+/*    -webkit-tap-highlight-color: transparent;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*input[type="checkbox"]:focus {*/
+/*    outline: 0;*/
+/*}*/
+
+.toggle {
+    outline: 0;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
-}
-
-input[type="checkbox"]:focus {
-    outline: 0;
-}
-
-.toggle {
     height: 22px;
     width: 42px;
     border-radius: 16px;
@@ -254,6 +279,7 @@ h6 {
             hsl(26, 33%, 80%),
             hsl(10, 3%, 54%)
     );
+    border-radius: 20px;
     width: 130%;
 }
 

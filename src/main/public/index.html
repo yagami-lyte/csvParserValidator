@@ -108,42 +108,29 @@
             </div>
         </form>
 
-        <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
-            <div class="col s10 offset-s1 card1-panel"
-                 style="border-radius: 6px; padding: 20px;margin-top:-40%; align-items: center;justify-content: center;  background: radial-gradient(
-            hsl(26, 33%, 80%),
-            hsl(10, 3%, 54%)
-    );
-       ">
-                <div style="display: flex;align-items: center;justify-content: center; background-size: 400% 400%;
-    background: radial-gradient(
-            hsl(26, 33%, 80%),
-            hsl(10, 3%, 54%)
-    );border-radius: 9px;">
 
-                    <p class="col s3"><b>Provide Configuration filename &nbsp;&nbsp;:</b></p>
-                    <input style=" background: radial-gradient(
-            hsl(80,19%,91%),
-            hsla(37,22%,88%,0.89)
-    ) ;font-weight: 300;" class="col s14" id="fileName" type="text" placeholder="Please enter the filename" required>
+            <div id = "card-3">
+                <div id = "fields" style="margin-left: 15%; margin-top: 1.5%; margin-bottom: 1.5%;width: 70%">
+                    <p style="margin-bottom: 2%" class="col s3"><b>Provide Configuration filename &nbsp;&nbsp;:</b></p>
+                    <input class="col s14" id="fileName" type="text" placeholder="Please enter the filename">
+
+
+
+                    <div class="form-check" style="margin-top: 2%;font-size: 20px">
+                        <input type="checkbox" id="configCheckBox" name="configCheckBox" value="checked">
+                        <label class="form-check-label" for="configCheckBox">
+                            <strong>Tick the checkBox to save the config Data</strong>
+                        </label>
+                    </div>
+
                 </div>
-                <div style="display: flex;align-items: center;justify-content: center; ">
-                    <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;
-       background: radial-gradient(
-            hsl(30, 41%, 48%),
-            hsl(199, 14%, 49%)
-    );"
-                           name="configCheckBox" value="checked">
-                    <p class="col s3">&nbsp;<strong>Tick the checkBox to save the config Data</strong></p><br>
-                </div>
+            </div>
+
                 <div style="margin-left: 27%; display: none; align-items: center;justify-content: center; color:red;"
                      id="config_name_validation">
                     Configuration filename do not meet the requirement! Please Change it!!
                 </div>
 
-            </div>
-
-        </div>
 
     </div>
 </div>
