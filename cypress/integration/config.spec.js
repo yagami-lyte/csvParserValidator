@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-file-upload';
 
-describe("Test for configuration body",()=> {
+describe("Test for configuration body", () => {
 
     it("Should load server successfully", () => {
         cy.visit('http://localhost:3004')
@@ -40,19 +40,77 @@ describe("Test for configuration body",()=> {
             .should('exist')
     })
 
-    it("Should Contain input box for configuration filename",()=>{
+    it("Should Contain input box for configuration filename", () => {
         cy.get("#card-3").get("#fields").get("#configInput").should('exist')
         cy.contains("Provide Configuration filename")
     })
 
-    it("Should be Able to enter the config name in the input given",()=>{
+    it("Should be Able to enter the config name in the input given", () => {
         cy.get("#card-3").get("#fields")
-            .get("#configInput").type('sample.csv', {force: true} )
+            .get("#configInput").type('sample.csv', {force: true})
     })
 
-    it("Should be Able to check the checkbox for saving config data",()=>{
+    it("Should be Able to check the checkbox for saving config data", () => {
         cy.contains("Tick the checkBox to save the config Data")
         cy.get("#card-3").get("#fields")
             .get(".form-check").get("#configCheckBox").should('exist')
     })
+
+    it("Should contain the choose Type of data dropdown and should select types of data from the dropdown", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('#typeoperation').select('Text', {force: true})
+    })
+
+    it("Should contain the length input field", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('input[type="number"]')
+            .should('exist')
+    })
+
+    it("Should contain the Upload or type values ", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('button[type=button]')
+            .should('exist')
+    })
+
+    it("Should contain Allow empty values", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('label')
+            .should('exist')
+    })
+
+    it("Should contain Dependent value ", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('input[placeholder="Dependent Value"]')
+            .should('exist')
+    })
+
+    it("Should contain Dependent fields ", () => {
+        cy.get('input[type="file"]')
+            .attachFile("booking_stats.csv")
+            .get('#uploadCSV')
+            .click({force: true})
+            .get('select[id="dependentstatus')
+            .should('exist')
+    })
+
+
+})
+Cypress.on('uncaught:exception', (err, runnable) => {
+    return false
 })
