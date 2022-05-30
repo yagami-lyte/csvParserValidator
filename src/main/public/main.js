@@ -207,7 +207,7 @@ function showColFields(lines){
 <!--                       <p><span id="typeEmpty${field}" class="error"></span></p>-->
 
 
-                      <div class="form-group col-md-1.5" style="margin-left: -2%">
+                      <div class="form-group col-md-1.5" style="margin-left: 1%;">
                       <select class="form-control" data-cy="type" id="type${field}" 
                             onchange="showDateTimeOptions(this.value,'dateDiv${field}','dateFormats${field}' , 'date${field}','timeDiv${field}','timeFormats${field}','time${field}','dateTimeDiv${field}','dateTimeFormats${field}' , 'dateTime${field}' ,'length-div${field}', 'value-div${field},uploadFileDiv${field}');" required>
                                <option selected="selected" value="">Choose Type of Data</option>
@@ -239,7 +239,7 @@ function showColFields(lines){
          
 
                     <div id = "allowEmptyValues1${field}" class="form-group col-md-0" style=" ;margin-top: 1%;margin-left: 6%;">
-                      <label>Allow Empty Values</label>
+                      <label >Allow Empty Values</label>
                     </div>
 
                     <div id = "allowEmptyValues2${field}" class="form-group col-md-1" style=" white-space: nowrap;margin-left: -2%;margin-top:1%;">

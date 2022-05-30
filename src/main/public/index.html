@@ -75,16 +75,20 @@
         <br><br><br>
         <h3> The fields in your CSV are listed down below.</h3>
         <div style="width: 600px;align-items: center;justify-content: center; margin:auto;padding:20px;display: flex;">
-            <select name="type" id="listOfFileNames" style="display: block;   width:auto;height:auto;  padding: 16px 4px; border-radius:10px; background: radial-gradient(
-            hsl(11,74%,48%),
-            hsl(14,57%,70%)
-    ) ;">
+            <select name="type" id="listOfFileNames" style="display: block;   width:auto;height:auto;  padding: 16px 4px; border-radius:10px; background-size: 400% 400%;
+      background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    );">
+
                 <option value="">Please select the config filename</option>
             </select>
-            <button class="btn waves-effect waves-light" style="margin-left: 15px;margin-top: 3px; background: radial-gradient(
-            hsl(2,72%,50%),
-            hsl(11, 56%, 69%)
-    ) ;color: black;" onclick="getConfigResponse()">
+            <button class="btn waves-effect waves-light" style="margin-left: 15px;margin-top: 3px; background-size: 400% 400%;
+   background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    ) ;
+          ;color: black;" onclick="getConfigResponse()">
                 Fetch config file
             </button>
         </div>
@@ -98,14 +102,17 @@
 
         <div class="row" style="display: flex; text-align: left;align-items: center;justify-content: center;">
             <div class="col s10 offset-s1 card1-panel"
-                 style="border-radius: 6px; padding: 20px; align-items: center;justify-content: center; background: radial-gradient(
-            hsl(0,76%,41%),
-            hsl(10,46%,71%)
-    );">
-                <div style="display: flex;align-items: center;justify-content: center; background: radial-gradient(
-            hsl(0,77%,51%),
-            hsl(11, 56%, 69%)
-    ) ;">
+                 style="border-radius: 6px; padding: 20px;margin-top:-40%; align-items: center;justify-content: center;  background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    );
+       ">
+                <div style="display: flex;align-items: center;justify-content: center; background-size: 400% 400%;
+    background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    );border-radius: 9px;">
+
                     <p class="col s3"><b>Provide Configuration filename &nbsp;&nbsp;:</b></p>
                     <input style=" background: radial-gradient(
             hsl(80,19%,91%),
@@ -113,7 +120,11 @@
     ) ;font-weight: 300;" class="col s14" id="fileName" type="text" placeholder="Please enter the filename" required>
                 </div>
                 <div style="display: flex;align-items: center;justify-content: center; ">
-                    <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;background-color: #eee;"
+                    <input type="checkbox" id="configCheckBox" style="height: 25px;width: 25px;
+       background: radial-gradient(
+            hsl(30, 41%, 48%),
+            hsl(199, 14%, 49%)
+    );"
                            name="configCheckBox" value="checked">
                     <p class="col s3">&nbsp;<strong>Tick the checkBox to save the config Data</strong></p><br>
                 </div>
@@ -129,7 +140,10 @@
     </div>
 </div>
 
-<a  id='view-errors' onclick="displayErrors();">View Errors </a>
+<a style="  background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    ) ;color: black;"  id='view-errors' onclick="displayErrors();">View Errors </a>
 
 <p style = "text-align:center; color: red;" id = 'fields-empty'></p>
 

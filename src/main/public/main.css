@@ -26,11 +26,12 @@ html {
     margin-left: -18%;
     margin-bottom: 20%;
     margin-top: 1.5%;
-
-    /*padding-top: 10%;*/
+    background: radial-gradient(
+            hsl(0, 2%, 59%),
+            hsl(12, 3%, 69%)
+    );
     width: 140%;
     display: table;
-    background-color: white;
     vertical-align: top;
 }
 
@@ -187,7 +188,7 @@ h1 {
 h2 {
     color: darkblue;
     text-align: left;
-    margin-left: -2%;
+    margin-left: 1%;
     font-size: 25px;
 }
 
@@ -218,6 +219,7 @@ h5 {
     color: #333333;
     font-size: 30px;
     font-family: "Bodoni", serif;
+    margin-left: 45%;
 }
 
 h6 {
@@ -248,8 +250,11 @@ h6 {
 #fields {
     padding: 10px;
     text-align: center;
-    background-color: white;
     margin-left: -40%;
+    background: radial-gradient(
+            hsl(26, 33%, 80%),
+            hsl(10, 3%, 54%)
+    );
     width: 130%;
 }
 
