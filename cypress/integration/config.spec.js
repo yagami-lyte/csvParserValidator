@@ -73,13 +73,12 @@ describe("Test for configuration body", () => {
             .should('exist')
     })
 
-    it("Should contain the Upload or type values ", () => {
+    it("Should contain the Upload or type values and should be able to select type values", () => {
         cy.get('input[type="file"]')
             .attachFile("booking_stats.csv")
             .get('#uploadCSV')
             .click({force: true})
-            .get('button[type=button]')
-            .should('exist')
+            .get('#value-divoperation').click({force:true})
     })
 
     it("Should contain Allow empty values", () => {
@@ -111,6 +110,6 @@ describe("Test for configuration body", () => {
 
 
 })
-Cypress.on('uncaught:exception', (err, runnable) => {
+Cypress.on('uncaught:exception', () => {
     return false
 })
