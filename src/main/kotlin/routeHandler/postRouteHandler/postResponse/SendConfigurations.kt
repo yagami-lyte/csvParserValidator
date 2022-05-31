@@ -33,7 +33,7 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
         val configName = extractor.extractConfigurationName(body)
         val configDataTemplate = databaseOperations.readConfiguration(configName)
         val configJsonArrayResponse = prepareJsonResponse(configDataTemplate)
-        return "{\"Type\" : $configJsonArrayResponse}"
+        return "{\"configFiles\" : $configJsonArrayResponse}"
     }
 
     private fun prepareJsonResponse(configDataTemplate: Array<ConfigurationTemplate>): JSONArray {
