@@ -184,7 +184,7 @@ function alterTimeOption(fields) {
 
 function mySubmitFunction(e) {
     e.preventDefault();
-    someBug();
+    // someBug();
     return false;
 }
 
@@ -264,7 +264,7 @@ function showColFields(lines) {
                         
                      </div>
                      
-                      <div id = "dateTimeDiv${field}"  style="display: none; margin-left: -2.3%;width:19.5%;">
+                      <div id = "dateTimeDiv${field}"  style="display: none; margin-left: 0.8%;width:19.5%;">
                         <label class ="required-field" for="datetime" id="dateTimeFormats${field}" style='display:none;'></label>
                         <select  class="form-control" name="datetime" id='dateTime${field}' style='display:none;'>
                              <option disabled = "disabled" selected="selected" value="">Choose Date Time format</option>
@@ -289,7 +289,7 @@ function showColFields(lines) {
                         </select>
                         </div>
                         
-                        <div id = "dateDiv${field}" style="display: none; margin-left: -2.2%;width:16.0%;">
+                        <div id = "dateDiv${field}" style="display: none; margin-left: 0.8%;width:16.0%;">
                           <label class ="required-field"  for="date" id="dateFormats${field}" style='display:none;'></label>
                             <select  class="form-control" name="date" id='date${field}' style='display:none;'>
                                  <option selected="selected" value="">Choose Date Format</option>
@@ -306,7 +306,7 @@ function showColFields(lines) {
                             </select>
                           </div>
 
-                          <div id = "timeDiv${field}"  style="display: none; margin-left: -2.2%;width:16.0%;">
+                          <div id = "timeDiv${field}"  style="display: none; margin-left: 0.8%;width:16.0%;">
                             <label class ="required-field"  for="time" style='display:none;' id="timeFormats${field}"</label>
                            <select  class="form-control" name="time" id='time${field}' style='display:none;'>
                                 <option value="">Choose Time Format</option>

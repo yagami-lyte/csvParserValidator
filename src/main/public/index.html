@@ -64,7 +64,7 @@
                         </div>
 
                         <a id="uploadCSV" href="#config" class="btn-get-started scrollto"
-                           onclick="csvReader();getConfigFilesName(); //getConfigResponse();"
+                           onclick="getConfigFilesName();getConfigResponse();csvReader();"
                            data-cy="upload"><b>Upload</b></a>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
             <div id = "card-3">
                 <div id = "fields" style="margin-left: 15%; margin-top: 1.5%; margin-bottom: 1.5%;width: 70%">
                     <p style="margin-bottom: 2%" class="col s3"><b>Provide Configuration filename &nbsp;&nbsp;:</b></p>
-                    <input class="col s14" id="configInput" name = "filename" type="text" placeholder="Please enter the filename">
+                    <input class="col s14" id="fileName" name = "filename" type="text" placeholder="Please enter the filename">
 
 
 
@@ -138,7 +138,7 @@
 <a style="  background: radial-gradient(
             hsl(26, 33%, 80%),
             hsl(10, 3%, 54%)
-    ) ;color: black;" id='view-errors' onclick="displayErrors();">View Errors </a>
+    ) ;color: black;margin-left: 43%" id='view-errors' onclick="displayErrors();">View Errors </a>
 
 <p style="text-align:center; color: red;" id='fields-empty'></p>
 
@@ -146,7 +146,7 @@
 <div class="loader" id="button-load"></div>
 
 <div class="container">
-    <h5>CSV Errors</h5>
+    <h5 style="margin-left: 41%">CSV Errors</h5>
     <div id="error-msgs"></div>
 </div>
 

@@ -16,10 +16,6 @@ describe("Test for Error body",()=> {
         cy.get('#view-errors').should('exist')
     })
 
-    it("Should be able to click the View Errors", () => {
-        cy.get('#view-errors').click({force:true})
-    })
-
     it("Should Contain CSV Errors as heading",()=>{
         cy.contains('CSV Errors')
         cy.get('h5').should('exist')

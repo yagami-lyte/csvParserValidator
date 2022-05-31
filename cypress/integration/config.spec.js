@@ -41,13 +41,13 @@ describe("Test for configuration body", () => {
     })
 
     it("Should Contain input box for configuration filename", () => {
-        cy.get("#card-3").get("#fields").get("#configInput").should('exist')
+        cy.get("#card-3").get("#fields").get("#fileName").should('exist')
         cy.contains("Provide Configuration filename")
     })
 
     it("Should be Able to enter the config name in the input given", () => {
         cy.get("#card-3").get("#fields")
-            .get("#configInput").type('sample.csv', {force: true})
+            .get("#fileName").type('sample.csv', {force: true})
     })
 
     it("Should be Able to check the checkbox for saving config data", () => {
