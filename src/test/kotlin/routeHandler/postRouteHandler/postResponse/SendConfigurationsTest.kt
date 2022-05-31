@@ -38,7 +38,7 @@ internal class SendConfigurationsTest{
             databaseOperations.writeConfiguration("configuration",it)
         }
 
-        val expectedConfigurationsReceived = """{"Type" : [{"operation":{"dateTime":"MMMM dd, yy","date":"","dependentValue":"","dependentOn":"","values":[],"length":"","time":"","type":"Date Time","nullValue":"Not Allowed"}},{"requestedAt":{"dateTime":"","date":"","dependentValue":"","dependentOn":"","values":[],"length":"","time":"","type":"Alphabets","nullValue":"Not Allowed"}}]}"""
+        val expectedConfigurationsReceived = """{"configFiles" : [{"operation":{"dateTime":"MMMM dd, yy","date":"","dependentValue":"","dependentOn":"","values":[],"length":"","time":"","type":"Date Time","nullValue":"Not Allowed"}},{"requestedAt":{"dateTime":"","date":"","dependentValue":"","dependentOn":"","values":[],"length":"","time":"","type":"Alphabets","nullValue":"Not Allowed"}}]}"""
         val actualConfigurationsReceived = sendConfigurations.postResponse(request , inputStream).split("\r\n")[2]
 
         assertEquals(expectedConfigurationsReceived , actualConfigurationsReceived)
