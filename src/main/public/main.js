@@ -233,21 +233,20 @@ function showColFields(lines) {
                       
                   
                     
-                        <div id="value-div${field}" class="form-group col-md-1" style="margin-left: 0.5%;margin-top:0.5%"  >
-                        <button style="margin-left: 3%;" class="btn btn-primary btn-sm" type="button"  data-toggle="modal" data-target="#chooseValues${field}">Upload or Type Values</button>
-                        </div>
+                        <button style="margin-left: 0.8%;margin-top: 0.5%" class="btn btn-primary btn-sm" type="button"  data-toggle="modal" data-target="#chooseValues${field}">Upload or Type Values</button>
+                     
          
 
-                    <div id = "allowEmptyValues1${field}" class="form-group col-md-0" style=" ;margin-top: 1%;margin-left: 6%;">
+                    <div style="margin-left: 1%;margin-top: 1%" id = "allowEmptyValues1${field}" class="form-group col-md-0" style=" ;margin-top: 1%;margin-left: 6%;">
                       <label >Allow Empty Values</label>
                     </div>
 
-                    <div id = "allowEmptyValues2${field}" class="form-group col-md-1" style=" white-space: nowrap;margin-left: -2%;margin-top:1%;">
+                    <div style= "margin-top: 1%;margin-left: -2.5% " id = "allowEmptyValues2${field}" class="form-group col-md-1" style=" white-space: nowrap;margin-left: -2%;margin-top:1%;">
                       <input id="allowNull${field}" value="Not Allowed" onclick="toggleYesOrNo(this.id);" style="margin-left: 1.5%;" type="checkbox" class="toggle">
                     </div>
 
 
-                    <div class="form-group col-md-1.5" style="margin-left: -1%;">
+                    <div class="form-group col-md-1.5" style="margin-left: -2%;">
                       <select id="dependent${field}" class="form-control">
                         <option disabled="disabled" value ="" selected="selected">Dependent Field</option>
                         ${lines.map((element) => {
@@ -258,8 +257,8 @@ function showColFields(lines) {
 
 
 
-                        <div class="form-group col-md-1." style="margin-left: 0.5%;display:flex;">
-                          <input id="dep-val${field}" type="number" class="form-control" id="inputEmail4" placeholder="Dependent Value">
+                        <div class="form-group col-md-0" style="margin-left: 0.5%;margin-top: 0.5%">
+                          <input id="dep-val${field}"  class="form-control" id="inputEmail4" placeholder="Dependent Value">
                         </div>
                         
                      </div>
@@ -333,11 +332,11 @@ function showColFields(lines) {
 
           <h6>Upload Values in the form of text file</h6>
 
-          <div id="uploadFileDiv${field}"  class="form-group col-md-8" style="margin-top: 0.4%; display:flex; margin-left: 19%">
+<!--          <div id="uploadFileDiv${field}"  class="form-group col-md-8" style="margin-top: 0.4%; display:flex; margin-left: 19%">-->
             <div class="mb-3">
               <input onchange="readFile(event,'${field}');" id="text_file_id${field}" style="display:flex;  accept=".txt" class="form-control" type="file" id="formFile">
             </div>
-          </div>
+<!--          </div>-->
 
           <br><br><br>
           
@@ -473,7 +472,7 @@ function showDateTimeOptions(value, dateDivID, dateFormatId, dateId, timeDivID, 
         dateTimeDivIDElement.style.display = 'none';
         dateTimeFormatElement.style.display = 'none';
         dateTimeIdFormatElement.style.display = 'none';
-        valueDivElement.style.display = 'flex';
+        // valueDivElement.style.display = 'flex';
         lengthDivElement.style.display = 'block';
     }
 }
@@ -488,7 +487,7 @@ function showDateField(dateDivIDElement, dateFormatElement, dateIdFormatElement,
     dateTimeDivIDElement.style.display = 'none';
     dateTimeFormatElement.style.display = 'none';
     dateTimeIdFormatElement.style.display = 'none';
-    valueDivElement.style.display = 'none';
+    // valueDivElement.style.display = 'none';
     lengthDivElement.style.display = 'none';
 }
 
@@ -502,7 +501,7 @@ function showTimeField(dateDivIDElement, dateFormatElement, dateIdFormatElement,
     dateTimeDivIDElement.style.display = 'none';
     dateTimeFormatElement.style.display = 'none';
     dateTimeIdFormatElement.style.display = 'none';
-    valueDivElement.style.display = 'none';
+    // valueDivElement.style.display = 'none';
     lengthDivElement.style.display = 'none';
 }
 
@@ -510,14 +509,14 @@ function showDateTimeField(uploadFileDivElement, dateDivIDElement, dateFormatEle
     dateTimeDivIDElement.style.display = 'flex';
     dateTimeFormatElement.style.display = 'block';
     dateTimeIdFormatElement.style.display = 'block';
-    uploadFileDivElement.style.display = 'none';
+    // uploadFileDivElement.style.display = 'none';
     dateDivIDElement.style.display = 'none';
     dateFormatElement.style.display = 'none';
     dateIdFormatElement.style.display = 'none';
     timeDivIDElement.style.display = 'none';
     timeFormatElement.style.display = 'none';
     timeIdFormatElement.style.display = 'none';
-    valueDivElement.style.display = 'none';
+    // valueDivElement.style.display = 'none';
     lengthDivElement.style.display = 'none';
 }
 
