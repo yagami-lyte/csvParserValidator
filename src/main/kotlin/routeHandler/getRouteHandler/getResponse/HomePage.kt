@@ -19,8 +19,9 @@ class HomePage : GetResponse {
         val body = extractor.extractFileContent(path)
         val contentLength = body.length
         val statusCode = extractor.extractStatusCode(path)
-        return responseHeader.getResponseHead(statusCode) + """Content-Type: ${contentType[path]}; charset=utf-8
-            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
+//        return responseHeader.getResponseHead(statusCode) + """Content-Type: ${contentType[path]}; charset=utf-8
+//            |Content-Length: $contentLength""".trimMargin() + "\r\n\r\n" + body
+        return body
     }
 
 }
