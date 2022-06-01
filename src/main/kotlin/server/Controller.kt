@@ -16,7 +16,19 @@ import routeHandler.postRouteHandler.postResponse.SendConfigurations
 class GreetingController {
 
 
-    @GetMapping("/{name}")
-    fun get(@PathVariable name: String) = "Hello, $name"
+    @GetMapping("/")
+    fun getHTML() :String {
+        return homePage.getResponse("/index.html")
+    }
+
+    @GetMapping("/main.js")
+    fun getJs() :String {
+        return homePage.getResponse("/main.js")
+    }
+
+    @GetMapping("/main.css")
+    fun getCSS() :String {
+        return homePage.getResponse("/main.css")
+    }
 
 }
