@@ -15,10 +15,8 @@ class HandleCSVMetaData(var fieldArray: Array<ConfigurationTemplate> = arrayOf()
     private val responseHeader = ResponseHeader()
     private val extractor = Extractor()
 
-    override fun postResponse(request: String, inputStream: BufferedReader): String {
-        val bodySize = extractor.extractContentLength(request)
-        val body = extractor.extractBody(bodySize, inputStream)
-        return getResponseForMetaData(body)
+    override fun postResponse(configData : String): String {
+        return getResponseForMetaData(configData)
     }
 
     private fun getResponseForMetaData(body: String): String {

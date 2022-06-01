@@ -19,12 +19,12 @@ class PostRouteHandler(var fieldArray: Array<ConfigurationTemplate> = arrayOf())
     private val pageNotFoundResponse = ErrorResponse()
     private val extractor = Extractor()
 
-    fun handlePostRequest(request: String, inputStream: BufferedReader): String {
+    /*fun handlePostRequest(request: String, inputStream: BufferedReader): String {
         return when (extractor.extractPath(request)) {
             "/csv" -> handleCsv.postResponse(request, inputStream)
-            "/add-meta-data" -> handleAddingCsvMetaData.postResponse(request, inputStream)
+            "/add-meta-data" -> handleAddingCsvMetaData.postResponse()
             "/get-config-response" -> sendConfigurations.postResponse(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
-    }
+    }*/
 }

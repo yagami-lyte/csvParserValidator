@@ -18,7 +18,7 @@ class Server(port: Int) {
         }
     }
 
-    private fun makeConnection() {
+    fun makeConnection(): String {
         val clientSocket = serverSocket.accept()
         val outputStream = BufferedWriter(OutputStreamWriter(clientSocket.getOutputStream()))
         val inputStream = BufferedReader(InputStreamReader(clientSocket.getInputStream()))
@@ -29,18 +29,20 @@ class Server(port: Int) {
 
         sendResponse(outputStream, response)
         clientSocket.close()
+
+        return response
     }
 
-    private fun sendResponse(outputStream: BufferedWriter, response: String) {
+    fun sendResponse(outputStream: BufferedWriter, response: String) {
         outputStream.write(response)
         outputStream.flush()
     }
 
-    private fun getMethodType(request: String): String {
+    fun getMethodType(request: String): String {
         return request.split("\r\n")[0].split(" ")[0]
     }
 
-    private fun readRequest(inputStream: BufferedReader): String {
+    fun readRequest(inputStream: BufferedReader): String {
         var request = ""
         var flag = true
         while (flag) {

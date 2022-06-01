@@ -14,18 +14,17 @@ class SendConfigurations(private val databaseOperations: DatabaseOperations) : P
     private val responseHeader = ResponseHeader()
     private val extractor = Extractor()
 
-    override fun postResponse(request: String, inputStream: BufferedReader): String {
-        val bodySize = extractor.extractContentLength(request)
-        val body = extractor.extractBody(bodySize, inputStream)
-        return getResponseForConfig(body)
+    override fun postResponse(configData : String): String {
+        return getResponseForConfig(configData)
     }
 
     private fun getResponseForConfig(body: String): String {
         val responseBody = getConfigResponse(body)
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
-        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
-                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+//        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
+//                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+        return responseBody
     }
 
     private fun getConfigResponse(body: String): String {

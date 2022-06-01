@@ -8,8 +8,8 @@ import org.json.JSONObject
 import routeHandler.ResponseHeader
 import routeHandler.StatusCodes
 import validation.*
-import java.io.BufferedReader
 import java.io.File
+
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : PostResponse {
@@ -23,10 +23,8 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
     private val prependingZeroesValidation = PrependingZeroesValidation()
     private val extractor = Extractor()
 
-    override fun postResponse(request: String, inputStream: BufferedReader): String {
-        val bodySize = extractor.extractContentLength(request)
-        val body = extractor.extractBody(bodySize, inputStream)
-        return getResponseForCSV(body)
+    override fun postResponse(configData : String): String {
+        return getResponseForCSV(configData)
     }
 
     private fun getResponseForCSV(body: String): String {
@@ -51,8 +49,9 @@ class HandleCsv(var fieldArray: Array<ConfigurationTemplate> = arrayOf()) : Post
         )
         val contentLength = responseBody.length
         val endOfHeader = "\r\n\r\n"
-        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
-                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+//        return responseHeader.getResponseHead(StatusCodes.TWOHUNDRED) + """Content-Type: text/json; charset=utf-8
+//                |Content-Length: $contentLength""".trimMargin() + endOfHeader + responseBody
+        return responseBody
     }
 
     private fun prepareErrorResponse(

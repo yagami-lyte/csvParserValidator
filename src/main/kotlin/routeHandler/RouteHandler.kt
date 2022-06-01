@@ -14,7 +14,7 @@ class RouteHandler {
     fun handleRequest(request: String, inputStream: BufferedReader, methodType: String): String {
         return when (methodType) {
             "GET" -> getRouteHandler.handleGetRequest(request)
-            "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
+//            "POST" -> postRouteHandler.handlePostRequest(request, inputStream)
             else -> pageNotFoundResponse.handleUnknownRequest()
         }
     }
