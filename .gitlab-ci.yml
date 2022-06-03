@@ -1,15 +1,16 @@
 stages:
+  - build
   - deploy
-# build:
-#   stage: build
-#   image: gradle:jdk11
-#   script:
-#     - gradle --no-daemon build
-#   artifacts:
-#     paths:
-#       - build/distributions
-#     expire_in: 1 day
-#     when: always
+build:
+  stage: build
+  image: gradle:jdk11
+  script:
+    - gradle --no-daemon build
+  artifacts:
+    paths:
+      - build/distributions
+    expire_in: 1 day
+    when: always
 
 # junit-test:
 #   stage: test
