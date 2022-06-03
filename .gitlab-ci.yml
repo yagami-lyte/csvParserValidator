@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 build:
   stage: build
   image: gradle:jdk11
@@ -19,6 +20,14 @@ junit-test:
   script:
     - gradle test
   timeout: 5m
+
+heroku:
+ stage: deploy
+ only:
+ - Deploy
+ script:
+ - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/csv-parser-validator.git
+ - git push -f heroku Deploy
 
 # cypress-test:
 #   stage: test
