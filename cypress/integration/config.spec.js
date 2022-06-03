@@ -86,8 +86,7 @@ describe("Test for configuration body", () => {
             .attachFile("booking_stats.csv")
             .get('#uploadCSV')
             .click({force: true})
-            .get('label')
-            .should('exist')
+            .get('label').should('exist')
     })
 
     it("Should contain Dependent value ", () => {
