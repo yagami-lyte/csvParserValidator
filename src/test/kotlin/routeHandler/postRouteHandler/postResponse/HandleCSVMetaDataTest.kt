@@ -24,7 +24,7 @@ internal class HandleCSVMetaDataTest {
             """[{"fieldName":"Export","type":"Alphabets","length":"1","dependentOn":"","dependentValue":"","values":["Y","N"]},{"fieldName":"Country Name","type":"Alphabets","length":"4","dependentOn":"Export","dependentValue":"N","values":["Export,Country Name","Y,","N,USA",""]}]"""
         val mockSocket = createMockSocket(metaData)
         val inputStream = getInputStream(mockSocket)
-        val response = handleCSVMetaData.postResponse(request, inputStream)
+        val response = handleCSVMetaData.postResponse(metaData)
         val expectedResponse = "Successfully Added Configuration File"
 
         val actualErrorResponse = response.split("\r\n\r\n")[1]

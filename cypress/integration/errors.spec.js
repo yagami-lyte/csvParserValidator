@@ -4,7 +4,7 @@ import 'cypress-file-upload';
 describe("Test for Error body",()=> {
 
     it("Should load server successfully", () => {
-        cy.visit('http://localhost:3004')
+        cy.visit('http://localhost:8080')
     })
 
     it("Should Contain the Error Header", () => {

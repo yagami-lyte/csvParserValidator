@@ -16,7 +16,7 @@
   },
   "homepage": "https://gitlab.com/sahajsoft/gurukul2022/csv-parser-srijan#readme",
   "devDependencies": {
-    "cypress": "^9.6.1",
+    "cypress": "^9.7.0",
     "cypress-file-upload": "^5.0.8"
   },
   "dependencies": {

@@ -6,7 +6,6 @@ import jsonTemplate.ConfigurationTemplate
 import org.json.JSONArray
 import org.json.JSONObject
 import routeHandler.ResponseHeader
-import routeHandler.StatusCodes
 import validation.*
 import java.io.File
 

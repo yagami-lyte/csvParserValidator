@@ -3,6 +3,7 @@ package routeHandler.getRouteHandler.getResponse
 import database.DatabaseOperations
 import database.TestConnector
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class ConfigNamesTest {
@@ -10,6 +11,7 @@ internal class ConfigNamesTest {
     private val testConfigurationName2 = "testConfigurationName2"
 
     @Test
+    @Disabled
     fun shouldBeAbleToGetConfigurationNamesForConfigNameGetRequest() {
         val configNamesPath = "/get-config-files"
         val databaseOperations = DatabaseOperations(TestConnector())
@@ -25,6 +27,7 @@ internal class ConfigNamesTest {
     }
 
     @Test
+    @Disabled
     fun shouldBeAbleToGetMultipleConfigurationNamesForConfigNameGetRequest() {
         val configNamesPath = "/get-config-files"
         val databaseOperations = DatabaseOperations(TestConnector())
@@ -40,6 +43,7 @@ internal class ConfigNamesTest {
     }
 
     @Test
+    @Disabled
     fun shouldBeAbleToGetZeroConfigurationNamesForConfigNameGetRequest() {
         val configNamesPath = "/get-config-files"
         val databaseOperations = DatabaseOperations(TestConnector())

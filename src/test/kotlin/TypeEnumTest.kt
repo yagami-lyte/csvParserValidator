@@ -4,7 +4,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
-import validation.TypeValidation
 import java.util.stream.Stream
 
 
@@ -92,7 +91,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsAlphabetic() {
-        val typeValidation = TypeValidation()
         val value = "shikha"
 
         val actual = TypeEnum.Alphabets.typeCheck(value)
@@ -102,7 +100,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsAlphaNumeric() {
-        val typeValidation = TypeValidation()
         val value = "shikha123"
 
         val actual =TypeEnum.AlphaNumeric.typeCheck(value)
@@ -112,7 +109,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumber() {
-        val typeValidation = TypeValidation()
         val value = "123.45"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -122,7 +118,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumberWithSucceeDingZeroes() {
-        val typeValidation = TypeValidation()
         val value = "123.000"
 
         val actual =TypeEnum.FloatingNumber.typeCheck(value)
@@ -132,7 +127,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumberWithSucceeDingZeroes1() {
-        val typeValidation = TypeValidation()
         val value = "0"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -142,7 +136,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihCharacters() {
-        val typeValidation = TypeValidation()
         val value = "123utk"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -152,7 +145,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihSymbols() {
-        val typeValidation = TypeValidation()
         val value = "123**/.12"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -162,7 +154,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldBeAbleToCheckIfValueIsFloatingPointNumbersWihNegativeNumbers() {
-        val typeValidation = TypeValidation()
         val value = "-123.122"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -172,7 +163,6 @@ internal class TypeEnumTest {
 
     @Test
     fun shouldReturnTrueIfTheNumberIsInteger() {
-        val typeValidation = TypeValidation()
         val value = "123"
 
         val actual = TypeEnum.FloatingNumber.typeCheck(value)
@@ -276,7 +266,6 @@ internal class TypeEnumTest {
     @ParameterizedTest
     @MethodSource("checkDateTimeFormatsWithInvalidFormats")
     fun shouldBeAbleToCheckIfValueIsNotInDateTimeFormat(dateTimeFormat: String, dateTimeValue: String) {
-        val typeValidation = TypeValidation()
 
         val actual =TypeEnum.DateTime.typeCheck(dateTimeValue,dateTimeFormat)
 
@@ -286,7 +275,6 @@ internal class TypeEnumTest {
     @ParameterizedTest
     @MethodSource("checkDateFormatsWithValidFormats")
     fun shouldBeAbleToCheckIfValueIsInDateFormat(dateFormat: String, dateTimeValue: String) {
-        val typeValidation = TypeValidation()
 
         val actual = TypeEnum.DateTime.typeCheck(dateTimeValue,dateFormat)
 
@@ -296,7 +284,6 @@ internal class TypeEnumTest {
     @ParameterizedTest
     @MethodSource("checkDateFormatsWithInValidFormats")
     fun shouldBeAbleToCheckIfValueIsNotInDateFormat(dateFormat: String , dateTimeValue: String) {
-        val typeValidation = TypeValidation()
 
         val actual =TypeEnum.Date.typeCheck(dateTimeValue,dateFormat)
 
@@ -315,7 +302,6 @@ internal class TypeEnumTest {
     @ParameterizedTest
     @MethodSource("checkTimeFormatsWithInValidFormats")
     fun shouldBeAbleToCheckIfValueIsNotInTimeFormat(dateFormat: String , dateTimeValue: String) {
-        val typeValidation = TypeValidation()
 
         val actual = TypeEnum.Time.typeCheck(dateTimeValue,dateFormat)
 
@@ -334,8 +320,6 @@ internal class TypeEnumTest {
     @ParameterizedTest
     @MethodSource("checkEmailWithInValidFormats")
     fun shouldBeAbleToCheckIfValueIsNotInEmailFormat(value:String) {
-        val typeValidation = TypeValidation()
-
         val actual = TypeEnum.Email.typeCheck(value)
 
         assertFalse(actual)
