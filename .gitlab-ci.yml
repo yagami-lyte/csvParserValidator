@@ -1,25 +1,25 @@
 stages:
-  - build
-  - test
+  # - build
+  # - test
   - deploy
-build:
-  stage: build
-  image: gradle:jdk11
-  script:
-    - gradle --no-daemon build
-  artifacts:
-    paths:
-      - build/distributions
-    expire_in: 1 day
-    when: always
+# build:
+#   stage: build
+#   image: gradle:jdk11
+#   script:
+#     - gradle --no-daemon build
+#   artifacts:
+#     paths:
+#       - build/distributions
+#     expire_in: 1 day
+#     when: always
 
-junit-test:
-  stage: test
-  image: gradle:jdk11
-  dependencies: []
-  script:
-    - gradle test
-  timeout: 5m
+# junit-test:
+#   stage: test
+#   image: gradle:jdk11
+#   dependencies: []
+#   script:
+#     - gradle test
+#   timeout: 5m
 
 heroku:
  stage: deploy
