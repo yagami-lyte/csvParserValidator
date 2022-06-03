@@ -39,6 +39,11 @@ class GreetingController {
         return homePage.getResponse("/index.html")
     }
 
+    @GetMapping("/favicon.ico")
+    fun getHTM() :String {
+        return homePage.getResponse("/index.html")
+    }
+
     @GetMapping("/main.js")
     fun getJs() :String {
         return homePage.getResponse("/main.js")
