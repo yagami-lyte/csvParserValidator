@@ -24,10 +24,10 @@ junit-test:
 heroku:
  stage: deploy
  only:
- - deploy
+ - Deploy
  script:
  - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/csv-parser-validator.git
- - git push -f heroku deploy
+ - git push -f heroku Deploy
 
 # cypress-test:
 #   stage: test
