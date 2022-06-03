@@ -1,33 +1,33 @@
 stages:
-  - build
-  - test
+  # - build
+  # - test
   - deploy
-build:
-  stage: build
-  image: gradle:jdk11
-  script:
-    - gradle --no-daemon build
-  artifacts:
-    paths:
-      - build/distributions
-    expire_in: 1 day
-    when: always
+# build:
+#   stage: build
+#   image: gradle:jdk11
+#   script:
+#     - gradle --no-daemon build
+#   artifacts:
+#     paths:
+#       - build/distributions
+#     expire_in: 1 day
+#     when: always
 
-junit-test:
-  stage: test
-  image: gradle:jdk11
-  dependencies: []
-  script:
-    - gradle test
-  timeout: 5m
+# junit-test:
+#   stage: test
+#   image: gradle:jdk11
+#   dependencies: []
+#   script:
+#     - gradle test
+#   timeout: 5m
 
 heroku:
  stage: deploy
  only:
- - Deploy
+ - deploy
  script:
  - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/csv-parser-validator.git
- - git push -f heroku Deploy
+ - git push -f heroku deploy
 
 # cypress-test:
 #   stage: test
