@@ -82,8 +82,7 @@ describe("Test for configuration body", () => {
     })*/
 
     it("Should contain Allow empty values", () => {
-        cy.get('input[type="file"]')
-            .attachFile("booking_stats.csv")
+        cy.get('input[type="file"]').attachFile("booking_stats.csv")
             .get('#uploadCSV')
             .click({force: true})
             .get('label').should('exist')
